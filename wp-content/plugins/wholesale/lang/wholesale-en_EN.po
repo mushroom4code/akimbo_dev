@@ -1,0 +1,26 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2015-08-24 17:19+0200\n"
+"PO-Revision-Date: 2015-08-24 19:43+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: add-to-cart-button.php:3
+msgid "Add to cart"
+msgstr ""
+
+#: add-to-cart-button.php:6
+msgid "Items have been added succesfully, "
+msgstr ""
+
+#: add-to-cart-button.php:8
+msgid "check cart."
+msgstr ""

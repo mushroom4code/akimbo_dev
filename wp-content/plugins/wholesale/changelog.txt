@@ -1,0 +1,75 @@
+* 1.2.4
+    * Removed usage of deprecated WC functions
+
+* 1.2.3
+    * Readme updated
+
+* 1.2.2
+    * Fixed grand total
+
+* 1.2.1
+    * Custom attributes order
+
+* 1.2.0
+    * Added categories and tags
+    * Added excerpt
+    * Added one_product_one_image option
+    * Fixed lightbox for variations without custom image
+
+* 1.1.10
+    * Fixed bug with variation images
+    * Added support for woocommerce wholesale prices plugin
+
+* 1.1.9
+    * Fixed js bug with triggering cart fragments
+    * Fixed grand total bug
+    * Cleaned up code connected with settings a bit
+    * Added lightbox support
+
+
+* 1.1.8
+    * Fixed multisite error
+
+* 1.1.7
+    * Shortcode with no products specified will remove standard buy section
+    * wholesale.js no longer uses wc_add_to_cart_params to get ajax_url
+    * Cart messages restored
+
+* 1.1.6
+    * Added product title column
+
+* 1.1.5
+    * Removed maximum quantity when backordering is enabled
+
+* 1.1.4
+    * Added grand total shortcode tag
+    * Added support for WooCommerce Advanced Product Quantities
+
+* 1.1.3
+    * Added automatic single product ID
+
+* 1.1.2
+    * Added automatic attributes
+
+* 1.1.1
+    * Added new tag to shortcode - button_for_every_table
+    * Fixed problem with floats in js
+
+* 1.1.0
+    * Added WooCommerce product terms support
+
+* 1.0.4
+    * Added WooCommerce 2.4.6 compatibility
+
+* 1.0.3
+    * Array of colum types is not constant anymore
+    * Added filter to column types
+
+* 1.0.2
+    * Added stock column
+
+* 1.0.1
+    * Fixed buying for unregistered users
+
+* 1.0.0
+    * Initial version

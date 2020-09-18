@@ -1,0 +1,194 @@
+/**
+* All of the CSS for your admin-specific functionality should be
+* included in this file.
+*/
+.clearfix {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+.woo-tuner-page-title {
+    background: #1b7e5a;
+    color: #FFF;
+    display: inline-block;
+    line-height: 1.4;
+    padding: 0 10px;
+}
+.woo-tuner-description {
+    line-height: 1;
+    font-style: italic;
+    font-size: 1.2rem;
+}
+.woo-tuner-admin-wrapper {
+    background: #FFF;
+    padding: 16px;
+    margin-top: 20px;
+    position: relative;
+    margin-right: 20px;
+}
+.woo_tuner_form_row input[type="checkbox"] {
+    position: relative;
+    top: 2px;
+}
+.woo_tuner_form_row label {
+    font-weight: bold;
+}
+.woo-tuner-author {
+    background-color: #23282d;
+    color: #FFF;
+    font-size: 12px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top:0;
+    padding: 3px 6px;
+}
+.woo-tuner-author a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+.woo-tuner-author a:hover {
+    text-decoration: underline;
+}
+.woo_tuner_form_row {
+    margin-bottom: 10px;
+}
+.woo_tuner_section {
+    margin-bottom: 20px;
+}
+h3.woo_tuner_section_title {
+    background-color: #1b7e5a;
+    color: #FFF;
+    padding: 5px;
+    position: relative;
+    margin: 0 !important;
+    cursor: pointer;
+}
+.woo-template-path {
+    font-size: 12px !important;
+    display: none;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    font-weight: 400;
+    background: #efefef;
+    padding: 0 5px;
+}
+span.woo-template-path.active {
+    display: block;
+}
+.woo-template-path span {
+    display: block;
+}
+.woo_tuner_form_fields_wrapper {
+    margin-top: 16px;
+}
+.toggle-templates-name {
+    margin: 16px 0 !important;
+}
+.toggle-templates-name span.dashicons {
+    position: relative;
+    top:3px;
+}
+.select-all-checkboxes {
+    float: right;
+    position: relative;
+    top:-2px;
+}
+.hidden {
+    display: none;
+}
+.drag-block-content ul {
+    max-width: 500px;
+}
+.drag-block-content ul li {
+    background-color: #298b64;
+    color: #FFF;
+    font-size: 18px;
+    padding: 6px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    box-shadow: 1px 3px 8px #000;
+}
+.drag-block-content ul li.checked-in {
+    background-color: #555 !important;
+}
+.ui-sortable-placeholder {
+    border: 0 !important;
+    height: 32px !important;
+    width: 100% !important;
+    background: #000 !important;
+    padding:0 !important;
+    display: block !important;
+}
+/***************
+  Loader Start
+***************/
+.woo-tuner-loader-wrapper {
+    position: absolute;
+    opacity: 0;
+    right: 1rem;
+    top: 3rem;
+    overflow: hidden;
+    max-width: 38px;
+}
+.woo-tuner-loader,
+.woo-tuner-loader:after {
+  border-radius: 50%;
+  width: 1.4em;
+  height: 1.4em;
+}
+.woo-tuner-loader {
+    margin: 0;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 12px solid #298b64;
+    border-right: 12px solid #298b64;
+    border-bottom: 12px solid #298b64;
+    border-left: 12px solid #000;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/***************
+    Loader END
+***************/
+
+/****************
+    RTL
+****************/
+html[dir="rtl"] .select-all-checkboxes {
+    float: left;
+}
+html[dir="rtl"] .woo-tuner-author {
+    right: auto;
+    left: 0;
+}
+/****************
+    RTL END
+****************/

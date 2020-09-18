@@ -1,0 +1,53 @@
+table.wholesale {
+     border-spacing: 0;
+     max-width: 100%;
+     border-collapse: collapse;
+     width: auto;
+     margin: auto;
+}
+
+.wholesale .product-title-row,
+.wholesale .product-title {
+    text-align: center;
+    width: 100%;
+}
+
+.wholesale tr {
+    width: 100%;
+}
+
+.wholesale td,
+.wholesale th {
+    vertical-align: middle;
+    position: relative;
+}
+
+.wholesale .total {
+    text-align: right;
+}
+
+.wholesale .tally {
+    text-align: center;
+}
+
+.wholesale .product-quantity {
+    width: 40px;
+}
+
+.wholesale .incorrect {
+    border-color:  #b22929;
+}
+
+.wholesale .warning {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 11px;
+  padding: 4px;
+  background-color: #b22929 ;
+  color: white;
+  border-radius: 4px;
+  text-align: center;
+}

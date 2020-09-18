@@ -1,0 +1,112 @@
+# Translation of Plugins - Say what? - Stable (latest release) in Russian
+# This file is distributed under the same license as the Plugins - Say what? - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2017-10-01 23:36:27+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: ru\n"
+"Project-Id-Version: Plugins - Say what? - Stable (latest release)\n"
+
+#: html/say-what-admin-addedit.php:6
+msgid "Fill in the details of the original translatable string, the string's text domain, and the string you would like to use instead. For more information check out the <a href='https://plugins.leewillis.co.uk/doc_post/adding-string-replacement/'>getting started guide</a>."
+msgstr "Заполните строку оригинала, текстовый домен и строку, которую вы хотите увидеть на месте оригинальной. Для более подробной информации посмотрите <a href='https://plugins.leewillis.co.uk/doc_post/adding-string-replacement/'>руководство</a>. "
+
+#. Author URI of the plugin/theme
+msgid "https://plugins.leewillis.co.uk/"
+msgstr "https://plugins.leewillis.co.uk/"
+
+#. Author of the plugin/theme
+msgid "Lee Willis"
+msgstr "Lee Willis"
+
+#. Description of the plugin/theme
+msgid "An easy-to-use plugin that allows you to alter strings on your site without editing WordPress core, or plugin code"
+msgstr "Легкий в использовании плагин позволяющий  изменять строки на вашем сайте без редактирования кода ядра, плагина или темы"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/leewillis77/say-what"
+msgstr "https://github.com/leewillis77/say-what"
+
+#. Plugin Name of the plugin/theme
+msgid "Say What?"
+msgstr "Say What?"
+
+#: say-what-list-table.class.php:131
+msgid "Delete"
+msgstr "Удалить"
+
+#: say-what-list-table.class.php:118
+msgid "Edit"
+msgstr "Изменить"
+
+#: say-what-list-table.class.php:26
+msgid "No string replacements configured yet."
+msgstr "Никаких замен строк еще не настроено"
+
+#: say-what-admin.php:109 say-what-admin.php:116 say-what-admin.php:128
+#: say-what-admin.php:171
+msgid "Did you really mean to do that? Please go back and try again."
+msgstr "Вы точно хотели сделать именно это? Вернитесь назад и попробуйте снова."
+
+#: say-what-admin.php:45
+msgid "Settings"
+msgstr "Настройки"
+
+#: html/say-what-admin-list.php:3 html/say_what_admin_list.php:3
+msgid "Add New"
+msgstr "Добавить новую"
+
+#: html/say-what-admin-delete.php:7 html/say_what_admin_delete.php:7
+msgid "No"
+msgstr "Нет"
+
+#: html/say-what-admin-delete.php:7 html/say_what_admin_delete.php:7
+msgid "Yes"
+msgstr "Да"
+
+#: html/say-what-admin-delete.php:5 html/say_what_admin_delete.php:5
+msgid "Are you sure you want to delete the replacement string for &quot;%s&quot;?"
+msgstr "Точно желаете удалить замену для строки &quot;%s&quot;?"
+
+#: html/say-what-admin-addedit.php:30 html/say_what_admin_addedit.php:30
+msgid "Add"
+msgstr "Добавить"
+
+#: html/say-what-admin-addedit.php:30 html/say_what_admin_addedit.php:30
+msgid "Update"
+msgstr "Обновить"
+
+#: html/say-what-admin-addedit.php:26 html/say_what_admin_addedit.php:26
+#: say-what-list-table.class.php:40
+msgid "Replacement string"
+msgstr "Строка замены"
+
+#: html/say-what-admin-addedit.php:22 html/say_what_admin_addedit.php:22
+#: say-what-list-table.class.php:39
+msgid "Text context"
+msgstr "Контекст"
+
+#: html/say-what-admin-addedit.php:18 html/say_what_admin_addedit.php:18
+#: say-what-list-table.class.php:38
+msgid "Text domain"
+msgstr "Текстовый домен (textdomain)"
+
+#: html/say-what-admin-addedit.php:14 html/say_what_admin_addedit.php:14
+#: say-what-list-table.class.php:37
+msgid "Original string"
+msgstr "Оригинал строки"
+
+#: html/say_what_admin_addedit.php:6
+msgid "Fill in the details of the original translatable string, the string's text domain, and the string you would like to use instead. For more information check out the <a href='http://plugins.leewillis.co.uk/doc_post/adding-string-replacement/'>getting started guide</a>."
+msgstr "Заполните строку оригинала, текстовый домен и строку, которую вы хотите увидеть на месте оригинальной. Для более подробной информации посмотрите <a href='http://plugins.leewillis.co.uk/doc_post/adding-string-replacement/'>руководство</a>."
+
+#: html/say-what-admin-addedit.php:4 html/say-what-admin-delete.php:3
+#: html/say-what-admin-list.php:3 html/say_what_admin_addedit.php:4
+#: html/say_what_admin_delete.php:3 html/say_what_admin_list.php:3
+#: say-what-admin.php:56 say-what-admin.php:57
+msgid "Text changes"
+msgstr "Изменения текста"

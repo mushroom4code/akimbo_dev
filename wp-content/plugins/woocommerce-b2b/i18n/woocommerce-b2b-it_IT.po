@@ -1,0 +1,747 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce B2B\n"
+"POT-Creation-Date: 2018-10-14 13:19+0200\n"
+"PO-Revision-Date: 2018-10-14 13:20+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_n:1,2;_nx:1,2;esc_attr__;esc_html__;"
+"esc_attr_e;esc_html_e\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: resources\n"
+
+#: includes/classes/class-wc-email-status-notification.php:16
+msgid "Status notification"
+msgstr "Notifica stato"
+
+#: includes/classes/class-wc-email-status-notification.php:17
+msgid "Send email notification to customer when his account is enabled."
+msgstr ""
+"Invia un’email di notifica ai clienti quando il proprio account viene "
+"abilitato."
+
+#: includes/classes/class-wc-email-status-notification.php:34
+msgid "Your account on {site_title} is approved!"
+msgstr "Il tuo account su {site_title} è stato approvato!"
+
+#: includes/classes/class-wc-email-status-notification.php:38
+msgid "Your customer account is now abled to purchase."
+msgstr "Il tuo account cliente è adesso abilitato all’acquisto."
+
+#: includes/classes/class-wc-settings-wcb2b.php:13 woocommerce-b2b.php:197
+msgid "B2B"
+msgstr "B2B"
+
+#: includes/classes/class-wc-settings-wcb2b.php:19 woocommerce-b2b.php:34
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/classes/class-wc-settings-wcb2b.php:41
+msgid "B2B mode"
+msgstr "Modalità B2B"
+
+#: includes/classes/class-wc-settings-wcb2b.php:43
+msgid ""
+"By enabling B2B mode only registered customers will be able to view product "
+"prices and have the opportunity to make purchases. Also enable new products "
+"options to force customers to buy minimum stock and to buy by pack"
+msgstr ""
+"Abilitando la modalità B2B solamente i clienti registrati avranno la "
+"possibilità di visualizzare i prezzi dei prodotti ed avranno l’opportunità "
+"di effettuare acquisti. Abilita inoltre nuove opzioni per i prodotti per "
+"obbligare i clienti ad acquistare quantità minime ed acquistare in confezioni"
+
+#: includes/classes/class-wc-settings-wcb2b.php:46
+msgid "Enable"
+msgstr "Abilita"
+
+#: includes/classes/class-wc-settings-wcb2b.php:48
+msgid "Turn on Busines to Business mode for your shop"
+msgstr "Abilita la modalità B2B per il tuo negozio"
+
+#: includes/classes/class-wc-settings-wcb2b.php:61
+msgid "Shop options"
+msgstr "Opzioni negozio"
+
+#: includes/classes/class-wc-settings-wcb2b.php:63
+msgid ""
+"Customize shop fields to improve B2B experience: choose to add indispensable "
+"fields."
+msgstr ""
+"Personalizza i campi del negozio per migliorare l'esperienza B2B: scegli di "
+"aggiungere campi indispensabili."
+
+#: includes/classes/class-wc-settings-wcb2b.php:68
+msgid "Hide prices"
+msgstr "Nascondi prezzi"
+
+#: includes/classes/class-wc-settings-wcb2b.php:70
+msgid "Hide prices for not logged in customers"
+msgstr "Nascondi i prezzi ai clienti non loggati"
+
+#: includes/classes/class-wc-settings-wcb2b.php:71
+msgid "Price is replaced by a message linked to login page"
+msgstr ""
+"Il prezzo viene sostituito da un messaggio linkato alla pagina di login"
+
+#: includes/classes/class-wc-settings-wcb2b.php:77 woocommerce-b2b.php:411
+#: woocommerce-b2b.php:423
+msgid "VAT number"
+msgstr "Partita IVA"
+
+#: includes/classes/class-wc-settings-wcb2b.php:79
+msgid "Add VAT number field to billing address"
+msgstr "Aggiunge il campo partita IVA all’indirizzo di fatturazione"
+
+#: includes/classes/class-wc-settings-wcb2b.php:80
+msgid "VAT number field is added to checkout form, order emails, order details"
+msgstr ""
+"Il campo Partita IVA viene aggiunto al form nella pagina di checkout, nelle "
+"email di ordine, nei dettagli dell’ordine"
+
+#: includes/classes/class-wc-settings-wcb2b.php:89
+msgid "Purchase options"
+msgstr "Opzioni acquisto"
+
+#: includes/classes/class-wc-settings-wcb2b.php:91
+msgid ""
+"Customers can place an order only reaching the minimum amount. If the "
+"minimum amount isn't reached, display a message in checkout in place of "
+"payment methods, but you can display an alert also in shopping cart in place "
+"of \"Proceed to checkout\" button."
+msgstr ""
+"I clienti possono effettuare un ordine solo raggiungendo un importo minimo. "
+"Se l’importo minimo non viene raggiunto, viene visualizzato un messaggio "
+"nella pagina di checkout al posto dei metodi di pagamento, ma puoi decidere "
+"di visualizzare un avviso anche nella pagina carrello al posto del pulsante "
+"“Procedi al checkout”."
+
+#: includes/classes/class-wc-settings-wcb2b.php:96
+msgid "Min purchase amount"
+msgstr "Importo minimo d’acquisto"
+
+#: includes/classes/class-wc-settings-wcb2b.php:98
+msgid "To disable the option, set 0"
+msgstr "Per disabilitare l’opzione, imposta 0"
+
+#: includes/classes/class-wc-settings-wcb2b.php:105
+msgid "Display message in cart"
+msgstr "Visualizza avviso nella pagina carrello"
+
+#: includes/classes/class-wc-settings-wcb2b.php:107
+msgid ""
+"Display a message in the shopping cart page to alert that minimum amount "
+"isn't reached yet"
+msgstr ""
+"Visualizza un avviso nella pagina carrello per informare che l’importo "
+"minimo non è stato ancora raggiunto"
+
+#: includes/classes/class-wc-settings-wcb2b.php:115
+msgid "Prevent proceed to checkout"
+msgstr "Evita di procedere al checkout"
+
+#: includes/classes/class-wc-settings-wcb2b.php:117
+msgid ""
+"Remove \"Proceed to checkout\" button in shopping cart if customer doesn't "
+"reach the minimum amount"
+msgstr ""
+"Rimuove il pulsante “Procedi al checkout” nella pagina carrello se il "
+"cliente non raggiunge l’importo minimo"
+
+#: includes/classes/class-wc-settings-wcb2b.php:128
+msgid "Customer options"
+msgstr "Impostazioni cliente"
+
+#: includes/classes/class-wc-settings-wcb2b.php:130
+msgid ""
+"Choose the users to approve and decide which informations you want to "
+"display in customer account."
+msgstr ""
+"Scegli gli utenti da approvare e decidi quali informazioni visualizzare "
+"nell’account cliente."
+
+#: includes/classes/class-wc-settings-wcb2b.php:135
+msgid "Moderate registration"
+msgstr "Registrazione moderata"
+
+#: includes/classes/class-wc-settings-wcb2b.php:137
+msgid "Customers can login only after admin approvation"
+msgstr ""
+"I clienti possono effettuare il login solo dopo l’approvazione da parte "
+"dell’admin"
+
+#: includes/classes/class-wc-settings-wcb2b.php:138
+msgid ""
+"Add new columns to users list and new field to profile page in backend to "
+"manage customer status"
+msgstr ""
+"Aggiunge una nuova colonna nell’elenco utenti e un nuovo campo alla pagina "
+"del profilo utente nel backend per modificarne lo status"
+
+#: includes/classes/class-wc-settings-wcb2b.php:144
+msgid "Registration form"
+msgstr "Form registrazione"
+
+#: includes/classes/class-wc-settings-wcb2b.php:146
+msgid "Add billing data to registration form"
+msgstr "Aggiunge i campi di fatturazione al form di registrazione"
+
+#: includes/classes/class-wc-settings-wcb2b.php:147
+msgid ""
+"Extend registration form with billing fields. If checked, enable by default "
+"the option 'Enable customer registration on the \"My account\" page' in "
+"Accounts tab under WooCommerce settings"
+msgstr ""
+"Se selezionato, abilita di default l’opzione ‘Abilita la registrazione del "
+"cliente sulla pagina “Il mio account”’ nella sezione Accounts sotto "
+"Impostazioni WooCommerce"
+
+#: includes/classes/class-wc-settings-wcb2b.php:152
+msgid "Registration notice"
+msgstr "Avviso di registrazione"
+
+#: includes/classes/class-wc-settings-wcb2b.php:154
+msgid "Send email to admin on every new customer account registration"
+msgstr ""
+"Invia una email all’amministratore ad ogni registrazione di un nuovo account "
+"cliente"
+
+#: includes/classes/class-wc-settings-wcb2b.php:155
+msgid ""
+"When a customer create an account, an email is send to admin to inform him"
+msgstr ""
+"Quando un cliente crea un nuovo account, una email viene inviata "
+"all’amministratore per informarlo"
+
+#: includes/classes/class-wc-settings-wcb2b.php:164
+msgid "Customer groups"
+msgstr "Gruppi clienti"
+
+#: includes/classes/class-wc-settings-wcb2b.php:166
+msgid ""
+"Create your favourite groups and assign to your customers to give a discount "
+"on their purchases."
+msgstr ""
+"Crea i tuoi gruppi ed assegnali ai tuoi clienti per determinare uno sconto "
+"sui loro acquisti."
+
+#: includes/classes/class-wc-settings-wcb2b.php:171
+msgid "Show discount"
+msgstr "Mostra sconto"
+
+#: includes/classes/class-wc-settings-wcb2b.php:173
+msgid ""
+"Customers can view discount amount assigned to them in their own account area"
+msgstr ""
+"I clienti possono visualizzare la percentuale di sconto ad essi destinata "
+"nella propria pagina account"
+
+#: includes/classes/class-wc-settings-wcb2b.php:181
+msgid ""
+"Customers can view discount amount assigned to them in single product page"
+msgstr ""
+"I clienti possono visualizzare la percentuale di sconto ad essi destinata "
+"nella pagina del prodotto"
+
+#: includes/classes/class-wc-settings-wcb2b.php:188
+msgid "Product categories visibility"
+msgstr "Visibilità categorie prodotto"
+
+#: includes/classes/class-wc-settings-wcb2b.php:191
+msgid "Display product categories by group"
+msgstr "Visualizza le categorie prodotto per gruppo"
+
+#: includes/classes/class-wc-settings-wcb2b.php:192
+msgid ""
+"When enabled, every product category can be set to be visible only to "
+"certain groups"
+msgstr ""
+"Quando abilitata, ogni categoria prodotto può essere impostata per essere "
+"visibile solamente a determinati gruppi"
+
+#: includes/classes/class-wc-settings-wcb2b.php:197
+msgid "Redirect on page"
+msgstr "Reindirizza sulla pagina"
+
+#: includes/classes/class-wc-settings-wcb2b.php:201
+msgid ""
+"When users go directly to a not visible product category or a not visible "
+"product"
+msgstr ""
+"Quando gli utenti accedono direttamente ad una ad una categoria prodotto non "
+"autorizzata o ad un prodotto non autorizzato"
+
+#: includes/classes/class-wc-settings-wcb2b.php:207
+msgid "-- Do nothing --"
+msgstr "— Non fare nulla —"
+
+#: includes/classes/class-wc-settings-wcb2b.php:208
+msgid "404 (not found) page"
+msgstr "Pagina 404 (non trovato)"
+
+#: templates/emails/plain/status-notification.php:17
+#: templates/emails/status-notification.php:15
+#, php-format
+msgid "Hi %s,"
+msgstr "Ciao, %s"
+
+#: templates/emails/plain/status-notification.php:18
+#: templates/emails/status-notification.php:17
+msgid "Your account is approved and you are now abled to purchase."
+msgstr "Il tuo account è stato approvato ed è ora abilitato all’acquisto."
+
+#: templates/emails/plain/status-notification.php:19
+#: templates/emails/status-notification.php:19
+msgid "Login and start purchasing"
+msgstr "Accedi ed inizia a comprare"
+
+#: woocommerce-b2b.php:68
+msgid ""
+"Warning! To use WooCommerce B2B it need WooCommerce is installed and active."
+msgstr ""
+"Attenzione! Per utilizzare WooCommerce B2B è necessario che WooCommerce sia "
+"installato ed attivo."
+
+#: woocommerce-b2b.php:77
+#, php-format
+msgid "The following options are setted as recommended: %s"
+msgstr "Le seguenti opzioni sono state impostate come raccomandato: %s"
+
+#: woocommerce-b2b.php:78
+msgid ""
+"WooCommerce settings > General > Enable taxes and tax calculations > Yes"
+msgstr ""
+"Impostazioni WooCommerce > Generale > Abilita imposte e calcoli fiscali > Si"
+
+#: woocommerce-b2b.php:79
+msgid "WooCommerce settings > Tax > Prices entered with tax > No"
+msgstr "Impostazioni WooCommerce > Imposta > Prezzi imposte incluse > Si"
+
+#: woocommerce-b2b.php:80
+msgid ""
+"WooCommerce settings > Accounts > Automatically generate customer password > "
+"Yes"
+msgstr ""
+"Impostazioni WooCommerce > Accounts > Genera automaticamente la password del "
+"cliente > Si"
+
+#: woocommerce-b2b.php:129
+msgid "Filter"
+msgstr "Filtra"
+
+#: woocommerce-b2b.php:217
+msgid "Package"
+msgstr "Imballi"
+
+#: woocommerce-b2b.php:218
+msgid ""
+"Force customers to purchase product by pack increment. Insert how much "
+"products are in every pack"
+msgstr ""
+"Obbliga i clienti ad acquistare il prodotto in confezioni. Inserisci il "
+"numero di prodotti contenuto in ogni confezione"
+
+#: woocommerce-b2b.php:230
+msgid "Minimum quantity"
+msgstr "Quantità minima"
+
+#: woocommerce-b2b.php:231
+msgid "Force customers to purchase minimum quantity of this product"
+msgstr "Obbliga i clienti ad acquistare una quantità minima di questo prodotto"
+
+#: woocommerce-b2b.php:280
+#, php-format
+msgid "You must purchase at least %s of this product"
+msgstr "Devi acquistare almeno %s di questo prodotto"
+
+#: woocommerce-b2b.php:286
+#, php-format
+msgid "This product can be purchased by increments of %s"
+msgstr "Questo prodotto può essere acquistato in incrementi di %s"
+
+#: woocommerce-b2b.php:299
+msgid "Please, login to see prices and buy"
+msgstr "Accedi per visualizzare i prezzi ed acquistare"
+
+#: woocommerce-b2b.php:365
+msgid "Vat number"
+msgstr "Partita IVA"
+
+#: woocommerce-b2b.php:366
+msgctxt "placeholder"
+msgid "Vat number"
+msgstr "Partita IVA"
+
+#: woocommerce-b2b.php:450
+#, php-format
+msgid ""
+"To proceed to checkout and complete your purchase, make sure you have "
+"reached the minimum amount of %s."
+msgstr ""
+"Per procedere al checkout e completare il tuo acquisto, assicurati di aver "
+"raggiunto l’importo minimo di %s."
+
+#: woocommerce-b2b.php:470
+#, php-format
+msgid ""
+"To proceed to checkout and complete your purchase, you must reach the "
+"minimum amount of %s, but your total cart amount is currently %s. Return to "
+"%sshop%s"
+msgstr ""
+"Per procedere al checkout e completare il tuo acquisto, devi raggiungere "
+"l’importo minimo di %s, ma il totale del tuo carrello attualmente è %s. "
+"Torna al %snegozio%s"
+
+#: woocommerce-b2b.php:518
+#, php-format
+msgid "%s is not a valid postcode / ZIP."
+msgstr "%s non è un codice postale/CAP valido."
+
+#: woocommerce-b2b.php:527
+#, php-format
+msgid "%s is not a valid phone number."
+msgstr "%s non è un numero di telefono valido."
+
+#: woocommerce-b2b.php:535
+#, php-format
+msgid "%s is not a valid email address."
+msgstr "%s non è un indirizzo e-mail valido"
+
+#: woocommerce-b2b.php:555
+#, php-format
+msgid "%1$s is not valid. Please enter one of the following: %2$s"
+msgstr "%1$s non è valido. Inserisci una delle seguenti opzioni: %2$s"
+
+#: woocommerce-b2b.php:562
+#, php-format
+msgid "%s is a required field."
+msgstr "%s è un campo obbligatorio."
+
+#: woocommerce-b2b.php:636
+msgid "Groups"
+msgstr "Gruppi"
+
+#: woocommerce-b2b.php:637 woocommerce-b2b.php:662 woocommerce-b2b.php:849
+#: woocommerce-b2b.php:883
+msgid "Group"
+msgstr "Gruppo"
+
+#: woocommerce-b2b.php:638
+msgid "All Groups"
+msgstr "Tutti i Gruppi"
+
+#: woocommerce-b2b.php:639
+msgctxt "Admin menu name"
+msgid "Groups"
+msgstr "Gruppi"
+
+#: woocommerce-b2b.php:640
+msgid "Add New"
+msgstr "Aggiungi Nuovo"
+
+#: woocommerce-b2b.php:641
+msgid "Add new group"
+msgstr "Aggiungi un nuovo gruppo"
+
+#: woocommerce-b2b.php:642
+msgid "Edit"
+msgstr "Modifica"
+
+#: woocommerce-b2b.php:643
+msgid "Edit group"
+msgstr "Modifica gruppo"
+
+#: woocommerce-b2b.php:644
+msgid "New group"
+msgstr "Nuovo gruppo"
+
+#: woocommerce-b2b.php:645 woocommerce-b2b.php:712
+msgid "View group"
+msgstr "Visualizza gruppo"
+
+#: woocommerce-b2b.php:646
+msgid "View groups"
+msgstr "Vedi i gruppi"
+
+#: woocommerce-b2b.php:647
+msgid "Search groups"
+msgstr "Cerca gruppi"
+
+#: woocommerce-b2b.php:648
+msgid "No groups found"
+msgstr "Nessun gruppo trovato"
+
+#: woocommerce-b2b.php:649
+msgid "No groups found in trash"
+msgstr "Nessun gruppo trovato nel cestino"
+
+#: woocommerce-b2b.php:650
+msgid "Parent group"
+msgstr "Gruppo genitore"
+
+#: woocommerce-b2b.php:651
+msgid "Group image"
+msgstr "Immagine del gruppo"
+
+#: woocommerce-b2b.php:652
+msgid "Set group image"
+msgstr "Imposta immagine gruppo"
+
+#: woocommerce-b2b.php:653
+msgid "Remove group image"
+msgstr "Rimuovi immagine"
+
+#: woocommerce-b2b.php:654
+msgid "Use as group image"
+msgstr "Usa come immagine gruppo"
+
+#: woocommerce-b2b.php:655
+msgid "Insert into group"
+msgstr "Inserisci nel gruppo"
+
+#: woocommerce-b2b.php:656
+msgid "Uploaded to this group"
+msgstr "Cqricato su questo gruppo"
+
+#: woocommerce-b2b.php:657
+msgid "Filter groups"
+msgstr "Filtra gruppi"
+
+#: woocommerce-b2b.php:658
+msgid "Groups navigation"
+msgstr "Navigazione gruppi"
+
+#: woocommerce-b2b.php:659
+msgid "Groups list"
+msgstr "Lista dei gruppi"
+
+#: woocommerce-b2b.php:663
+msgid "This is where you can add new groups to your customers."
+msgstr "Qui è dove puoi aggiungere nuovi gruppi ai tuoi clienti."
+
+#: woocommerce-b2b.php:691 woocommerce-b2b.php:692 woocommerce-b2b.php:694
+msgid "Group updated."
+msgstr "Gruppo aggiornato."
+
+#: woocommerce-b2b.php:693
+msgid "Group deleted."
+msgstr "Gruppo eliminato."
+
+#: woocommerce-b2b.php:696
+#, php-format
+msgid "Group restored to revision from %s"
+msgstr "Revisione gruppo ripristinata da %s."
+
+#: woocommerce-b2b.php:699
+msgid "Group published."
+msgstr "Gruppo pubblicato."
+
+#: woocommerce-b2b.php:700
+msgid "Group saved."
+msgstr "Gruppo salvato."
+
+#: woocommerce-b2b.php:701
+msgid "Group submitted."
+msgstr "Gruppo inviato."
+
+#: woocommerce-b2b.php:703
+#, php-format
+msgid "Group scheduled for: <strong>%1$s</strong>."
+msgstr "Gruppo previsto per: <strong>%1$s</strong>."
+
+#: woocommerce-b2b.php:706
+msgid "Group draft updated."
+msgstr "Bozza gruppo aggiornata."
+
+#: woocommerce-b2b.php:718
+msgid "Preview group"
+msgstr "Anteprima gruppo"
+
+#: woocommerce-b2b.php:728
+msgid "Discount"
+msgstr "Sconto"
+
+#: woocommerce-b2b.php:766 woocommerce-b2b.php:793
+#, php-format
+msgid "Discount amount assigned to you: %s%%"
+msgstr "Sconto a te destinato: %s%%"
+
+#: woocommerce-b2b.php:846
+msgid "User group"
+msgstr "Gruppo utente"
+
+#: woocommerce-b2b.php:860
+msgid "Please select user group to apply discounts."
+msgstr "Seleziona un gruppo per applicare lo sconto."
+
+#: woocommerce-b2b.php:918
+msgid "Assign group"
+msgstr "Assegna gruppo"
+
+#: woocommerce-b2b.php:949
+msgid "Filter by group"
+msgstr "Filtra per gruppo"
+
+#: woocommerce-b2b.php:976
+msgid "Discount (%)"
+msgstr "Sconto (%)"
+
+#: woocommerce-b2b.php:984
+msgid ""
+"This should be a number with up to 2 decimal places, with (.) as decimal "
+"separator"
+msgstr ""
+"Dovrebbe essere un numero con al massimo di 2 posizioni decimali, con (.) "
+"come separatore decimale"
+
+#: woocommerce-b2b.php:990
+msgid "Disable payment methods for this group"
+msgstr "Disabilita modalità di pagamento per questo gruppo"
+
+#: woocommerce-b2b.php:1013
+msgid "Product categories visibility for this group"
+msgstr "Visibilità categorie prodotto per questo gruppo"
+
+#: woocommerce-b2b.php:1204 woocommerce-b2b.php:1238
+msgid "Group access"
+msgstr "Accesso di gruppo"
+
+#: woocommerce-b2b.php:1210 woocommerce-b2b.php:1244
+msgid "Guests"
+msgstr "Ospiti"
+
+#: woocommerce-b2b.php:1224 woocommerce-b2b.php:1257
+msgid "Select the groups you want to be able to view this category"
+msgstr ""
+"Seleziona i gruppi che desideri siano abilitati a visualizzare questa "
+"categoria"
+
+#: woocommerce-b2b.php:1480 woocommerce-b2b.php:1495
+msgid ""
+"Your account is now under review. You will receive an email as soon as it is "
+"activated."
+msgstr ""
+"il tuo account è in fase di revisione. Riceverai una email appena verrà "
+"attivato."
+
+#: woocommerce-b2b.php:1505
+msgid ""
+"We are checking your account, please wait for the activation confirmation "
+"email before trying to login"
+msgstr ""
+"Stiamo controllando il tuo account, attendi l’email di conferma attivazione "
+"prima di provare ad accedere"
+
+#: woocommerce-b2b.php:1524 woocommerce-b2b.php:1541 woocommerce-b2b.php:1665
+#: woocommerce-b2b.php:1704
+msgid "Inactive"
+msgstr "Non attivo"
+
+#: woocommerce-b2b.php:1525 woocommerce-b2b.php:1542 woocommerce-b2b.php:1666
+#: woocommerce-b2b.php:1705
+msgid "Active"
+msgstr "Attivo"
+
+#: woocommerce-b2b.php:1545
+msgid "User status"
+msgstr "Stato utente"
+
+#: woocommerce-b2b.php:1548 woocommerce-b2b.php:1591
+msgid "Status"
+msgstr "Stato"
+
+#: woocommerce-b2b.php:1556
+msgid "Please select user status to approve registration and enable purchases."
+msgstr ""
+"Seleziona lo stato utente per approvare la registrazione ed abilitare gli "
+"acquisti."
+
+#: woocommerce-b2b.php:1617
+msgid "Change status"
+msgstr "Cambia stato"
+
+#: woocommerce-b2b.php:1660
+msgid "Filter by status"
+msgstr "Filtra per stato"
+
+#: woocommerce-b2b.php:1692
+msgid "Customers"
+msgstr "Clienti"
+
+#: woocommerce-b2b.php:1695
+msgid "In CSV format for statistics purposes"
+msgstr "In formato CSV per uso statistico"
+
+#: woocommerce-b2b.php:1821
+msgid "Database updated!"
+msgstr "Database aggiornato!"
+
+#: woocommerce-b2b.php:1830
+msgid ""
+"We need to update your database to the latest version to preserve all your "
+"data."
+msgstr ""
+"Dobbiamo aggiornare il database del tuo negozio all'ultima versione per "
+"preservare i tuoi dati."
+
+#: woocommerce-b2b.php:1831
+msgid "Run the updater"
+msgstr "Eseguire il programma di aggiornamento"
+
+#~ msgid "Your account is approved and you are now able to purchase"
+#~ msgstr "Il tuo account è stato approvato ed ora sei abilitato all’acquisto"
+
+#~ msgid "Product categories visible for this group"
+#~ msgstr "Visibilità categorie prodotto per questo gruppo"
+
+#~ msgid "All groups"
+#~ msgstr "Tutti i gruppi"
+
+#~ msgid "Send email to admin on new user account registration"
+#~ msgstr ""
+#~ "Invia una email all’amministratore ad ogni registrazione di un nuovo "
+#~ "account cliente"
+
+#~ msgid ""
+#~ "Send new registration email to admin on new user account registration"
+#~ msgstr "Invia una email d"
+
+#~ msgid "When users go directly to a hidden product category or a hidden page"
+#~ msgstr ""
+#~ "Quando gli utenti accedono direttamente ad una pagina nascosta o ad una "
+#~ "categoria prodotto nascosta"
+
+#~ msgid "Group visibility"
+#~ msgstr "Visib"
+
+#~ msgid ""
+#~ "When enabled, every product category and can be set to be visible only to "
+#~ "certain groups"
+#~ msgstr "Quando abilitata, ogni categoria prodotto "
+
+#~ msgid "Hide pages"
+#~ msgstr "Nascondi pagine"
+
+#~ msgid "Hide pages and product categories"
+#~ msgstr "Nascondi pagine e categorie prodotto"
+
+#~ msgid ""
+#~ "When enabled, every customer group can be set to hide some product "
+#~ "categories and pages"
+#~ msgstr ""
+#~ "Quando abilitato, ogni gruppo cliente può essere impostato per nascondere "
+#~ "determinate pagine e categorie prodotto"
+
+#~ msgid "Hide product categories"
+#~ msgstr "Nascondi categorie prodotto"
+
+#~ msgid "Set as hidden pages redirect"
+#~ msgstr "Impostata come pagina di atterraggio per le pagine nascoste"

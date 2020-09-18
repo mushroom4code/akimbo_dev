@@ -1,0 +1,191 @@
+# Translation of Plugins - Woo Tuner - Development (trunk) in Russian
+# This file is distributed under the same license as the Plugins - Woo Tuner - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2016-11-09 22:17:37+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: GlotPress/2.3.0-alpha\n"
+"Language: ru\n"
+"Project-Id-Version: Plugins - Woo Tuner - Development (trunk)\n"
+
+#: admin/class-woo-tuner-admin.php:470
+msgid "Reorder template components with simple drag & drop functionality."
+msgstr "Изменить порядок компонентов шаблона при помощи перемещения виждетов."
+
+#: admin/class-woo-tuner-admin.php:468
+msgid "Woo Tuner - Widgets Order"
+msgstr "Woo Tuner - порядок виджетов"
+
+#: admin/class-woo-tuner-admin.php:236
+msgid "Disable WooCommerce stylesheets?"
+msgstr "Отключит стили WooCommerce?"
+
+#: admin/class-woo-tuner-admin.php:206
+msgid "Awesome WooCommerce addon! Сustomize woocommerce templates/layouts with no coding skills!"
+msgstr "Awesome WooCommerce addon! Сustomize woocommerce templates/layouts with no coding skills!"
+
+#: admin/class-woo-tuner-admin.php:71 admin/class-woo-tuner-admin.php:72
+msgid "Order"
+msgstr "Порядок"
+
+#. Author URI of the plugin/theme
+msgid "http://volkov.co.il/"
+msgstr "http://volkov.co.il/"
+
+#. Author of the plugin/theme
+msgid "Alexander Volkov"
+msgstr "Александр Волков"
+
+#. Description of the plugin/theme
+msgid "Customize your WooCommerce layouts with one click!"
+msgstr "Настройка конфигураций WooCommerce одним нажатием кнопки!"
+
+#. Plugin URI of the plugin/theme
+msgid "http://volkov.co.il/woo-tuner/"
+msgstr "http://volkov.co.il/woo-tuner/"
+
+#: admin/class-woo-tuner-admin.php:344
+msgid "Install WooCommerce"
+msgstr "Установить WooCommerce"
+
+#: admin/class-woo-tuner-admin.php:343
+msgid "Please, install WooCommerce first"
+msgstr "Пожалуйста, сначала установите WooCommerce"
+
+#: admin/class-woo-tuner-admin.php:329
+msgid "Remove Product Loop Add to cart button?"
+msgstr "Удалить кнопку \"добавить в корзину\"?"
+
+#: admin/class-woo-tuner-admin.php:328
+msgid "Remove Product Loop Price?"
+msgstr "Удалить цены из списка продуктов?"
+
+#: admin/class-woo-tuner-admin.php:327
+msgid "Remove Product Loop Rating?"
+msgstr "Удалить рейтинг из списка продуктов?"
+
+#: admin/class-woo-tuner-admin.php:326
+msgid "Remove Product Loop Title?"
+msgstr "Удалить заголовки продуктов?"
+
+#: admin/class-woo-tuner-admin.php:325
+msgid "Remove Product Loop Thumbnail?"
+msgstr "Удалить картинки продуктов?"
+
+#: admin/class-woo-tuner-admin.php:324
+msgid "Remove Product Loop Sale Flash?"
+msgstr "Удалить значок распродажи/скидки?"
+
+#: admin/class-woo-tuner-admin.php:312
+msgid "Product content within loops"
+msgstr "Список продуктов (в петле)"
+
+#: admin/class-woo-tuner-admin.php:298
+msgid "Remove Related Products?"
+msgstr "Удалить похожие продукты?"
+
+#: admin/class-woo-tuner-admin.php:297
+msgid "Remove Single Product Upsell?"
+msgstr "Remove Single Product Upsell?"
+
+#: admin/class-woo-tuner-admin.php:296
+msgid "Remove Single Product Data Tabs?"
+msgstr "Удалить табы из страницы продукта?"
+
+#: admin/class-woo-tuner-admin.php:295
+msgid "Remove Single Product Images?"
+msgstr "Удалить картинку продукта?"
+
+#: admin/class-woo-tuner-admin.php:294
+msgid "Remove Single Product Sale Flash?"
+msgstr "Удалить метку распродажи на странице продукта?"
+
+#: admin/class-woo-tuner-admin.php:293
+msgid "Remove Single Product Sharing?"
+msgstr "Удалить социальный плагин из страницы продукта?"
+
+#: admin/class-woo-tuner-admin.php:292
+msgid "Remove Single Product Meta?"
+msgstr "Удалить мета данные?"
+
+#: admin/class-woo-tuner-admin.php:291
+msgid "Remove Single Product Add to Cart?"
+msgstr "Удалить \"добавить в корзину\" со страницы продукта?"
+
+#: admin/class-woo-tuner-admin.php:290
+msgid "Remove Single Product excerpt?"
+msgstr "Удалить краткое описание продукта?"
+
+#: admin/class-woo-tuner-admin.php:289
+msgid "Remove Single Product price?"
+msgstr "Удалить цену со страницы продукта?"
+
+#: admin/class-woo-tuner-admin.php:288
+msgid "Remove Single Product rating?"
+msgstr "Удалить рейтинг продукта?"
+
+#: admin/class-woo-tuner-admin.php:287
+msgid "Remove Single Product title?"
+msgstr "Удалить заголовок продукта"
+
+#: admin/class-woo-tuner-admin.php:277
+msgid "Single Product Settings"
+msgstr "Настройки страницы продукта"
+
+#: admin/class-woo-tuner-admin.php:265
+msgid "Remove Taxonomy Pagination?"
+msgstr "Удалить разбиение страницы?"
+
+#: admin/class-woo-tuner-admin.php:264
+msgid "Remove Catalog Ordering?"
+msgstr "Удалить сортировку каталога продуктов?"
+
+#: admin/class-woo-tuner-admin.php:263
+msgid "Remove Result Count?"
+msgstr "Удалить счетчик результатов?"
+
+#: admin/class-woo-tuner-admin.php:262
+msgid "Remove Product Archive description?"
+msgstr "Удалить описание архива продуктов?"
+
+#: admin/class-woo-tuner-admin.php:261
+msgid "Remove Taxonomy Archive description?"
+msgstr "Удалить описание категории продуктов?"
+
+#: admin/class-woo-tuner-admin.php:248
+msgid "Shop & Categories Settings"
+msgstr "Настройки каталога и категорий продукта"
+
+#: admin/class-woo-tuner-admin.php:235
+msgid "Remove Breadcrumbs?"
+msgstr "Удалить \"хлебные крошки\"?"
+
+#: admin/class-woo-tuner-admin.php:228 admin/class-woo-tuner-admin.php:250
+#: admin/class-woo-tuner-admin.php:279 admin/class-woo-tuner-admin.php:314
+msgid "Check/Uncheck all"
+msgstr "Выбрать все"
+
+#: admin/class-woo-tuner-admin.php:226
+msgid "Global Settings"
+msgstr "Основные настройки"
+
+#: admin/class-woo-tuner-admin.php:213
+msgid "Show/Hide templates name"
+msgstr "Показать/спрятать название шаблонов"
+
+#: admin/class-woo-tuner-admin.php:204
+msgid "Welcome to Woo Tuner!"
+msgstr "Добро пожаловать в Woo Tuner!"
+
+#: admin/class-woo-tuner-admin.php:81
+msgid "You do not have sufficient permissions to access this page."
+msgstr "У вас нет надлежащего доступа к  данной странице."
+
+#. #-#-#-#-#  tmp-woo-tuner.pot (WooTuner 0.1.2)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin/class-woo-tuner-admin.php:63 admin/class-woo-tuner-admin.php:64
+msgid "WooTuner"
+msgstr "WooTuner"

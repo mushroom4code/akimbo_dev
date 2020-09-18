@@ -1,0 +1,2 @@
+/* Products B2B admin tab icon */
+#woocommerce-product-data ul.wc-tabs li.wcb2b_tab_options a::before { content: '\f509'; }
