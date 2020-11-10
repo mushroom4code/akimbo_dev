@@ -994,6 +994,13 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
         $attribute_guids = get_option('wc1c_guid_attributes', array());
         $terms = array();
         foreach ($product['ЗначенияСвойств'] as $property) {
+
+            if($property['Ид'] == "first_date" && is_array($property['Значение']) && !empty($property['Значение'][0])) {
+                update_post_meta($post_id, 'first_date', date_format(date_create($property['Значение'][0]), 'd.m.Y'));
+                continue;
+            }
+
+
             $attribute_guid = $property['Ид'];
             $attribute_id = @$attribute_guids[$attribute_guid];
             if (!$attribute_id) {
