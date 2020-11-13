@@ -455,19 +455,19 @@ function skyverge_add_postmeta_ordering_args( $sort_args ) {
 	switch( $orderby_value ) {
 		case 'price-desc':
 			$sort_args['orderby'] = 'meta_value_num';
-			$sort_args['order'] = 'desc';
+			$sort_args['order'] = 'DESC';
 			$sort_args['meta_key'] = '_price';
 			break;
 
         case 'price':
             $sort_args['orderby'] = 'meta_value_num';
-            $sort_args['order'] = 'asc';
+            $sort_args['order'] = 'ASC';
             $sort_args['meta_key'] = '_price';
             break;
 
         case 'first_date':
             $sort_args['orderby'] = 'meta_value_num';
-            $sort_args['order'] = 'desc';
+            $sort_args['order'] = 'DESC';
             $sort_args['meta_key'] = 'first_date';
             break;
 	}
@@ -476,6 +476,13 @@ function skyverge_add_postmeta_ordering_args( $sort_args ) {
 }
 add_filter( 'woocommerce_get_catalog_ordering_args', 'skyverge_add_postmeta_ordering_args' );
 
+function orderby_first_date($query){
+    $ff = strpos($query, 'first_date');
+    if($ff !== false)  $query = str_replace('wp_posts.menu_order,', '', $query);
+
+    return $query;
+}
+add_filter('query', 'orderby_first_date');
 
 // Переопределение метода woocommerce
 if ( ! function_exists( 'woocommerce_catalog_ordering' ) ) {
