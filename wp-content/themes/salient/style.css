@@ -71,6 +71,75 @@ footer, header, hgroup, menu, nav, section{    display:block}
 /*-------------------------------------------------------------------------*/
 /*	2. Globally Applied Styles
 /*-------------------------------------------------------------------------*/
+/* EDIT BY RODIONOVA/ENTEREGO */
+/*-------------------------------------------------------------------------*/
+.active_popup {
+  display: block;
+}
+.hidden_class {
+  display: none;
+  margin-bottom: 3rem;
+}
+div.content_callback {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+}
+.box-recall {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px;
+  border-bottom: 2px solid #000000;
+}
+
+.body-popap {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid black;
+  padding-bottom: 35px;
+}
+.name_class {
+  font-size: 20px;
+  font-weight: 500;
+  color: #715947;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+.box_center {
+  display: flex;
+  justify-content: center;
+}
+.button_mail {
+  font-size: 15px;
+  margin-top: 25px;
+  width: 17%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+input.recall-phone{
+  width: 75%!important;
+  display: flex;
+  align-self: center;
+  padding: 8px 15px!important;
+
+}
+span.news {
+  text-align: center;
+  padding: 20px 20px;
+  font-size: 17px;
+  font-weight: 400;
+}
+/*-------------------------------------------------------------------------*/
+@media (min-width: 320px ) and (max-width: 800px){
+
+  .button_mail {
+    width:70%;
+  }
+}
 
 
 body{font-size:14px; -webkit-font-smoothing:antialiased; font-family:'Open Sans'; font-weight:400; background-color:#1C1C1C; line-height:26px}

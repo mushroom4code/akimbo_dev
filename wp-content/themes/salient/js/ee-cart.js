@@ -135,4 +135,41 @@ jQuery(document).ready(function($){
 			}
 		});
 	});
+
+	//
+	$('#phone').on('change',function (){
+		$('#phone').mask("8(999)-999-99-99");
+	})
+	$('#openRecallform').on('click', function () {
+		$('#recall-popup').toggleClass();
+	});
+	$('span.news').empty();
+	$('#send_mail').on('click',function(){
+		let phone = $('input#phone').val();
+		let name = $('input#name').val();
+
+		$.ajax({
+			type: 'POST',
+			url: '/wp-content/themes/salient/send_mail.php',
+			data: {
+				action: 'send_mail',
+				phone:phone,
+				name: name
+			},
+			beforeSend: function(){
+				eeStartLoader();
+			},
+			success: function (result) {
+				$('span.news').empty();
+				if(result.status == 'true'){
+					$('span.news').text('Ваше сообщение принято!  Вам скоро перезвонят.');
+				}else{
+					$('span.news').text('Ошибка отправки!  Повторите попытку!');
+				}
+				console.log(result);
+			}
+		});
+
+
+	})
 })
