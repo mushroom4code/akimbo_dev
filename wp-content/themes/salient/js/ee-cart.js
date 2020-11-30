@@ -42,7 +42,7 @@ function eeStartLoader(){
 }
 
 jQuery(document).ready(function($){
-	
+
 	jQuery('form.ee_desc_form').on('click', 'a.remove', function () {
 		var form_input = jQuery('form.ee_desc_form').find('input[type="number"]');
 		var product_id = jQuery(this).data("product_id");
@@ -135,19 +135,40 @@ jQuery(document).ready(function($){
 			}
 		});
 	});
+	// Enterego / Rodionova
 
-	//
-	$('#phone').on('change',function (){
-		$('#phone').mask("8(999)-999-99-99");
-	})
-	$('#openRecallform').on('click', function () {
-		$('#recall-popup').toggleClass();
-	});
+
 	$('span.news').empty();
-	$('#send_mail').on('click',function(){
-		let phone = $('input#phone').val();
-		let name = $('input#name').val();
+	$(".recall-phone").mask("+7 (999) 999-9999");
+	$('.recall-button').on('click', function () {
+		$.fancybox.open({
+			src: '#recall-popup',
+		});
+		$('.news').removeClass('bad-news');
+		$('.news').removeClass('good-news');
+		$('.news').html('');
+	});
 
+	$('#send_mail').on('click',function(){
+		let that = $(this);
+		let lengthPhoneVal = $('.recall-phone').val().length;
+		let issetError = false;
+
+		$(that).prop('disabled', true);
+		if(lengthPhoneVal == 0 ){
+			$(".news").addClass('bad-news');
+			$('.news').html('Укажите Ваш номер телефона!');
+			issetError = true;
+		}
+		if(lengthPhoneVal !== 0 && lengthPhoneVal !== 17){
+			$('.news').addClass('bad-news');
+			$('.news').html('Ваш телефон указан не верно!');
+			issetError = true;
+		}
+		let phone = $('input.phone').val();
+		let name = $('input.name').val();
+		console.log(phone)
+		console.log(name)
 		$.ajax({
 			type: 'POST',
 			url: '/wp-content/themes/salient/send_mail.php',
@@ -160,16 +181,20 @@ jQuery(document).ready(function($){
 				eeStartLoader();
 			},
 			success: function (result) {
+				console.log(result);
 				$('span.news').empty();
 				if(result.status == 'true'){
 					$('span.news').text('Ваше сообщение принято!  Вам скоро перезвонят.');
+					setTimeout(function() {
+						$.fancybox.close();}, 2000);
 				}else{
 					$('span.news').text('Ошибка отправки!  Повторите попытку!');
+					setTimeout(function() {
+						$.fancybox.close();}, 2000);
 				}
 				console.log(result);
 			}
 		});
-
-
 	})
+
 })

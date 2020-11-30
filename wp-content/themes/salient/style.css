@@ -73,32 +73,82 @@ footer, header, hgroup, menu, nav, section{    display:block}
 /*-------------------------------------------------------------------------*/
 /* EDIT BY RODIONOVA/ENTEREGO */
 /*-------------------------------------------------------------------------*/
-.active_popup {
-  display: block;
-}
-.hidden_class {
-  display: none;
-  margin-bottom: 3rem;
-}
-div.content_callback {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
 
+.popap_recall_sendler {
+  width: 30%;
+  margin-top: 30px;
+  cursor: pointer;
+  height: 37px;
+  background-color: #af8a6e;
+  font-size: 17px;
+  color: white;
+  border: none;
+  letter-spacing: 1px;
+  font-weight: 400;
 }
-.box-recall {
-  display: flex;
-  justify-content: center;
-  padding: 20px 20px;
-  border-bottom: 2px solid #000000;
+
+.popap_recall_sendler:hover {
+  background-color: #cba587;
+}
+
+.bad-news {
+  text-align: center;
+  padding: 13px;
+  font-size: 17px;
+  font-weight: 500;
+  color: darkred;
+  margin-top: 22px;
+  background-color: #e6bebe63;
+  border-radius: 34px 0px;
+}
+.good-news {
+  text-align: center;
+  padding: 13px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #00732e;
+  margin-top: 22px;
+  background-color: #c9e6be63;
+  border-radius: 34px 0px;
+}
+.callback_text {
+  color: #000;
+  font-weight: 500;
+  font-size: 17px;
+  text-align: center;
+  border-top: 3px solid #af8a6e;
+  border-right: 3px solid #af8a6e;
+  padding: 17px;
+  border-radius: 89px;
+}
+a.fixed {
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  right: -45px;
+  background-color: #000;
+  padding: 12px 18px 10px 12px;
+  color: #fff;
+  border-radius: 30px;
+  transform: rotate(-90deg);
+  font-size: 12px;
+}
+a.fixed:hover {
+  color:white;
+ }
+
+
+.absolute {
+  position: absolute;
+  z-index: 1000;
 }
 
 .body-popap {
-  margin-top: 35px;
   display: flex;
+  padding: 20px;
   flex-direction: column;
-  border-bottom: 2px solid black;
-  padding-bottom: 35px;
+  justify-content: center;
+  align-items: center;
 }
 .name_class {
   font-size: 20px;
@@ -112,20 +162,18 @@ div.content_callback {
   display: flex;
   justify-content: center;
 }
-.button_mail {
-  font-size: 15px;
-  margin-top: 25px;
-  width: 17%;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-}
 input.recall-phone{
-  width: 75%!important;
+
   display: flex;
   align-self: center;
-  padding: 8px 15px!important;
+  margin-top: 60px;
 
+}
+input.phone {
+  margin-top: 50px;
+}
+input.name {
+  margin-top: 30px;
 }
 span.news {
   text-align: center;
@@ -133,14 +181,27 @@ span.news {
   font-size: 17px;
   font-weight: 400;
 }
+button.fancybox-close-small> svg {
+  display: none;
+}
+
 /*-------------------------------------------------------------------------*/
 @media (min-width: 320px ) and (max-width: 800px){
 
-  .button_mail {
+  .popap_recall_sendler {
     width:70%;
   }
 }
-
+@media (min-width: 780px ) and (max-width: 1024px) {
+  .scroll_callback {
+    font-size: 11px;
+  }
+}
+@media (min-width: 320px) and (max-width: 1353px) {
+  header#top nav > ul > li[class*="button_solid_color"] > a:before, #header-outer.transparent header#top nav > ul > li[class*="button_solid_color"] > a:before {
+    height: 50px!important;
+  }
+}
 
 body{font-size:14px; -webkit-font-smoothing:antialiased; font-family:'Open Sans'; font-weight:400; background-color:#1C1C1C; line-height:26px}
 

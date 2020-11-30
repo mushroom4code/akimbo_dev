@@ -20,6 +20,15 @@ $options = get_nectar_theme_options();
 ?>
 
 <header id="top">
+    <div style="display: none" id="recall-popup">
+        <div class="body-popap">
+            <span class="callback_text">Укажите Ваш номер телефона и наш менеджер перезвонит Вам в ближайшее время </span>
+            <input placeholder="+7 (999) 999-9999" type="text" id="phone" class="recall-phone phone">
+            <input placeholder="Введите имя" type="text" class="name" id="name">
+            <button class="popap_recall_sendler" id="send_mail">Отправить</button>
+            <span class="news"></span>
+        </div>
+    </div>
   <div class="container">
 	<div class="row">
 	  <div class="col span_3">

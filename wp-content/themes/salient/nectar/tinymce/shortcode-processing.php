@@ -5356,26 +5356,21 @@ if(floatval(get_bloginfo('version')) < "3.6") {
 
 }
 
-function button_callback()
+function button_turboParser()
 {
     $html = '
-    <div class="content_callback">
-        <div class="box-recall">
-            <a id="openRecallform" href="#recall-popup" class="nectar-button medium see-through accent-color" style="font-size: 15px;">Заказать звонок</a>    
+        <div class="absolute ">
+            <a  class="fixed" href="https://akimbo.docker.oblako-1c.ru/wp-content/uploads/3feed-yml-0.yml">
+            <i class="fa fa-download" style="color:white;font-size: 14px;" aria-hidden="true"></i>
+             Выгрузить товары
+            </a>
         </div>
-        <div class="hidden_class" id="recall-popup">
-            <div class="body-popap">
-                <span class="name_class">Ваше имя :</span>
-                <input placeholder="Введите имя"  autocomplete="off" type="text" class="recall-phone" id="name">
-                <span class="name_class">Контактный телефон :</span>
-                <input placeholder="+7 (999) 999-9999"  autocomplete="off" type="text" class="recall-phone" id="phone">
-                <button class=" nectar-button medium see-through accent-color button_mail" style="font-size: 15px;" id="send_mail">Отправить</button>
-                <span class="news"></span>
-            </div>
-        </div> 
-    </div>';
+    
+    
+    ';
     return $html;
+
 }
 
-add_shortcode('button_callback', 'button_callback');
+add_shortcode('button_turboParser', 'button_turboParser');
 ?>

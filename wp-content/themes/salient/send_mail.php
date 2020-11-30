@@ -7,7 +7,7 @@ if(!empty($_POST['action']) && $_POST['action'] == 'send_mail') {
     $phone = $_POST['phone'];
     $name = $_POST['name'];
     if(!empty($name) && !empty($phone)) {
-        $to = "akimbomoda@yandex.ru";
+        $to = "rodionova@enterego.ru";
         $subject = "Заказать звонок";
         $html = "<!doctype html>
 <html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml' xmlns:o='urn:schemas-microsoft-com:office:office'>
@@ -16,7 +16,7 @@ if(!empty($_POST['action']) && $_POST['action'] == 'send_mail') {
   <title> </title>
   <!--[if !mso]><!-- -->
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <!--<![endif]-->
+  <!--<![endif]--> 
   <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <style type='text/css'>
