@@ -5356,21 +5356,21 @@ if(floatval(get_bloginfo('version')) < "3.6") {
 
 }
 
-function button_turboParser()
-{
-    $html = '
-        <div class="absolute ">
-            <a  class="fixed" href="https://akimbo.docker.oblako-1c.ru/wp-content/uploads/3feed-yml-0.yml">
-            <i class="fa fa-download" style="color:white;font-size: 14px;" aria-hidden="true"></i>
-             Выгрузить товары
-            </a>
-        </div>
-    
-    
-    ';
-    return $html;
-
-}
-
-add_shortcode('button_turboParser', 'button_turboParser');
+//function button_turboParser()
+//{
+//    $html = '
+//        <div class="absolute ">
+//            <a  class="fixed" href="https://akimbo.docker.oblako-1c.ru/wp-content/uploads/3feed-yml-0.yml">
+//            <i class="fa fa-download" style="color:white;font-size: 14px;" aria-hidden="true"></i>
+//             Выгрузить товары
+//            </a>
+//        </div>
+//
+//
+//    ';
+//    return $html;
+//
+//}
+//
+//add_shortcode('button_turboParser', 'button_turboParser');
 ?>

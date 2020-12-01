@@ -197,4 +197,7 @@ jQuery(document).ready(function($){
 		});
 	})
 
+	$('#openBut').on('click',function(){
+		$('#openButtons').toggleClass();
+	})
 })
