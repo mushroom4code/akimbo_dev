@@ -22,16 +22,7 @@ function iconic_get_account_fields() {
 			'hide_in_admin'        => false,
 			'hide_in_checkout'     => false,
 			'hide_in_registration' => false,
-			'required'             => true,
-		),
-		'address_new'                  => array(
-			'type'                 => 'text',
-			'label'                => __( 'Регион/Город/Адрес', 'iconic' ),
-			'hide_in_account'      => true,
-			'hide_in_admin'        => true,
-			'hide_in_checkout'     => true,
-			'hide_in_registration' => false,
-			'required'             => true,
+			'required'             => false,
 		),
 		'user_url'                   => array(
 			'type'                 => 'text',
@@ -54,8 +45,15 @@ function iconic_get_account_fields() {
                 4  => __( 'Крупный опт', 'iconic' ),
 			),
 		),
-
-
+        'all_name'                   => array(
+            'type'                 => 'text',
+            'label'                => __( 'Отчество', 'iconic' ),
+            'hide_in_account'      => false,
+            'hide_in_admin'        => false,
+            'hide_in_checkout'     => false,
+            'hide_in_registration' => true,
+            'required'             => false,
+        ),
 
 	) );
 }
@@ -218,6 +216,7 @@ function iconic_is_userdata( $key ) {
 	$userdata = array(
 		'user_pass',
 		'user_login',
+        'all_name',
 		'user_nicename',
         'address_new',
         'user_url',

@@ -492,7 +492,7 @@ if ( ! function_exists( 'woocommerce_catalog_ordering' ) ) {
             'popularity' => __( 'Sort by popularity', 'woocommerce' ),
             'rating'     => __( 'Sort by average rating', 'woocommerce' ),
             'first_date' => "По новизне",
-//            'date'       => __( 'Sort by latest', 'woocommerce' ),
+            'date'       => __( 'Sort by latest', 'woocommerce' ),
             'price'      => __( 'Sort by price: low to high', 'woocommerce' ),
             'price-desc' => __( 'Sort by price: high to low', 'woocommerce' ),
         ) );

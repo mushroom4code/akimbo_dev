@@ -121,7 +121,9 @@ footer, header, hgroup, menu, nav, section{    display:block}
   padding: 17px;
   border-radius: 89px;
 }
-
+p.none {
+  display: none;
+}
 a.fixed {
   position: fixed;
   z-index: 1000;

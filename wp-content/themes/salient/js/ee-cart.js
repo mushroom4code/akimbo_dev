@@ -197,6 +197,17 @@ jQuery(document).ready(function($){
 		});
 	})
 
+	let href_1 = window.location.href;
+	let href =  'https://akimbo.docker.oblako-1c.ru/register/';
+	if (href_1 == href) {
+		$('p#billing_postcode_field').addClass('none');
+	} else {
+		$('p#billing_postcode_field').addClass('none');
+	}
+
+
+
+
 	$('#openBut').on('click',function(){
 		$('#openButtons').toggleClass();
 	})

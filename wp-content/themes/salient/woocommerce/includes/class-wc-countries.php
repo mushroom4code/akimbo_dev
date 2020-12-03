@@ -638,7 +638,7 @@ class WC_Countries {
                 'priority'     => 20,
             ),
             'company'    => array(
-                'label'        => __( 'Promotion of the company / your store / shopping center', 'woocommerce' ),
+                'label'        => __( 'ИМЯ КОМПАНИИ', 'woocommerce' ),
                 'class'        => array( 'form-row-wide' ),
                 'autocomplete' => 'organization',
                 'priority'     => 30,
@@ -721,7 +721,7 @@ class WC_Countries {
             'address_1' => '#billing_address_1_field, #shipping_address_1_field',
             'address_2' => '#billing_address_2_field, #shipping_address_2_field',
             'state'     => '#billing_state_field, #shipping_state_field, #calc_shipping_state_field',
-            'postcode'  => '#billing_postcode_field, #shipping_postcode_field, #calc_shipping_postcode_field',
+//            'postcode'  => '#billing_postcode_field, #shipping_postcode_field, #calc_shipping_postcode_field',
             'city'      => '#billing_city_field, #shipping_city_field, #calc_shipping_city_field',
         );
         return apply_filters( 'woocommerce_country_locale_field_selectors', $locale_fields );
