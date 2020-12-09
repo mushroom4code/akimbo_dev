@@ -67,7 +67,6 @@ footer, header, hgroup, menu, nav, section{    display:block}
 @font-face{    font-family:'Open Sans';     src:url('css/fonts/OpenSansBold-webfont.eot');     src:url('css/fonts/OpenSansBold-webfont.eot?#iefix') format('embedded-opentype'),         url('css/fonts/OpenSansBold-webfont.woff') format('woff'),         url('css/fonts/OpenSansBold-webfont.ttf') format('truetype'),         url('css/fonts/OpenSansBold-webfont.svg#OpenSansBold') format('svg');  font-weight:700;  font-style:normal}
 
 
-
 /*-------------------------------------------------------------------------*/
 /*	2. Globally Applied Styles
 /*-------------------------------------------------------------------------*/
@@ -121,6 +120,7 @@ footer, header, hgroup, menu, nav, section{    display:block}
   padding: 17px;
   border-radius: 89px;
 }
+
 p.none {
   display: none;
 }
@@ -205,12 +205,26 @@ span.news {
 button.fancybox-close-small> svg {
   display: none;
 }
-
+.mobile-callback {
+  display: none;
+}
 /*-------------------------------------------------------------------------*/
 @media (min-width: 320px ) and (max-width: 800px){
 
   .popap_recall_sendler {
     width:70%;
+  }
+  .mobile-callback {
+    display: block;
+    width: 11%;
+  }
+  .columns_call {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .recall-buttonsss {
+    display: none;
   }
 }
 @media (min-width: 780px ) and (max-width: 1024px) {
