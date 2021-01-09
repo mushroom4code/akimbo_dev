@@ -450,7 +450,7 @@ function woo_remove_product_tabs( $tabs ) {
 }
 
 function skyverge_add_postmeta_ordering_args( $sort_args ) {
-    $orderby_value = isset($_GET['orderby']) ? wc_clean($_GET['orderby']) : apply_filters('woocommerce_default_catalog_orderby', 'first_date');
+    $orderby_value = isset($_GET['orderby']) ? wc_clean($_GET['orderby']) : apply_filters('woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
 //    $orderby_value = apply_filters('woocommerce_default_catalog_orderby', get_option('woocommerce_default_catalog_orderby'));
 	switch( $orderby_value ) {
 		case 'price-desc':
