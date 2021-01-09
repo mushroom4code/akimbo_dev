@@ -18,17 +18,32 @@ $nectar_header_options = nectar_get_header_variables();
 $options = get_nectar_theme_options();
 
 ?>
-
+<script src="//code-ya.jivosite.com/widget/AOiLGToUyz" async></script>
 <header id="top">
-    <div style="display: none" id="recall-popup">
-        <div class="body-popap">
-            <span class="callback_text">Укажите Ваш номер телефона и наш менеджер перезвонит Вам в ближайшее время </span>
-            <input placeholder="+7 (999) 999-9999" type="text" id="phone" class="recall-phone phone">
-            <input placeholder="Введите имя" type="text" class="name" id="name">
-            <button class="popap_recall_sendler" id="send_mail">Отправить</button>
-            <span class="news"></span>
-        </div>
+<!--  Eit by Enterego / rodionova -->
+    <div class="absolute">
+ <?php
+ if ( is_user_logged_in() ) {
+     ?>
+         <a  class="fixed" href="https://akimbo.docker.oblako-1c.ru/wp-content/uploads/3feed-yml-0.yml">
+             <i class="fa fa-download" style="color:white;font-size: 14px;" aria-hidden="true"></i>
+             Выгрузить товары
+         </a>
+ <?php } else { ?>
+     <a  class="fixed" href="#openButtons" id="openBut">
+         <i class="fa fa-download" style="color:white;font-size: 14px;" aria-hidden="true"></i>
+         Выгрузить товары
+     </a>
+    <div class="none_block" id="openButtons">
+            <div class="fixed">
+                 <span class="callback_text">Для получения сылки вам необходимо <a href="https://akimbo.docker.oblako-1c.ru/register/">Зарегистрироваться</a>
+                 </span>
+            </div>
     </div>
+<?php }?>
+    </div>
+
+
   <div class="container">
 	<div class="row">
 	  <div class="col span_3">
@@ -69,7 +84,7 @@ $options = get_nectar_theme_options();
 		<?php } ?>
 	  </div><!--/span_3-->
 	   
-	  <div class="col span_9 col_last">
+	  <div class="col span_9 col_last columns_call">
 		<?php if ( $nectar_header_options['has_main_menu'] == 'true' && $nectar_header_options['mobile_fixed'] == 'false' && $nectar_header_options['prepend_top_nav_mobile'] != '1' && $nectar_header_options['theme_skin'] != 'material' ) { ?>
 		  <div class="slide-out-widget-area-toggle mobile-icon std-menu <?php echo esc_attr( $nectar_header_options['side_widget_class'] ); ?>" data-icon-animation="simple-transform">
 			<div> <a id="toggle-nav" href="#sidewidgetarea" class="closed"> <span> <i class="lines-button x2"> <i class="lines"></i> </i> </span> </a> </div> 
@@ -79,7 +94,19 @@ $options = get_nectar_theme_options();
 
 if ( $nectar_header_options['header_search'] != 'false' && $nectar_header_options['theme_skin'] == 'material' ) {
 	?>
+       <a class="mobile-callback recall-button" href="#recall-popup" id="openRecallform"><img class="img_box" src="https://akimbo-moda.ru/wp-content/uploads/2020/12/PHONE-1.png"></a>
+
+    <div style="display: none" id="recall-popup">
+        <div class="body-popap">
+            <span class="callback_text">Укажите Ваш номер телефона и наш менеджер перезвонит Вам в ближайшее время </span>
+            <input placeholder="+7 (999) 999-9999" type="text" id="phone" class="recall-phone phone">
+            <input placeholder="Введите имя" type="text" class="name" id="name">
+            <button class="popap_recall_sendler" id="send_mail">Отправить</button>
+            <span class="news"></span>
+        </div>
+    </div>
 		  <a class="mobile-search" href="#searchbox"><span class="nectar-icon icon-salient-search" aria-hidden="true"></span></a>
+
 		<?php
 }
 
