@@ -43,7 +43,7 @@ echo '<pre style="display: none">';
     echo '</pre>';
 
 if($product->get_price() == 0  && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes'){?>
-    <span class="CustomEmptyPrice">Под заказ</span>
+    <span class="CustomEmptyPrice">В производстве</span>
 <?php }else{ ?>
     <p class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) );?>"><?php echo $product->get_price_html().' '. $infoMessage  ;?></p>
 <?php } ?>
