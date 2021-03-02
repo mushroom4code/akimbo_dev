@@ -44,7 +44,7 @@ if( count($emptyStock) == $i){
 // Enterego(V.Mikheev) for add to cart product with empty price and stocks
 if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
     ?>
-    <span style="margin-top: 0px; font-size: 15px" class="CustomEmptyPrice">Под заказ</span>
+    <span style="margin-top: 0px; font-size: 15px" class="CustomEmptyPrice">В производстве</span>
 <?php } else {
     if ($price_html = $product->get_price_html()) : ?>
         <span class="price"><?php echo $price_html .' '.$infoMessage ?></span>

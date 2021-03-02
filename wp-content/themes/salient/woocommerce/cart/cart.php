@@ -365,7 +365,7 @@ $arProdId = $arProdId_mob = $_SESSION['gryaka'];
                         <?php
                        // Enterego(V.Mikheev) for add to cart product with empty price and stock
                        if($_product->get_stock_quantity() == 0 && $_product->get_backorders()== 'yes' && $_product->get_price() == 0 ){
-                        echo ' <span  style="font-size: 15px!important;" class="CustomEmptyPrice">Под заказ</span>';
+                        echo ' <span  style="font-size: 15px!important;" class="CustomEmptyPrice">В производстве</span>';
                        }else{
                         echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
                         }

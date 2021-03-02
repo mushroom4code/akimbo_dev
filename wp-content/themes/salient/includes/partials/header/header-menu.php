@@ -18,7 +18,7 @@ $nectar_header_options = nectar_get_header_variables();
 $options = get_nectar_theme_options();
 
 ?>
-<script src="//code-ya.jivosite.com/widget/AOiLGToUyz" async></script>
+
 <header id="top">
   <div class="container">
 	<div class="row">
