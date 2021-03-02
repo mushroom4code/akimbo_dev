@@ -20,30 +20,6 @@ $options = get_nectar_theme_options();
 ?>
 <script src="//code-ya.jivosite.com/widget/AOiLGToUyz" async></script>
 <header id="top">
-<!--  Eit by Enterego / rodionova -->
-    <div class="absolute">
- <?php
- if ( is_user_logged_in() ) {
-     ?>
-         <a  class="fixed" href="https://akimbo.docker.oblako-1c.ru/wp-content/uploads/3feed-yml-0.yml">
-             <i class="fa fa-download" style="color:white;font-size: 14px;" aria-hidden="true"></i>
-             Выгрузить товары
-         </a>
- <?php } else { ?>
-     <a  class="fixed" href="#openButtons" id="openBut">
-         <i class="fa fa-download" style="color:white;font-size: 14px;" aria-hidden="true"></i>
-         Выгрузить товары
-     </a>
-    <div class="none_block" id="openButtons">
-            <div class="fixed">
-                 <span class="callback_text">Для получения сылки вам необходимо <a href="https://akimbo.docker.oblako-1c.ru/register/">Зарегистрироваться</a>
-                 </span>
-            </div>
-    </div>
-<?php }?>
-    </div>
-
-
   <div class="container">
 	<div class="row">
 	  <div class="col span_3">
