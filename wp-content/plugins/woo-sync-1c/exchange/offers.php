@@ -351,6 +351,7 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
             if (empty($price)) {
                 update_post_meta($product_variation_id,'_price',0);
                 update_post_meta($product_variation_id,'_regular_price',0);
+                update_post_meta($product_variation_id,'_new_sale_price',0);
             }
         }
 
@@ -398,6 +399,7 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
 
     if (isset($offer['Цены'])) {
         $post_meta['_sale_price']=null;
+        $post_meta['_new_sale_price']= null;
         foreach ($offer['Цены'] as $offer_price) {
             $price = isset($offer_price['ЦенаЗаЕдиницу']) ? wc1c_parse_decimal($offer_price['ЦенаЗаЕдиницу']) : null;
 
@@ -415,6 +417,8 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
                 $post_meta['_sale_price'] = $price;
                 $post_meta['_price'] = $price;
             }
+            $sale_proc = (int)(($post_meta['_regular_price'] - $post_meta['_sale_price'])/($post_meta['_regular_price']))* 100;
+            $post_meta['_new_sale_price'] = $sale_proc;
         }
     };
 
