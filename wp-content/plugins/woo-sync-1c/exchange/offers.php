@@ -417,10 +417,10 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
                 $post_meta['_sale_price'] = $price;
                 $post_meta['_price'] = $price;
             }
-            $sale_proc = (int)(($post_meta['_regular_price'] - $post_meta['_sale_price'])/($post_meta['_regular_price']))* 100;
+            $sale_proc = (($post_meta['_regular_price'] - $post_meta['_sale_price'])/$post_meta['_regular_price'])* 100;
             $post_meta['_new_sale_price'] = $sale_proc;
         }
-    };
+    }
 
     $guids = get_option('wc1c_guid_attributes', array());
     $current_post_meta = get_post_meta($post_id);
