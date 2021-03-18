@@ -38,9 +38,6 @@ foreach ($variations1 as $value) {
 if( count($emptyStock) == $i){
     $infoMessage = 'Нет в наличии';
 }
-echo '<pre style="display: none">';
-        print_r($product->get_stock_quantity());
-    echo '</pre>';
 
 if($product->get_price() == 0  && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes'){?>
     <span class="CustomEmptyPrice">В производстве</span>
