@@ -25,7 +25,11 @@ global $post, $product;
 ?>
 <?php if ( $product->is_on_sale() ) : ?>
 
-	<?php echo apply_filters( 'woocommerce_sale_flash', '<span class="onsale">Sale!</span>', $post, $product ); ?>
+	<?php  if (sale($product) !== ''){
+		echo apply_filters( 'woocommerce_sale_flash', '<span class="onsale">'.sale($product).'</span>', $post, $product );
+	}else {
+		echo apply_filters( 'woocommerce_sale_flash', '<span class="onsale">Sale!</span>', $post, $product );
+	} ?>
 
 <?php endif;
 

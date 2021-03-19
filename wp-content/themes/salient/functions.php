@@ -597,3 +597,26 @@ $address_fields['postcode']['required'] = false; //почтовый индекс
  
 return $address_fields;
 }
+function getSale($product){
+    $post_id = $product->get_id();
+    return  get_post_meta($post_id,'_new_sale_price',true);
+}
+
+function salePrice($product){
+    $result = getSale($product);
+    if( $result === '' && $result == 0 || $result === '0'){
+        $text = '';
+    }else {
+        $text = "Ваша скидка на товар составляет  <b>$result %</b>";
+    }
+    return $text;
+}
+function sale($product){
+    $result = getSale($product);
+    if( $result === '' && $result == 0 || $result === '0'){
+        $text = '';
+    }else {
+        $text = "<b> - $result %</b>";
+    }
+    return $text;
+}
