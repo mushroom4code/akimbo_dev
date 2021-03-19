@@ -607,7 +607,7 @@ function salePrice($product){
     if( $result === '' && $result == 0 || $result === '0'){
         $text = '';
     }else {
-        $text = "Ваша скидка на товар составляет  <b>$result %</b>";
+        $text = "Ваша скидка на товар составляет  <b  class='onsale' style='color: #af8a6e;'>$result %</b>";
     }
     return $text;
 }
