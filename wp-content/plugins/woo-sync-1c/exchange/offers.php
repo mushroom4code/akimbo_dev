@@ -367,7 +367,7 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
 
             if (isset($offer_post_meta['_sale_price'])) {
                 $sale_proc = (($offer_post_meta['_regular_price'] - $offer_post_meta['_sale_price'])/$offer_post_meta['_regular_price'])* 100;
-                $product_post_meta['_new_sale_price'] = $sale_proc;
+                $product_post_meta['_new_sale_price'] = ceil($sale_proc);
             } else {
                 $product_post_meta['_new_sale_price'] = 0;
             }
