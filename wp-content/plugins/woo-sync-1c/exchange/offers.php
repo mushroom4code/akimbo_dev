@@ -351,7 +351,6 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
             if (empty($price)) {
                 update_post_meta($product_variation_id,'_price',0);
                 update_post_meta($product_variation_id,'_regular_price',0);
-                update_post_meta($product_variation_id,'_new_sale_price',0);
             }
         }
 
@@ -359,11 +358,24 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
         $offer_post_meta = wc1c_replace_offer_post_meta($is_full, $product_variation_id, $suboffer, $attributes,$product_coming_soon);
 
         if (isset($offer_post_meta['_price'])){
-            $product_post_meta['_price'] = isset($product_post_meta['_price']) ? (min($product_post_meta['_price'],$offer_post_meta['_price'])):$offer_post_meta['_price'];
+
+            if (isset($product_post_meta['_price'])) {
+                $product_post_meta['_price'] = (min($product_post_meta['_price'], $offer_post_meta['_price']));
+            } else {
+                $product_post_meta['_price'] = $offer_post_meta['_price'];
+            }
+
+            if (isset($offer_post_meta['_sale_price'])) {
+                $sale_proc = (($offer_post_meta['_regular_price'] - $offer_post_meta['_sale_price'])/$offer_post_meta['_regular_price'])* 100;
+                $product_post_meta['_new_sale_price'] = $sale_proc;
+            } else {
+                $product_post_meta['_new_sale_price'] = 0;
+            }
         }
     }
     if (!empty($product_post_meta['_price'])){
         update_post_meta($post_id,"_price",$product_post_meta['_price']);
+        update_post_meta($post_id,"_new_sale_price",$product_post_meta['_new_sale_price']);
     }
 }
 
@@ -399,7 +411,6 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
 
     if (isset($offer['Цены'])) {
         $post_meta['_sale_price']=null;
-        $post_meta['_new_sale_price']= null;
         foreach ($offer['Цены'] as $offer_price) {
             $price = isset($offer_price['ЦенаЗаЕдиницу']) ? wc1c_parse_decimal($offer_price['ЦенаЗаЕдиницу']) : null;
 
@@ -416,10 +427,11 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
             } elseif ($offer_price['ИдТипаЦены'] === $wc1c_option['wc1c_product_sale_price']) {
                 $post_meta['_sale_price'] = $price;
                 $post_meta['_price'] = $price;
+
             }
-            $sale_proc = (($post_meta['_regular_price'] - $post_meta['_sale_price'])/$post_meta['_regular_price'])* 100;
-            $post_meta['_new_sale_price'] = $sale_proc;
+
         }
+
     }
 
     $guids = get_option('wc1c_guid_attributes', array());
