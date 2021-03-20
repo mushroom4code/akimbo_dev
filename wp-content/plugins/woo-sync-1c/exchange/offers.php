@@ -585,6 +585,9 @@ function wc1c_update_product($post_id, $arOffers)
             $guids = get_option('wc1c_guid_attributes', array());
 
             $current_product_attributes = get_post_meta($post_id, '_product_attributes', true);
+
+            $current_product_price = get_post_meta($post_id, '_new_sale_price', true);
+
             if (!$current_product_attributes) {
                 $current_product_attributes = array();
             }
@@ -621,11 +624,14 @@ function wc1c_update_product($post_id, $arOffers)
                                 $term_ids[] = $term_id;
                             }
                         }
-                        // Enterego V.Mikheev fix 
+                        // Enterego
                         // added all product in category "all product"
                         $term_ids[] = '86'; // Ид категории "Все товары"
                         wc1c_update_product_category($post_id, $term_ids, $attribute['taxonomy']);
-
+                        if ($current_product_price !== 0 && $current_product_price !== '' ||  $current_product_price !== '0'){
+                            $term_ids[] = '49'; // Ид категории "Все товары"
+                            wc1c_update_product_category($post_id, $term_ids, $attribute['taxonomy']);
+                        }
                     }
                 }
             }
