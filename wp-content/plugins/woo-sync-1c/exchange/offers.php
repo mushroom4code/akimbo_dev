@@ -229,7 +229,7 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
     wc1c_update_product($post_id, $suboffers['offers']);
 
     //Enterego - скоро в продаже
-    $product_coming_soon = get_post_meta($post_id,'coming_soon',true);
+    $product_coming_soon = get_post_meta($post_id, 'coming_soon', true);
     //
     $quantity_summ = 0;
     $update_rest = false;
@@ -243,17 +243,17 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
     if ($update_rest) {
         //Enterego - перемещаем товар в новинки из скоро в продаже если есть остатки
         if ($quantity_summ > 0) {
-            $res = wc1c_update_coming_soon_sale($post_id,$wc1c_ar_options['wc1c_soon_sale'],$wc1c_ar_options['wc1c_new']);
+            $res = wc1c_update_coming_soon_sale($post_id, $wc1c_ar_options['wc1c_soon_sale'], $wc1c_ar_options['wc1c_new']);
             if ($res)
-                update_post_meta($post_id,'wc1c_datetime_new_category',time());
+                update_post_meta($post_id, 'wc1c_datetime_new_category', time());
         }
 
         update_post_meta($post_id, '_manage_stock', 'yes');
         update_post_meta($post_id, '_stock', $quantity_summ);
 
-       
+
         //Enterego - скоро в продаже
-        if ($product_coming_soon==='true') {
+        if ($product_coming_soon === 'true') {
             $stock_status = $quantity_summ > 0 ? 'instock' : 'onbackorder';
             $backorders = 'yes';
         } else {
@@ -262,7 +262,7 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
 
             if ($update_rest && $quantity_summ == 0) {
                 foreach ($suboffers['offers'] as $suboffer) {
-                    
+
                     if ($suboffer["КоличествоНаСезон"] > 0) {
                         $backorders = 'yes';
                         $stock_status = "onbackorder";
@@ -345,19 +345,19 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
             }
         }
         //Enterego - скоро в продаже
-        if ($product_coming_soon==='true') {
-            $price = get_post_meta($product_variation_id,'_price',true);
+        if ($product_coming_soon === 'true') {
+            $price = get_post_meta($product_variation_id, '_price', true);
 
             if (empty($price)) {
-                update_post_meta($product_variation_id,'_price',0);
-                update_post_meta($product_variation_id,'_regular_price',0);
+                update_post_meta($product_variation_id, '_price', 0);
+                update_post_meta($product_variation_id, '_regular_price', 0);
             }
         }
 
 
-        $offer_post_meta = wc1c_replace_offer_post_meta($is_full, $product_variation_id, $suboffer, $attributes,$product_coming_soon);
+        $offer_post_meta = wc1c_replace_offer_post_meta($is_full, $product_variation_id, $suboffer, $attributes, $product_coming_soon);
 
-        if (isset($offer_post_meta['_price'])){
+        if (isset($offer_post_meta['_price'])) {
 
             if (isset($product_post_meta['_price'])) {
                 $product_post_meta['_price'] = (min($product_post_meta['_price'], $offer_post_meta['_price']));
@@ -366,16 +366,23 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
             }
 
             if (isset($offer_post_meta['_sale_price'])) {
-                $sale_proc = (($offer_post_meta['_regular_price'] - $offer_post_meta['_sale_price'])/$offer_post_meta['_regular_price'])* 100;
+                $product_post_meta['_sale_price'] = (min($product_post_meta['_sale_price'], $offer_post_meta['_sale_price']));
+                $sale_proc = (($offer_post_meta['_regular_price'] - $offer_post_meta['_sale_price']) / $offer_post_meta['_regular_price']) * 100;
                 $product_post_meta['_new_sale_price'] = ceil($sale_proc);
             } else {
                 $product_post_meta['_new_sale_price'] = 0;
             }
+
         }
     }
-    if (!empty($product_post_meta['_price'])){
-        update_post_meta($post_id,"_price",$product_post_meta['_price']);
-        update_post_meta($post_id,"_new_sale_price",$product_post_meta['_new_sale_price']);
+    if (!empty($product_post_meta['_price'])) {
+        update_post_meta($post_id, "_price", $product_post_meta['_price']);
+        update_post_meta($post_id, "_new_sale_price", $product_post_meta['_new_sale_price']);
+    }
+
+    if ($product_post_meta['_new_sale_price'] !== 0 && isset($product_post_meta['_new_sale_price']))  {
+        $term_ids[] = '49';
+        wc1c_update_product_category($post_id, $term_ids,'taxonomy');
     }
 }
 
@@ -404,13 +411,13 @@ function wc1c_update_currency($currency)
  * product_coming_soon
  */
 //function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = array())
-function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = array(),$product_coming_soon='false')//enterego скоро в продаже
+function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = array(), $product_coming_soon = 'false')//enterego скоро в продаже
 {
     $post_meta = array();
     $wc1c_option = wc1c_options::wc1c_get_options();
 
     if (isset($offer['Цены'])) {
-        $post_meta['_sale_price']=null;
+        $post_meta['_sale_price'] = null;
         foreach ($offer['Цены'] as $offer_price) {
             $price = isset($offer_price['ЦенаЗаЕдиницу']) ? wc1c_parse_decimal($offer_price['ЦенаЗаЕдиницу']) : null;
 
@@ -483,18 +490,17 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
 
             //Enterego - количество на заказ скоро в продаже
             if ($quantity > 0) {
-                $stock_status =  'instock';
+                $stock_status = 'instock';
                 $backorders = 'no';
             } else {
-                if ($offer['КоличествоНаСезон']>0) {
-                    $stock_status =  'onbackorder';
+                if ($offer['КоличествоНаСезон'] > 0) {
+                    $stock_status = 'onbackorder';
                     $backorders = 'yes';
-                } elseif ($product_coming_soon==='true'){
-                    $stock_status =  'onbackorder';
+                } elseif ($product_coming_soon === 'true') {
+                    $stock_status = 'onbackorder';
                     $backorders = 'yes';
-                }
-                else {
-                    $stock_status =  'outofstock';
+                } else {
+                    $stock_status = 'outofstock';
                     $backorders = 'no';
                 }
             }
@@ -586,8 +592,6 @@ function wc1c_update_product($post_id, $arOffers)
 
             $current_product_attributes = get_post_meta($post_id, '_product_attributes', true);
 
-            $current_product_price = get_post_meta($post_id, '_new_sale_price', true);
-
             if (!$current_product_attributes) {
                 $current_product_attributes = array();
             }
@@ -628,10 +632,7 @@ function wc1c_update_product($post_id, $arOffers)
                         // added all product in category "all product"
                         $term_ids[] = '86'; // Ид категории "Все товары"
                         wc1c_update_product_category($post_id, $term_ids, $attribute['taxonomy']);
-                        if ($current_product_price !== 0 && $current_product_price !== '' ||  $current_product_price !== '0'){
-                            $term_ids[] = '49'; // Ид категории "Все товары"
-                            wc1c_update_product_category($post_id, $term_ids, $attribute['taxonomy']);
-                        }
+
                     }
                 }
             }
