@@ -15,35 +15,47 @@
  * @version 3.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
 global $product;
 // Enterego(V.Mikheev) et display info about out of stock or get back soon
-$infoMessage= '';
+$infoMessage = '';
 $handle = new WC_Product_Variable($product->get_id());
 $variations1 = $handle->get_children();
-$i=0;
+$i = 0;
 $emptyStock = array();
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
     if ($single_variation->stock_status == 'onbackorder' && $product->get_stock_quantity() == 0) {
         $infoMessage = 'Скоро в наличии';
-    }elseif ($single_variation->stock_status == 'outofstock'){
+    } elseif ($single_variation->stock_status == 'outofstock') {
         $emptyStock [] = 1;
     }
     $i++;
 }
-if( count($emptyStock) == $i){
+if (count($emptyStock) == $i) {
     $infoMessage = 'Нет в наличии';
 }
 
+$NewData = $product->get_attribute('pa_data-pervogo-postupleniya');
+if ($NewData !== '' && isset($NewData)) {
+    echo '<div class="new_data"><b style="">Дата первого поступления</b>
+            <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $NewData . '</span></div>';
+} else {
+    echo '';
+}
+
+
 echo salePrice($product);
-if($product->get_price() == 0  && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes'){?>
+if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
+    ?>
     <span class="CustomEmptyPrice">В производстве</span>
-<?php }else{ ?>
-    <p class="<?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) );?>"><?php echo $product->get_price_html().' '. $infoMessage  ;?></p>
-<?php } ?>
+<?php } else { ?>
+    <p class="<?php echo esc_attr(apply_filters('woocommerce_product_price_class', 'price')); ?>"><?php echo $product->get_price_html() . ' ' . $infoMessage; ?></p>
+<?php }
+
+?>
 
 

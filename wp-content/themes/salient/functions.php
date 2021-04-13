@@ -611,6 +611,8 @@ function salePrice($product){
     }
     return $text;
 }
+
+
 function sale($product){
     $result = getSale($product);
     if( $result === '' && $result == 0 || $result === '0'){
