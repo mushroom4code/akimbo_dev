@@ -21,33 +21,47 @@ if (!defined('ABSPATH')) {
 
 global $product;
 // Enterego(V.Mikheev) et display info about out of stock or get back soon
-$infoMessage= '';
+$infoMessage = '';
 $handle = new WC_Product_Variable($product->get_id());
 $variations1 = $handle->get_children();
-$i=0;
+$i = 0;
 $emptyStock = array();
+
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
     if ($single_variation->stock_status == 'onbackorder' && $product->get_stock_quantity() == 0) {
         $infoMessage = 'Скоро в наличии';
-    }elseif ($single_variation->stock_status == 'outofstock'){
+    } elseif ($single_variation->stock_status == 'outofstock') {
         $emptyStock [] = 1;
     }
     $i++;
 }
-if( count($emptyStock) == $i){
+if (count($emptyStock) == $i) {
     $infoMessage = 'Нет в наличии';
 }
 
 
+$first_date = get_post_meta($product->get_id(), 'first_date', true);
+$planned_date = get_post_meta($product->get_id(), 'planned_date', true);
+$Date = '';
+if ($first_date !== '' && isset($first_date)) {
+    $Date = '';
+} else if ($planned_date !== '' && isset($planned_date)) {
+    $Date = '<div style="padding: 10px 0;">
+            <b style="font-weight: 600;font-size: 12px;color: black;margin-right: 12px;">Плановое поступление</b>
+            <span style="font-weight: 500;font-size: 15px;color: #af8a6e;">' . $planned_date . '</span>
+            </div>';
+} else {
+    $Date =  'Скоро в продаже';
+}
 
 // Enterego(V.Mikheev) for add to cart product with empty price and stocks
 if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
     ?>
-    <span style="margin-top: 0px; font-size: 15px" class="CustomEmptyPrice">В производстве</span>
+    <span style="margin-top: 0; font-size: 15px" class="CustomEmptyPrice">В производстве</span>
 <?php } else {
     if ($price_html = $product->get_price_html()) : ?>
-        <span class="price"><?php echo $price_html .' '.$infoMessage ?></span>
+        <span class="price"><?php echo $price_html . ' ' . $Date ?></span>
     <?php endif;
 }
 

@@ -43,8 +43,7 @@ $first_date = get_post_meta($product->get_id(),'first_date',true);
 $planned_date = get_post_meta($product->get_id(),'planned_date',true);
 
 if ($first_date !== '' && isset($first_date)) {
-    echo '<div class="new_data"><b style="">Дата первого поступления</b>
-            <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $first_date . '</span></div>';
+    echo '';
 } else if ($planned_date !== '' && isset($planned_date)){
     echo '<div class="new_data"><b style="">Плановая дата поступления</b>
             <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $planned_date . '</span></div>';
@@ -59,8 +58,6 @@ if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $produc
     <span class="CustomEmptyPrice">В производстве</span>
 <?php } else { ?>
     <p class="<?php echo esc_attr(apply_filters('woocommerce_product_price_class', 'price')); ?>"><?php echo $product->get_price_html() . ' ' . $infoMessage; ?></p>
-<?php }
-
-?>
+<?php } ?>
 
 
