@@ -39,6 +39,27 @@ class wc1c_options
         );
         woocommerce_wp_text_input($select_field);
 
+
+        $select_dates = array(
+            'id' => 'planned_date',
+            'label' => __('Плановая дата поставки'),
+            'desc_tip' => true,
+            'description' => __('Planned date'),
+        );
+
+        new_wp_text_input($select_dates);
+
+
+
+        $select_date = array(
+            'id' => 'first_date',
+            'label' => __('Дата первого поступления'),
+            'desc_tip' => true,
+            'description' => __('first date'),
+        );
+        new_wp_text_input($select_date);
+
+
         $chech_field = array(
             'id' => '_wc1c_standatr_module',
             'label' => __('Standart module'),
@@ -239,7 +260,7 @@ class wc1c_options
         }
 
         if (isset($input['wc1c_standart_module']))
-            $new_input['wc1c_standart_module']  = ($input['wc1c_standart_module'] === 'on') ? true : false;
+            $new_input['wc1c_standart_module'] = ($input['wc1c_standart_module'] === 'on') ? true : false;
 
         if (isset($input['wc1c_load_orders']))
             $new_input['wc1c_load_orders'] = (input['wc1c_load_orders'] === 'on') ? true : false;
@@ -317,31 +338,37 @@ class wc1c_options
         echo "<input type='number' class='secondary' placeholder='c' name='wc1c_options[wc1c_last_order_date_commited_s]' min='0' max='59' step='1' value=$time_s pattern='[0-5]{1}[0-9]{1}'>";
     }
 
-    public function wc1c_product_regular_price_callback(){
+    public function wc1c_product_regular_price_callback()
+    {
         $option_name = 'wc1c_product_regular_price';
-        $option_val= isset($this->options[$option_name]) ? $this->options[$option_name] : '';
+        $option_val = isset($this->options[$option_name]) ? $this->options[$option_name] : '';
 
-        $product_prices = get_option('wc1c_prices',array());
-        
-        ?> 
-        <select id="wc1c_product_regular_price" name="wc1c_options[wc1c_product_regular_price]" ><?php
-        foreach ($product_prices as $price_key=>$price_val) {
-            
-            $sel_option = ($option_val===$price_key) ? 'selected="selected"' : '';
-            ?> <option <?php echo $sel_option ?> label="<?php echo $price_val['Наименование'] ?>" value="<?php echo $price_key ?>"><?php echo $price_val['Наименование'] ?></option> <?php
+        $product_prices = get_option('wc1c_prices', array());
+
+        ?>
+        <select id="wc1c_product_regular_price" name="wc1c_options[wc1c_product_regular_price]"><?php
+        foreach ($product_prices as $price_key => $price_val) {
+
+            $sel_option = ($option_val === $price_key) ? 'selected="selected"' : '';
+            ?>
+            <option <?php echo $sel_option ?> label="<?php echo $price_val['Наименование'] ?>"
+                                              value="<?php echo $price_key ?>"><?php echo $price_val['Наименование'] ?></option> <?php
         }
         ?></select><?php
     }
 
-    public function wc1c_product_sale_price_callback(){
+    public function wc1c_product_sale_price_callback()
+    {
         $option_name = 'wc1c_product_sale_price';
-        $option_val= isset($this->options[$option_name]) ? $this->options[$option_name] : '';
+        $option_val = isset($this->options[$option_name]) ? $this->options[$option_name] : '';
 
-        $product_prices = get_option('wc1c_prices',array());
+        $product_prices = get_option('wc1c_prices', array());
         ?><select id="wc1c_product_sale_price" name="wc1c_options[<?php echo $option_name ?>]" ><?php
-        foreach ($product_prices as $price_key=>$price_val) {
-            $sel_option = ($option_val===$price_key) ? 'selected="selected"' : '';
-            ?> <option <?php echo $sel_option ?> label="<?php echo $price_val['Наименование'] ?>" value="<?php echo $price_key ?>"><?php echo $price_val['Наименование'] ?></option> <?php
+        foreach ($product_prices as $price_key => $price_val) {
+            $sel_option = ($option_val === $price_key) ? 'selected="selected"' : '';
+            ?>
+            <option <?php echo $sel_option ?> label="<?php echo $price_val['Наименование'] ?>"
+                                              value="<?php echo $price_key ?>"><?php echo $price_val['Наименование'] ?></option> <?php
         }
         ?></select><?php
     }
@@ -380,7 +407,7 @@ class wc1c_options
      */
     public static function wc1c_save_options($options)
     {
-        update_option('wc1c_options',$options);
+        update_option('wc1c_options', $options);
     }
 
 }
