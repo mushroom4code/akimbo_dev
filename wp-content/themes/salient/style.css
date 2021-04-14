@@ -14238,7 +14238,7 @@ video {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin: 20px 0;
+  margin: 40px 0;
   border-bottom: 1px solid #000000;
   padding: 10px 0;
 }

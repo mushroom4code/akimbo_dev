@@ -39,11 +39,16 @@ if (count($emptyStock) == $i) {
     $infoMessage = 'Нет в наличии';
 }
 
-$NewData = $product->get_attribute('pa_data-pervogo-postupleniya');
-if ($NewData !== '' && isset($NewData)) {
+$first_date = get_post_meta($product->get_id(),'first_date',true);
+$planned_date = get_post_meta($product->get_id(),'planned_date',true);
+
+if ($first_date !== '' && isset($first_date)) {
     echo '<div class="new_data"><b style="">Дата первого поступления</b>
-            <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $NewData . '</span></div>';
-} else {
+            <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $first_date . '</span></div>';
+} else if ($planned_date !== '' && isset($planned_date)){
+    echo '<div class="new_data"><b style="">Плановая дата поступления</b>
+            <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $planned_date . '</span></div>';
+}else {
     echo '';
 }
 
