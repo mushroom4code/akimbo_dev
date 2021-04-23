@@ -385,10 +385,10 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
         wc1c_update_product_category($post_id, $term_ids,'taxonomy');
     }
 
-    $metaStock = get_post_meta($post_id, '_stock', true);
+    $metaStock = get_post_meta($post_id, 'coming_soon', true);
     $metaDate = get_post_meta($post_id, 'planned_date', true);
 
-    if ($metaStock == '0' && isset($metaDate))  {
+    if ($metaStock === 'true' && $metaDate !== 'false')  {
         $term_ids[] = '84';
         wc1c_update_product_category($post_id, $term_ids,'taxonomy');
     }
