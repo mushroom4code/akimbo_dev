@@ -997,11 +997,16 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
 
             if($property['Ид'] === "first_date" && is_array($property['Значение']) && !empty($property['Значение'][0])) {
                 delete_post_meta($post_id, 'planned_date');
-                update_post_meta($post_id, 'first_date',date("d.m.Y", strtotime($property['Значение'][0])));
+                if($property['Значение'][0] !== ''){
+                    update_post_meta($post_id, 'first_date',date("d.m.Y", strtotime($property['Значение'][0])));
+
+                }else {
+                    update_post_meta($post_id, 'first_date', 'false');
+                }
                 continue;
             }
             if($property['Ид'] === "planned_date") {
-                if($property['Значение'][0] === 'фолсе'){
+                if($property['Значение'][0] === 'false' && isset($property['Значение'][0])){
                     update_post_meta($post_id, 'planned_date', 'false');
                 }else {
                     update_post_meta($post_id, 'planned_date', date("d.m.Y", strtotime($property['Значение'][0])));

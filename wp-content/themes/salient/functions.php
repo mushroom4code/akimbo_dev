@@ -647,7 +647,7 @@ function new_wp_text_input($field)
     $field['type'] = isset($field['type']) ? $field['type'] : 'text';
     $field['desc_tip'] = isset($field['desc_tip']) ? $field['desc_tip'] : false;
     $data_type = empty($field['data_type']) ? '' : $field['data_type'];
-    if ($field['value'] !== '') {
+    if ($field['value'] !== '' && $field['value'] !== 'false') {
         switch ($data_type) {
             case 'price':
                 $field['class'] .= ' wc_input_price';
