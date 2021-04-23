@@ -380,8 +380,16 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
         update_post_meta($post_id, "_new_sale_price", $product_post_meta['_new_sale_price']);
     }
 
-    if ($product_post_meta['_new_sale_price'] !== 0 && isset($product_post_meta['_new_sale_price']))  {
+    if ($product_post_meta['_new_sale_price'] !== 0 && isset($product_post_meta['_new_sale_price']) )  {
         $term_ids[] = '49';
+        wc1c_update_product_category($post_id, $term_ids,'taxonomy');
+    }
+
+    $metaStock = get_post_meta($post_id, '_stock', true);
+    $metaDate = get_post_meta($post_id, 'planned_date', true);
+
+    if ($metaStock == '0' && isset($metaDate))  {
+        $term_ids[] = '84';
         wc1c_update_product_category($post_id, $term_ids,'taxonomy');
     }
 }
