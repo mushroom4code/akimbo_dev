@@ -145,6 +145,7 @@ function wc1c_read_xml_rest($offer, $wc1c_offer)
         $sum_rest = 0;
         //Enterego - продажи сезона
         $quantity_backorder = 0;
+        //$stock_all = 0;
         //Enterego
         foreach ($offer->Остатки->Остаток as $rest_xml) {
             if (isset($rest_xml->Склад)) {
@@ -232,12 +233,18 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
     $product_coming_soon = get_post_meta($post_id, 'coming_soon', true);
     //
     $quantity_summ = 0;
+    $quantity_backorder_summ = 0;
     $update_rest = false;
     foreach ($suboffers['offers'] as $arOffer) {
         if (isset($arOffer["Количество"])) {
             $update_rest = true;
             $quantity = wc1c_parse_decimal($arOffer["Количество"]);
             $quantity_summ += $quantity;
+        }
+        if (isset($arOffer["КоличествоНаСезон"])) {
+            $update_rest = true;
+            $quantity_backorder = wc1c_parse_decimal($arOffer["КоличествоНаСезон"]);
+            $quantity_backorder_summ += $quantity_backorder;
         }
     }
     if ($update_rest) {
@@ -250,7 +257,8 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
 
         update_post_meta($post_id, '_manage_stock', 'yes');
         update_post_meta($post_id, '_stock', $quantity_summ);
-
+        //Enterego
+        update_post_meta($post_id, '_backorders_count', $quantity_backorder_summ);
 
         //Enterego - скоро в продаже
         if ($product_coming_soon === 'true') {
@@ -512,10 +520,15 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
                     $backorders = 'no';
                 }
             }
+
+            $backorders_count = $offer['КоличествоНаСезон'];
+
             update_post_meta($post_id, '_backorders', $backorders);
             // Enterego
 
             update_post_meta($post_id, '_stock_status', $stock_status);
+
+            update_post_meta($post_id, '_backorders_count', $backorders_count);
 
             //@wc_update_product_stock_status($post_id, $stock_status);//долго отрабатывает
         }

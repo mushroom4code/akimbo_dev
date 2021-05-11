@@ -1991,4 +1991,12 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		}
 		return apply_filters( 'woocommerce_get_availability_class', $class, $this );
 	}
+
+
+	//enterego
+
+    public function get_backorders_quantity()
+    {
+        return get_post_meta($this->id, '_backorders_count')[0];
+    }
 }

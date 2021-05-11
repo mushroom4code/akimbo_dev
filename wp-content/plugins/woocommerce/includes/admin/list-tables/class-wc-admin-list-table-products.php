@@ -115,6 +115,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 			$show_columns['is_in_stock'] = __( 'Stock', 'woocommerce' );
 		}
 
+		$show_columns['backorders']   = __('Ожидается', 'woocommerce');
 		$show_columns['price']        = __( 'Price', 'woocommerce' );
 		$show_columns['product_cat']  = __( 'Categories', 'woocommerce' );
 		$show_columns['product_tag']  = __( 'Tags', 'woocommerce' );
@@ -273,6 +274,25 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 
 		echo wp_kses_post( apply_filters( 'woocommerce_admin_stock_html', $stock_html, $this->object ) );
 	}
+
+    /**
+     * Render columm: backorders.
+     */
+    protected function render_backorders_column() {
+//        if ( $this->object->has_backorders() ) {
+//            $stock_html = '<mark class="onbackorder">' . __( 'On backorder', 'woocommerce' ) . '</mark>';
+//        } elseif ( $this->object->is_in_stock() ) {
+//            $stock_html = '<mark class="instock">' . __( 'In stock', 'woocommerce' ) . '</mark>';
+//        } else {
+//            $stock_html = '<mark class="outofstock">' . __( 'Out of stock', 'woocommerce' ) . '</mark>';
+//        }
+
+        if ( $this->object->managing_stock() ) {
+            $stock_html = '(' . wc_stock_amount( $this->object->get_backorders_quantity() ) . ')';
+        }
+
+        echo wp_kses_post( apply_filters( 'woocommerce_admin_stock_html', $stock_html, $this->object ) );
+    }
 
 	/**
 	 * Query vars for custom searches.

@@ -2597,6 +2597,11 @@
 		 width: 12ch;
 	 }
 
+	 .column-backorders {
+		 text-align: left !important;
+		 width: 10ch;
+	 }
+
 	 span.wc-image,
 	 span.wc-featured {
 		 @include ir();
