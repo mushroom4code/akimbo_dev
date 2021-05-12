@@ -245,6 +245,7 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
             $update_rest = true;
             $quantity_backorder = wc1c_parse_decimal($arOffer["КоличествоНаСезон"]);
             $quantity_backorder_summ += $quantity_backorder;
+            $quantity_summ += $quantity_backorder;
         }
     }
     if ($update_rest) {
@@ -499,7 +500,11 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
     }
 
     if (isset($offer['Количество'])) {
+
         $quantity = $offer['Количество'];
+        if (isset($offer['КоличествоНаСезон'])) {
+            $quantity += $offer['КоличествоНаСезон'];
+        }
         if (!is_null($quantity)) {
             update_post_meta($post_id, '_stock', $quantity);
             //wc_update_product_stock($post_id, $quantity);

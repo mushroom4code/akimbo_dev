@@ -547,16 +547,4 @@ class WC_Product_Variation extends WC_Product_Simple {
 
 		return $valid_classes;
 	}
-
-	//Enterego
-
-    public function get_backorders_quantity()
-    {
-        return get_post_meta($this->id, '_backorders_count')[0];
-    }
-
-    public function get_full_quantity()
-    {
-        return ($this->get_backorders_quantity() + $this->get_stock_quantity());
-    }
 }

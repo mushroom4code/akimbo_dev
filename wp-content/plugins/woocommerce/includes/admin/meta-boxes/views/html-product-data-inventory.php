@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			woocommerce_wp_text_input(
 				array(
 					'id'                => '_stock',
-					'value'             => wc_stock_amount( $product_object->get_full_quantity() ),
+					'value'             => wc_stock_amount( $product_object->get_stock_quantity( 'edit' ) ),
 					'label'             => __( 'Stock quantity', 'woocommerce' ),
 					'desc_tip'          => true,
 					'description'       => __( 'Stock quantity. If this is a variable product this value will be used to control stock for all variations, unless you define stock at variation level.', 'woocommerce' ),
