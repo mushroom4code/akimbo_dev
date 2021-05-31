@@ -248,6 +248,7 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
             $quantity_summ += $quantity_backorder;
         }
     }
+
     if ($update_rest) {
         //Enterego - перемещаем товар в новинки из скоро в продаже если есть остатки
         if ($quantity_summ > 0) {
@@ -284,6 +285,7 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
 
         update_post_meta($post_id, '_stock_status', $stock_status);
         update_post_meta($post_id, '_backorders', $backorders);
+        wc1c_update_product_status($post_id, $stock_status);
     }
 
     if (!WC1C_DISABLE_VARIATIONS) {
@@ -544,6 +546,26 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
     return $post_meta;
 }
 
+function wc1c_update_product_status($post_id, $stock_status)
+{
+    $args = array(
+        'ID' => $post_id,
+    );
+
+    if ($stock_status == 'outofstock') {
+        $args = array_merge($args, array(
+            'post_status' => 'private',
+        ));
+    } else {
+        $args = array_merge($args, array(
+            'post_status' => 'publish',
+        ));
+    }
+
+    return wp_update_post($args, true);
+
+}
+
 function wc1c_update_product($post_id, $arOffers)
 {
     $offer_characteristics = array();
@@ -724,6 +746,7 @@ function wc1c_replace_product_variation($guid, $parent_post_id, $order)
             'post_title' => "Product #$parent_post_id Variation",
             'post_status' => 'publish',
         ));
+
         $post_id = wp_insert_post($args, true);
 
         wc1c_check_wpdb_error();
