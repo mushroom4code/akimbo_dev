@@ -1493,7 +1493,7 @@ function wc1c_update_coming_soon_sale($post_id, $id_coming_soon, $id_category_ne
                       WHERE (object_id=%d) AND (tt.term_taxonomy_id=%d OR tt.term_taxonomy_id=%d)",$post_id, $id_coming_soon,$id_category_new));
 
     $count = $wpdb->get_var(
-        $wpdb->prepare("SELECT  COUNT(tr.object_id) FROM  $wpdb->term_relНЬДationships tr
+        $wpdb->prepare("SELECT  COUNT(tr.object_id) FROM  $wpdb->term_relationships tr
                       INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = 'product_cat'
                       WHERE  tr.term_taxonomy_id=%d GROUP BY tr.term_taxonomy_id", $id_category_new)
     );
