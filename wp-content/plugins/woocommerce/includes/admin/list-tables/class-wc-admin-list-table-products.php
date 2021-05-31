@@ -282,7 +282,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
     protected function render_actual_column() {
 
         if ( $this->object->managing_stock() ) {
-            $stock_html = '(' . wc_stock_amount( $this->object->get_actual_quantity() ) . ')';
+            $stock_html = wc_stock_amount( $this->object->get_actual_quantity() );
         }
 
         echo wp_kses_post( apply_filters( 'woocommerce_admin_stock_html', $stock_html, $this->object ) );
@@ -295,7 +295,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
     protected function render_backorders_column() {
 
         if ( $this->object->managing_stock() ) {
-            $stock_html = '(' . wc_stock_amount( $this->object->get_backorders_quantity() ) . ')';
+            $stock_html = wc_stock_amount( $this->object->get_backorders_quantity() );
         }
 
         echo wp_kses_post( apply_filters( 'woocommerce_admin_stock_html', $stock_html, $this->object ) );
