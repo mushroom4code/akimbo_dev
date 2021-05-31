@@ -2000,8 +2000,8 @@ class WC_Product extends WC_Abstract_Legacy_Product {
         return get_post_meta($this->id, '_backorders_count')[0];
     }
 
-    public function get_full_quantity()
+    public function get_actual_quantity()
     {
-        return ($this->get_backorders_quantity() + $this->get_stock_quantity());
+        return ($this->get_stock_quantity() - $this->get_backorders_quantity());
     }
 }
