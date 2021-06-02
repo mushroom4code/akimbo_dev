@@ -511,12 +511,16 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
             update_post_meta($post_id, '_stock', $quantity);
             //wc_update_product_stock($post_id, $quantity);
 
+            $backorders_count = $offer['КоличествоНаСезон'];
+
+            $quantity_actual = $quantity - $backorders_count;
+
             //Enterego - количество на заказ скоро в продаже
-            if ($quantity > 0) {
+            if ($quantity_actual > 0) {
                 $stock_status = 'instock';
                 $backorders = 'no';
             } else {
-                if ($offer['КоличествоНаСезон'] > 0) {
+                if ($backorders_count > 0) {
                     $stock_status = 'onbackorder';
                     $backorders = 'yes';
                 } elseif ($product_coming_soon === 'true') {
@@ -527,8 +531,6 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
                     $backorders = 'no';
                 }
             }
-
-            $backorders_count = $offer['КоличествоНаСезон'];
 
             update_post_meta($post_id, '_backorders', $backorders);
             // Enterego
