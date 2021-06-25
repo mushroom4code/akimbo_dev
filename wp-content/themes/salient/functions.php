@@ -419,11 +419,12 @@ function eeCustomVisibility($q)
             $productIsBackOrder = $productObj->get_backorders();
             $isUpcoming = ($currentCatSlug == 'upcoming') ? true : false;
             $preOrder = ($productPrice == 0 && $productQuantity == 0 && $productIsBackOrder == 'yes') ? true : false;
+            $planned_date = get_post_meta($productObj->get_id(), 'planned_date', true);
 
 
             if (empty($productImg) || (
                     $productQuantity <= 0 && $productIsBackOrder !== 'yes' && !$preOrder && !$isUpcoming
-                )
+                ) || ($productPrice <= 0 && $planned_date == 'false')
             ) {
                 $badProductsIds[] = $productObj->get_id();
             }
