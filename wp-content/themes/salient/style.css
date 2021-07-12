@@ -163,6 +163,15 @@ a.fixed:hover {
   position: absolute;
   z-index: 1000;
 }
+p.text_slide {
+  font-size:12px!important;
+  color:white;
+  background-color:none;
+  position: absolute;
+  bottom:100%;
+  line-height: 2!important;
+  margin-bottom: 2rem!important;
+}
 
 .body-popap {
   display: flex;
@@ -504,7 +513,18 @@ body.search #page-header-bg h1 span { color: inherit;}
 body.search-no-results[data-header-resize] .container-wrap { padding: 8% 0; }
 @media only screen and (max-width: 690px) {
   body.search-no-results[data-header-resize] .container-wrap { padding: 14% 0; }
+
 }
+.swiper-slide > .container > .content > p.text_slide {
+  font-size:12px!important;
+  color:white;
+  background-color:none;
+  position: absolute;
+  bottom:100%;
+  line-height: 2!important;
+  margin-bottom: 2rem!important;
+}
+
 body.search-no-results #search-results .search-form { position: relative; }
 body.search-no-results #search-results .search-form button[type=submit] {
    position: absolute;
