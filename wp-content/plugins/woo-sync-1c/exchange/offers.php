@@ -250,8 +250,9 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
     }
 
     if ($update_rest) {
-        //Enterego - перемещаем товар в новинки из скоро в продаже если есть остатки
-        if ($quantity_summ > 0) {
+        //Enterego - перемещаем товар в новинки из скоро в продаже если есть остатки на складе
+        $quantity_in_stock = $quantity_summ - $quantity_backorder_summ;
+        if ($quantity_in_stock > 0) {
             $res = wc1c_update_coming_soon_sale($post_id, $wc1c_ar_options['wc1c_soon_sale'], $wc1c_ar_options['wc1c_new']);
             if ($res)
                 update_post_meta($post_id, 'wc1c_datetime_new_category', time());
