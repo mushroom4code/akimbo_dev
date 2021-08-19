@@ -42,12 +42,34 @@ $prodId = $post->ID;
 
     global $product;
 
-    $available_attr = ['pa_color', 'pa_structure', 'pa_size', 'pa_rost-fotomodeli', 'pa_podkladka'];
+    $available_attr = ['pa_color', 'pa_structure', 'pa_size', 'pa_rost-fotomodeli', 'pa_podkladka', 'pa_tsvet-tkani', 'pa_tkan-verha', 'pa_podkladka-2', 'pa_rost-fotomodeli-2'];
 
     /**
      * @var $product WC_Product
      */
     $attributes = $product->get_attributes();
+
+    $color = $attributes["pa_tsvet-tkani"];
+    $structure = $attributes["pa_tkan-verha"];
+    $podkladka = $attributes["pa_podkladka-2"];
+    $rost = $attributes["pa_rost-fotomodeli-2"];
+
+    if (in_array($color, $attributes)) {
+        unset($attributes["pa_color"]);
+    }
+
+    if (in_array($structure, $attributes)) {
+        unset($attributes["pa_structure"]);
+    }
+
+    if (in_array($podkladka, $attributes)) {
+        unset($attributes["pa_podkladka"]);
+    }
+
+    if (in_array($rost, $attributes)) {
+        unset($attributes["pa_rost-fotomodeli"]);
+    }
+
     foreach($attributes as $attribute){
 
         if(in_array($attribute->get_name(), $available_attr)){
