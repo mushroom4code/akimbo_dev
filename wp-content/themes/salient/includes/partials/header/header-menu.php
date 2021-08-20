@@ -26,7 +26,6 @@ $options = get_nectar_theme_options();
 		<a id="logo" href="<?php echo esc_url( home_url() ); ?>" data-supplied-ml="<?php echo esc_attr( $nectar_header_options['using_mobile_logo'] ); ?>" <?php echo $nectar_header_options['logo_class']; // WPCS: XSS ok. ?>>
 			<?php nectar_logo_output( $nectar_header_options['activate_transparency'], $nectar_header_options['side_widget_class'], $nectar_header_options['using_mobile_logo'] ); ?> 
 		</a>
-		
 		<?php
 		if ( $nectar_header_options['header_format'] == 'centered-menu-bottom-bar' ) {
 			$has_pull_left_menu = ( has_nav_menu( 'top_nav_pull_left' ) ) ? 'true' : 'false';

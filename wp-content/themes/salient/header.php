@@ -102,7 +102,6 @@ if ( $nectar_header_options['mobile_fixed'] != '1' ) {
 ?>
 
 <div id="ajax-content-wrap">
-
 <?php
 if ( $nectar_header_options['side_widget_area'] == '1' && $nectar_header_options['side_widget_class'] == 'fullscreen' ) {
 	echo '<div class="blurred-wrap">';
