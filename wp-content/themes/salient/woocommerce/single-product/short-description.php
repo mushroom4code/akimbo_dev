@@ -53,24 +53,40 @@ $prodId = $post->ID;
     $structure = $attributes["pa_tkan-verha"];
     $podkladka = $attributes["pa_podkladka-2"];
     $rost = $attributes["pa_rost-fotomodeli-2"];
+    $default_structure = $attributes['pa_structure'];
+    $default_podkladka = $attributes['pa_podkladka'];
+    $default_color = $attributes['pa_color'];
+    $default_rost = $attributes['pa_rost-fotomodeli'];
+    //create array
 
-    if (in_array($color, $attributes)) {
-        unset($attributes["pa_color"]);
-    }
+    $sorted_attributes = array();
 
     if (in_array($structure, $attributes)) {
-        unset($attributes["pa_structure"]);
+        array_push($sorted_attributes, $structure);
+    } elseif (in_array($default_structure, $attributes)) {
+        array_push($sorted_attributes, $default_structure);
     }
 
     if (in_array($podkladka, $attributes)) {
-        unset($attributes["pa_podkladka"]);
+        array_push($sorted_attributes, $podkladka);
+    } elseif (in_array($default_podkladka, $attributes)) {
+        array_push($sorted_attributes, $default_podkladka);
+    }
+
+    if (in_array($color, $attributes)) {
+        array_push($sorted_attributes, $color);
+    } elseif (in_array($default_color, $attributes)) {
+        array_push($sorted_attributes, $default_color);
     }
 
     if (in_array($rost, $attributes)) {
-        unset($attributes["pa_rost-fotomodeli"]);
+        array_push($sorted_attributes, $rost);
+    } elseif (in_array($default_rost, $attributes)) {
+        array_push($sorted_attributes, $default_rost);
     }
 
-    foreach($attributes as $attribute){
+    // end
+    foreach($sorted_attributes as $attribute){
 
         if(in_array($attribute->get_name(), $available_attr)){
             $attr_name = wc_attribute_label( $attribute->get_name());
