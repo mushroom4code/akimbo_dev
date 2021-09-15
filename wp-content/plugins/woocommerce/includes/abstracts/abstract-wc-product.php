@@ -2004,4 +2004,8 @@ class WC_Product extends WC_Abstract_Legacy_Product {
     {
         return ($this->get_stock_quantity() - $this->get_backorders_quantity());
     }
+
+    public function get_barcode() {
+        return get_post_meta($this->id, 'barcode')[0];
+    }
 }

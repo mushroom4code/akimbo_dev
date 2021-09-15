@@ -473,6 +473,11 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
                     $meta_key = 'attribute_' . sanitize_title($product_attribute_key);
                     $post_meta[$meta_key] = wc1c_term_slug_by_meta('wc1c_guid', "$product_attribute_key::$attribute_guid_value");
                 }
+            } else {
+                if ($attribute_guid === 'barcode') {
+                    $meta_key = $attribute_guid;
+                    $post_meta[$meta_key] = $attribute_guid_value;
+                }
             }
         }
 
