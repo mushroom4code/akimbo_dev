@@ -2008,4 +2008,11 @@ class WC_Product extends WC_Abstract_Legacy_Product {
     public function get_barcode() {
         return get_post_meta($this->id, 'barcode')[0];
     }
+
+    public function get_quantity()
+    {
+        $quantity = get_post_meta($this->id, '_stock')[0];
+        $backorders_count = get_post_meta($this->id, '_backorders_count')[0];
+        return ($quantity - $backorders_count);
+    }
 }
