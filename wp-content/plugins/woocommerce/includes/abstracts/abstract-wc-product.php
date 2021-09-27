@@ -2015,4 +2015,11 @@ class WC_Product extends WC_Abstract_Legacy_Product {
         $backorders_count = get_post_meta($this->id, '_backorders_count')[0];
         return ($quantity - $backorders_count);
     }
+
+    public function is_available_in_stock()
+    {
+        if ($this->get_quantity() <= 0)
+            return false;
+        return true;
+    }
 }
