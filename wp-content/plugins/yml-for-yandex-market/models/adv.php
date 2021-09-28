@@ -69,7 +69,7 @@ function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/sup
 		// пропуск вариаций, которых нет в наличии
 		$yfym_skip_missing_products = yfym_optionGET('yfym_skip_missing_products', $numFeed, 'set_arr');
 		if ($yfym_skip_missing_products === 'on') {
-			if ($offer->is_in_stock() == false) {yfym_error_log('FEED № '.$numFeed.'; Вариация товара с postId = '.$postId.' пропущена т.к ее нет в наличии; Файл: adv.php; Строка: '.__LINE__, 0); continue;}
+			if ($product->is_available_in_stock() == false) {yfym_error_log('FEED № '.$numFeed.'; Вариация товара с postId = '.$postId.' пропущена т.к ее нет в наличии; Файл: adv.php; Строка: '.__LINE__, 0);continue;}
 
             for ($j = 0; $j < 5; $j++){
                 $var_id = (($product->is_type('variable')) ? $variations[$j]['variation_id'] : $product->get_id());
