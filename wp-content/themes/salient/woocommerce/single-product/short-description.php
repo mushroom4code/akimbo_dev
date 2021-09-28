@@ -97,6 +97,73 @@ $prodId = $post->ID;
 
     echo '<p>'.$descriptionProduct[0].'</p>'; // WPCS: XSS ok.
     echo do_shortcode('[wholesale columns="buy,tally/Шт,total/Итого" products="'.$prodId.'/Сделайте заказ по размерам" buy="horizontal-attribute/razmer"]');
+
+    // Если у товара есть все атрибуты длин, отобразить таблицу размеров
+    if (isset($attributes['pa_dlina-izdeliya']) || isset($attributes['pa_dlina-po-vnutrennemu-shvu']) || isset($attributes['pa_dlina-po-vneshnemu-shvu'])) {
+
+        $column_name = ['Размер', 'Длина изделия (см)', 'Длина по внутреннему шву (см)', 'Длина по внешнему шву (см)'];
+        $size = explode(", ", $product->get_attribute($attributes['pa_razmer']->get_name()));
+
+        echo '<div class="length_table"><table class="wholesale products">';
+
+        echo '<tr>';
+        echo '<th class="horizontal-attribute">' . $column_name[0] . '</th>';
+        for ($i = 0; $i < 5; $i++) {
+            echo '<th class="horizontal-attribute">' . $size[$i] . '</th>';
+        }
+        echo '</tr>';
+
+        if (isset($attributes['pa_dlina-izdeliya'])) {
+            $length = explode(", ", $product->get_attribute($attributes['pa_dlina-izdeliya']->get_name()));
+
+            echo '<tr>';
+            echo '<th class="horizontal-attribute">' . $column_name[1] . '</th>';
+
+            for ($i = 0; $i < 5; $i++) {
+                if (strpos($length[$i], 'см') !== false) {
+                    echo '<th class="tally">' . stristr($length[$i], 'см', true) . '</th>';
+                } else {
+                    echo '<th class="tally">' . $length[$i] . '</th>';
+                }
+            }
+            echo '<tr>';
+        }
+
+        if (isset($attributes['pa_dlina-po-vnutrennemu-shvu'])) {
+            $size_inner = explode(", ", $product->get_attribute($attributes['pa_dlina-po-vnutrennemu-shvu']->get_name()));
+
+            echo '<tr>';
+            echo '<th class="horizontal-attribute">' . $column_name[2] . '</th>';
+
+            for ($i = 0; $i < 5; $i++) {
+                if (strpos($size_inner[$i], 'см') !== false) {
+                    echo '<th class="tally">' . stristr($size_inner[$i], 'см', true) . '</th>';
+                } else {
+                    echo '<th class="tally">' . $size_inner[$i] . '</th>';
+                }
+            }
+            echo '<tr>';
+        }
+
+        if (isset($attributes['pa_dlina-po-vneshnemu-shvu'])) {
+            $size_outer = explode(", ", $product->get_attribute($attributes['pa_dlina-po-vneshnemu-shvu']->get_name()));
+
+            echo '<tr>';
+            echo '<th class="horizontal-attribute">' . $column_name[3] . '</th>';
+
+            for ($i = 0; $i < 5; $i++) {
+                if (strpos($size_outer[$i], 'см') !== false) {
+                    echo '<th class="tally">' . stristr($size_outer[$i], 'см', true) . '</th>';
+                } else {
+                    echo '<th class="tally">' . $size_outer[$i] . '</th>';
+                }
+            }
+            echo '<tr>';
+        }
+
+        echo '</table></div>';
+    }
+
     echo do_shortcode('[button open_new_tab="true" color="see-through" hover_text_color_override="#b0926f" size="medium" url="/size-table/" text="Таблица размеров" color_override="#b0926f" hover_color_override="#fcfaf7"]');
     ?>
 </div>
