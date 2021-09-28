@@ -350,6 +350,10 @@ function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/sup
 
             foreach ($variations as $item) {
 
+                if ($item['max_qty'] == 0) {
+                    continue;
+                }
+
                 $length = $item['attributes']['attribute_pa_dlina-izdeliya'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-izdeliya'], '-sm', true) . " см") : '';
                 $length_inner  = $item['attributes']['attribute_pa_dlina-po-vnutrennemu-shvu'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-po-vnutrennemu-shvu'], '-sm', true) . " см") : '';
                 $length_outer  = $item['attributes']['attribute_pa_dlina-po-vneshnemu-shvu'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-po-vneshnemu-shvu'], '-sm', true) . " см") : '';
