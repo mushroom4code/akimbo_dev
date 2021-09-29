@@ -48,6 +48,7 @@ $prodId = $post->ID;
      * @var $product WC_Product
      */
     $attributes = $product->get_attributes();
+    $children = $product->get_children();
 
     $color = $attributes["pa_tsvet-tkani"];
     $structure = $attributes["pa_tkan-verha"];
@@ -101,8 +102,23 @@ $prodId = $post->ID;
     // Если у товара есть все атрибуты длин, отобразить таблицу размеров
     if (isset($attributes['pa_dlina-izdeliya']) || isset($attributes['pa_dlina-po-vnutrennemu-shvu']) || isset($attributes['pa_dlina-po-vneshnemu-shvu'])) {
 
+        foreach ($children as $child) {
+            $children_data[] = $product->get_children_data($child);
+        }
+
         $column_name = ['Размер', 'Длина изделия (см)', 'Длина по внутреннему шву (см)', 'Длина по внешнему шву (см)'];
         $size = explode(", ", $product->get_attribute($attributes['pa_razmer']->get_name()));
+
+        foreach ($children_data as $child_data) {
+            if (isset($child_data['attribute_pa_dlina-izdeliya']))
+                $length[] = $child_data['attribute_pa_dlina-izdeliya'];
+
+            if (isset($child_data['attribute_pa_dlina-po-vneshnemu-shvu']))
+                $size_outer[] = $child_data['attribute_pa_dlina-po-vneshnemu-shvu'];
+
+            if (isset($child_data['attribute_pa_dlina-po-vnutrennemu-shvu']))
+                $size_inner[] = $child_data['attribute_pa_dlina-po-vnutrennemu-shvu'];
+        }
 
         echo '<div class="length_table"><table class="wholesale products">';
 
@@ -114,48 +130,45 @@ $prodId = $post->ID;
         echo '</tr>';
 
         if (isset($attributes['pa_dlina-izdeliya'])) {
-            $length = explode(", ", $product->get_attribute($attributes['pa_dlina-izdeliya']->get_name()));
 
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[1] . '</th>';
 
             for ($i = 0; $i < 5; $i++) {
-                if (strpos($length[$i], 'см') !== false) {
-                    echo '<th class="tally">' . stristr($length[$i], 'см', true) . '</th>';
+                if (strpos($length[$i][0], '-sm') !== false) {
+                    echo '<th class="tally">' . str_replace('-', ',', stristr($length[$i][0], '-sm', true)) . '</th>';
                 } else {
-                    echo '<th class="tally">' . $length[$i] . '</th>';
+                    echo '<th class="tally">' . str_replace('-', ',', $length[$i][0]) . '</th>';
                 }
             }
             echo '<tr>';
         }
 
         if (isset($attributes['pa_dlina-po-vnutrennemu-shvu'])) {
-            $size_inner = explode(", ", $product->get_attribute($attributes['pa_dlina-po-vnutrennemu-shvu']->get_name()));
 
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[2] . '</th>';
 
             for ($i = 0; $i < 5; $i++) {
-                if (strpos($size_inner[$i], 'см') !== false) {
-                    echo '<th class="tally">' . stristr($size_inner[$i], 'см', true) . '</th>';
+                if (strpos($size_inner[$i][0], '-sm') !== false) {
+                    echo '<th class="tally">' . str_replace('-', ',', stristr($size_inner[$i][0], '-sm', true)) . '</th>';
                 } else {
-                    echo '<th class="tally">' . $size_inner[$i] . '</th>';
+                    echo '<th class="tally">' . str_replace('-', ',', $size_inner[$i][0]) . '</th>';
                 }
             }
             echo '<tr>';
         }
 
         if (isset($attributes['pa_dlina-po-vneshnemu-shvu'])) {
-            $size_outer = explode(", ", $product->get_attribute($attributes['pa_dlina-po-vneshnemu-shvu']->get_name()));
 
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[3] . '</th>';
 
             for ($i = 0; $i < 5; $i++) {
-                if (strpos($size_outer[$i], 'см') !== false) {
-                    echo '<th class="tally">' . stristr($size_outer[$i], 'см', true) . '</th>';
+                if (strpos($size_outer[$i][0], '-sm') !== false) {
+                    echo '<th class="tally">' . str_replace('-', ',', stristr($size_outer[$i][0], '-sm', true)) . '</th>';
                 } else {
-                    echo '<th class="tally">' . $size_outer[$i] . '</th>';
+                    echo '<th class="tally">' . str_replace('-', ',', $size_outer[$i][0]) . '</th>';
                 }
             }
             echo '<tr>';

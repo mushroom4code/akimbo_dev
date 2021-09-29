@@ -2022,4 +2022,8 @@ class WC_Product extends WC_Abstract_Legacy_Product {
             return false;
         return true;
     }
+
+    public function get_children_data($id) {
+        return get_post_meta($id);
+    }
 }
