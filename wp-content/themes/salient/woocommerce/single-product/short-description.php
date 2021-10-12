@@ -107,7 +107,10 @@ $prodId = $post->ID;
         }
 
         $column_name = ['Размер', 'Длина изделия (см)', 'Длина по внутреннему шву (см)', 'Длина по внешнему шву (см)'];
-        $size = explode(", ", $product->get_attribute($attributes['pa_razmer']->get_name()));
+
+        if (isset($attributes['pa_razmer2'])){
+            $size = explode(", ", $product->get_attribute($attributes['pa_razmer']->get_name()));
+        }
 
         foreach ($children_data as $child_data) {
             if (isset($child_data['attribute_pa_dlina-izdeliya']))
@@ -121,20 +124,22 @@ $prodId = $post->ID;
         }
 
         echo '<div class="length_table"><table class="wholesale products">';
+        if (isset($size)) {
 
-        echo '<tr>';
-        echo '<th class="horizontal-attribute">' . $column_name[0] . '</th>';
-        for ($i = 0; $i < 5; $i++) {
-            echo '<th class="horizontal-attribute">' . $size[$i] . '</th>';
+            echo '<tr>';
+            echo '<th class="horizontal-attribute">' . $column_name[0] . '</th>';
+
+            for ($i = 0; $i < count($size); $i++) {
+                echo '<th class="horizontal-attribute">' . $size[$i] . '</th>';
+            }
+            echo '</tr>';
         }
-        echo '</tr>';
-
         if (isset($attributes['pa_dlina-izdeliya'])) {
 
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[1] . '</th>';
 
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < count($length); $i++) {
                 if (strpos($length[$i][0], '-sm') !== false) {
                     echo '<th class="tally">' . str_replace('-', ',', stristr($length[$i][0], '-sm', true)) . '</th>';
                 } else {
@@ -149,7 +154,7 @@ $prodId = $post->ID;
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[2] . '</th>';
 
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < count($size_inner); $i++) {
                 if (strpos($size_inner[$i][0], '-sm') !== false) {
                     echo '<th class="tally">' . str_replace('-', ',', stristr($size_inner[$i][0], '-sm', true)) . '</th>';
                 } else {
@@ -164,7 +169,7 @@ $prodId = $post->ID;
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[3] . '</th>';
 
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < count($size_outer); $i++) {
                 if (strpos($size_outer[$i][0], '-sm') !== false) {
                     echo '<th class="tally">' . str_replace('-', ',', stristr($size_outer[$i][0], '-sm', true)) . '</th>';
                 } else {
