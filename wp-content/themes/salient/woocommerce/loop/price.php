@@ -46,7 +46,7 @@ $planned_date = get_post_meta($product->get_id(), 'planned_date', true);
 $Date = '';
 if ($first_date !== '' && isset($first_date)) {
     $Date = '';
-} else if ($planned_date !== '' && isset($planned_date)) {
+} else if ($planned_date !== '' && isset($planned_date) && $planned_date !== 'false') {
     $Date = '<div style="padding: 10px 0;">
             <b style="font-weight: 600;font-size: 12px;color: black;margin-right: 12px;">Плановое поступление</b>
             <span style="font-weight: 500;font-size: 15px;color: #af8a6e;">' . $planned_date . '</span>
