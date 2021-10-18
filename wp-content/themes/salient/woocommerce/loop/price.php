@@ -52,7 +52,7 @@ if ($first_date !== '' && isset($first_date)) {
             <span style="font-weight: 500;font-size: 15px;color: #af8a6e;">' . $planned_date . '</span>
             </div>';
 } else {
-    $Date =  'Скоро в продаже';
+    $Date =  '';
 }
 
 // Enterego(V.Mikheev) for add to cart product with empty price and stocks
