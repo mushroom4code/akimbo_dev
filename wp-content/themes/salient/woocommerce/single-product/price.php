@@ -28,7 +28,7 @@ $i = 0;
 $emptyStock = array();
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
-    if ($single_variation->stock_status == 'onbackorder' && $product->get_stock_quantity() == 0) {
+    if ($single_variation->stock_status == 'onbackorder' && $product->get_stock_quantity() <= 0) {
         $infoMessage = 'Скоро в наличии';
     } elseif ($single_variation->stock_status == 'outofstock') {
         $emptyStock [] = 1;
@@ -50,7 +50,6 @@ if ($first_date !== '' && isset($first_date)) {
 }else {
     echo '';
 }
-
 
 echo salePrice($product);
 if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
