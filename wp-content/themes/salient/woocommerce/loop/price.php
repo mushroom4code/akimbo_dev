@@ -29,7 +29,7 @@ $emptyStock = array();
 
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
-    if ($single_variation->stock_status == 'onbackorder' && $product->get_stock_quantity() == 0) {
+    if ($single_variation->stock_status == 'onbackorder' && $product->get_stock_quantity() <= 0) {
         $infoMessage = 'Скоро в наличии';
     } elseif ($single_variation->stock_status == 'outofstock') {
         $emptyStock [] = 1;
@@ -39,7 +39,6 @@ foreach ($variations1 as $value) {
 if (count($emptyStock) == $i) {
     $infoMessage = 'Нет в наличии';
 }
-
 
 $first_date = get_post_meta($product->get_id(), 'first_date', true);
 $planned_date = get_post_meta($product->get_id(), 'planned_date', true);
@@ -54,7 +53,9 @@ if ($first_date !== '' && isset($first_date)) {
 } else {
     $Date =  '';
 }
-
+if($Date === ''){
+    $Date = $infoMessage;
+}
 // Enterego(V.Mikheev) for add to cart product with empty price and stocks
 if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
     ?>
