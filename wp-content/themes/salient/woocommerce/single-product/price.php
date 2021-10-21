@@ -26,9 +26,10 @@ $handle = new WC_Product_Variable($product->get_id());
 $variations1 = $handle->get_children();
 $i = 0;
 $emptyStock = array();
+$sum = intval($product->get_stock_quantity() - $product->get_backorders_quantity());
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
-    if ($single_variation->stock_status == 'onbackorder' && $product->get_stock_quantity() <= 0) {
+    if ($sum <= 0) {
         $infoMessage = 'Скоро в наличии';
     } elseif ($single_variation->stock_status == 'outofstock') {
         $emptyStock [] = 1;
@@ -50,7 +51,7 @@ if ($first_date !== '' && isset($first_date)) {
 }else {
     echo '';
 }
-
+echo'<div style="display:none;">'.$sum.'</div>';
 echo salePrice($product);
 if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
     ?>
