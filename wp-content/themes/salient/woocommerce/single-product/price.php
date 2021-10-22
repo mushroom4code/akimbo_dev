@@ -49,6 +49,7 @@ if ($first_date !== '' && isset($first_date)) {
 } else if ($planned_date !== '' && isset($planned_date) && $planned_date !== 'false'){
     echo '<div class="new_data"><b style="">Плановая дата поступления</b>
             <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $planned_date . '</span></div>';
+    $infoMessage = '';
 }else {
     echo '';
 }
