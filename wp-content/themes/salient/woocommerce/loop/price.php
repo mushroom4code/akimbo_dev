@@ -29,9 +29,10 @@ $emptyStock = array();
 $sum = intval($product->get_stock_quantity() - $product->get_backorders_quantity());
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
-    if ($sum <= 0) {
+    if ($sum <= 0 && $single_variation->stock_status == 'onbackorder') {
         $infoMessage = 'Скоро в наличии';
-    } elseif ($single_variation->stock_status == 'outofstock') {
+    }
+    if ($single_variation->stock_status == 'outofstock') {
         $emptyStock [] = 1;
     }
     $i++;
