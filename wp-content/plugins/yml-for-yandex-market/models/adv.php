@@ -1,5 +1,6 @@
 <?php if (!defined('ABSPATH')) {exit;}
 include_once ABSPATH . 'wp-admin/includes/plugin.php'; // без этого не будет работать вне адмники is_plugin_active
+
 function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/support/partnermarket/offers.html
  yfym_error_log('FEED № '.$numFeed.'; Стартовала yfym_adv. $postId = '.$postId.'; Файл: adv.php; Строка: '.__LINE__, 0);	
  $result_yml = ''; $ids_in_yml = ''; $skip_flag = false;
@@ -69,12 +70,14 @@ function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/sup
 		// пропуск вариаций, которых нет в наличии
 		$yfym_skip_missing_products = yfym_optionGET('yfym_skip_missing_products', $numFeed, 'set_arr');
 		if ($yfym_skip_missing_products === 'on') {
-			if ($product->is_available_in_stock() == false) {yfym_error_log('FEED № '.$numFeed.'; Вариация товара с postId = '.$postId.' пропущена т.к ее нет в наличии; Файл: adv.php; Строка: '.__LINE__, 0); continue;}
+            //enterego
+			if (is_available_in_stock($product->id) == false) {yfym_error_log('FEED № '.$numFeed.'; Вариация товара с postId = '.$postId.' пропущена т.к ее нет в наличии; Файл: adv.php; Строка: '.__LINE__, 0); continue;}
 		
 			for ($j = 0; $j < 5; $j++){
                 $var_id = (($product->is_type('variable')) ? $variations[$j]['variation_id'] : $product->get_id());
                 $offer_var = new WC_Product_Variation($var_id); // получим вариацию
-                if ($offer_var->is_available_in_stock() == false) {
+                //enterego
+                if (is_available_in_stock($var_id) == false) {
                     unset($variations[$j]);
                 }
             }
@@ -349,9 +352,12 @@ function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/sup
             $attributes = $product->get_attributes(); // получили все атрибуты товара
             foreach ($variations as $item) {
 
-				if ($item['max_qty'] == 0) {
+                //enterego
+                $var_quantity = get_quantity($item['variation_id']);
+				if ($var_quantity == 0) {
                     continue;
                 }
+                //
 
 				$length = $item['attributes']['attribute_pa_dlina-izdeliya'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-izdeliya'], '-sm', true) . " см") : '';
                 $length_inner  = $item['attributes']['attribute_pa_dlina-po-vnutrennemu-shvu'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-po-vnutrennemu-shvu'], '-sm', true) . " см") : '';
@@ -359,8 +365,10 @@ function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/sup
 
                 $result_yml .= '<variant>'.PHP_EOL;
                 $result_yml .= '<size name="Размер">'. $item['attributes']['attribute_pa_razmer'] .'</size>'. PHP_EOL;
-                $result_yml .= '<quantity>' . $item['max_qty'] . '</quantity>'. PHP_EOL;
-                $result_yml .= '<barcode>' . $item['barcode'] . '</barcode>'.PHP_EOL;
+                //enterego
+                $result_yml .= '<quantity>' . $var_quantity. '</quantity>'. PHP_EOL;
+                $result_yml .= '<barcode>' . get_post_meta($item['variation_id'], 'barcode')[0]. '</barcode>'.PHP_EOL;
+                //
                 $result_yml .= '<param name="Длина изделия">' . $length . '</param>'.PHP_EOL;
                 $result_yml .= '<param name="Длина по внутреннему шву">' . $length_inner . '</param>'.PHP_EOL;
                 $result_yml .= '<param name="Длина по внешнему шву">' . $length_outer . '</param>'.PHP_EOL;

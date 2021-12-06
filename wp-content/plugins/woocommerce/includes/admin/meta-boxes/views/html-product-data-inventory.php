@@ -58,21 +58,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				)
 			);
 
-            woocommerce_wp_text_input(
-                array(
-                    'id'                => '_backorders_count',
-                    'value'             => wc_stock_amount( $product_object->get_backorders_quantity() ),
-                    'label'             => __( 'Плановое количество', 'woocommerce' ),
-                    'desc_tip'          => true,
-                    'description'       => __( '', 'woocommerce' ),
-                    'type'              => 'number',
-                    'custom_attributes' => array(
-                        'step' => 'any',
-                    ),
-                    'data_type'         => 'backorders',
-                )
-            );
-
 			echo '<input type="hidden" name="_original_stock" value="' . esc_attr( wc_stock_amount( $product_object->get_stock_quantity( 'edit' ) ) ) . '" />';
 
 			woocommerce_wp_select(

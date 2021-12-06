@@ -101,7 +101,7 @@ $prodId = $post->ID;
     if (isset($attributes['pa_dlina-izdeliya']) || isset($attributes['pa_dlina-po-vnutrennemu-shvu']) || isset($attributes['pa_dlina-po-vneshnemu-shvu'])) {
 
         foreach ($children as $child) {
-            $children_data[] = $product->get_children_data($child);
+            $children_data[] = get_children_data($child);
         }
 
         $column_name = ['Размер', 'Длина изделия (см)', 'Длина по внутреннему шву (см)', 'Длина по внешнему шву (см)'];

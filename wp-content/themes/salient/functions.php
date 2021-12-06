@@ -704,3 +704,95 @@ function new_wp_text_input($field)
         echo '</p>';
     }
 }
+
+//enterego
+function get_quantity($id)
+{
+    $quantity = get_post_meta($id, '_stock')[0];
+    $backorders_count = get_post_meta($id, '_backorders_count')[0];
+    return ($quantity - $backorders_count);
+}
+
+function is_available_in_stock($id)
+{
+    if (get_quantity($id) <= 0)
+        return false;
+    return true;
+}
+
+function get_backorders_quantity($id)
+{
+    return get_post_meta($id, '_backorders_count')[0];
+}
+
+//--
+
+#region #Products columns
+
+// Add product new column in administration
+add_filter( 'manage_edit-product_columns', 'woo_product_weight_column', 20 );
+function woo_product_weight_column( $columns ) {
+
+    $columns['actual']   = __('На складе', 'woocommerce');
+    $columns['backorders']   = __('Ожидается', 'woocommerce');
+    return $columns;
+
+}
+// Populate weight column
+add_action( 'manage_product_posts_custom_column', 'woo_product_weight_column_data', 2 );
+function woo_product_weight_column_data( $column ) {
+    global $post;
+
+    if ( $column == 'actual' ) {
+        $product = wc_get_product($post->ID);
+        $stock_html = '';
+        if ( $product->managing_stock() ) {
+          $stock_html = wc_stock_amount( $product->get_stock_quantity() - get_backorders_quantity($post->ID));
+        }
+        print $stock_html;
+    } elseif ($column == 'backorders') {
+        $product = wc_get_product($post->ID);
+        $stock_html = '';
+        if ( $product->managing_stock() ) {
+            $stock_html = wc_stock_amount( get_backorders_quantity($post->ID));
+        }
+
+        echo wp_kses_post( apply_filters( 'woocommerce_admin_stock_html', $stock_html, $product ) );
+    }
+}
+
+function get_children_data($id) {
+    return get_post_meta($id);
+}
+
+#endregion
+
+#region Product_item
+
+add_action('woocommerce_product_options_stock_fields', 'shop_add_custom_fields');
+//if (!function_exists('art_woo_add_custom_fields')) {
+    function shop_add_custom_fields()
+    {
+        global $post;
+        echo '<div class="options_group">';// Группировка полей
+
+        woocommerce_wp_text_input(
+            array(
+                'id' => '_backorders_count',
+                'value'             => wc_stock_amount( get_backorders_quantity($post->ID) ),
+                'label' => __('Плановое количество', 'woocommerce'),
+                'desc_tip' => true,
+                'description' => __('', 'woocommerce'),
+                'type' => 'number',
+                'custom_attributes' => array(
+                    'step' => 'any',
+                ),
+                'data_type' => 'backorders',
+            )
+        );
+
+        echo '</div>';
+    }
+//}
+
+#endregion
