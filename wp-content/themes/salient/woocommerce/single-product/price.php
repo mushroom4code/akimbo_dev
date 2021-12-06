@@ -26,6 +26,10 @@ $handle = new WC_Product_Variable($product->get_id());
 $variations1 = $handle->get_children();
 $i = 0;
 $emptyStock = array();
+<<<<<<< HEAD
+=======
+
+>>>>>>> ba257fe270aac097438e4a5c128f2c702cbdc430
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
     if ($single_variation->stock_status == 'outofstock') {
@@ -49,7 +53,10 @@ if ($first_date !== '' && isset($first_date)) {
 }else {
     echo '';
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> ba257fe270aac097438e4a5c128f2c702cbdc430
 echo salePrice($product);
 if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
     ?>
