@@ -69,16 +69,16 @@ function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/sup
 		// пропуск вариаций, которых нет в наличии
 		$yfym_skip_missing_products = yfym_optionGET('yfym_skip_missing_products', $numFeed, 'set_arr');
 		if ($yfym_skip_missing_products === 'on') {
-			if ($product->is_available_in_stock() == false) {yfym_error_log('FEED № '.$numFeed.'; Вариация товара с postId = '.$postId.' пропущена т.к ее нет в наличии; Файл: adv.php; Строка: '.__LINE__, 0);continue;}
-
-            for ($j = 0; $j < 5; $j++){
+			if ($product->is_available_in_stock() == false) {yfym_error_log('FEED № '.$numFeed.'; Вариация товара с postId = '.$postId.' пропущена т.к ее нет в наличии; Файл: adv.php; Строка: '.__LINE__, 0); continue;}
+		
+			for ($j = 0; $j < 5; $j++){
                 $var_id = (($product->is_type('variable')) ? $variations[$j]['variation_id'] : $product->get_id());
                 $offer_var = new WC_Product_Variation($var_id); // получим вариацию
                 if ($offer_var->is_available_in_stock() == false) {
                     unset($variations[$j]);
                 }
             }
-        }
+		}
 			 
 		// пропускаем вариации на предзаказ
 		$skip_backorders_products = yfym_optionGET('yfym_skip_backorders_products', $numFeed, 'set_arr');
@@ -347,14 +347,13 @@ function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/sup
         // Variant в вариациях
         if (!empty($variations_arr)) {
             $attributes = $product->get_attributes(); // получили все атрибуты товара
-
             foreach ($variations as $item) {
 
-                if ($item['max_qty'] == 0) {
+				if ($item['max_qty'] == 0) {
                     continue;
                 }
 
-                $length = $item['attributes']['attribute_pa_dlina-izdeliya'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-izdeliya'], '-sm', true) . " см") : '';
+				$length = $item['attributes']['attribute_pa_dlina-izdeliya'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-izdeliya'], '-sm', true) . " см") : '';
                 $length_inner  = $item['attributes']['attribute_pa_dlina-po-vnutrennemu-shvu'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-po-vnutrennemu-shvu'], '-sm', true) . " см") : '';
                 $length_outer  = $item['attributes']['attribute_pa_dlina-po-vneshnemu-shvu'] ? str_replace('-',',', stristr($item['attributes']['attribute_pa_dlina-po-vneshnemu-shvu'], '-sm', true) . " см") : '';
 
@@ -421,10 +420,7 @@ function yfym_adv($postId, $product, $data, $numFeed) {	// https://yandex.ru/sup
 			$description_yml = apply_filters('yfym_description_filter_variable', $description_yml, $postId, $product, $offer, $numFeed); /* с версии 3.2.6 */
 			$description_yml = trim($description_yml);
 			if ($description_yml !== '') {
-//				$result_yml .= '<description><![CDATA['.$description_yml.']]></description>'.PHP_EOL;
-                $description_yml = mb_substr($description_yml, 3);
-                $description_yml = mb_substr($description_yml, 0, -4);
-				$result_yml .= '<description>'.$description_yml.'</description>'.PHP_EOL;
+				$result_yml .= '<description><![CDATA['.$description_yml.']]></description>'.PHP_EOL;
 			}
 			$description_yml = ''; // обнулим значение описания вариации, чтобы след вариация получила своё
 		} else {

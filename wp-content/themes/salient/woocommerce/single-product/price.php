@@ -26,7 +26,6 @@ $handle = new WC_Product_Variable($product->get_id());
 $variations1 = $handle->get_children();
 $i = 0;
 $emptyStock = array();
-$sum = intval($product->get_stock_quantity() - $product->get_backorders_quantity());
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
     if ($single_variation->stock_status == 'outofstock') {
@@ -46,11 +45,11 @@ if ($first_date !== '' && isset($first_date)) {
 } else if ($planned_date !== '' && isset($planned_date) && $planned_date !== 'false'){
     echo '<div class="new_data"><b style="">Плановая дата поступления</b>
             <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $planned_date . '</span></div>';
-    $infoMessage = '';
+            $infoMessage = '';
 }else {
     echo '';
 }
-echo'<div style="display:none;">'.$sum.'</div>';
+
 echo salePrice($product);
 if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
     ?>

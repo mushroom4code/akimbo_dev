@@ -4,28 +4,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
     <h2 class="nav-tab-wrapper woo-nav-tab-wrapper">
-        <a href="<?php echo admin_url('admin.php?page=wf_woocommerce_csv_im_ex'); ?>" class="nav-tab"><?php _e('Product Export', 'wf_csv_import_export'); ?></a>
-        <a href="<?php echo admin_url('admin.php?import=xa_woocommerce_csv'); ?>" class="nav-tab nav-tab-active"><?php _e('Product Import', 'wf_csv_import_export'); ?></a>
-        <a href="<?php echo admin_url('admin.php?page=wf_woocommerce_csv_im_ex&tab=help'); ?>" class="nav-tab"><?php _e('Help', 'wf_csv_import_export'); ?></a>
-        <a href="https://www.webtoffee.com/product/product-import-export-woocommerce/" target="_blank" class="nav-tab nav-tab-premium"><?php _e('Upgrade to Premium for More Features', 'wf_csv_import_export'); ?></a>
+        <a href="<?php echo admin_url('admin.php?page=wf_woocommerce_csv_im_ex'); ?>" class="nav-tab"><?php _e('Product Export', 'product-import-export-for-woo'); ?></a>
+        <a href="<?php echo admin_url('admin.php?import=xa_woocommerce_csv'); ?>" class="nav-tab nav-tab-active"><?php _e('Product Import', 'product-import-export-for-woo'); ?></a>
+        <a href="<?php echo admin_url('admin.php?page=wf_woocommerce_csv_im_ex&tab=help'); ?>" class="nav-tab"><?php _e('Help', 'product-import-export-for-woo'); ?></a>
+        <a href="https://www.webtoffee.com/product/product-import-export-woocommerce/" target="_blank" class="nav-tab nav-tab-premium"><?php _e('Upgrade to Premium for More Features', 'product-import-export-for-woo'); ?></a>
     </h2>
 <div class="bg-white p-20p">
 <form action="<?php echo admin_url('admin.php?import=' . $this->import_page . '&step=2&merge=' . $this->merge); ?>" method="post">
     <?php wp_nonce_field('import-woocommerce'); ?>
     <input type="hidden" name="import_id" value="<?php echo $this->id; ?>" />
-    <?php if ($this->file_url_import_enabled) : ?>
-        <input type="hidden" name="import_url" value="<?php echo $this->file_url; ?>" />
-    <?php endif; ?>
-    <h3><?php _e('Step 2: Import mapping', 'wf_csv_import_export'); ?></h3>
-    <p><?php _e('Here you can map your imported columns to product data fields.', 'wf_csv_import_export'); ?></p>
+    <h3><?php _e('Step 2: Import mapping', 'product-import-export-for-woo'); ?></h3>
+    <p><?php _e('Here you can map your imported columns to product data fields.', 'product-import-export-for-woo'); ?></p>
     <table class="widefat widefat_importer">
         <thead>
             <tr>
-                <th><?php _e('Woocommerce product fields', 'wf_csv_import_export'); ?></th>
-                <th><?php _e('CSV column header(from imported file)', 'wf_csv_import_export'); ?></th>
-                <th><?php _e('Evaluation Field', 'wf_csv_import_export'); ?>
+                <th><?php _e('Woocommerce product fields', 'product-import-export-for-woo'); ?></th>
+                <th><?php _e('CSV column header(from imported file)', 'product-import-export-for-woo'); ?></th>
+                <th><?php _e('Evaluation Field', 'product-import-export-for-woo'); ?>
                     <?php $plugin_url = WC()->plugin_url(); ?>
-                    <img class="help_tip" style="float:none;" data-tip="<?php _e('Assign constant value HikeFoce to post_author:</br>=HikeFoce</br>Add $5 to Price:sale_price:</br>+5</br>Reduce $5 to Price:sale_price:</br>-5</br>Multiple 1.05 to Price:sale_price:</br>*1.05</br>Divide Price:sale_price by 2:</br>/2</br>Append a value By HikeFoce to post_title:</br>&By HikeFoce</br>Prepend a value HikeFoce to post_title:</br>&HikeFoce [VAL].', 'wf_csv_import_export'); ?>" src="<?php echo $plugin_url; ?>/assets/images/help.png" height="20" width="20" /> 
+                    <img class="help_tip" style="float:none;" data-tip="<?php _e('Assign constant value WebToffe to post_author:</br>=WebToffe</br>Add $5 to Price:sale_price:</br>+5</br>Reduce $5 to Price:sale_price:</br>-5</br>Multiple 1.05 to Price:sale_price:</br>*1.05</br>Divide Price:sale_price by 2:</br>/2</br>Append a value By WebToffe to post_title:</br>&By WebToffe</br>Prepend a value WebToffe to post_title:</br>&WebToffe [VAL].', 'product-import-export-for-woo'); ?>" src="<?php echo $plugin_url; ?>/assets/images/help.png" height="20" width="20" /> 
                 </th>
             </tr>
         </thead>
@@ -104,13 +101,21 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </td>
                     <td width="25%">
                         <select name="map_from[<?php echo $key; ?>]">
-                            <option value=""><?php _e('Do not import', 'wf_csv_import_export'); ?></option>
+                            <option value=""><?php _e('Do not import', 'product-import-export-for-woo'); ?></option>
                             <?php
+                            if ($wt_has_large_number_of_columns_in_csv) {
+                                if (isset($raw_headers[$key])) {
+                                    $hdr = strlen($row[$key]) > 50 ? substr(strip_tags($row[$key]), 0, 50) . "..." : $row[$key];
+                                    ?>
+                                    <option value="<?php echo $raw_headers[$key]; ?>" <?php selected(strtolower($sel_key), $key); ?>><?php echo $raw_headers[$key] . " &nbsp;  : &nbsp; " . $hdr; ?></option>
+                                    <?php
+                                }
+                            } else {
                             foreach ($row as $hkey => $hdr):
                                 $hdr = strlen($hdr) > 50 ? substr(strip_tags($hdr), 0, 50) . "..." : $hdr;
                                 ?>
                                 <option value="<?php echo $raw_headers[$hkey]; ?>" <?php selected(strtolower($sel_key), $hkey); ?>><?php echo $raw_headers[$hkey] . " &nbsp;  : &nbsp; " . $hdr; ?></option>
-                            <?php endforeach; ?>
+                            <?php endforeach; }?>
                         </select>
                         <?php do_action('woocommerce_csv_product_data_mapping', $key); ?>
                     </td>
@@ -120,9 +125,9 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tbody>
     </table>
     <p class="submit"><br/>
-        <span style="color:gray;"><i><?php _e('Time taken to Import the products depends on the time taken to fetch the images and the internet speed. If you have more than 1000 products we recommend doing the import in batches by splitting the CSV file. Please do not navigate away or close the window while the import is in progress.', 'wf_csv_import_export' ); ?></i></span>
+        <span style="color:gray;"><i><?php _e('Time taken to Import the products depends on the time taken to fetch the images and the internet speed. If you have more than 1000 products we recommend doing the import in batches by splitting the CSV file. Please do not navigate away or close the window while the import is in progress.', 'product-import-export-for-woo' ); ?></i></span>
         <br/><br/>
-        <input type="submit" class="button button-primary" value="<?php esc_attr_e('Start Import', 'wf_csv_import_export'); ?>" />
+        <input type="submit" class="button button-primary" value="<?php esc_attr_e('Start Import', 'product-import-export-for-woo'); ?>" />
         <input type="hidden" name="delimiter" value="<?php echo $this->delimiter ?>" />
         <input type="hidden" name="merge_empty_cells" value="<?php echo $this->merge_empty_cells ?>" />
         <input type="hidden" name="merge" value="<?php echo $this->merge?>" />

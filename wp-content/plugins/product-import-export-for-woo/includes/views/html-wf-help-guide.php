@@ -27,26 +27,26 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div id="tab-help" class="coltwo-col panel help-guide">
             <div class="cols">
                 <div class="inner-panel" style="">
-                    <img src="<?php echo plugins_url(basename(plugin_dir_path(WF_ProdImpExpCsv_FILE))) . '/images/video.png'; ?>"/>
-                    <h3><?php _e('How-to-setup', 'wf_csv_import_export'); ?></h3>
-                    <p style=""><?php _e('Get to know about our product in 3 minutes with this video', 'wf_csv_import_export'); ?></p>
+                    <img src="<?php echo plugins_url(basename(plugin_dir_path(WF_ProdImpExpCsv_FILE))) . '/images/setup.png'; ?>"/>
+                    <h3><?php _e('How-to-setup', 'product-import-export-for-woo'); ?></h3>
+                    <p style=""><?php _e('Get to know about our product in 3 minutes with this video', 'product-import-export-for-woo'); ?></p>
                     <a href="https://www.webtoffee.com/setting-up-product-import-export-plugin-for-woocommerce/" target="_blank" class="button button-primary">
-                        <?php _e('Setup Guide', 'wf_csv_import_export'); ?></a>
+                        <?php _e('Setup Guide', 'product-import-export-for-woo'); ?></a>
                 </div>
 
                 <div class="inner-panel" style="">
                     <img src="<?php echo plugins_url(basename(plugin_dir_path(WF_ProdImpExpCsv_FILE))) . '/images/documentation.png'; ?>"/>
-                    <h3><?php _e('Documentation', 'wf_csv_import_export'); ?></h3>
-                    <p style=""><?php _e('Refer to our documentation to set and get started', 'wf_csv_import_export'); ?></p>
-                    <a target="_blank" href="https://www.webtoffee.com/category/documentation/product-import-export-plugin-for-woocommerce/" class="button-primary"><?php _e('Documentation', 'wf_csv_import_export'); ?></a> 
+                    <h3><?php _e('Documentation', 'product-import-export-for-woo'); ?></h3>
+                    <p style=""><?php _e('Refer to our documentation to set and get started', 'product-import-export-for-woo'); ?></p>
+                    <a target="_blank" href="https://www.webtoffee.com/category/documentation/product-import-export-plugin-for-woocommerce/" class="button-primary"><?php _e('Documentation', 'product-import-export-for-woo'); ?></a> 
                 </div>
 
                 <div class="inner-panel" style="">
                     <img src="<?php echo plugins_url(basename(plugin_dir_path(WF_ProdImpExpCsv_FILE))) . '/images/support.png'; ?>"/>
-                    <h3><?php _e('Support', 'wf_csv_import_export'); ?></h3>
-                    <p style=""><?php _e('We would love to help you on any queries or issues.', 'wf_csv_import_export'); ?></p>
+                    <h3><?php _e('Support', 'product-import-export-for-woo'); ?></h3>
+                    <p style=""><?php _e('We would love to help you on any queries or issues.', 'product-import-export-for-woo'); ?></p>
                     <a href="https://www.webtoffee.com/support/" target="_blank" class="button button-primary">
-                        <?php _e('Contact Us', 'wf_csv_import_export'); ?></a>
+                        <?php _e('Contact Us', 'product-import-export-for-woo'); ?></a>
                 </div>
             </div>
         </div>

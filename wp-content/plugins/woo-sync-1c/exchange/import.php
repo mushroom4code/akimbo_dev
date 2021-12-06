@@ -1208,7 +1208,9 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
             }
         }
 
-        if ($attachments) {
+        //TODO disable image load
+        if (false){
+            //if ($attachments) {
             $attachment_ids = wc1c_replace_post_attachments($post_id, $attachments);
 
             $new_post_meta = array(

@@ -649,7 +649,7 @@ class WC_Countries {
 				'class'        => array( 'form-row-wide' ),
 				'autocomplete' => 'organization',
 				'priority'     => 30,
-				'required'     => 'required' === get_option( 'woocommerce_checkout_company_field', 'optional' ),
+				'required'     => true,
 			),
 
 			'address_1'  => array(

@@ -7,7 +7,7 @@ if(!empty($_POST['action']) && $_POST['action'] == 'send_mail') {
     $phone = $_POST['phone'];
     $name = $_POST['name'];
     if(!empty($name) && !empty($phone)) {
-        $to = "rodionova@enterego.ru";
+        $to = "akimbomoda@yandex.ru";
         $subject = "Заказать звонок";
         $html = "<!doctype html>
 <html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml' xmlns:o='urn:schemas-microsoft-com:office:office'>
@@ -118,7 +118,7 @@ if(!empty($_POST['action']) && $_POST['action'] == 'send_mail') {
                       <table border='0' cellpadding='0' cellspacing='0' role='presentation' style='border-collapse:collapse;border-spacing:0px;'>
                         <tbody>
                           <tr>
-                            <td style='width:200px;'> <img height='auto' src='https://akimbo.docker.oblako-1c.ru/wp-content/uploads/2018/12/logo-transparent-black-full-46-1.png' style='border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;'
+                            <td style='width:200px;'> <img height='auto' src='https://akimbo-moda.ru/wp-content/uploads/2018/12/logo-transparent-black-full-46-1.png' style='border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;'
                                 width='200' /> </td>
                           </tr>
                         </tbody>

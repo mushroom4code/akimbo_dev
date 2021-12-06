@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // New postmeta defaults
-return apply_filters( 'woocommerce_csv_product_postmeta_defaults', array(
+return apply_filters( 'woocommerce_wf_csv_product_postmeta_defaults', array(
 	'sku'                         => '',
 	'downloadable'                => 'no',
 	'virtual'                     => 'no',
 	'price'                       => '',
 	'visibility'                  => 'visible',
 	'stock'                       => 0,
-	'stock_status'                => 'instock',
+	'stock_status'                => '',
 	'backorders'                  => 'no',
 	'manage_stock'                => 'no',
 	'sale_price'                  => '',
@@ -43,5 +43,6 @@ return apply_filters( 'woocommerce_csv_product_postmeta_defaults', array(
 	'button_text'                 => '',
         'sold_individually'           => 'no',
         'low_stock_amount'            =>0,
+        'purchase_note'               =>'',
     
 ) );

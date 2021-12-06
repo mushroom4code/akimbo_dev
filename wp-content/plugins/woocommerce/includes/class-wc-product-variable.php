@@ -350,7 +350,7 @@ class WC_Product_Variable extends WC_Product {
 				'variation_is_visible'  => $variation->variation_is_visible(),
 				'weight'                => $variation->get_weight(),
 				'weight_html'           => wc_format_weight( $variation->get_weight() ),
-                'barcode'               => $variation->get_barcode(),
+				'barcode'               => $variation->get_barcode(),
 			), $this, $variation
 		);
 	}

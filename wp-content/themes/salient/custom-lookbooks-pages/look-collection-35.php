@@ -24,17 +24,9 @@ $nectar_fp_options = nectar_get_full_page_options();
 
         <div style="display: flex;justify-content: center;align-items: center">
             <div class="forCollection">
-                <div class="bodyForOneEl "
-                     style='background: url("/wp-content/uploads/2020/09/03_09_2020112696.jpg") no-repeat;background-size: cover;    background-position: center;'>
-                    <a href="/shop/plate-p-2030-bar-o/" target="_blank" data-tooltip="Платье П-2030 БАР(О)"
-                       style="height: 100%; bottom: 60px; left: 20px; "
-                       data-position="right" class="right custPoint">
-                        <i class="fa fa-bullseye" aria-hidden="true"></i>
-                    </a>
-                </div>
                 <div class="bodyForOneEl"
-                     style=' background: url("/wp-content/uploads/2020/09/03_09_2020113407.jpg") no-repeat;background-size: cover;    background-position: center;'>
-                    <a href="/shop/zhaket-v-913-kk-o/" target="_blank" data-tooltip="Жакет В-913 ЖК(О)"
+                     style=' background: url("/wp-content/uploads/2020/09/03_09_2020112725.jpg") no-repeat;background-size: cover;    background-position: center;'>
+                    <a href="/shop/zhaket-v-913-kk-o/" target="_blank" data-tooltip="Жакет В-913 КК(О)"
                        style="height: 100%;     bottom: 60px;right: 30px; "
                        data-position="right" class="right custPoint">
                         <i class="fa fa-bullseye" aria-hidden="true"></i>
@@ -69,6 +61,14 @@ $nectar_fp_options = nectar_get_full_page_options();
                      style='background: url("/wp-content/uploads/2020/09/18_08_2020_LAB16_106457.jpg") no-repeat;background-size: cover;    background-position: center;'>
                     <a href="/shop/yubka-a-904-chi-o/" target="_blank" data-tooltip="Юбка А-904 ЧИ(О)"
                        style="height: 100%;bottom:-4px;left:-6px;"
+                       data-position="right" class="right custPoint">
+                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="bodyForOneEl "
+                     style='background: url("/wp-content/uploads/2020/09/18_08_2020_LAB16_106374.jpg") no-repeat;background-size: cover;    background-position: center;'>
+                    <a href="/shop/bryuki-b-802-chi-v20/" target="_blank" data-tooltip="Брюки Б-802 ЧИ(О)"
+                       style="height: 100%;bottom:-4px;left:10px;"
                        data-position="right" class="right custPoint">
                         <i class="fa fa-bullseye" aria-hidden="true"></i>
                     </a>

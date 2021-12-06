@@ -995,37 +995,6 @@ function yfym_all_elements($postId, $numFeed='1') {
 					}
 				}
 		}
-
-        $typePrefix = yfym_optionGET('yfym_type_prefix', $numFeed, 'set_arr');
-        switch ($typePrefix) { /* disabled, sku, или id */
-            case "disabled":
-                // выгружать штрихкод нет нужды
-                break;
-            case "sku":
-                // выгружать из артикула
-                $sku_yml = $offer->get_sku(); // артикул
-                if (!empty($sku_yml)) {
-                    $result_yml .= "<typePrefix>".$sku_yml."</typePrefix>".PHP_EOL;
-                } else {
-                    // своего артикула у вариации нет. Пробуем подставить общий sku
-                    $sku_yml = $product->get_sku();
-                    if (!empty($sku_yml)) {
-                        $result_yml .= "<typePrefix>".$sku_yml."</typePrefix>".PHP_EOL;
-                    }
-                }
-                break;
-            default:
-                $typePrefix = (int)$typePrefix;
-                $typePrefix_yml = $offer->get_attribute(wc_attribute_taxonomy_name_by_id($typePrefix));
-                if (!empty($typePrefix_yml)) {
-                    $result_yml .= '<typePrefix>'.ucfirst(yfym_replace_decode($typePrefix_yml)).'</typePrefix>'.PHP_EOL;
-                } else {
-                    $typePrefix_yml = $product->get_attribute(wc_attribute_taxonomy_name_by_id($typePrefix));
-                    if (!empty($typePrefix_yml)) {
-                        $result_yml .= '<typePrefix>'.ucfirst(yfym_replace_decode($typePrefix_yml)).'</typePrefix>'.PHP_EOL;
-                    }
-                }
-        }
 			 
 		// вариция. если offer_type пуст, то можно выгружать vendorCode
 		// if ($offer_type =='') { 
@@ -1352,22 +1321,6 @@ function yfym_all_elements($postId, $numFeed='1') {
 	}
  }
 
-    $variations_arr = unserialize(yfym_optionGET('yfym_variations_arr', $numFeed));
-    if (!empty($variations_arr)) {
-        $attributes = $product->get_attributes();
-        foreach ($attributes as $variation) {
-            // проверка на вариативность атрибута не нужна
-            $variation_val = $product->get_attribute(wc_attribute_taxonomy_name_by_id($variation->get_id()));
-            // если этот параметр не нужно выгружать - пропускаем
-            $variation_id_string = (string)$variation->get_id(); // важно, т.к. в настройках id как строки
-            if (!in_array($variation_id_string, $variations_arr, true)) {continue;}
-            $variation_name = wc_attribute_label(wc_attribute_taxonomy_name_by_id($variation->get_id()));
-            // если пустое имя атрибута или значение - пропускаем
-            if (empty($variation_name) || empty($variation_val)) {continue;}
-            $result_yml .= '<variant><param name="'.htmlspecialchars($variation_name).'">'.ucfirst(yfym_replace_decode($variation_val)).'</param></variant>'.PHP_EOL;
-        }
-    }
-
  $yfym_ebay_stock = yfym_optionGET('yfym_ebay_stock', $numFeed, 'set_arr');
  if ($yfym_ebay_stock === 'on') {
 	if ($product->get_manage_stock() == true) { // включено управление запасом
@@ -1600,26 +1553,6 @@ function yfym_all_elements($postId, $numFeed='1') {
 			$result_yml .= '<model>'.$model_yml.'</model>'.PHP_EOL;
 		}
  }
-
-    $typePrefix = yfym_optionGET('yfym_type_prefix', $numFeed, 'set_arr');
-    switch ($typePrefix) { /* disabled, sku, или id */
-        case "disabled":
-            // выгружать штрихкод нет нужды
-            break;
-        case "sku":
-            // выгружать из артикула
-            $sku_yml = $product->get_sku();
-            if (!empty($sku_yml)) {
-                $result_yml .= "<typePrefix>".$sku_yml."</typePrefix>".PHP_EOL;
-            }
-            break;
-        default:
-            $typePrefix = (int)$typePrefix;
-            $typePrefix_yml = $product->get_attribute(wc_attribute_taxonomy_name_by_id($typePrefix));
-            if (!empty($typePrefix_yml)) {
-                $result_yml .= '<typePrefix>'.$typePrefix_yml.'</typePrefix>'.PHP_EOL;
-            }
-    }
 
  // если offer_type пуст, то можно выгружать vendorCode
  if ($offer_type == '') {

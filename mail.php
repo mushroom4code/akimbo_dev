@@ -1,5 +1,5 @@
 <?php
-	$to      = 'rodionova@enterego.ru';
+	$to      = 'vd@enterego.ru';
 	$subject = 'the subject';
 	$message = 'hello';
 	$headers = 'From: robot@akimbo-moda.ru' . "\r\n" .

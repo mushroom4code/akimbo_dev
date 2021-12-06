@@ -419,7 +419,6 @@ function eeCustomVisibility($q)
             $productIsBackOrder = $productObj->get_backorders();
             $isUpcoming = ($currentCatSlug == 'upcoming') ? true : false;
             $preOrder = ($productPrice == 0 && $productQuantity == 0 && $productIsBackOrder == 'yes') ? true : false;
-            $planned_date = get_post_meta($productObj->get_id(), 'planned_date', true);
 
 
             if (empty($productImg) || (
@@ -480,6 +479,15 @@ function skyverge_add_postmeta_ordering_args($sort_args)
 
 add_filter('woocommerce_get_catalog_ordering_args', 'skyverge_add_postmeta_ordering_args');
 
+function orderby_first_date($query)
+{
+    $ff = strpos($query, 'first_date');
+    if ($ff !== false) $query = str_replace('wp_posts.menu_order,', '', $query);
+
+    return $query;
+}
+
+add_filter('query', 'orderby_first_date');
 
 // Переопределение метода woocommerce
 if (!function_exists('woocommerce_catalog_ordering')) {
@@ -497,7 +505,7 @@ if (!function_exists('woocommerce_catalog_ordering')) {
             'popularity' => __('Sort by popularity', 'woocommerce'),
             'rating' => __('Sort by average rating', 'woocommerce'),
             'first_date' => "По новизне",
-            'date' => __('Sort by latest', 'woocommerce'),
+//            'date'       => __( 'Sort by latest', 'woocommerce' ),
             'price' => __('Sort by price: low to high', 'woocommerce'),
             'price-desc' => __('Sort by price: high to low', 'woocommerce'),
         ));
@@ -616,7 +624,6 @@ function salePrice($product)
     return $text;
 }
 
-
 function sale($product)
 {
     $result = getSale($product);
@@ -648,7 +655,7 @@ function new_wp_text_input($field)
     $field['type'] = isset($field['type']) ? $field['type'] : 'text';
     $field['desc_tip'] = isset($field['desc_tip']) ? $field['desc_tip'] : false;
     $data_type = empty($field['data_type']) ? '' : $field['data_type'];
-    if ($field['value'] !== '' && $field['value'] !== 'false') {
+    if ($field['value'] !== '') {
         switch ($data_type) {
             case 'price':
                 $field['class'] .= ' wc_input_price';

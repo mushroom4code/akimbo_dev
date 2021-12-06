@@ -1,4 +1,4 @@
-=== YML for Yandex Market ===
+﻿=== YML for Yandex Market ===
 Contributors: icopydoc
 Donate link: https://sobe.ru/na/plugin_yml_for_yandex_market
 Tags: yml, yandex, market, export, woocommerce
