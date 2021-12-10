@@ -340,7 +340,7 @@ class WC_Product_Variable extends WC_Product {
 				'is_purchasable'        => $variation->is_purchasable(),
 				'is_sold_individually'  => $variation->is_sold_individually() ? 'yes' : 'no',
 				'is_virtual'            => $variation->is_virtual(),
-				'max_qty'               => 0 < $variation->get_quantity() ? $variation->get_quantity() : '',
+				'max_qty'               => 0 < $variation->get_max_purchase_quantity() ? $variation->get_max_purchase_quantity() : '',
 				'min_qty'               => $variation->get_min_purchase_quantity(),
 				'price_html'            => $show_variation_price ? '<span class="price">' . $variation->get_price_html() . '</span>' : '',
 				'sku'                   => $variation->get_sku(),
@@ -350,7 +350,6 @@ class WC_Product_Variable extends WC_Product {
 				'variation_is_visible'  => $variation->variation_is_visible(),
 				'weight'                => $variation->get_weight(),
 				'weight_html'           => wc_format_weight( $variation->get_weight() ),
-                'barcode'               => $variation->get_barcode(),
 			), $this, $variation
 		);
 	}

@@ -296,6 +296,7 @@ function wc1c_filesize_to_bytes($filesize)
 
 function wc1c_mode_init($type)
 {
+    wc1c_clean_directory(WC1C_DATA_DIR);
     $wc1c_ar_options = wc1c_options::wc1c_get_options();
 
     @exec("which unzip", $_, $status);
@@ -326,21 +327,21 @@ function wc1c_mode_init($type)
         exit("zip=yes\nfile_limit=$file_limit\n\nversion=2.08");
 }
 
-function wc1c_clean_directory($pathdir)
+function wc1c_clean_directory($pathDir)
 {
-    $files = glob($pathdir . "/*");
+    $files = glob($pathDir . "/*");
     $c = count($files);
     if (count($files) > 0) {
         foreach ($files as $file) {
             if (file_exists($file)) {
 
-                $create_date = time() - filectime($file);
-                if ($create_date > 3600) {
+                $modify_date = time() - filemtime($file);
+                if ($modify_date > 3600) {
                     if (is_dir($file)) {
                         wc1c_clean_directory($file);
                         rmdir($file);
                     } else {
-                        $res = unlink($file);
+                        unlink($file);
                     }
                 }
             }
@@ -352,6 +353,7 @@ function wc1c_mode_file($type, $filename)
 {
     if ($filename) {
         $path = WC1C_DATA_DIR . "$type/" . ltrim($filename, "./\\");
+        
         $_SESSION['last_zip_file'] = $filename;
         $_SESSION['last_zip_unpacked'] = false;
 
@@ -538,6 +540,7 @@ function wc1c_xml_parse($fp)
 function wc1c_mode_import($type, $filename, $namespace = null)
 {
     global $wc1c_namespace, $wc1c_is_full, $wc1c_is_moysklad, $wc1c_names, $wc1c_depth, $wpdb;
+
     if (isset($_SESSION['last_zip_unpacked']) && !$_SESSION['last_zip_unpacked']) {
         wc1c_unpack_files($type);
     }

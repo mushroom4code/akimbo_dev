@@ -23,7 +23,7 @@ class WF_ProdImpExpCsv_Admin_Screen {
      */
     public function admin_notices() {
         if (!function_exists('mb_detect_encoding')) {
-            echo '<div class="error"><p>' . __('Product CSV Import Export requires the function <code>mb_detect_encoding</code> to import and export CSV files. Please ask your hosting provider to enable this function.', 'wf_csv_import_export') . '</p></div>';
+            echo '<div class="error"><p>' . __('Product CSV Import Export requires the function <code>mb_detect_encoding</code> to import and export CSV files. Please ask your hosting provider to enable this function.', 'product-import-export-for-woo') . '</p></div>';
         }
     }
 
@@ -31,8 +31,8 @@ class WF_ProdImpExpCsv_Admin_Screen {
      * Admin Menu
      */
     public function admin_menu() {
-        $page1 = add_submenu_page('edit.php?post_type=product', __('Product Im-Ex', 'wf_csv_import_export'), __('Product Im-Ex', 'wf_csv_import_export'), apply_filters('woocommerce_csv_product_role', 'manage_woocommerce'), 'wf_woocommerce_csv_im_ex', array($this, 'output'));
-        $page = add_submenu_page('woocommerce', __('Product Import-Export', 'wf_csv_import_export'), __('Product Import-Export', 'wf_csv_import_export'), apply_filters('woocommerce_csv_product_role', 'manage_woocommerce'), 'wf_woocommerce_csv_im_ex', array($this, 'output'));
+        $page1 = add_submenu_page('edit.php?post_type=product', __('Product Im-Ex', 'product-import-export-for-woo'), __('Product Im-Ex', 'product-import-export-for-woo'), apply_filters('woocommerce_csv_product_role', 'manage_woocommerce'), 'wf_woocommerce_csv_im_ex', array($this, 'output'));
+        $page = add_submenu_page('woocommerce', __('Product Import-Export', 'product-import-export-for-woo'), __('Product Import-Export', 'product-import-export-for-woo'), apply_filters('woocommerce_csv_product_role', 'manage_woocommerce'), 'wf_woocommerce_csv_im_ex', array($this, 'output'));
         
     }
 
@@ -40,8 +40,13 @@ class WF_ProdImpExpCsv_Admin_Screen {
      * Admin Scripts
      */
     public function admin_scripts() {
-        wp_enqueue_style('woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css');
-        wp_enqueue_style('woocommerce-product-csv-importer', plugins_url(basename(plugin_dir_path(WF_ProdImpExpCsv_FILE)) . '/styles/wf-style.css', basename(__FILE__)), '', '1.4.4', 'screen');
+        $screen = get_current_screen();      
+        $allowed_creen_id = array('product_page_wf_woocommerce_csv_im_ex');
+        if (in_array($screen->id, $allowed_creen_id) || (isset($_GET['import']) && $_GET['import'] == 'xa_woocommerce_csv')) {
+            wp_enqueue_script('wc-enhanced-select');
+            wp_enqueue_style('woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css');
+            wp_enqueue_style('woocommerce-product-csv-importer', plugins_url(basename(plugin_dir_path(WF_ProdImpExpCsv_FILE)) . '/styles/wf-style.css', basename(__FILE__)), '', '1.4.4', 'screen');
+        }
     }
 
     /**
@@ -85,9 +90,10 @@ class WF_ProdImpExpCsv_Admin_Screen {
 
         if (strtotime(get_option('xa_pipe_plugin_installed_date')) < strtotime('-7 days')) {
 
-            if (!current_user_can('manage_woocommerce') || !function_exists('wc_get_screen_ids')) {
+            if (!WF_Product_Import_Export_CSV::hf_user_permission()) {
                 return $header_text;
             }
+            
 
             $current_screen = get_current_screen();
 
@@ -97,7 +103,7 @@ class WF_ProdImpExpCsv_Admin_Screen {
 
                 if (!get_option('xa_pipe_plugin_review_rated')) {
                     $header_text = sprintf(
-                            __('<div class="updated"><p>You have been using %1$s for a while. If you like the plugin please leave us a %2$s review!<p></div>', 'wf_csv_import_export'), sprintf('<strong>%s</strong>', esc_html__('Product Import Export for WooCommerce', 'wf_csv_import_export')), '<a href="https://wordpress.org/support/plugin/product-import-export-for-woo/reviews?rate=5#new-post" target="_blank" class="xa-pipe-rating-link" data-reviewed="' . esc_attr__('Thanks for the review.', 'wf_csv_import_export') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+                            __('<div class="updated"><p>You have been using %1$s for a while. If you like the plugin please leave us a %2$s review!<p></div>', 'product-import-export-for-woo'), sprintf('<strong>%s</strong>', esc_html__('Product Import Export for WooCommerce', 'product-import-export-for-woo')), '<a href="https://wordpress.org/support/plugin/product-import-export-for-woo/reviews?rate=5#new-post" target="_blank" class="xa-pipe-rating-link" data-reviewed="' . esc_attr__('Thanks for the review.', 'product-import-export-for-woo') . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
                     );
                     wc_enqueue_js("
 					jQuery( 'a.xa-pipe-rating-link' ).click( function() {
@@ -119,7 +125,7 @@ class WF_ProdImpExpCsv_Admin_Screen {
      */
     public function review_rated() {
 
-        if (!current_user_can('manage_woocommerce')) {
+        if (!WF_Product_Import_Export_CSV::hf_user_permission()) {
             wp_die(-1);
         }
         update_option('xa_pipe_plugin_review_rated', 1);

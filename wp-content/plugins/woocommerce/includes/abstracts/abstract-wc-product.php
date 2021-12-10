@@ -1992,38 +1992,4 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		return apply_filters( 'woocommerce_get_availability_class', $class, $this );
 	}
 
-
-	//enterego
-
-    public function get_backorders_quantity()
-    {
-        return get_post_meta($this->id, '_backorders_count')[0];
-    }
-
-    public function get_actual_quantity()
-    {
-        return ($this->get_stock_quantity() - $this->get_backorders_quantity());
-    }
-
-    public function get_barcode() {
-        return get_post_meta($this->id, 'barcode')[0];
-    }
-
-    public function get_quantity()
-    {
-        $quantity = get_post_meta($this->id, '_stock')[0];
-        $backorders_count = get_post_meta($this->id, '_backorders_count')[0];
-        return ($quantity - $backorders_count);
-    }
-
-    public function is_available_in_stock()
-    {
-        if ($this->get_quantity() <= 0)
-            return false;
-        return true;
-    }
-
-    public function get_children_data($id) {
-        return get_post_meta($id);
-    }
 }

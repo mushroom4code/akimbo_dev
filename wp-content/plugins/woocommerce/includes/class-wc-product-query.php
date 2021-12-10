@@ -62,7 +62,6 @@ class WC_Product_Query extends WC_Object_Query {
 				'download_expiry'   => '',
 				'average_rating'    => '',
 				'review_count'      => '',
-                'planned_date'      => '',
 			)
 		);
 	}

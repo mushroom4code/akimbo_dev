@@ -42,8 +42,10 @@ function iconic_get_account_fields() {
 				1  => __( 'Магазин', 'iconic' ),
 				2  => __( 'Сеть', 'iconic' ),
 				3  => __( 'Опт', 'iconic' ),
-                4  => __( 'Крупный опт', 'iconic' ),
+				4  => __( 'Крупный опт', 'iconic' ),
+				5  => __( 'Совместные покупки', 'iconic' ),
 			),
+			'required' => true,
 		),
         'all_name'                   => array(
             'type'                 => 'text',
@@ -214,6 +216,7 @@ add_action( 'woocommerce_save_account_details', 'iconic_save_account_fields' ); 
  */
 function iconic_is_userdata( $key ) {
 	$userdata = array(
+		'INN',
 		'user_pass',
 		'user_login',
         'all_name',
@@ -222,7 +225,6 @@ function iconic_is_userdata( $key ) {
         'user_url',
 		'display_name',
 		'nickname',
-		'INN',
 		'Sfera_prod',
 		'description',
 		'rich_editing',

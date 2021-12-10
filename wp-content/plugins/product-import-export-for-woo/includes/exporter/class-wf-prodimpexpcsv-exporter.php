@@ -15,12 +15,20 @@ class WF_ProdImpExpCsv_Exporter {
 		$limit                       = 100;
 		$current_offset              = ! empty( $_POST['offset'] ) ? intval( $_POST['offset'] ) : 0;
 		$csv_columns                 = include( 'data/data-wf-post-columns.php' );
-                $user_columns_name           = ! empty( $_POST['columns_name'] ) ? $_POST['columns_name'] : $csv_columns;
+                $user_columns_name           = ! empty( $_POST['columns_name'] ) ? array_map('sanitize_text_field', $_POST['columns_name']) : $csv_columns;
 		$product_taxonomies          = get_object_taxonomies( 'product', 'name' ); 
-		$export_columns              = ! empty( $_POST['columns'] ) ? $_POST['columns'] : '';
+		$export_columns              = ! empty( $_POST['columns'] ) ? array_map('sanitize_text_field',  $_POST['columns'] ): '';
 		$include_hidden_meta         = ! empty( $_POST['include_hidden_meta'] ) ? true : false;
-		$product_limit               = ! empty( $_POST['product_limit'] ) ? sanitize_text_field( $_POST['product_limit'] ) : '';
+		$product_limit               = ! empty( $_POST['product_limit'] ) ? intval( $_POST['product_limit'] ) : '';
 		$exclude_hidden_meta_columns = include( 'data/data-wf-hidden-meta-columns.php' );
+                $selected_product_ids        = '';
+                
+                 if(!empty($_POST['products'])){ // introduced specific product from export page
+                    $selected_product_ids = implode(', ', array_map('intval',$_POST['products']));
+                }
+                $prod_categories = !empty($_POST['prod_categories']) ? array_map('intval',$_POST['prod_categories']) : array();
+                $prod_tags = !empty($_POST['prod_tags']) ? array_map('intval',$_POST['prod_tags']) : array();
+                $prod_status = !empty($_POST['prod_status']) ? wc_clean($_POST['prod_status']) : array('publish', 'private', 'draft', 'pending', 'future');
 
 		if ( $limit > $export_limit )
 			$limit = $export_limit;
@@ -75,6 +83,10 @@ class WF_ProdImpExpCsv_Exporter {
 			if ( ! $export_columns || in_array( $column, $export_columns ) ) $row[] = $temp_head;
 		}
 
+                // WF: Adding product permalink.
+		if ( ! $export_columns || in_array( 'product_page_url', $export_columns ) ) {
+			$row[] = 'product_page_url';
+		}
 		// Handle special fields like taxonomies
 		if ( ! $export_columns || in_array( 'images', $export_columns ) ) {
 			$row[] = 'images';
@@ -110,13 +122,6 @@ class WF_ProdImpExpCsv_Exporter {
 			}
 		}
 
-		
-		
-		// WF: Adding product permalink.
-		if ( ! $export_columns || in_array( 'product_page_url', $export_columns ) ) {
-			$row[] = 'Product Page URL';
-		}
-
 		$row = array_map( 'WF_ProdImpExpCsv_Exporter::wrap_column', $row );
 		fwrite( $fp, implode( ',', $row ) . "\n" );
 		unset( $row );
@@ -124,8 +129,8 @@ class WF_ProdImpExpCsv_Exporter {
 		while ( $export_count < $export_limit ) {
 
 			$product_args = apply_filters( 'woocommerce_csv_product_export_args', array(
-				'numberposts' 	=> $limit,
-				'post_status' 	=> array( 'publish', 'pending', 'private', 'draft' ),
+				'numberposts'           => $limit,
+				'post_status'       	=>$prod_status,
 				'post_type'		=> array('product'),
 				'orderby' 		=> 'ID',
                                 'suppress_filters'      => false,
@@ -139,6 +144,38 @@ class WF_ProdImpExpCsv_Exporter {
 					$child_ids                = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_parent IN (" . implode( ',', $parent_ids ) . ");" );
 					$product_args['post__in'] = $child_ids;
 				}
+                                
+                          if ((!empty($prod_categories) ) || (!empty($prod_tags))) {
+
+                                //If only product categories has been selected
+                                if (!empty($prod_categories)) {
+                                    $product_args['tax_query'][] = 
+                                        array(
+                                            'taxonomy' => 'product_cat',
+                                            'field' => 'id',
+                                            'terms' => $prod_categories,
+                                            'operator' => 'IN',
+                                    );
+                                }
+
+                                if (!empty($prod_tags)) {
+                                    $product_args['tax_query'][] = 
+                                        array(
+                                            'taxonomy' => 'product_tag',
+                                            'field' => 'id',
+                                            'terms' => $prod_tags,
+                                            'operator' => 'IN',
+                                    );
+                                }
+
+                            }     
+                              if ($selected_product_ids) {
+                                    $parent_ids = array_map('intval', explode(',', $selected_product_ids));
+                                    $child_ids = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE post_parent IN (" . implode(',', $parent_ids) . ");");
+                                    $sel_ids = array_merge($parent_ids, $child_ids);
+                                    $product_args['post__in'] = $sel_ids;
+                                    $product_args['order'] = 'ASC';
+                                }  
 			
 			$products = get_posts( $product_args );
 			if ( ! $products || is_wp_error( $products ) )
@@ -255,6 +292,19 @@ class WF_ProdImpExpCsv_Exporter {
 							$row[] = '';
 						}
 					}
+				}
+
+                                	// WF: Adding product permalink.
+				if ( ! $export_columns || in_array( 'product_page_url', $export_columns ) ) {
+					$product_page_url = '';
+					if ( $product->ID ) {
+						$product_page_url = get_permalink( $product->ID );
+					}
+					if ( $product->post_parent ) {
+						$product_page_url = get_permalink( $product->post_parent );
+					}
+					
+					$row[] = $product_page_url;
 				}
 
 				// Export images/gallery
@@ -394,19 +444,7 @@ class WF_ProdImpExpCsv_Exporter {
 					$row[] = empty( $gpf_data['adwords_labels'] ) ? '' : $gpf_data['adwords_labels'];
 				}
 				
-				// WF: Adding product permalink.
-				if ( ! $export_columns || in_array( 'product_page_url', $export_columns ) ) {
-					$product_page_url = '';
-					if ( $product->ID ) {
-						$product_page_url = get_permalink( $product->ID );
-					}
-					if ( $product->post_parent ) {
-						$product_page_url = get_permalink( $product->post_parent );
-					}
-					
-					$row[] = $product_page_url;
-				}
-
+			
 				// Add to csv
 				$row = array_map( 'WF_ProdImpExpCsv_Exporter::wrap_column', $row );
 				fwrite( $fp, implode( ',', $row ) . "\n" );

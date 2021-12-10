@@ -205,9 +205,6 @@ jQuery(document).ready(function($){
 		$('p#billing_postcode_field').addClass('none');
 	}
 
-
-
-
 	$('#openBut').on('click',function(){
 		$('#openButtons').toggleClass();
 	})

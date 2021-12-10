@@ -28,8 +28,7 @@ $i = 0;
 $emptyStock = array();
 foreach ($variations1 as $value) {
     $single_variation = new WC_Product_Variation($value);
-
-    if ($single_variation->stock_status == 'outofstock') {
+   if ($single_variation->stock_status == 'outofstock') {
         $emptyStock [] = 1;
     }
     $i++;
@@ -38,20 +37,20 @@ if (count($emptyStock) == $i) {
     $infoMessage = 'Нет в наличии';
 }
 
+
 $first_date = get_post_meta($product->get_id(), 'first_date', true);
 $planned_date = get_post_meta($product->get_id(), 'planned_date', true);
-
 $Date = '';
-if ($first_date !== '' && isset($first_date)) {
+if ($first_date !== '' && isset($first_date) ) {
     $Date = '';
-} else if ($planned_date !== '' && isset($planned_date) && $planned_date !== 'false') {
+} 
+if (isset($planned_date) && $planned_date !== '' && $planned_date !== 'false') {
     $Date = '<div style="padding: 10px 0;">
-            <b style="font-weight: 600;font-size: 12px;color: black;margin-right: 12px;">Плановое поступление</b> 
+            <b style="font-weight: 600;font-size: 13px;color: #545252;margin-right: 9px;">Плановое поступление</b>
             <span style="font-weight: 500;font-size: 15px;color: #af8a6e;">' . $planned_date . '</span>
             </div>';
-} else {
-    $Date =  '';
 }
+
 if($Date === ''){
     $Date = $infoMessage;
 }

@@ -1,17 +1,10 @@
-/pma/
-/wp-snapshots
-/2019
-/public_html
-/wp-content/cache
-/bitrix/cache/*
-/bitrix/managed_cache/*
-/upload/*
 /.git
 /.well-known
 /vendor
 /composer.phar
 /yandex_*.html
 /google*.html
+/wp-content/cache
 /.idea
 *.sql
 *.sql.*
@@ -26,7 +19,6 @@
 *.7zip
 *.jpg
 *.jpeg
-*.webp*
 *.png
 *.gif
 *.mp3
@@ -35,6 +27,7 @@
 *.mpg
 *.mpeg
 *.exe
+*.xml
 *.dt
 *.doc
 *.docx

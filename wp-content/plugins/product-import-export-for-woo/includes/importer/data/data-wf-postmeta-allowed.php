@@ -8,7 +8,7 @@ return array(
 	'downloadable' 	=> array( 'yes', 'no' ),
 	'virtual' 		=> array( 'yes', 'no' ),
 	'visibility'	=> array( 'visible', 'catalog', 'search', 'hidden' ),
-	'stock_status'	=> array( 'instock', 'outofstock' ),
+	'stock_status'	=> array( 'instock', 'outofstock', 'onbackorder'),
 	'backorders'	=> array( 'yes', 'no', 'notify' ),
 	'manage_stock'	=> array( 'yes', 'no' ),
 	'tax_status'	=> array( 'taxable', 'shipping', 'none' ),

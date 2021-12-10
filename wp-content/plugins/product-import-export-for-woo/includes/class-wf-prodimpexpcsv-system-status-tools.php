@@ -19,21 +19,21 @@ class WF_ProdImpExpCsv_System_Status_Tools {
 	 */
 	public function tools( $tools ) {
 		$tools['delete_products'] = array(
-			'name'		=> __( 'Delete Products','wf_csv_import_export'),
-			'button'	=> __( 'Delete ALL products','wf_csv_import_export' ),
-			'desc'		=> __( 'This tool will delete all products allowing you to start fresh.', 'wf_csv_import_export' ),
+			'name'		=> __( 'Delete Products','product-import-export-for-woo'),
+			'button'	=> __( 'Delete ALL products','product-import-export-for-woo' ),
+			'desc'		=> __( 'This tool will delete all products allowing you to start fresh.', 'product-import-export-for-woo' ),
 			'callback'  => array( $this, 'delete_products' )
 		);
 		$tools['delete_variations'] = array(
-			'name'		=> __( 'Delete Variations','wf_csv_import_export'),
-			'button'	=> __( 'Delete ALL variations','wf_csv_import_export' ),
-			'desc'		=> __( 'This tool will delete all variations allowing you to start fresh.', 'wf_csv_import_export' ),
+			'name'		=> __( 'Delete Variations','product-import-export-for-woo'),
+			'button'	=> __( 'Delete ALL variations','product-import-export-for-woo' ),
+			'desc'		=> __( 'This tool will delete all variations allowing you to start fresh.', 'product-import-export-for-woo' ),
 			'callback'  => array( $this, 'delete_variations' )
 		);
 		$tools['delete_orphaned_variations'] = array(
-			'name'		=> __( 'Delete Orphans','wf_csv_import_export'),
-			'button'	=> __( 'Delete orphaned variations','wf_csv_import_export' ),
-			'desc'		=> __( 'This tool will delete variations which have no parent.', 'wf_csv_import_export' ),
+			'name'		=> __( 'Delete Orphans','product-import-export-for-woo'),
+			'button'	=> __( 'Delete orphaned variations','product-import-export-for-woo' ),
+			'desc'		=> __( 'This tool will delete variations which have no parent.', 'product-import-export-for-woo' ),
 			'callback'  => array( $this, 'delete_orphaned_variations' )
 		);
 		return $tools;
@@ -59,7 +59,7 @@ class WF_ProdImpExpCsv_System_Status_Tools {
 			LEFT JOIN {$wpdb->posts} wp ON wp.ID = tr.object_id
 			WHERE wp.ID IS NULL" );
 
-		echo '<div class="updated"><p>' . sprintf( __( '%d Products Deleted', 'wf_csv_import_export' ), ( $result + $result2 ) ) . '</p></div>';
+		echo '<div class="updated"><p>' . sprintf( __( '%d Products Deleted', 'product-import-export-for-woo' ), ( $result + $result2 ) ) . '</p></div>';
 	}
 
 	/**
@@ -81,7 +81,7 @@ class WF_ProdImpExpCsv_System_Status_Tools {
 			LEFT JOIN {$wpdb->posts} wp ON wp.ID = tr.object_id
 			WHERE wp.ID IS NULL" );
 
-		echo '<div class="updated"><p>' . sprintf( __( '%d Variations Deleted', 'wf_csv_import_export' ), $result ) . '</p></div>';
+		echo '<div class="updated"><p>' . sprintf( __( '%d Variations Deleted', 'product-import-export-for-woo' ), $result ) . '</p></div>';
 	}
 
 	/**
@@ -96,7 +96,7 @@ class WF_ProdImpExpCsv_System_Status_Tools {
 			LEFT JOIN {$wpdb->posts} wp ON wp.ID = products.post_parent
 			WHERE wp.ID IS NULL AND products.post_type = 'product_variation';" ) );
 
-		echo '<div class="updated"><p>' . sprintf( __( '%d Variations Deleted', 'wf_csv_import_export' ), $result ) . '</p></div>';
+		echo '<div class="updated"><p>' . sprintf( __( '%d Variations Deleted', 'product-import-export-for-woo' ), $result ) . '</p></div>';
 	}	
 }
 

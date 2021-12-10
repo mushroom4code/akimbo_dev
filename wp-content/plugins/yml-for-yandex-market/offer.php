@@ -260,9 +260,7 @@ function yfym_unit($postId, $numFeed='1') {
 	/* с версии 2.0.10 в фильтр добавлен параметр $product */
 	$description_yml = trim($description_yml);
 	if ($description_yml !== '') {
-        $description_yml = mb_substr($description_yml, 3);
-        $description_yml = mb_substr($description_yml, 0, -4);
-        $result_yml_desc .= '<description>'.$description_yml.'</description>'.PHP_EOL;
+		$result_yml_desc = '<description><![CDATA['.$description_yml.']]></description>'.PHP_EOL;
 	}
  }
 

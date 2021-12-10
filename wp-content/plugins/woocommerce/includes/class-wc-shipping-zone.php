@@ -21,9 +21,8 @@ class WC_Shipping_Zone extends WC_Legacy_Shipping_Zone {
 	 *
 	 * @var int|null
 	 */
-	public $id = null;
+	protected $id = null;
 
-	//TODO Enterego fix
 	/**
 	 * This is the name of this object type.
 	 *

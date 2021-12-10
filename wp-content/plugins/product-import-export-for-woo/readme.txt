@@ -1,10 +1,11 @@
 === Product Import Export for WooCommerce===
 Contributors: webtoffee
 Donate link: https://www.webtoffee.com/plugins/
-Tags: woocommerce product import, woocommerce import products, woocommerce export products, export woocommerce products, import products into woocommerce
+Tags: woocommerce product import, woocommerce import products, woocommerce export products, export woocommerce products, import products into woocommerce ,product, export, import, woocommerce ,csv
 Requires at least: 3.0.1
-Tested up to: 5.0.2
-Stable tag: 1.5.2
+Tested up to: 5.7
+Requires PHP: 5.6
+Stable tag: 1.9.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,12 +16,12 @@ Easily import products into WooCommerce store or export WooCommerce products fro
 
 = Introduction =
 
-Are you trying to import products into WooCommerce store or export WooCommerce products from the store.  This Product import export plugin allows you to import or export WooCommerce simple products ( other pproduct types such as variable products are available only in premium version). It is super simple!
+Product import export plugin allows you to import or export WooCommerce simple products ( other product types such as variable products are available only in premium version). It is super simple!
 
 
 &#128312; Export Simple Products  in to a CSV file.
 &#128312; Import Simple Products in CSV format in to WooCommerce Store.
-&#128312; Tested OK with WooCommerce 3.5.2.
+&#128312; Tested OK with WooCommerce 5.2.2
 
 
 Highlights: WooCommerce Product Export, WooCommerce Product CSV Import Suite, WooCommerce bulk product upload, WooCommerce import products with images, import amazon products to WooCommerce, Export Products to xls. Pro Version supports both Simple and Variable products.
@@ -31,29 +32,26 @@ The WooCommerce Product Import Export Plugin takes CSV (Comma-Separated Values) 
 
 You can create the CSV from scratch or you can export the product to get the format of CSV. You can use a spreadsheet program, such as LibreOffice , Microsoft Excel, OpenOffice or Google Spreadsheets for creating and modifying the CSV file. Save this file with extension .CSV. After entering all details about products in spreadsheet, you can import product to your online store. With this plugin, you can also export and download product details as a CSV file.
 
-= Premium version video demo =
-[youtube http://www.youtube.com/watch?v=fBuf54rUakY&rel=0&showinfo=0]
-
 <blockquote>
 
 = Premium version Features =
 Product Import Export Plugin for WooCommerce is the leading tool for Woocommerce product export and WooCommerce product import. Some of the major features are listed below
 
-<ul>
-<li> &#9989; Export WooCommerce Products (Simple, Group, External and Variations) in to a CSV file.</li>
-<li> &#9989; Import Products in to WooCommerce (Simple, Group, External and Variations) in CSV format in to WooComemrce Store.</li>
-<li> &#9989; Export WooCommerce Products by Category.</li>
-<li> &#9989; Various Filter options for exporting WooCommerce Products. </li>
-<li> &#9989; Map and Transform fields while Importing WooCommerce Products.</li>
-<li> &#9989; Change values while importing WooCommerce products using Evaluation Fields.</li>
-<li> &#9989; Choice to Update or Skip existing imported products. </li>
-<li> &#9989; WPML Supported. French and German (Deutschland) language support Out of the Box.</li>
-<li> &#9989; Import/Export file from/to a remote server via FTP.</li>
-<li> &#9989; Import Product CSV from a remote server via URL.</li>
-<li> &#9989; Automatic scheduled Import/Export.</li>
-<li> &#9989; Supports Product Reviews Export Import.</li>
-<li> &#9989; Excellent Support for setting it up!</li>
-</ul>
+
+ &#9989; Export/Import simple, group, external and variation products.</li>
+ &#9989; Export products by category.</li>
+ &#9989; Import/Export product reviews.</li>
+ &#9989; Various filter options for exporting products. </li>
+ &#9989; Map and transform fields during import.</li>
+ &#9989; Manipulate/evaluate data during import.</li>
+ &#9989; Choice to Update or Skip existing imported products. </li>
+ &#9989; WPML support for simple products.</li>
+ &#9989; Import/Export file via FTP/sFTP.</li>
+ &#9989; Import from URL.</li>
+ &#9989; Automatic scheduled import and export.</li>
+ &#9989; Supports product reviews export and import.</li>
+ &#9989; Third party plugin customization support.</li>
+
 
 Please visit <a rel="nofollow" href="https://www.webtoffee.com/product/product-import-export-woocommerce/">Product Import Export Plugin for WooCommerce</a> for more details
 
@@ -68,6 +66,8 @@ WooCommerce import products & WooCommerce export products functionalities made e
 
 = WooCommerce export products =
 There are multiple cases where one need to export WooCommerce products. It could be either for sending the details to someone else or integrating with a third-party system. For example, you can export woocommerce products as csv file in to an ftp folder on a regular basis using the cron job. This can be read by any third-party application to update its data. 
+
+[youtube https://www.youtube.com/watch?v=Fn1IKbjqabM]
 
 Export WooCommerce Products: Export and download product data in CSV file format. Plugins supports,
 
@@ -85,6 +85,8 @@ It is as simple as clicking a button. But if you need to customize your export w
 
 = WooCommerce Import Products =
 WooCommerce bulk product upload is one of the main use case where WooCommerce product import functionality is used. 'How to import products into woocommerce' is one of the common question people ask. Our WooCommerce product csv import suite is the perfect answer for this. With is plugin you can import products from any xml or csv to WooCommerce. This saves lot of time and minimises errors. 
+
+[youtube https://www.youtube.com/watch?v=i2GULQm5ftQ]
 
 WooCommerce product import: You can use the import functionality to:
 
@@ -118,9 +120,9 @@ Supports WooCommerce Google Product Feed Plugin.
 Supports Scheduled Cron Job.
 
 
-= About wbtoffee.com =
+= About webtoffee.com =
 
-WebToffee creates quality WordPress/WooCommerce plugins that are easy to use and customize. We are proud to have thousands of customers actively using our plugins across the globe.
+<a rel="nofollow" href="https://www.webtoffee.com/">WebToffee</a> creates quality WordPress/WooCommerce plugins that are easy to use and customize. We are proud to have thousands of customers actively using our plugins across the globe.
 
 
 == Installation ==
@@ -131,7 +133,7 @@ WebToffee creates quality WordPress/WooCommerce plugins that are easy to use and
 
 == Frequently Asked Questions ==
 
-= Does this plugin support of images? =
+= Does this plugin support export/import of images? =
 
 Yes. You can import or export product images along with other details
 
@@ -139,15 +141,171 @@ Yes. You can import or export product images along with other details
 
 LibreOffice.
 
+= Are you redirected to dashboard or login page while exporting? =
+
+By default, admin and store manager are given access to export orders from your store. Please visit <a rel="nofollow" href="https://www.webtoffee.com/how-to-export-woocommerce-items-without-user-role-restriction/">How to export WooCommerce items without user role restriction</a> for more details 
+
 == Screenshots ==
 
-1. WooCommerce Product Import Screen
+1. Import screen for WooCommerce product import
 
-2. WooCommerce Product Export Screen
+2. Export screen for WooCommerce product export plugin
 
-3. Premium Export Settings Screen
+3. Import mapping screen for WooCommerce product import plugin
+
+4. WooCommerce product CSV import successful
 
 == Changelog ==
+
+= 1.9.3 =
+* Bug fix:- Delete temp file after import
+
+= 1.9.2 =
+* Tested OK with WC 5.2.2
+
+= 1.9.1 =
+* Tested OK with WC 5.2.0
+
+= 1.9.0 =
+* Tested OK with WC 5.1.0 and WP 5.7.0
+
+= 1.8.9 =
+* Tested OK with WC 5.0.0 and WP 5.6.1
+
+= 1.8.8 =
+* Tested OK with WC 4.9.2 
+* Enhancement: product image import.
+
+= 1.8.7 =
+* Bug Fix: Handling of ‘onbackorder’ value for ‘stock_status’.
+
+= 1.8.6 =
+* Tested OK with WC 4.8.0 and WP 5.6
+* Enhancement: product_page_url export.
+
+= 1.8.5 =
+* Tested OK with WC 4.7.1 and WP 5.5.3
+* New filter options added in product export.
+
+= 1.8.4 =
+* Tested OK with WC 4.6.0
+
+= 1.8.3 =
+* Tested OK with WC 4.4.1 and WP 5.5.1
+* Bug Fix:js error when click select all/ unselect all button in export page.
+
+= 1.8.2 =
+* Tested OK with WC 4.3.1
+* Bug Fix: Issue with importing multiple image when images are in different folder.
+
+= 1.8.1 =
+* Tested OK with WC 4.2.2 and WP 5.4.2
+
+= 1.8.0 =
+* Update:- Compatible with meta '_purchase_note'.
+
+= 1.7.9 =
+* Tested OK with WC 4.1.0 and WP 5.4.1
+
+= 1.7.8 =
+*  Bug Fix:- Problem with activating plugin in multisite.
+*  Bug Fix:- Warning when open fails.
+
+= 1.7.7 =
+* Tested OK with WP 5.4
+
+= 1.7.6 =
+* Tested OK with WC 4.0.1
+
+= 1.7.5 =
+* [Improvement] Security
+
+= 1.7.4 =
+* Security fix.
+
+= 1.7.3 =
+* Tested OK with WC 3.9.2
+
+= 1.7.2 =
+* Tested OK with WP 5.3.2
+* Content Update.
+
+= 1.7.1 =
+* Tested OK with WC 3.8.1 and WP 5.3
+* provision to export for Super Admin user.
+
+= 1.7.0 =
+* Bug Fix: Price issue with scheduled sales imports. (@derickcpt)
+
+= 1.6.9 =
+* Bug Fix: Postmetas not getting imported/updated
+* Tweak: Filter name changed from "woocommerce_csv_product_postmeta_defaults" to "woocommerce_wf_csv_product_postmeta_defaults".
+* Tested OK with WP 5.2.4
+
+= 1.6.8 =
+* Bug Fix: Duplicating SKU when updating product with ID
+* Tested OK with WC 3.7.1
+
+= 1.6.7 =
+* Content Update.
+
+= 1.6.6 =
+* Content Update.
+* Tested OK with WP 5.2.3
+
+= 1.6.5 =
+* Enhancement: Added 'tab' and 'space' delimiter support for import CSV.
+* Bug Fix: Improved error handling for file upload issues.
+* Plugin update information hook added.
+
+= 1.6.4 =
+* Tested OK with WC 3.7.0
+
+= 1.6.3 =
+* Tested OK with WC 3.6.5
+
+= 1.6.2 =
+* Tested OK with WC 3.6.4 and WP 5.2.2
+* Content update.
+* Bug Fix.
+
+= 1.6.1 =
+* Tested OK with WC 3.6.3 and WP 5.2
+* Content update.
+
+= 1.6.0 =
+* Tested OK with WC 3.6.2
+
+= 1.5.9 =
+* Tested OK with WC 3.6.1
+* Bug Fix: SKU check.
+
+= 1.5.8 =
+* Banner Update.
+* Content Update.
+
+= 1.5.7 =
+* Updates: Tested OK with WC 3.5.7
+* Bug Fix:- Image import.
+* Support GlotPress(translate.wordpress.org).
+
+= 1.5.6 =
+* Updates: Tested OK with WC 3.5.6 and WP 5.1.1
+* Bug Fix:- Updating Stock status based on stock quantity.
+
+= 1.5.5 =
+* Updates: Tested OK with WC 3.5.5 and WP 5.1
+* Bug Fix:- Import process getting stuck randomly.
+
+= 1.5.4 =
+* Updates: Tested OK with WC 3.5.4
+* Bug Fix:- Importing hierarchical category
+* Content Update.
+
+= 1.5.3 =
+* Updates: Tested OK with WP 5.0.3 and WC 3.5.3
+* Bug Fix:- Image Thumbnail Regeneration error reporting.
+* Content Update.
 
 = 1.5.2 =
 * Updates: Tested OK with WP 5.0.2 and WC 3.5.2
@@ -274,6 +432,5 @@ LibreOffice.
 
 == Upgrade Notice ==
 
-= 1.5.2 =
-* Updates: Tested OK with WP 5.0.2 and WC 3.5.2
-* Optimized product image import.
+= 1.9.3 =
+* Bug fix:- Delete temp file after import

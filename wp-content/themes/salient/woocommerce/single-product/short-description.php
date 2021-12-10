@@ -58,7 +58,6 @@ $prodId = $post->ID;
     $default_podkladka = $attributes['pa_podkladka'];
     $default_color = $attributes['pa_color'];
     $default_rost = $attributes['pa_rost-fotomodeli'];
-    //create array
 
     $sorted_attributes = array();
 
@@ -86,7 +85,6 @@ $prodId = $post->ID;
         array_push($sorted_attributes, $default_rost);
     }
 
-    // end
     foreach($sorted_attributes as $attribute){
 
         if(in_array($attribute->get_name(), $available_attr)){
@@ -98,17 +96,17 @@ $prodId = $post->ID;
 
     echo '<p>'.$descriptionProduct[0].'</p>'; // WPCS: XSS ok.
     echo do_shortcode('[wholesale columns="buy,tally/Шт,total/Итого" products="'.$prodId.'/Сделайте заказ по размерам" buy="horizontal-attribute/razmer"]');
-
+    
     // Если у товара есть все атрибуты длин, отобразить таблицу размеров
     if (isset($attributes['pa_dlina-izdeliya']) || isset($attributes['pa_dlina-po-vnutrennemu-shvu']) || isset($attributes['pa_dlina-po-vneshnemu-shvu'])) {
 
         foreach ($children as $child) {
-            $children_data[] = $product->get_children_data($child);
+            $children_data[] = get_children_data($child);
         }
 
         $column_name = ['Размер', 'Длина изделия (см)', 'Длина по внутреннему шву (см)', 'Длина по внешнему шву (см)'];
-
-        if (isset($attributes['pa_razmer2'])){
+        
+        if (isset($attributes['pa_razmer'])){
             $size = explode(", ", $product->get_attribute($attributes['pa_razmer']->get_name()));
         }
 
@@ -124,16 +122,16 @@ $prodId = $post->ID;
         }
 
         echo '<div class="length_table"><table class="wholesale products">';
-        if (isset($size)) {
 
+        if (isset($size)) {
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[0] . '</th>';
-
             for ($i = 0; $i < count($size); $i++) {
                 echo '<th class="horizontal-attribute">' . $size[$i] . '</th>';
             }
             echo '</tr>';
         }
+
         if (isset($attributes['pa_dlina-izdeliya'])) {
 
             echo '<tr>';

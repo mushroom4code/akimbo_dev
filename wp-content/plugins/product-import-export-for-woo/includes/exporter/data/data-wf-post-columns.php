@@ -49,5 +49,6 @@ return apply_filters('woocommerce_csv_product_post_columns', array(
 	'_button_text'		=> 'button_text',
     
         '_sold_individually'    => 'sold_individually',
-        '_low_stock_amount'     => 'low_stock_amount'
+        '_low_stock_amount'     => 'low_stock_amount',
+        '_purchase_note'        => 'purchase_note'
 ) );

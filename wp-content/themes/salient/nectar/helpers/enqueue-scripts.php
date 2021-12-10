@@ -32,7 +32,8 @@ function nectar_register_js() {
 
         wp_register_style('funcybox-style','https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css');
         wp_enqueue_style('funcybox-style');
-
+		wp_register_script('scripts_jivo', 'https://code-ya.jivosite.com/widget/AOiLGToUyz');
+        wp_enqueue_script('scripts_jivo');
         wp_register_script('mask_scripts', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.3.1/jquery.maskedinput.min.js');
         wp_enqueue_script('mask_scripts');
 		wp_register_script( 'nectar_priority', $nectar_get_template_directory_uri . '/js/priority.js', 'jquery', $nectar_theme_version, true );
