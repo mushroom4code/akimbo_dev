@@ -1,6 +1,6 @@
 <?php /* Template Name: EeLookBook */
 // Exit if accessed directly.
-if(!defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -12,48 +12,65 @@ $nectar_fp_options = nectar_get_full_page_options(); ?>
 <div class="container-wrap">
     <div class="row">
         <div style="display: flex;justify-content: center;align-items: center">
-
             <div class="forCollection">
-                <a href="/look-collection-35/" class="one-look-father">
+                <a href="/look-collections-1/" class="one-look-father">
                     <div class="container-for-background"
-                         style='background: url("/wp-content/uploads/2020/09/1.png") no-repeat;background-size: cover; background-position: center;'>
-                        <span class="name-look-father">Красный бархат</span>
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45712.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Солнечный Амальфи</span>
                     </div>
                 </a>
-                <a href="/look-collection-36/" class="one-look-father">
+                <a href="/look-collections-2/" class="one-look-father">
                     <div class="container-for-background"
-                         style='background: url("/wp-content/uploads/2020/09/2.png") no-repeat;background-size: cover; background-position: center;'>
-                        <span class="name-look-father">Халва</span>
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45864.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Сицилия</span>
                     </div>
                 </a>
-                <a href="/look-collection-37/" class="one-look-father">
+                <a href="/look-collections-3/" class="one-look-father">
                     <div class="container-for-background"
-                         style='background: url("/wp-content/uploads/2020/09/3.png") no-repeat;background-size: cover; background-position: center;'>
-                        <span class="name-look-father">Черничный чизкейк</span>
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45761.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Утренний Лотос</span>
                     </div>
                 </a>
-                <a href="/look-collection-38/" class="one-look-father">
+                <a href="/look-collections-4/" class="one-look-father">
                     <div class="container-for-background"
-                         style='background: url("/wp-content/uploads/2020/09/4.png") no-repeat;background-size: cover; background-position: center;'>
-                        <span class="name-look-father">Тыквенный пирог</span>
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_46408.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Лаймовый бриз</span>
                     </div>
                 </a>
-                <a href="/look-collection-39/" class="one-look-father">
+                <a href="/look-collections-5/" class="one-look-father">
                     <div class="container-for-background"
-                         style='background: url("/wp-content/uploads/2020/09/5.png") no-repeat;background-size: cover; background-position: center;'>
-                        <span class="name-look-father">Ягодная панакота</span>
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45541.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Мелисса</span>
                     </div>
                 </a>
-                <a href="/look-collection-40/" class="one-look-father">
+                <a href="/look-collections-6/" class="one-look-father">
                     <div class="container-for-background"
-                         style='background: url("/wp-content/uploads/2020/09/6.png") no-repeat;background-size: cover; background-position: center;'>
-                        <span class="name-look-father">Тирамису</span>
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_44383.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Ванила лайт</span>
                     </div>
                 </a>
-                <a href="/look-collection-41/" class="one-look-father">
+                <a href="/look-collections-7/" class="one-look-father">
                     <div class="container-for-background"
-                         style='background: url("/wp-content/uploads/2020/09/7.png") no-repeat;background-size: cover; background-position: center;'>
-                        <span class="name-look-father">Малиновый капкейк</span>
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45409.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Камелия</span>
+                    </div>
+                </a>
+                <a href="/look-collections-8/" class="one-look-father">
+                    <div class="container-for-background"
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45487.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Пинк Ройал</span>
+                    </div>
+                </a>
+                <a href="/look-collections-9/" class="one-look-father">
+                    <div class="container-for-background"
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45198.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Ниагара</span>
+                    </div>
+                </a>
+                <a href="/look-collections-10/" class="one-look-father">
+                    <div class="container-for-background"
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_44569.jpg") no-repeat;background-size: cover; background-position: center;'>
+                        <span class="name-look-father">Фраппе</span>
                     </div>
                 </a>
             </div>
