@@ -15,7 +15,7 @@ $nectar_fp_options = nectar_get_full_page_options();
         <div style='display: flex; margin-left: 11%; flex-direction: column; width: 80%;'>
             <h1>Ванила лайт</h1>
             <p class="intro-text">Молочные и коричневые оттенки- это всегда стильно и эффектно. Крупная клетка
-                windowpane, придаст элегантности, также, как и широкие брюки. Жакет на пуговицах и молочная водолазка
+                придаст элегантности, также, как и широкие брюки. Жакет на пуговицах и молочная водолазка
                 согреют в не самые тёплые весенние дни, а платье станет отличным решением для пятничного вечера.
             </p>
         </div>
@@ -107,6 +107,15 @@ $nectar_fp_options = nectar_get_full_page_options();
                      background-size: cover;background-position: center;'>
                     <a href="/shop/plate-p-2114-mar-vl/" target="_blank" data-tooltip="Платье П-2114 МАР(ВЛ)"
                        style="height: 100%; bottom: 30px;"
+                       data-position="right" class="right custPoint">
+                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="bodyForOneEl"
+                     style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_44363.jpg") no-repeat;
+                     background-size: cover;background-position: center;'>
+                    <a href="/shop/dzhemper-s-12-pod-vl/" target="_blank" data-tooltip="Джемпер С-12 ПОД(ВЛ)"
+                       style="height: 100%;bottom: -90px;"
                        data-position="right" class="right custPoint">
                         <i class="fa fa-bullseye" aria-hidden="true"></i>
                     </a>
