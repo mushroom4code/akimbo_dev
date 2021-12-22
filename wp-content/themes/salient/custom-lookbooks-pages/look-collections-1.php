@@ -80,7 +80,12 @@ $nectar_fp_options = nectar_get_full_page_options();
                 <div class="bodyForOneEl"
                      style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45065.jpg") no-repeat;background-size: cover;background-position: center;'>
                     <a href="/shop/bluzka-d-2043-on-vl/" target="_blank" data-tooltip="Блузка Д-2043 ОН(ВЛ)"
-                       style="height: 100%; bottom: 93px;"
+                       style="height: 50%; bottom: 0;"
+                       data-position="right" class="right custPoint">
+                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    </a>
+                    <a href="/shop/bryuki-b-703-yan-o1/" target="_blank" data-tooltip="Брюки Б-2009 ЯН"
+                       style="height: 50%; bottom: 50px;"
                        data-position="right" class="right custPoint">
                         <i class="fa fa-bullseye" aria-hidden="true"></i>
                     </a>
@@ -88,7 +93,7 @@ $nectar_fp_options = nectar_get_full_page_options();
                 <div class="bodyForOneEl"
                      style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_44993.jpg") no-repeat;background-size: cover;background-position: center;'>
                     <a href="/shop/bluzka-d-2055-on-vl/" target="_blank" data-tooltip="Блузка Д-2055 ОН(ВЛ)"
-                       style="height: 100%; bottom: 93px;"
+                       style="height: 100%; bottom: 25px;"
                        data-position="right" class="right custPoint">
                         <i class="fa fa-bullseye" aria-hidden="true"></i>
                     </a>
