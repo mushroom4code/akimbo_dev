@@ -102,6 +102,16 @@ $nectar_fp_options = nectar_get_full_page_options();
                         <i class="fa fa-bullseye" aria-hidden="true"></i>
                     </a>
                 </div>
+                <div class="bodyForOneEl"
+                     style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45662.jpg") no-repeat;
+                     background-size: cover;background-position: center;'>
+                    <a href="/shop/plate-p-2114-mar-vl/" target="_blank" data-tooltip="Платье П-2114 МАР(ВЛ)"
+                       style="height: 100%; bottom: 30px;"
+                       data-position="right" class="right custPoint">
+                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    </a>
+                </div>
+
             </div>
 
         </div>
