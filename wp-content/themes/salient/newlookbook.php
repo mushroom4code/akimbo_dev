@@ -39,7 +39,7 @@ $nectar_fp_options = nectar_get_full_page_options(); ?>
                 </a>
                 <a href="/look-collections-5/" class="one-look-father">
                     <div class="container-for-background"
-                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45541.jpg") no-repeat;background-size: cover; background-position: center;'>
+                         style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_45318.jpg") no-repeat;background-size: cover; background-position: center;'>
                         <span class="name-look-father">Мелисса</span>
                     </div>
                 </a>
