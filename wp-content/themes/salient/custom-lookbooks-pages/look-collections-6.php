@@ -84,6 +84,24 @@ $nectar_fp_options = nectar_get_full_page_options();
                         <i class="fa fa-bullseye" aria-hidden="true"></i>
                     </a>
                 </div>
+                <div class="bodyForOneEl"
+                     style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_46324.jpg") no-repeat;
+                     background-size: cover;background-position: center;'>
+                    <a href="/shop/zhaket-v-92-ren-o1/" target="_blank" data-tooltip="Жилет В-92 РЕН(О1)"
+                       style="height: 100%;"
+                       data-position="right" class="right custPoint">
+                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="bodyForOneEl"
+                     style='background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_46310.jpg") no-repeat;
+                     background-size: cover;background-position: center;'>
+                    <a href="/shop/bryuki-b-703-ren-o1/" target="_blank" data-tooltip="Брюки Б-703 РЕН(О1)"
+                       style="height: 100%;left:30px; bottom: -60px;"
+                       data-position="right" class="right custPoint">
+                        <i class="fa fa-bullseye" aria-hidden="true"></i>
+                    </a>
+                </div>
             </div>
 
         </div>
