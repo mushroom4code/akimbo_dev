@@ -921,14 +921,20 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
     $post_name = sanitize_title($post_title);
     $post_name = apply_filters('wc1c_import_product_slug', $post_name, $product, $is_full);
 
-    $description = isset($product['Описание']) ? $product['Описание'] : '';
+
 
     $args = array(
         'post_type' => 'product',
         'post_title' => $post_title,
-        //'post_excerpt' => $description, enterego отключаем обновление описания
         //'post_content' => $post_content enterego отключаем обновления реквизита
     );
+    if (isset($product['Описание']) && !empty($product['Описание']) ) {
+        $post_id = wc1c_post_id_by_meta('_wc1c_guid', $guid);
+        $field = get_post_field( 'post_excerpt', $post_id);
+        if(empty($field)){
+            $args['post_excerpt'] = $product['Описание'];
+        }
+    }
 
     //Enterego - скоро в продаже
     $post_meta['coming_soon'] = (isset($product['coming_soon'])) ? $product['coming_soon'] : 'false';
