@@ -21,15 +21,6 @@ $nectar_fp_options = nectar_get_full_page_options();
         </div>
         <div style="display: flex;justify-content: center;align-items: center">
             <div class="forCollection">
-                <!--элемент 1-->
-                <div class="bodyForOneEl"
-                     style=' background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_44490.jpg") no-repeat;background-size: cover;background-position: center;'>
-                    <a href="/shop/dzhemper-s-22-lev-vl/" target="_blank" data-tooltip="Джемпер С-22 ЛЭВ(ВЛ) "
-                       style="height: 100%; bottom: 20px;"
-                       data-position="right" class="right custPoint">
-                        <i class="fa fa-bullseye" aria-hidden="true"></i>
-                    </a>
-                </div>
                 <div class="bodyForOneEl"
                      style=' background: url("/wp-content/uploads/2021/11/09_12_2021_AKIMBO_44797.jpg") no-repeat;
                      background-size: cover;background-position: center;'>
