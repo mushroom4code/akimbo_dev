@@ -706,6 +706,11 @@ function new_wp_text_input($field)
 }
 
 //enterego
+
+//Периодически исчезают товары из корзины - метод is_purchasable возвращает false
+//скорей всего из-за обмена с 1с
+add_filter('woocommerce_variation_is_purchasable', '__return_true');
+
 function get_quantity($id)
 {
     $quantity = get_post_meta($id, '_stock')[0];
