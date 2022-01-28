@@ -1,10 +1,12 @@
+/bitrix/cache/*
+/bitrix/managed_cache/*
+/upload/*
 /.git
 /.well-known
 /vendor
 /composer.phar
 /yandex_*.html
 /google*.html
-/wp-content/cache
 /.idea
 *.sql
 *.sql.*
@@ -27,7 +29,6 @@
 *.mpg
 *.mpeg
 *.exe
-*.xml
 *.dt
 *.doc
 *.docx
@@ -37,6 +38,8 @@
 *.swo
 *.pdf
 *.tmp
+*.xml
+*.mov
 .DS_Store
 *.DS_Store
 Thumbs.db
@@ -45,3 +48,5 @@ Thumbs.db
 .viminfo
 *.ignore*
 ._*
+/wp-content/cache/
+/wp-content/backups-dup-lite/tmp/
