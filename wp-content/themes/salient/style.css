@@ -11881,6 +11881,10 @@ html body .full-width-content .nectar-woo-flickity > ul.products[data-product-st
     clear: none;
 }
 
+.wpb_wrapper p {
+    padding-bottom: 0.5em;
+}
+
 @media only screen and (max-width: 690px) {
 
     .nectar-woo-flickity > ul.products[data-product-style] > li.product {
