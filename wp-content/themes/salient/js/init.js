@@ -6520,8 +6520,6 @@ function responsiveTooltips() {
 
 	$('.nectar_image_with_hotspots').each(function(){
 		$(this).find('.nectar_hotspot_wrap').each(function(i){
-			
-			if(  window.innerWidth > 690) {
 
 				//remove click if applicable
 				if($(this).parents('.nectar_image_with_hotspots[data-tooltip-func="hover"]').length > 0) {
@@ -6554,17 +6552,6 @@ function responsiveTooltips() {
 				if($(this).find('> .open').length == 0)
 					$(this).css({'width': '30px','height': '30px'});
 
-			} else {
-				//fixed position
-				$(this).find('.nttip').removeClass('force-left').removeClass('force-right').removeClass('force-top');
-				$(this).find('.nectar_hotspot').addClass('click');
-			
-				if($(this).find('.nttip a.tipclose').length == 0)
-					$(this).find('.nttip .inner').append('<a href="#" class="tipclose"><span></span></a>');
-
-				//change height of fixed
-				$('.nttip').css('height',$(window).height());
-			}
 		});
 	});
 
@@ -6594,8 +6581,6 @@ function imageWithHotspotClickEvents() {
 			},300);
 		}
 
-		if(  window.innerWidth <= 690) $(this).parents('.wpb_row, [class*="vc_col-"]').css('z-index','200');
-
 		return false;
 	});
 
@@ -6606,14 +6591,6 @@ function imageWithHotspotClickEvents() {
 		$(this).parents('.wpb_row').css('z-index','auto');
 
 		return false;
-	});
-
-	$('body').on('click','.nttip.open',function(){
-		if(  window.innerWidth < 690) {
-			$(this).parents('.nectar_image_with_hotspots').find('.nttip').removeClass('open');
-			$(this).parents('.wpb_row').css('z-index','auto');
-			return false;
-		}
 	});
 }
 imageWithHotspotClickEvents();
