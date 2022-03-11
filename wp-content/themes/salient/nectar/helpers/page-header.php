@@ -204,7 +204,7 @@ if ( !function_exists( 'nectar_page_header' ) ) {
 						<div class="inner-wrap">
 						<h1><?php the_title(); ?></h1>
 						<?php if(!empty($subtitle)) { ?> <span class="subheader"><?php echo wp_kses_post( $subtitle ); ?></span> <?php } ?>
-						
+
 						<?php 
 
 						global $nectar_options;
@@ -383,7 +383,17 @@ if ( !function_exists( 'nectar_page_header' ) ) {
 									<?php if(!empty($title)) { ?><h1><?php echo $title; ?></h1> <?php } ?>
 									<span class="subheader"><?php echo wp_kses_post( $subtitle ); ?></span>
 								</div>
-								 
+                                <div style="color:black;margin-bottom: 1rem;">
+                                <?php
+                                /**
+                                 * Hook: woocommerce_archive_description.
+                                 *
+                                 * @hooked woocommerce_taxonomy_archive_description - 10
+                                 * @hooked woocommerce_product_archive_description - 10
+                                 */
+                                do_action( 'woocommerce_archive_description' );
+                                ?>
+                                </div>
 								<?php // portfolio filters
 									if( $page_template == 'template-portfolio.php' && $display_sortable == '1' && $inline_filters == '0') { ?>
 									<div class="<?php echo esc_attr( $filters_id );?>" instance="0">
