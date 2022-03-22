@@ -684,8 +684,11 @@ function wc1c_update_product($post_id, $arOffers)
                             }
                         }
                         // Enterego
+                        $category_all = get_post_meta($post_id, 'add_base_category', true);
                         // added all product in category "all product"
-                        $term_ids[] = '86'; // Ид категории "Все товары"
+                        if($category_all !== 'true' && $category_all !== true) {
+                            $term_ids[] = '86'; // Ид категории "Все товары"
+                        }
                         wc1c_update_product_category($post_id, $term_ids, $attribute['taxonomy']);
 
                     }
