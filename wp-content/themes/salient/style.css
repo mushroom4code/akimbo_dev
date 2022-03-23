@@ -10092,7 +10092,8 @@ body .nectar_food_menu_item .inner {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex
+    display: flex;
+    flex-direction: column;
 }
 
 .span_12.light .nectar_food_menu_item .line_spacer {
@@ -10121,16 +10122,16 @@ body .nectar_food_menu_item .inner {
     -webkit-flex: 0 1 auto;
     -ms-flex: 0 1 auto;
     flex: 0 1 auto;
-    padding-left: 10px;
-    text-align: left
+    text-align: center;
 }
 
 .nectar_food_menu_item .item_name {
-    padding-right: 10px;
     -webkit-box-flex: 0;
     -webkit-flex: 0 1 auto;
     -ms-flex: 0 1 auto;
-    flex: 0 1 auto
+    flex: 0 1 auto;
+    text-align: center;
+    margin-bottom: 8px;
 }
 
 .nectar_food_menu_item .inner {
