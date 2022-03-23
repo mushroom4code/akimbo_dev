@@ -789,11 +789,7 @@ function wc1c_update_product_category($post_id, $category_ids, $taxonomy = 'prod
                       AND tt.taxonomy = '$taxonomy'
                       WHERE object_id=%d", $post_id)
     );
-//    if(!in_array( '86',$category_ids)){
-//        $wpdb->query(
-//            $wpdb->prepare("DELETE FROM $wpdb->term_relationships WHERE  term_taxonomy_id='86' AND object_id=%d",$post_id)
-//        );
-//    }
+
     foreach ($category_ids as $category_id) {
         $wpdb->query(
             $wpdb->prepare("INSERT $wpdb->term_relationships (object_id,term_taxonomy_id,term_order)  VALUES(%d,%d,%d)",
