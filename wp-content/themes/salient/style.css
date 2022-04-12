@@ -10088,6 +10088,10 @@ body .nectar_food_menu_item, body .tabbed div.nectar_food_menu_item {
     margin-bottom: 30px
 }
 
+body:not(.logged-in) .nectar_food_menu_item .item_price {
+    display: none;
+}
+
 body .nectar_food_menu_item .inner {
     display: -webkit-box;
     display: -webkit-flex;
