@@ -184,12 +184,6 @@ function wc1c_read_xml_catalog($xml, $is_full, $wc1c_max_interval, $time_kladr_x
                                 continue;
                             }
                             //Enterego
-                            //Enterego категория Все товары
-                            if ($property_id === 'add_base_category') {
-                                $wc1c_product['add_base_category'] = (string)$product_property->Значение;
-                                continue;
-                            }
-                            //Enterego
 
                             $wc1c_property = array("Ид" => (string)$property_id, "Значение" => array());
 
@@ -769,14 +763,6 @@ function wc1c_replace_post($if_full, $guid, $args, $post_name, $post_meta, $cate
     return array($is_added, $post_id, $current_post_meta);
 }
 
-function deleteCategoryAll($post_id){
-    global $wpdb;
-
-    $wpdb->query(
-        $wpdb->prepare("DELETE FROM $wpdb->term_relationships WHERE  term_taxonomy_id='86' AND object_id=%d",$post_id)
-    );
-
-}
 #region Category
 
 function wc1c_update_product_category($post_id, $category_ids, $taxonomy = 'product_cat')
@@ -952,11 +938,6 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
 
     //Enterego - скоро в продаже
     $post_meta['coming_soon'] = (isset($product['coming_soon'])) ? $product['coming_soon'] : 'false';
-    if (!empty($product['add_base_category'])) {
-        $post_meta['add_base_category'] = $product['add_base_category'];
-    } else {
-        $post_meta['add_base_category'] = 'false';
-    }
     //
 
     list($is_added, $post_id, $post_meta) = wc1c_replace_post($is_full, $guid, $args, $post_name, $post_meta, $product['Группы'], $preserve_fields, $wc1c_ar_options);
@@ -1038,12 +1019,6 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
                 continue;
             }
 
-            if($property['Ид'] == "add_base_category") {
-                if(empty($property['Значение'][0])){
-                    $property['Значение'][0] = 'false';
-                }
-                update_post_meta($post_id, 'add_base_category', $property['Значение'][0]);
-            }
 
             $attribute_guid = $property['Ид'];
             $attribute_id = @$attribute_guids[$attribute_guid];
@@ -1128,9 +1103,6 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
         foreach ($terms as $attribute_taxonomy => $attribute_terms) {
             register_taxonomy($attribute_taxonomy, null);
             wc1c_update_product_category($post_id, $attribute_terms, $attribute_taxonomy);
-        }
-        if($product['add_base_category'] == true || $product['add_base_category'] == 'true'){
-            deleteCategoryAll($post_id);
         }
     }
 

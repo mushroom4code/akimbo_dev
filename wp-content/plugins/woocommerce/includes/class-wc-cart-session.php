@@ -112,7 +112,7 @@ final class WC_Cart_Session {
 					wc_add_notice( sprintf( __( '%s has been removed from your cart because it can no longer be purchased. Please contact us if you need assistance.', 'woocommerce' ), $product->get_name() ), 'error' );
 					do_action( 'woocommerce_remove_cart_item_from_session', $key, $values );
 
-					//TODO enterego 000015659  - fix for basket when product update
+				//TODO enterego 000015659  - fix for basket when product update
 				} elseif (false && ! empty( $values['data_hash'] ) && ! hash_equals( $values['data_hash'], wc_get_cart_item_data_hash( $product ) ) ) { // phpcs:ignore PHPCompatibility.PHP.NewFunctions.hash_equalsFound
 					$update_cart_session = true;
 					/* translators: %1$s: product name. %2$s product permalink */

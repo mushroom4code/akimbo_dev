@@ -1,6 +1,8 @@
-/bitrix/cache/*
-/bitrix/managed_cache/*
 /upload/*
+/wp-content/uploads/*
+wp-content/cache/*
+public_html/newsletter/
+wp-content/backups-dup-lite/tmp
 /.git
 /.well-known
 /vendor
@@ -8,6 +10,7 @@
 /yandex_*.html
 /google*.html
 /.idea
+/pma
 *.sql
 *.sql.*
 *.log
@@ -16,6 +19,7 @@
 *.tar.*
 *.gz
 *.gz.*
+*.txt
 *.zip
 *.rar
 *.7zip
@@ -39,7 +43,9 @@
 *.pdf
 *.tmp
 *.xml
-*.mov
+*.yml
+*.mp4
+*.MP4
 .DS_Store
 *.DS_Store
 Thumbs.db
@@ -48,5 +54,3 @@ Thumbs.db
 .viminfo
 *.ignore*
 ._*
-/wp-content/cache/
-/wp-content/backups-dup-lite/tmp/

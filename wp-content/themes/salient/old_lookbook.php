@@ -12,14 +12,14 @@
     ?>
 
     <div class="container-wrap">
-
+             
             <div class="row">
                 <div style='display: flex; margin-left: 11%; flex-direction: column; width: 80%;'>
-
+                   
                     <h1>Капсульные коллекции.</h1><span style='font-weight: 300;font-size: 22px;letter-spacing: .5px;'>Лукбуки</span><br/>
-                    <p class="intro-text">Капсульные коллекции, объединенные общей тематикой или настроением – это линейки предметов одежды, которые безупречно сочетаются между собой
+                    <p class="intro-text">Капсульные коллекции, объединенные общей тематикой или настроением – это линейки предметов одежды, которые безупречно сочетаются между собой 
         и дополняют друг друга. Эти сочетания выглядят визуально гармоничными благодаря специально подобранным тканям, фактурам и цветам.</p>
-
+                 
                 </div>
 
 
@@ -36,7 +36,7 @@
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-
+ 
                         </div>
                         <!--элемент 2-->
                         <div class="bodyForOneEl" style=' background: url("/wp-content/uploads/2019/09/img273716.jpg") no-repeat;background-size: cover;    background-position: center;'>
@@ -177,7 +177,7 @@
                 <div class="forPageTitle">
                     <h2 class ='collectionTitle' >Серая платина</h2>
                 </div>
-
+                         
                             <div style="display: flex;justify-content: center;align-items: center">
                     <div class="forCollection">
                          <!--элемент 1-->
@@ -216,7 +216,7 @@
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-                        </div>
+                        </div> 
                              <!--элемент 5-->
                         <div class="bodyForOneEl viveEl" style='background: url("/wp-content/uploads/2019/09/img273681.jpg") no-repeat;background-size: cover;    background-position: center;'>
                             <a href="/shop/plate-p-920-n9-o9/" target="_blank" data-tooltip="Платье П-920 Н9(О9)" style="height: 100%; bottom: 60px;"
@@ -225,10 +225,10 @@
                             </a>
                         </div>
                     </div>
-                </div>
-
-                <!--    Коллекция   Серая платина  конец-->
-
+                </div> 
+              
+                <!--    Коллекция   Серая платина  конец-->  
+                
                          <!--    Коллекция  Ноябрьский лес старт-->
                          <div class="forPageTitle">
                     <h2 class ='collectionTitle' >Ноябрьский лес</h2>
@@ -241,7 +241,7 @@
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-
+                          
                         </div>
                         <!--элемент 2-->
                         <div class="bodyForOneEl" style=' background: url("/wp-content/uploads/2019/09/img273969.jpg") no-repeat;background-size: cover;    background-position: center;'>
@@ -293,11 +293,11 @@
                         </div>
                     </div>
                 </div>
+             
+                <!--    Коллекция   Ноябрьский лес  конец-->  
 
-                <!--    Коллекция   Ноябрьский лес  конец-->
 
-
-                <div id="hiddenForOptiaze" class='hiddenenCustom'><!-- custom lazyload-->
+                <div id="hiddenForOptiaze" class='hiddenenCustom'><!-- custom lazyload-->  
                         <!--    Коллекция   Терракот старт-->
                         <div class="forPageTitle">
                             <h2 class ='collectionTitle' >Терракот</h2>
@@ -310,7 +310,7 @@
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-
+                          
                         </div>
                             <!--элемент 2-->
                         <div class="bodyForOneEl" style=' background: url("/wp-content/uploads/2019/09/img273292.jpg") no-repeat;background-size: cover;    background-position: center;'>
@@ -318,15 +318,15 @@
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-
-                        </div>
+                         
+                        </div>   
                                  <!--элемент 3-->
                         <div class="bodyForOneEl" style=' background: url("/wp-content/uploads/2019/09/img273224.jpg") no-repeat;background-size: cover;    background-position: center;'>
                             <a href="/shop/plate-p-927-br1-o9/" target="_blank" data-tooltip="Платье П-927 БР1(О9)" style="height: 100%;    bottom:60px;"
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-
+                          
                         </div>
                                  <!--элемент 4-->
                         <div class="bodyForOneEl " style='background: url("/wp-content/uploads/2019/09/img273208-2.jpg") no-repeat;background-size: cover;    background-position: center;'>
@@ -348,8 +348,8 @@
                         </div>
                     </div>
                 </div>
-
-                <!--    Коллекция   Терракот  конец-->
+              
+                <!--    Коллекция   Терракот  конец-->  
 
                     <!--    Коллекция   Сиена  старт-->
                     <div class="forPageTitle">
@@ -374,15 +374,15 @@
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-
-                        </div>
+                         
+                        </div>   
                                  <!--элемент 3-->
                         <div class="bodyForOneEl" style=' background: url("https://akimbo-moda.ru/wp-content/uploads/2019/09/img273332.jpg") no-repeat;background-size: cover;    background-position: center;'>
                             <a href="/shop/bluzka-d-910-br3-o9/" target="_blank" data-tooltip="Блузка Д-910 БР3(О9)" style="height: 100%;    bottom: 85px;"
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-
+                          
                         </div>
                              <!--элемент 4-->
                         <div class="bodyForOneEl " style='background: url("/wp-content/uploads/2019/09/img273321.jpg") no-repeat;background-size: cover;    background-position: center;'>
@@ -404,14 +404,14 @@
                             <a href="/shop/yubka-a-900-ds-o9/" target="_blank" data-tooltip="Юбка А-900 ДС(О9)" style="height: 50%; bottom: 85px; left: 20px;"
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
-                            </a>
-
-
+                            </a> 
+                          
+                          
                         </div>
                     </div>
                 </div>
-
-                <!--    Коллекция   Сиена конец-->
+               
+                <!--    Коллекция   Сиена конец-->   
 
                  <!--    Коллекция  Осень в городе старт-->
                  <div class="forPageTitle">
@@ -425,7 +425,7 @@
                                data-position="right" class="right custPoint">
                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                             </a>
-
+                        
                         </div>
                              <!--элемент 2-->
                         <div class="bodyForOneEl" style=' background: url("/wp-content/uploads/2019/09/img273545-2.jpg") no-repeat;background-size: cover;    background-position: center;'>
@@ -463,10 +463,10 @@
                     </div>
 
                 </div>
-
+             
                 <!--    Коллекция   Осень в городе конец-->
 
-
+            
                 </div>
             </div><!--/row-->
         </div><!--/container-->

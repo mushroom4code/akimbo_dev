@@ -40,9 +40,6 @@ define('DB_CHARSET', 'utf8');
 /** Схема сопоставления. Не меняйте, если не уверены. */
 define('DB_COLLATE', '');
 
-define( 'WP_HOME', 'http://akimbo.docker.oblako-1c.ru' );
-define( 'WP_SITEURL', 'http://akimbo.docker.oblako-1c.ru' );
-
 /**#@+
  * Уникальные ключи и соли для аутентификации.
  *
