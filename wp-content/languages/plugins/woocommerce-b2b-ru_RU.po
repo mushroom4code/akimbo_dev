@@ -1,0 +1,637 @@
+# Copyright (C) 2018 WooCommerce B2B
+# This file is distributed under the same license as the WooCommerce B2B package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce B2B 2.0.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-b2b\n"
+"POT-Creation-Date: 2018-10-28 10:25:04+00:00\n"
+"PO-Revision-Date: 2022-04-27 17:12+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: includes/classes/class-wc-email-status-notification.php:16
+msgid "Status notification"
+msgstr ""
+
+#: includes/classes/class-wc-email-status-notification.php:17
+msgid "Send email notification to customer when his account is enabled."
+msgstr ""
+
+#: includes/classes/class-wc-email-status-notification.php:34
+msgid "Your account on {site_title} is approved!"
+msgstr ""
+
+#: includes/classes/class-wc-email-status-notification.php:38
+msgid "Your customer account is now abled to purchase."
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:13 woocommerce-b2b.php:197
+msgid "B2B"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:19 woocommerce-b2b.php:34
+msgid "Settings"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:41
+msgid "B2B mode"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:43
+msgid ""
+"By enabling B2B mode only registered customers will be able to view product "
+"prices and have the opportunity to make purchases. Also enable new products "
+"options to force customers to buy minimum stock and to buy by pack"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:46
+msgid "Enable"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:48
+msgid "Turn on Busines to Business mode for your shop"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:61
+msgid "Shop options"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:63
+msgid ""
+"Customize shop fields to improve B2B experience: choose to add indispensable "
+"fields."
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:68
+msgid "Hide prices"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:70
+msgid "Hide prices for not logged in customers"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:71
+msgid "Price is replaced by a message linked to login page"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:77 woocommerce-b2b.php:411
+#: woocommerce-b2b.php:423
+msgid "VAT number"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:79
+msgid "Add VAT number field to billing address"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:80
+msgid "VAT number field is added to checkout form, order emails, order details"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:89
+msgid "Purchase options"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:91
+msgid ""
+"Customers can place an order only reaching the minimum amount. If the "
+"minimum amount isn't reached, display a message in checkout in place of "
+"payment methods, but you can display an alert also in shopping cart in place "
+"of \"Proceed to checkout\" button."
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:96
+msgid "Min purchase amount"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:98
+msgid "To disable the option, set 0"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:105
+msgid "Display message in cart"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:107
+msgid ""
+"Display a message in the shopping cart page to alert that minimum amount "
+"isn't reached yet"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:115
+msgid "Prevent proceed to checkout"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:117
+msgid ""
+"Remove \"Proceed to checkout\" button in shopping cart if customer doesn't "
+"reach the minimum amount"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:128
+msgid "Customer options"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:130
+msgid ""
+"Choose the users to approve and decide which informations you want to "
+"display in customer account."
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:135
+msgid "Moderate registration"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:137
+msgid "Customers can login only after admin approvation"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:138
+msgid ""
+"Add new columns to users list and new field to profile page in backend to "
+"manage customer status"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:144
+msgid "Registration form"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:146
+msgid "Add billing data to registration form"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:147
+msgid ""
+"Extend registration form with billing fields. If checked, enable by default "
+"the option 'Enable customer registration on the \"My account\" page' in "
+"Accounts tab under WooCommerce settings"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:152
+msgid "Registration notice"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:154
+msgid "Send email to admin on every new customer account registration"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:155
+msgid ""
+"When a customer create an account, an email is send to admin to inform him"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:164
+msgid "Customer groups"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:166
+msgid ""
+"Create your favourite groups and assign to your customers to give a discount "
+"on their purchases."
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:171
+msgid "Show discount"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:173
+msgid ""
+"Customers can view discount amount assigned to them in their own account area"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:181
+msgid ""
+"Customers can view discount amount assigned to them in single product page"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:188
+msgid "Product categories visibility"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:191
+msgid "Display product categories by group"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:192
+msgid ""
+"When enabled, every product category can be set to be visible only to "
+"certain groups"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:197
+msgid "Redirect on page"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:201
+msgid ""
+"When users go directly to a not visible product category or a not visible "
+"product"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:207
+msgid "-- Do nothing --"
+msgstr ""
+
+#: includes/classes/class-wc-settings-wcb2b.php:208
+msgid "404 (not found) page"
+msgstr ""
+
+#: templates/emails/plain/status-notification.php:17
+#: templates/emails/status-notification.php:15
+msgid "Hi %s,"
+msgstr ""
+
+#: templates/emails/plain/status-notification.php:18
+#: templates/emails/status-notification.php:17
+msgid "Your account is approved and you are now abled to purchase."
+msgstr ""
+
+#: templates/emails/plain/status-notification.php:19
+#: templates/emails/status-notification.php:19
+msgid "Login and start purchasing"
+msgstr ""
+
+#: woocommerce-b2b.php:68
+msgid ""
+"Warning! To use WooCommerce B2B it need WooCommerce is installed and active."
+msgstr ""
+
+#: woocommerce-b2b.php:77
+msgid "The following options are setted as recommended: %s"
+msgstr ""
+
+#: woocommerce-b2b.php:78
+msgid ""
+"WooCommerce settings > General > Enable taxes and tax calculations > Yes"
+msgstr ""
+
+#: woocommerce-b2b.php:79
+msgid "WooCommerce settings > Tax > Prices entered with tax > No"
+msgstr ""
+
+#: woocommerce-b2b.php:80
+msgid ""
+"WooCommerce settings > Accounts > Automatically generate customer password > "
+"Yes"
+msgstr ""
+
+#: woocommerce-b2b.php:129
+msgid "Filter"
+msgstr ""
+
+#: woocommerce-b2b.php:217
+msgid "Package"
+msgstr ""
+
+#: woocommerce-b2b.php:218
+msgid ""
+"Force customers to purchase product by pack increment. Insert how much "
+"products are in every pack"
+msgstr ""
+
+#: woocommerce-b2b.php:230
+msgid "Minimum quantity"
+msgstr ""
+
+#: woocommerce-b2b.php:231
+msgid "Force customers to purchase minimum quantity of this product"
+msgstr ""
+
+#: woocommerce-b2b.php:280
+msgid "You must purchase at least %s of this product"
+msgstr ""
+
+#: woocommerce-b2b.php:286
+msgid "This product can be purchased by increments of %s"
+msgstr ""
+
+#: woocommerce-b2b.php:299
+msgid "Please, login to see prices and buy"
+msgstr "Авторизуйтесь чтобы увидеть цену и купить"
+
+#: woocommerce-b2b.php:365
+msgid "Vat number"
+msgstr ""
+
+#: woocommerce-b2b.php:366
+msgctxt "placeholder"
+msgid "Vat number"
+msgstr ""
+
+#: woocommerce-b2b.php:450
+msgid ""
+"To proceed to checkout and complete your purchase, make sure you have "
+"reached the minimum amount of %s."
+msgstr ""
+
+#: woocommerce-b2b.php:470
+msgid ""
+"To proceed to checkout and complete your purchase, you must reach the "
+"minimum amount of %s, but your total cart amount is currently %s. Return to "
+"%sshop%s"
+msgstr ""
+
+#: woocommerce-b2b.php:518
+msgid "%s is not a valid postcode / ZIP."
+msgstr ""
+
+#. translators: %s: phone number
+#: woocommerce-b2b.php:527
+msgid "%s is not a valid phone number."
+msgstr ""
+
+#. translators: %s: email address
+#: woocommerce-b2b.php:535
+msgid "%s is not a valid email address."
+msgstr ""
+
+#. translators: 1: state field 2: valid states
+#: woocommerce-b2b.php:555
+msgid "%1$s is not valid. Please enter one of the following: %2$s"
+msgstr ""
+
+#. translators: %s: field name
+#: woocommerce-b2b.php:562
+msgid "%s is a required field."
+msgstr ""
+
+#: woocommerce-b2b.php:636
+msgid "Groups"
+msgstr ""
+
+#: woocommerce-b2b.php:637 woocommerce-b2b.php:662 woocommerce-b2b.php:875
+#: woocommerce-b2b.php:909
+msgid "Group"
+msgstr ""
+
+#: woocommerce-b2b.php:638
+msgid "All Groups"
+msgstr ""
+
+#: woocommerce-b2b.php:639
+msgctxt "Admin menu name"
+msgid "Groups"
+msgstr ""
+
+#: woocommerce-b2b.php:640
+msgid "Add New"
+msgstr ""
+
+#: woocommerce-b2b.php:641
+msgid "Add new group"
+msgstr ""
+
+#: woocommerce-b2b.php:642
+msgid "Edit"
+msgstr ""
+
+#: woocommerce-b2b.php:643
+msgid "Edit group"
+msgstr ""
+
+#: woocommerce-b2b.php:644
+msgid "New group"
+msgstr ""
+
+#: woocommerce-b2b.php:645 woocommerce-b2b.php:712
+msgid "View group"
+msgstr ""
+
+#: woocommerce-b2b.php:646
+msgid "View groups"
+msgstr ""
+
+#: woocommerce-b2b.php:647
+msgid "Search groups"
+msgstr ""
+
+#: woocommerce-b2b.php:648
+msgid "No groups found"
+msgstr ""
+
+#: woocommerce-b2b.php:649
+msgid "No groups found in trash"
+msgstr ""
+
+#: woocommerce-b2b.php:650
+msgid "Parent group"
+msgstr ""
+
+#: woocommerce-b2b.php:651
+msgid "Group image"
+msgstr ""
+
+#: woocommerce-b2b.php:652
+msgid "Set group image"
+msgstr ""
+
+#: woocommerce-b2b.php:653
+msgid "Remove group image"
+msgstr ""
+
+#: woocommerce-b2b.php:654
+msgid "Use as group image"
+msgstr ""
+
+#: woocommerce-b2b.php:655
+msgid "Insert into group"
+msgstr ""
+
+#: woocommerce-b2b.php:656
+msgid "Uploaded to this group"
+msgstr ""
+
+#: woocommerce-b2b.php:657
+msgid "Filter groups"
+msgstr ""
+
+#: woocommerce-b2b.php:658
+msgid "Groups navigation"
+msgstr ""
+
+#: woocommerce-b2b.php:659
+msgid "Groups list"
+msgstr ""
+
+#: woocommerce-b2b.php:663
+msgid "This is where you can add new groups to your customers."
+msgstr ""
+
+#: woocommerce-b2b.php:691 woocommerce-b2b.php:692 woocommerce-b2b.php:694
+msgid "Group updated."
+msgstr ""
+
+#: woocommerce-b2b.php:693
+msgid "Group deleted."
+msgstr ""
+
+#: woocommerce-b2b.php:696
+msgid "Group restored to revision from %s"
+msgstr ""
+
+#: woocommerce-b2b.php:699
+msgid "Group published."
+msgstr ""
+
+#: woocommerce-b2b.php:700
+msgid "Group saved."
+msgstr ""
+
+#: woocommerce-b2b.php:701
+msgid "Group submitted."
+msgstr ""
+
+#: woocommerce-b2b.php:703
+msgid "Group scheduled for: <strong>%1$s</strong>."
+msgstr ""
+
+#: woocommerce-b2b.php:706
+msgid "Group draft updated."
+msgstr ""
+
+#: woocommerce-b2b.php:718
+msgid "Preview group"
+msgstr ""
+
+#: woocommerce-b2b.php:728
+msgid "Discount"
+msgstr ""
+
+#: woocommerce-b2b.php:766 woocommerce-b2b.php:793
+msgid "Discount amount assigned to you: %s%%"
+msgstr ""
+
+#: woocommerce-b2b.php:872
+msgid "User group"
+msgstr ""
+
+#: woocommerce-b2b.php:886
+msgid "Please select user group to apply discounts."
+msgstr ""
+
+#: woocommerce-b2b.php:944
+msgid "Assign group"
+msgstr ""
+
+#: woocommerce-b2b.php:975
+msgid "Filter by group"
+msgstr ""
+
+#: woocommerce-b2b.php:1002
+msgid "Discount (%)"
+msgstr ""
+
+#: woocommerce-b2b.php:1010
+msgid ""
+"This should be a number with up to 2 decimal places, with (.) as decimal "
+"separator"
+msgstr ""
+
+#: woocommerce-b2b.php:1016
+msgid "Disable payment methods for this group"
+msgstr ""
+
+#: woocommerce-b2b.php:1038
+msgid "Product categories visibility for this group"
+msgstr ""
+
+#: woocommerce-b2b.php:1231 woocommerce-b2b.php:1265
+msgid "Group access"
+msgstr ""
+
+#: woocommerce-b2b.php:1237 woocommerce-b2b.php:1271
+msgid "Guests"
+msgstr ""
+
+#: woocommerce-b2b.php:1251 woocommerce-b2b.php:1284
+msgid "Select the groups you want to be able to view this category"
+msgstr ""
+
+#: woocommerce-b2b.php:1507 woocommerce-b2b.php:1522
+msgid ""
+"Your account is now under review. You will receive an email as soon as it is "
+"activated."
+msgstr ""
+
+#: woocommerce-b2b.php:1532
+msgid ""
+"We are checking your account, please wait for the activation confirmation "
+"email before trying to login"
+msgstr ""
+
+#: woocommerce-b2b.php:1551 woocommerce-b2b.php:1568 woocommerce-b2b.php:1692
+#: woocommerce-b2b.php:1731
+msgid "Inactive"
+msgstr ""
+
+#: woocommerce-b2b.php:1552 woocommerce-b2b.php:1569 woocommerce-b2b.php:1693
+#: woocommerce-b2b.php:1732
+msgid "Active"
+msgstr ""
+
+#: woocommerce-b2b.php:1572
+msgid "User status"
+msgstr ""
+
+#: woocommerce-b2b.php:1575 woocommerce-b2b.php:1618
+msgid "Status"
+msgstr ""
+
+#: woocommerce-b2b.php:1583
+msgid "Please select user status to approve registration and enable purchases."
+msgstr ""
+
+#: woocommerce-b2b.php:1644
+msgid "Change status"
+msgstr ""
+
+#: woocommerce-b2b.php:1687
+msgid "Filter by status"
+msgstr ""
+
+#: woocommerce-b2b.php:1719
+msgid "Customers"
+msgstr ""
+
+#: woocommerce-b2b.php:1722
+msgid "In CSV format for statistics purposes"
+msgstr ""
+
+#: woocommerce-b2b.php:1848
+msgid "Database updated!"
+msgstr ""
+
+#: woocommerce-b2b.php:1857
+msgid ""
+"We need to update your database to the latest version to preserve all your "
+"data."
+msgstr ""
+
+#: woocommerce-b2b.php:1858
+msgid "Run the updater"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce B2B"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://code4life.it/shop/plugins/woocommerce-b2b/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Transform your WooCommerce into Business-to-Business shop for wholesale."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Code4Life"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://code4life.it/"
+msgstr ""
