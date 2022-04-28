@@ -7,6 +7,8 @@ define('NECTAR_THEME_DIRECTORY', get_template_directory());
 define('NECTAR_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/nectar/');
 define('NECTAR_THEME_NAME', 'salient');
 
+require_once 'includes/ajax.php';
+
 
 if (!function_exists('get_nectar_theme_version')) {
     function nectar_get_theme_version()
