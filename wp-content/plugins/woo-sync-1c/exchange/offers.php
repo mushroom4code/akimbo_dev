@@ -687,7 +687,6 @@ function wc1c_update_product($post_id, $arOffers)
                         // added all product in category "all product"
                         $term_ids[] = '86'; // Ид категории "Все товары"
                         wc1c_update_product_category($post_id, $term_ids, $attribute['taxonomy']);
-                        update_post_meta($post_id, '_product_attributes', $product_attributes);
                         $post['ID'] = $post_id;
                         $post['comment_status'] = 'open';
                         wp_update_post($post);
