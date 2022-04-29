@@ -451,6 +451,14 @@ function woo_remove_product_tabs($tabs)
     return $tabs;
 }
 
+add_filter( 'woocommerce_product_tabs', 'woo_custom_title_tabs', 98 );
+function woo_custom_title_tabs( $tabs ) {
+
+    $tabs['reviews']['title'] = 'Показать отзывы';
+    return $tabs;
+}
+
+
 function skyverge_add_postmeta_ordering_args($sort_args)
 {
     $orderby_value = isset($_GET['orderby']) ? wc_clean($_GET['orderby']) : apply_filters('woocommerce_default_catalog_orderby', get_option('woocommerce_default_catalog_orderby'));
