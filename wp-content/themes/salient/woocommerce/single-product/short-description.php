@@ -124,6 +124,7 @@ $prodId = $post->ID;
         echo '<div class="length_table"><table class="wholesale products">';
 
         if (isset($size)) {
+            sort($size,SORT_NUMERIC);
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[0] . '</th>';
             for ($i = 0; $i < count($size); $i++) {
