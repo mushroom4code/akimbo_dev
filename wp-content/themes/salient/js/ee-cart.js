@@ -135,6 +135,27 @@ jQuery(document).ready(function($){
 			}
 		});
 	});
+
+	jQuery(document).on('click', 'button[name="clear-cart"]', function (e) {
+		e.preventDefault();
+		let data = {
+			'action': 'empty_all',
+		};
+		jQuery.ajax({
+			type: 'POST',
+			url:  location.href,
+			data: data,
+			success: function (datas) {
+				if(datas !== ''){
+					document.location.reload();
+					$(document).ready(function($){
+						$(document).find('.woocommerce-error').attr('style','display:none;');
+					})
+				}
+			}
+		});
+	});
+
 	// Enterego / Rodionova
 
 

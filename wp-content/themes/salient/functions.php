@@ -329,15 +329,6 @@ require_once NECTAR_THEME_DIRECTORY . '/nectar/helpers/woocommerce.php';
 require_once NECTAR_THEME_DIRECTORY . '/nectar/helpers/open-graph.php';
 
 
-add_action('init', 'woocommerce_clear_cart_url');
-function woocommerce_clear_cart_url()
-{
-    global $woocommerce;
-    if (isset($_REQUEST['clear-cart'])) {
-        $woocommerce->cart->empty_cart();
-    }
-}
-
 function theme_js()
 {
     wp_enqueue_script('theme_js', get_template_directory_uri() . '/js/ee-cart.js');
