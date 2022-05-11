@@ -1,9 +1,10 @@
 jQuery(document).ready(function ($) {
     $('.add2Basket').on('click', function () {
+        let product =  $(this).closest('li.type-product');
         if ($(document).find('.variation_add_basket').length !== 0) {
             $(document).find('.variation_add_basket').remove();
+            $(document).find('.active_block').removeClass('active_block');
         }
-       let product =  $(this).closest('li.type-product');
         $.ajax({
             type: 'GET',
             url: '/wp-admin/admin-ajax.php',
@@ -19,8 +20,12 @@ jQuery(document).ready(function ($) {
             success: function (html) {
                 $('.reload').remove();
                 $(product).append('<div class="variation_add_basket">' + html + '</div>');
-                console.log(html)
+                $(product).addClass('active_block');
             }
         });
+    });
+    $(document).on('click','.close_window',function () {
+        $(document).find('.variation_add_basket').remove();
+        $(document).find('.active_block').removeClass('active_block');
     });
 });

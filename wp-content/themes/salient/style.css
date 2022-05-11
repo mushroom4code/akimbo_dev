@@ -13800,7 +13800,7 @@ body #bbpress-forums fieldset.bbp-form {
     border: 1px solid #DDD !important
 }
 
-.bbp-topic-permalink,.font-14 {
+.bbp-topic-permalink, .font-14 {
     font-size: 14px
 }
 
@@ -31445,7 +31445,6 @@ body:not(.woocommerce-cart) .main-content th {
     border-top: medium none;
     border-width: medium 1px 1px medium;
     font-weight: bold;
-    padding: 10px;
     text-align: left;
     border-color: #ececec
 }
@@ -31464,6 +31463,9 @@ body:not(.woocommerce-cart) .main-content table tr:nth-child(2n+1) {
     background-color: #fcfcfc
 }
 
+.mb-3 {
+    margin-bottom: 1rem;
+}
 
 /******** CUSTOM ICONS ********/
 @font-face {
@@ -32843,15 +32845,52 @@ video {
     }
 }
 
+.font-12 {
+    font-size: 12px;
+}
+
+.add2Basket:hover {
+    color: white;
+}
+
+.text-center {
+    text-align: center;
+}
+
 .variation_add_basket {
     position: absolute;
     bottom: 0;
-    height: 50%;
+    height: 45%;
     width: 100%;
     background-color: #ffffffeb;
-    padding: 10px;
-    font-size: 14px;
+    padding: 20px 30px;
+    font-size: 12px;
+    border-radius: 0 0 10px 10px;
     transition: 1s;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.icon_basket {
+    background-image: url('./img/basket.png');
+    width: 17px;
+    height: 17px;
+}
+
+.close_window, .icon_basket {
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.close_window {
+    background-image: url("./img/close_window.png");
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
 
 .new_data {

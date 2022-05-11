@@ -67,14 +67,14 @@ html .woocommerce-checkout #payment div.payment_box:before {
     opacity: 0.2 !important;
 }
 
-.nectar-quick-view-box .product .summary .variations_form,body.logged-in .nectar-quick-view-box .product .summary table.wholesale,
-body.logged-in .nectar-quick-view-box .product .summary div.wholesale-cart{
-    visibility: visible!important;
-    display: block!important;
+.nectar-quick-view-box .product .summary .variations_form, body.logged-in .nectar-quick-view-box .product .summary table.wholesale,
+body.logged-in .nectar-quick-view-box .product .summary div.wholesale-cart {
+    visibility: visible !important;
+    display: block !important;
 }
 
-html:not(.js) #header-outer .cart-menu-wrap,.product-add-to-cart .nectar-quick-view-box .product .summary .variations_form {
-    visibility: visible!important;
+html:not(.js) #header-outer .cart-menu-wrap, .product-add-to-cart .nectar-quick-view-box .product .summary .variations_form {
+    visibility: visible !important;
 }
 
 .woocommerce-cart .cart-collaterals .cart_totals table td, .woocommerce-cart .cart-collaterals .cart_totals table th {
@@ -605,9 +605,9 @@ body[data-dropdown-style="minimal"]:not([data-header-color="custom"]) #header-ou
     padding: 0;
 }
 
-.woocommerce-cart .wc-proceed-to-checkout a,html body[data-form-submit="regular"] .container-wrap button[type=submit].p-10,
+.woocommerce-cart .wc-proceed-to-checkout a, html body[data-form-submit="regular"] .container-wrap button[type=submit].p-10,
 .p-10 {
-    padding: 10px!important;
+    padding: 10px !important;
 }
 
 .woocommerce-page button[type="submit"].single_add_to_cart_button,
@@ -2825,8 +2825,8 @@ div.product .woocommerce-tabs .full-width-content[data-tab-style="fullwidth"] ul
     margin: 1px !important;
 }
 
-.woocommerce-pagination ,.woocommerce nav.woocommerce-pagination{
-    padding-bottom: 10px!important;
+.woocommerce-pagination, .woocommerce nav.woocommerce-pagination {
+    padding-bottom: 10px !important;
 }
 
 .woocommerce #content nav.woocommerce-pagination ul, .woocommerce nav.woocommerce-pagination ul, .woocommerce-page #content nav.woocommerce-pagination ul, .woocommerce-page nav.woocommerce-pagination ul {
@@ -4773,10 +4773,29 @@ li.product.minimal .product-wrap img {
     margin-bottom: 0;
 }
 
+.me-2 {
+    margin-right: 4px;
+}
+
+.add2Basket {
+    padding: 2px 10px;
+    color: white;
+    transition: all 0.2s ease;
+    background-color: #af8a6e !important;
+    border-radius: 30px !important;
+    -webkit-border-radius: 30px !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: "Noto Sans", sans-serif;
+}
+
 .products li.product.minimal .price-hover-wrap {
     position: relative;
-    min-height: 26px;
-    width: calc(100% + 40px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0.5rem;
 }
 
 .products li.product.minimal .product-add-to-cart a {
@@ -5335,8 +5354,23 @@ body .nectar-quick-view-box .images .carousel-cell {
     width: 16px;
 }
 
-.nectar-quick-view-box div.product,.product-add-to-cart .nectar-quick-view-box .product .summary .variations_form {
-    display: block!important;
+.nectar-quick-view-box div.product, .product-add-to-cart .nectar-quick-view-box .product .summary .variations_form, li .variations_form .wholesale-cart {
+    display: block !important;
+}
+
+li .wholesale-cart #add_to_cart {
+    text-transform: inherit;
+    letter-spacing: inherit;
+    padding: 10px !important;
+    margin: 0;
+}
+
+.active_block {
+    box-shadow: 0 0 7px 5px #a7a7a724;
+}
+
+li .wholesale-cart {
+    margin: 10px 0 0 0;
 }
 
 html body .nectar-quick-view-box .woocommerce-product-gallery, html body .nectar-quick-view-box div.product div.summary {
@@ -5429,8 +5463,9 @@ html body .nectar-quick-view-box div.product div.summary {
     background-clip: padding-box;
     min-height: 10px;
 }
-.woocommerce div.product div.summary{
- margin-bottom: 0!important;
+
+.woocommerce div.product div.summary {
+    margin-bottom: 0 !important;
 }
 
 .woocommerce-account .woocommerce > #customer_login form {
@@ -5454,11 +5489,11 @@ html body .nectar-quick-view-box div.product div.summary {
 }
 
 .nectar-quick-view-box.add-content .summary-content > *:nth-child(3) {
-transition-delay: 0.1s;
+    transition-delay: 0.1s;
 }
 
 .nectar-quick-view-box.add-content .summary-content > *:nth-child(4) {
-transition-delay: 0.15s;
+    transition-delay: 0.15s;
 }
 
 .nectar-quick-view-box.add-content .summary-content > *:nth-child(5) {
@@ -5512,223 +5547,223 @@ body .nectar-quick-view-box .single_add_to_cart_button {
     flex-grow: 1;
 }
 
-body .nectar-quick-view-box .nectar-full-product-link a,body.logged-in .nectar-quick-view-box .product .summary div.wholesale-cart,
-body.logged-in .nectar-quick-view-box .product .summary table.wholesale{
-    display: block!important;
+body .nectar-quick-view-box .nectar-full-product-link a, body.logged-in .nectar-quick-view-box .product .summary div.wholesale-cart,
+body.logged-in .nectar-quick-view-box .product .summary table.wholesale {
+    display: block !important;
 }
 
 .nectar-quick-view-box .single_add_to_cart_button_wrap a.single_add_to_cart_button,
 .nectar-quick-view-box .single_add_to_cart_button_wrap .nectar-full-product-link a {
-min-width: 150px;
-display: block;
-border-radius: 0;
+    min-width: 150px;
+    display: block;
+    border-radius: 0;
 }
 
 body .nectar-quick-view-box .nectar-full-product-link {
--webkit-flex-grow: 1;
-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
 }
 
 .nectar-quick-view-box .nectar-full-product-link a {
-left: auto;
-right: 0;
-padding: 20px 15px;
-text-align: center;
-margin-bottom: 0;
-font-size: 12px !important;
-line-height: 12px;
-background-color: #f1f1f1;
+    left: auto;
+    right: 0;
+    padding: 20px 15px;
+    text-align: center;
+    margin-bottom: 0;
+    font-size: 12px !important;
+    line-height: 12px;
+    background-color: #f1f1f1;
 }
 
 .nectar-quick-view-box .single_add_to_cart_button_wrap {
-opacity: 0;
-transition: opacity 0.55s cubic-bezier(.2, .75, .5, 1);
+    opacity: 0;
+    transition: opacity 0.55s cubic-bezier(.2, .75, .5, 1);
 }
 
 .nectar-quick-view-box.add-content .single_add_to_cart_button_wrap {
-opacity: 1;
+    opacity: 1;
 }
 
 .nectar-quick-view-box .summary-content button[type="submit"].single_add_to_cart_button {
-display: none;
+    display: none;
 }
 
 .nectar-quick-view-box a .close-wrap,
 .nectar-quick-view-box .close a {
-width: 19px;
-height: 18px;
-opacity: 0;
+    width: 19px;
+    height: 18px;
+    opacity: 0;
 }
 
 .nectar-quick-view-box .close {
-right: 40px !important;
-top: 40px !important;
-position: absolute;
+    right: 40px !important;
+    top: 40px !important;
+    position: absolute;
 }
 
 .nectar-quick-view-box .close a {
-position: relative;
-display: block;
-width: 24px;
-height: 17px;
-line-height: 22px;
-z-index: 10;
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 17px;
+    line-height: 22px;
+    z-index: 10;
 }
 
 .nectar-quick-view-box a .close-wrap, .nectar-quick-view-box .close a {
-display: block;
-opacity: 1;
+    display: block;
+    opacity: 1;
 }
 
 .nectar-quick-view-box .close-wrap {
--webkit-font-smoothing: subpixel-antialiased;
--webkit-transform-style: preserve-3d;
-transform-style: preserve-3d;
-position: absolute;
-top: 50%;
-left: 50%;
--webkit-transform: translateX(-50%) translateY(-50%) translateZ(0);
-transform: translateX(-50%) translateY(-50%) translateZ(0);
--webkit-transition: margin .2s ease, opacity .3s ease, -webkit-transform .2s ease 1s;
-transition: margin .2s ease, opacity .3s ease, -webkit-transform .2s ease 1s;
-transition: margin .2s ease, transform .2s ease 1s, opacity .3s ease;
-transition: margin .2s ease, transform .2s ease 1s, opacity .3s ease, -webkit-transform .2s ease 1s;
-width: 20px;
-height: 20px;
-display: block;
-overflow: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%) translateZ(0);
+    transform: translateX(-50%) translateY(-50%) translateZ(0);
+    -webkit-transition: margin .2s ease, opacity .3s ease, -webkit-transform .2s ease 1s;
+    transition: margin .2s ease, opacity .3s ease, -webkit-transform .2s ease 1s;
+    transition: margin .2s ease, transform .2s ease 1s, opacity .3s ease;
+    transition: margin .2s ease, transform .2s ease 1s, opacity .3s ease, -webkit-transform .2s ease 1s;
+    width: 20px;
+    height: 20px;
+    display: block;
+    overflow: hidden;
 }
 
 .nectar-quick-view-box.add-content .close-line1 {
--webkit-animation-name: crossRight;
-animation-name: crossRight;
--webkit-animation-delay: .29s;
-animation-delay: .29s;
+    -webkit-animation-name: crossRight;
+    animation-name: crossRight;
+    -webkit-animation-delay: .29s;
+    animation-delay: .29s;
 }
 
 .nectar-quick-view-box.add-content .close-line2 {
--webkit-animation-name: crossLeft;
-animation-name: crossLeft;
--webkit-animation-delay: .15s;
-animation-delay: .15s;
+    -webkit-animation-name: crossLeft;
+    animation-name: crossLeft;
+    -webkit-animation-delay: .15s;
+    animation-delay: .15s;
 }
 
 .nectar-quick-view-box .close-wrap .close-line1 {
-display: block;
--webkit-transform: translateY(-30px) translateX(30px) rotate(45deg);
-transform: translateY(-30px) translateX(30px) rotate(45deg);
+    display: block;
+    -webkit-transform: translateY(-30px) translateX(30px) rotate(45deg);
+    transform: translateY(-30px) translateX(30px) rotate(45deg);
 }
 
 .nectar-quick-view-box .close-wrap .close-line2 {
-display: block;
--webkit-transform: translateY(-30px) translateX(-30px) rotate(-45deg);
-transform: translateY(-30px) translateX(-30px) rotate(-45deg);
+    display: block;
+    -webkit-transform: translateY(-30px) translateX(-30px) rotate(-45deg);
+    transform: translateY(-30px) translateX(-30px) rotate(-45deg);
 }
 
 .nectar-quick-view-box .close-wrap .close-line {
-height: 100%;
-width: 2px;
-background-color: #545454;
-backface-visibility: hidden;
-position: absolute;
-border-radius: 5px;
-left: 9px;
-transition: opacity 0.2s ease, background-color 0.2s ease;
--webkit-animation-duration: .4s;
-animation-duration: .4s;
--webkit-animation-timing-function: cubic-bezier(0.52, 0.01, 0.16, 1);
-animation-timing-function: cubic-bezier(0.52, 0.01, 0.16, 1);
--webkit-animation-fill-mode: forwards;
-animation-fill-mode: forwards;
+    height: 100%;
+    width: 2px;
+    background-color: #545454;
+    backface-visibility: hidden;
+    position: absolute;
+    border-radius: 5px;
+    left: 9px;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+    -webkit-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-timing-function: cubic-bezier(0.52, 0.01, 0.16, 1);
+    animation-timing-function: cubic-bezier(0.52, 0.01, 0.16, 1);
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 }
 
 .nectar-quick-view-box .close a:before {
-position: absolute;
-top: 50%;
-left: 50%;
-display: block;
-width: 40px;
-height: 40px;
-margin: -20px 0 0 -20px;
-border-radius: 50%;
-background-color: rgba(0, 0, 0, .05);
-content: '';
--webkit-transform: scale(1) translateZ(0);
-transform: scale(1) translateZ(0);
-transition: all 0.45s cubic-bezier(.15, 0.2, .1, 1);
--webkit-transition: all 0.45s cubic-bezier(.15, 0.2, .1, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .05);
+    content: '';
+    -webkit-transform: scale(1) translateZ(0);
+    transform: scale(1) translateZ(0);
+    transition: all 0.45s cubic-bezier(.15, 0.2, .1, 1);
+    -webkit-transition: all 0.45s cubic-bezier(.15, 0.2, .1, 1);
 }
 
 .nectar-quick-view-box .close:hover a:before {
-transform: scale(1.2) translateZ(0);
--webkit-transform: scale(1.2) translateZ(0);
+    transform: scale(1.2) translateZ(0);
+    -webkit-transform: scale(1.2) translateZ(0);
 }
 
 @-webkit-keyframes crossLeft {
-100% {
--webkit-transform: translateY(0px) translateX(0px) rotate(-45deg);
-transform: translateY(0px) translateX(0px) rotate(-45deg)
-}
+    100% {
+        -webkit-transform: translateY(0px) translateX(0px) rotate(-45deg);
+        transform: translateY(0px) translateX(0px) rotate(-45deg)
+    }
 }
 
 @keyframes crossLeft {
-100% {
--webkit-transform: translateY(0px) translateX(0px) rotate(-45deg);
-transform: translateY(0px) translateX(0px) rotate(-45deg)
-}
+    100% {
+        -webkit-transform: translateY(0px) translateX(0px) rotate(-45deg);
+        transform: translateY(0px) translateX(0px) rotate(-45deg)
+    }
 }
 
 @-webkit-keyframes crossRight {
-100% {
--webkit-transform: translateY(0px) translateX(0px) rotate(45deg);
-transform: translateY(0px) translateX(0px) rotate(45deg)
-}
+    100% {
+        -webkit-transform: translateY(0px) translateX(0px) rotate(45deg);
+        transform: translateY(0px) translateX(0px) rotate(45deg)
+    }
 }
 
 @keyframes crossRight {
-100% {
--webkit-transform: translateY(0px) translateX(0px) rotate(45deg);
-transform: translateY(0px) translateX(0px) rotate(45deg)
-}
+    100% {
+        -webkit-transform: translateY(0px) translateX(0px) rotate(45deg);
+        transform: translateY(0px) translateX(0px) rotate(45deg)
+    }
 }
 
 .nectar-quick-view-box .close {
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
 }
 
 .nectar-quick-view-box.add-content .close {
-opacity: 1;
-pointer-events: all;
+    opacity: 1;
+    pointer-events: all;
 }
 
 .woocommerce span.onsale .nectar-quick-view-box .onsale, .woocommerce-page .nectar-quick-view-box .onsale, .nectar-quick-view-box .onsale {
-padding: 6px 12px !important;
-border-radius: 4px !important;
-left: 25px !important;
-right: auto !important;
-top: 25px;
-min-height: 0;
-min-width: 0;
-width: auto !important;
-margin-top: 0 !important;
-line-height: 1em !important;
-height: auto !important;
-opacity: 0;
-transform: scale(0.7);
-transition: transform 0.55s cubic-bezier(.2, .75, .5, 1), opacity 0.55s cubic-bezier(.2, .75, .5, 1);
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    left: 25px !important;
+    right: auto !important;
+    top: 25px;
+    min-height: 0;
+    min-width: 0;
+    width: auto !important;
+    margin-top: 0 !important;
+    line-height: 1em !important;
+    height: auto !important;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: transform 0.55s cubic-bezier(.2, .75, .5, 1), opacity 0.55s cubic-bezier(.2, .75, .5, 1);
 }
 
 .nectar-quick-view-box .onsale {
-color: #fff;
-position: absolute;
-z-index: 10;
+    color: #fff;
+    position: absolute;
+    z-index: 10;
 }
 
 .woocommerce span.onsale .nectar-quick-view-box.add-content .onsale, .woocommerce-page .nectar-quick-view-box.add-content .onsale, .nectar-quick-view-box.add-content .onsale {
-opacity: 1;
-transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
 }
 
 /*hover text style*/
