@@ -83,12 +83,17 @@ if ($nectar_external_dynamic != 'on') {
     add_action('wp_head', 'nectar_colors_css_output');
     add_action('wp_head', 'nectar_custom_css_output');
     add_action('wp_head', 'nectar_fonts_output');
+    add_action('wp_head', 'script_js');
 
 } // Dynamic CSS to be enqueued in a file.
 else {
     add_action('wp_enqueue_scripts', 'nectar_enqueue_dynamic_css');
 }
 
+add_filter( 'wcb2b_login_message', 'fn_wcb2b_login_message' );
+function fn_wcb2b_login_message( $message ) {
+    return __( 'Войдите, чтобы узнать оптовую цену', 'woocommerce-b2b' );
+}
 
 // -----------------------------------------------------------------#
 // Category Custom Meta
@@ -336,7 +341,12 @@ function theme_js()
 
 add_action('wp_enqueue_scripts', 'theme_js');
 
+function script_js()
+{
+    wp_enqueue_script('script_js', get_template_directory_uri() . '/js/script.js');
+}
 
+add_action('wp_enqueue_scripts', 'script_js');
 //// Add these new sorting arguments to the sortby options on the frontend
 //function custom_woocommerce_catalog_orderby( $orderby ) {
 //    unset($orderby["popularity"]);

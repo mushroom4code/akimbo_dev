@@ -13800,7 +13800,7 @@ body #bbpress-forums fieldset.bbp-form {
     border: 1px solid #DDD !important
 }
 
-.bbp-topic-permalink {
+.bbp-topic-permalink,.font-14 {
     font-size: 14px
 }
 
@@ -31420,7 +31420,6 @@ body[data-fancy-form-rcs="1"] .select2-container--default.select2-container--ope
 
 /* table styling */
 body:not(.woocommerce-cart) .main-content table {
-    margin: 0 0 20px;
     padding: 0;
     width: 100%;
     border-collapse: collapse;
@@ -32842,6 +32841,17 @@ video {
     .custom_play {
         visibility: hidden;
     }
+}
+
+.variation_add_basket {
+    position: absolute;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+    background-color: #ffffffeb;
+    padding: 10px;
+    font-size: 14px;
+    transition: 1s;
 }
 
 .new_data {

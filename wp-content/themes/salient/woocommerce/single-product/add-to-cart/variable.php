@@ -20,66 +20,86 @@ defined( 'ABSPATH' ) || exit;
 global $product;
 
 $attribute_keys  = array_keys( $attributes );
-$variations_json = wp_json_encode( $available_variations );
-$variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_json ) : _wp_specialchars( $variations_json, ENT_QUOTES, 'UTF-8', true );
+$variations_json = json_encode( $available_variations );
+$variations_attr = json_decode($variations_json);
+do_action( 'woocommerce_before_add_to_cart_form' );
+ ?>
 
-do_action( 'woocommerce_before_add_to_cart_form' ); ?>
-
-<form class="variations_form cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint( $product->get_id() ); ?>" data-product_variations="<?php echo $variations_attr; // WPCS: XSS ok. ?>">
+<form class="variations_form cart"
+      action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>"
+      method="post" enctype='multipart/form-data' data-product_id="<?php echo $product->get_id() ?>">
 	<?php do_action( 'woocommerce_before_variations_form' ); ?>
 
-	<?php if ( empty( $available_variations ) && false !== $available_variations ) : ?>
-		<p class="stock out-of-stock"><?php echo esc_html( apply_filters( 'woocommerce_out_of_stock_message', __( 'This product is currently out of stock and unavailable.', 'woocommerce' ) ) ); ?></p>
-	<?php else : ?>
-		<table class="variations" cellspacing="0">
-			<tbody>
-				<?php foreach ( $attributes as $attribute_name => $options ) : ?>
-					<tr>
-						<th class="label"><label for="<?php echo esc_attr( sanitize_title( $attribute_name ) ); ?>"><?php echo wc_attribute_label( $attribute_name ); // WPCS: XSS ok. ?></label></th>
-						<td class="value">
-							<?php
-								wc_dropdown_variation_attribute_options(
-									array(
-										'options'   => $options,
-										'attribute' => $attribute_name,
-										'product'   => $product,
-									)
-								);
-								echo end( $attribute_keys ) === $attribute_name ? wp_kses_post( apply_filters( 'woocommerce_reset_variations_link', '<a class="reset_variations" href="#">' . esc_html__( 'Clear', 'woocommerce' ) . '</a>' ) ) : '';
-							?>
-						</td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
-		<?php do_action( 'woocommerce_after_variations_table' ); ?>
+	<?php
 
-		<div class="single_variation_wrap">
-			<?php
-				/**
-				 * Hook: woocommerce_before_single_variation.
-				 */
-				do_action( 'woocommerce_before_single_variation' );
+    /**
+     * @var $product WC_Product
+     */
+    $attributes = $attribute_keys;
+    $children = $variations_attr;
 
-				/**
-				 * Hook: woocommerce_single_variation. Used to output the cart button and placeholder for variation data.
-				 *
-				 * @since 2.4.0
-				 * @hooked woocommerce_single_variation - 10 Empty div for variation data.
-				 * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
-				 */
-				do_action( 'woocommerce_single_variation' );
+    $color = $attributes["pa_tsvet-tkani"];
+    $structure = $attributes["pa_tkan-verha"];
+    $podkladka = $attributes["pa_podkladka-2"];
+    $rost = $attributes["pa_rost-fotomodeli-2"];
+    $default_structure = $attributes['pa_structure'];
+    $default_podkladka = $attributes['pa_podkladka'];
+    $default_color = $attributes['pa_color'];
+    $default_rost = $attributes['pa_rost-fotomodeli'];
 
-				/**
-				 * Hook: woocommerce_after_single_variation.
-				 */
-				do_action( 'woocommerce_after_single_variation' );
-			?>
-		</div>
-	<?php endif; ?>
+    $sorted_attributes = array();
 
-	<?php do_action( 'woocommerce_after_variations_form' ); ?>
+    if (in_array($structure, $attributes)) {
+        array_push($sorted_attributes, $structure);
+    } elseif (in_array($default_structure, $attributes)) {
+        array_push($sorted_attributes, $default_structure);
+    }
+
+    if (in_array($podkladka, $attributes)) {
+        array_push($sorted_attributes, $podkladka);
+    } elseif (in_array($default_podkladka, $attributes)) {
+        array_push($sorted_attributes, $default_podkladka);
+    }
+
+    if (in_array($color, $attributes)) {
+        array_push($sorted_attributes, $color);
+    } elseif (in_array($default_color, $attributes)) {
+        array_push($sorted_attributes, $default_color);
+    }
+
+    if (in_array($rost, $attributes)) {
+        array_push($sorted_attributes, $rost);
+    } elseif (in_array($default_rost, $attributes)) {
+        array_push($sorted_attributes, $default_rost);
+    }
+
+    foreach($sorted_attributes as $attribute){
+
+        if(in_array($attribute->get_name(), $attributes)){
+            $attr_name = wc_attribute_label( $attribute->get_name());
+            $attr_value = $product->get_attribute($attribute->get_name());
+            echo "<b>" . $attr_name . ":</b> " . $attr_value . "<br />";
+        }
+    }
+
+    echo do_shortcode('[wholesale columns="buy" products="'.$product->get_id().'/" buy="horizontal-attribute/razmer"]'); ?>
+<!--   <div>-->
+<!--        <button type="button" onclick="this.parentNode.querySelector('[type=number]').stepDown();">-->
+<!--            --->
+<!--        </button>-->
+<!---->
+<!--        <input type="number" name="number" min="0" max="100" value="0">-->
+<!---->
+<!--        <button type="button" onclick="this.parentNode.querySelector('[type=number]').stepUp();">-->
+<!--            +-->
+<!--        </button>-->
+<!--    </div>-->
+    <?php do_action( 'woocommerce_after_variations_form' ); ?>
 </form>
-
+    <style>
+        .product-title-row{
+            display: none;
+        }
+    </style>
 <?php
 do_action( 'woocommerce_after_add_to_cart_form' );
