@@ -23,5 +23,5 @@ if( ! function_exists( 'salient_quick_shop' ) ) {
     }
 
     add_action( 'wp_ajax_quick_shop', 'salient_quick_shop' );
-    add_action( 'wp_ajax_nopriv_quick_shop', 'salient_quick_shop' );
+//    add_action( 'wp_ajax_nopriv_quick_shop', 'salient_quick_shop' );
 }
