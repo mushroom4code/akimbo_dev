@@ -793,7 +793,7 @@ if ( ! function_exists( 'nectar_header_button_items' ) ) {
 		}
 
 		if ( $userAccountBtn != 'false' ) {
-			echo '<li id="nectar-user-account"><div><a href="' . $userAccountBtnURL . '"><span class="icon-salient-m-user" aria-hidden="true"></span></a></div> </li>';
+			echo '<li id="nectar-user-account"><div><a href="/my-account/"><span class="icon-salient-m-user" aria-hidden="true"></span></a></div> </li>';
 		}
 
 		if ( ! empty( $nectar_options['enable-cart'] ) && $nectar_options['enable-cart'] == '1' && $theme_skin == 'material' ) {
