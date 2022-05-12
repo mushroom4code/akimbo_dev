@@ -8,8 +8,15 @@ define('NECTAR_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/nectar/');
 define('NECTAR_THEME_NAME', 'salient');
 
 require_once 'includes/ajax.php';
-
-
+if (is_user_logged_in()) {
+    Wholesale::require_files();
+    $parser = new WS_Shortcode_parser('get_table');
+    $settings = $parser->settings;
+    $settings['ajax_url'] = admin_url('admin-ajax.php');
+    wp_register_script('wholesale', '/wp-content/plugins/wholesale/assets/js/wholesale.js', array('jquery'));
+    wp_localize_script('wholesale', 'wholesale_settings', $settings);
+    wp_enqueue_script('wholesale', '/wp-content/plugins/wholesale/assets/js/wholesale.js', array('jquery'));
+}
 if (!function_exists('get_nectar_theme_version')) {
     function nectar_get_theme_version()
     {
@@ -90,9 +97,10 @@ else {
     add_action('wp_enqueue_scripts', 'nectar_enqueue_dynamic_css');
 }
 
-add_filter( 'wcb2b_login_message', 'fn_wcb2b_login_message' );
-function fn_wcb2b_login_message( $message ) {
-    return __( 'Войдите, чтобы узнать оптовую цену', 'woocommerce-b2b' );
+add_filter('wcb2b_login_message', 'fn_wcb2b_login_message');
+function fn_wcb2b_login_message($message)
+{
+    return __('Войдите, чтобы узнать оптовую цену', 'woocommerce-b2b');
 }
 
 // -----------------------------------------------------------------#
@@ -452,8 +460,9 @@ function woo_remove_product_tabs($tabs)
     return $tabs;
 }
 
-add_filter( 'woocommerce_product_tabs', 'woo_custom_title_tabs', 98 );
-function woo_custom_title_tabs( $tabs ) {
+add_filter('woocommerce_product_tabs', 'woo_custom_title_tabs', 98);
+function woo_custom_title_tabs($tabs)
+{
 
     $tabs['reviews']['title'] = 'Показать отзывы';
     return $tabs;
@@ -719,8 +728,9 @@ function new_wp_text_input($field)
 
 //TODO label for problem with bask (product remove from basket when update)
 add_action('woocommerce_before_cart', 'label_woocommerce_before_cart');
-function label_woocommerce_before_cart(){
-	echo '<div><h4>Внимание! Возможно удаление некоторых товаров из корзины. Просим обрабатывать товары в корзине в течение дня. В ближайшее время проблема будет решена.</h4></div>';
+function label_woocommerce_before_cart()
+{
+    echo '<div><h4>Внимание! Возможно удаление некоторых товаров из корзины. Просим обрабатывать товары в корзине в течение дня. В ближайшее время проблема будет решена.</h4></div>';
 }
 
 //Периодически исчезают товары из корзины - метод is_purchasable возвращает false
@@ -751,38 +761,42 @@ function get_backorders_quantity($id)
 #region #Products columns
 
 // Add product new column in administration
-add_filter( 'manage_edit-product_columns', 'woo_product_weight_column', 20 );
-function woo_product_weight_column( $columns ) {
+add_filter('manage_edit-product_columns', 'woo_product_weight_column', 20);
+function woo_product_weight_column($columns)
+{
 
-    $columns['actual']   = __('На складе', 'woocommerce');
-    $columns['backorders']   = __('Ожидается', 'woocommerce');
+    $columns['actual'] = __('На складе', 'woocommerce');
+    $columns['backorders'] = __('Ожидается', 'woocommerce');
     return $columns;
 
 }
+
 // Populate weight column
-add_action( 'manage_product_posts_custom_column', 'woo_product_weight_column_data', 2 );
-function woo_product_weight_column_data( $column ) {
+add_action('manage_product_posts_custom_column', 'woo_product_weight_column_data', 2);
+function woo_product_weight_column_data($column)
+{
     global $post;
 
-    if ( $column == 'actual' ) {
+    if ($column == 'actual') {
         $product = wc_get_product($post->ID);
         $stock_html = '';
-        if ( $product->managing_stock() ) {
-          $stock_html = wc_stock_amount( $product->get_stock_quantity() - get_backorders_quantity($post->ID));
+        if ($product->managing_stock()) {
+            $stock_html = wc_stock_amount($product->get_stock_quantity() - get_backorders_quantity($post->ID));
         }
         print $stock_html;
     } elseif ($column == 'backorders') {
         $product = wc_get_product($post->ID);
         $stock_html = '';
-        if ( $product->managing_stock() ) {
-            $stock_html = wc_stock_amount( get_backorders_quantity($post->ID));
+        if ($product->managing_stock()) {
+            $stock_html = wc_stock_amount(get_backorders_quantity($post->ID));
         }
 
-        echo wp_kses_post( apply_filters( 'woocommerce_admin_stock_html', $stock_html, $product ) );
+        echo wp_kses_post(apply_filters('woocommerce_admin_stock_html', $stock_html, $product));
     }
 }
 
-function get_children_data($id) {
+function get_children_data($id)
+{
     return get_post_meta($id);
 }
 
@@ -792,28 +806,28 @@ function get_children_data($id) {
 
 add_action('woocommerce_product_options_stock_fields', 'shop_add_custom_fields');
 //if (!function_exists('art_woo_add_custom_fields')) {
-    function shop_add_custom_fields()
-    {
-        global $post;
-        echo '<div class="options_group">';// Группировка полей
+function shop_add_custom_fields()
+{
+    global $post;
+    echo '<div class="options_group">';// Группировка полей
 
-        woocommerce_wp_text_input(
-            array(
-                'id' => '_backorders_count',
-                'value'             => wc_stock_amount( get_backorders_quantity($post->ID) ),
-                'label' => __('Плановое количество', 'woocommerce'),
-                'desc_tip' => true,
-                'description' => __('', 'woocommerce'),
-                'type' => 'number',
-                'custom_attributes' => array(
-                    'step' => 'any',
-                ),
-                'data_type' => 'backorders',
-            )
-        );
+    woocommerce_wp_text_input(
+        array(
+            'id' => '_backorders_count',
+            'value' => wc_stock_amount(get_backorders_quantity($post->ID)),
+            'label' => __('Плановое количество', 'woocommerce'),
+            'desc_tip' => true,
+            'description' => __('', 'woocommerce'),
+            'type' => 'number',
+            'custom_attributes' => array(
+                'step' => 'any',
+            ),
+            'data_type' => 'backorders',
+        )
+    );
 
-        echo '</div>';
-    }
+    echo '</div>';
+}
 //}
 
 #endregion

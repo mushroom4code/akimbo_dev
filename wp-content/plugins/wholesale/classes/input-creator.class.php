@@ -39,7 +39,7 @@
             
             $attributes = $this->get_attributes();
             $custom_attributes = apply_filters('wholesale_input_custom_attributes', '', $this->product_info );
-            $input = '<input type="number" class="product-quantity" min="0" value="'.$value.'"' . $max . $variation_id . $attributes . $custom_attributes . '>';
+            $input = '<input type="number" class="product-quantity" min="0" value="0"' . $max . $variation_id . $attributes . $custom_attributes . '>';
             return $input;
         }
 

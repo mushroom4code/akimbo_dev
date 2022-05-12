@@ -2,14 +2,14 @@ jQuery(function() {
 
   if( wholesale_settings.grand_total ) {
 
-    var tables = jQuery('table.wholesale');
+    var tables = jQuery(document).find('table.wholesale');
     for( var i = 0; i<tables.length; i++ ) {
       tables[i] = jQuery( tables[i] );
       var columns = parseInt( tables[i].find('.product-title').attr('colspan') ) - 1;
       tables[i].children('tbody:last-of-type').
         append('<tr class="grand_total-row"><td colspan="' + columns + '">Total:</td><td class="grand_total">0</td></tr>');
     }
-    jQuery('table.wholesale').append('<tr></tr>')
+    jQuery(document).find('table.wholesale').append('<tr></tr>')
   }
 
   function update_row(row) {
@@ -67,7 +67,7 @@ jQuery(function() {
     if (wholesale_settings.button_for_every_table) {
       rows = button.parent().prev().find('tr');
     } else {
-      rows = jQuery('table.wholesale tr');
+      rows = jQuery(document).find('table.wholesale tr');
     }
 
     jQuery.each(rows, function() {
@@ -143,7 +143,7 @@ jQuery(function() {
 
     button.addClass('loading');
 
-    if (jQuery('.wholesale .incorrect').length > 0) {
+    if (jQuery(document).find('.wholesale .incorrect').length > 0) {
       window.alert('Sorry, unable to add your choices to the cart.\nPlease review the minimum requirements for the products you have chosen and try again.');
       button.removeClass('loading');
       return false;
@@ -196,9 +196,9 @@ jQuery(function() {
     });
   }
 
-  update_row(jQuery('input.product-quantity:eq(0)').closest('tr'));
+  update_row(jQuery(document).find('input.product-quantity:eq(0)').closest('tr'));
 
-  jQuery('table.wholesale input').on('change', function() {
+  jQuery(document).on('change', 'table.wholesale input',function() {
     var self = jQuery(this);
     if (self.is(':disabled')) {
       return;
@@ -257,7 +257,7 @@ jQuery(function() {
     update_row(self.closest('tr'));
   });
 
-  var carts = jQuery('.wholesale-cart');
+  var carts = jQuery(document).find('.wholesale-cart');
 
   if (!wholesale_settings.button_for_every_table) {
     for (var i = 0; i < carts.length - 1; i++) {
@@ -267,7 +267,7 @@ jQuery(function() {
 
   carts.show();
 
-  jQuery('.wholesale-cart > .add_to_cart').on('click', function(e) {
+  jQuery(document).on('click','.wholesale-cart > .add_to_cart', function(e) {
     jQuery(this).parent().children('span').hide();
     add_items_to_cart(jQuery(this));
   })
