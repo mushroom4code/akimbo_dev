@@ -601,8 +601,14 @@ body[data-dropdown-style="minimal"]:not([data-header-color="custom"]) #header-ou
     margin-top: 10px;
 }
 
-.woocommerce-cart .wc-proceed-to-checkout {
+.woocommerce-cart .wc-proceed-to-checkout,html body:not(.woocommerce-cart) .main-content .wholesale td.horizontal-attribute {
     padding: 0;
+}
+
+.wholesale .product-quantity {
+    margin-top: 0;
+    margin-bottom: 0;
+    border:none;
 }
 
 .woocommerce-cart .wc-proceed-to-checkout a, html body[data-form-submit="regular"] .container-wrap button[type=submit].p-10,
