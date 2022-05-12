@@ -606,8 +606,8 @@ body[data-dropdown-style="minimal"]:not([data-header-color="custom"]) #header-ou
 }
 
 .wholesale .product-quantity {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 0!important;
+    margin-bottom: 0!important;
     border:none;
 }
 
@@ -2841,6 +2841,10 @@ div.product .woocommerce-tabs .full-width-content[data-tab-style="fullwidth"] ul
 
 .woocommerce #comments nav.woocommerce-pagination {
     display: block !important;
+}
+
+html body:not(.woocommerce-cart) .main-content table.wholesale tr:nth-child(2n+1) {
+    background-color: #ffffff!important;
 }
 
 .woocommerce .commentlist li .comment_container {
