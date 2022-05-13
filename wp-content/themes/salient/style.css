@@ -32872,7 +32872,7 @@ video {
     height: 45%;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.97);
-    padding: 18px 20px;
+    padding: 15px 20px;
     font-size: 12px;
     border-radius: 0 0 10px 10px;
     transition: 1s;
@@ -32900,7 +32900,7 @@ li .wholesale-cart #add_to_cart{
     background-image: url('./img/addBasket.png') !important;
     background-size: 20px;
     width: 130px;
-    padding: 5px 30px !important;
+    padding: 6px 30px !important;
     background-position: 84%;
     background-repeat: no-repeat;
     display: flex;
