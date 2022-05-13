@@ -13800,8 +13800,12 @@ body #bbpress-forums fieldset.bbp-form {
     border: 1px solid #DDD !important
 }
 
-.bbp-topic-permalink, .font-14 {
+.bbp-topic-permalink {
     font-size: 14px
+}
+
+.font-13 {
+    font-size: 13px;
 }
 
 .topic .bbp-topic-title {
@@ -31425,13 +31429,13 @@ body:not(.woocommerce-cart) .main-content table {
     border-collapse: collapse;
     border-spacing: 0;
     background-color: #fff;
-    border-top: 1px solid #ececec
+    border-top: 1px solid #af8a6e;
 }
 
 body:not(.woocommerce-cart) .main-content tr th:first-child, body:not(.woocommerce-cart) .main-content tr td:first-child {
     border-left-style: solid;
     border-left-width: 1px;
-    border-color: #ececec
+    border-color: #af8a6e;
 }
 
 
@@ -31447,7 +31451,7 @@ body:not(.woocommerce-cart) .main-content th {
     border-width: medium 1px 1px medium;
     font-weight: bold;
     text-align: center;
-    border-color: #ececec
+    border-color: #af8a6e;
 }
 
 body:not(.woocommerce-cart) .main-content .single-product-summary th:not(.product-title) {
@@ -31455,7 +31459,7 @@ body:not(.woocommerce-cart) .main-content .single-product-summary th:not(.produc
 }
 
 body:not(.woocommerce-cart) .main-content td {
-    border-color: #ececec;
+    border-color: #af8a6e;
     border-left: none;
     border-style: none solid solid none;
     border-top: medium none;
@@ -32869,7 +32873,7 @@ video {
 .variation_add_basket {
     position: absolute;
     bottom: 0;
-    height: 45%;
+    height: 39%;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.97);
     padding: 15px 20px;
@@ -32896,7 +32900,7 @@ video {
     background-repeat: no-repeat;
 }
 
-li .wholesale-cart #add_to_cart{
+li .wholesale-cart #add_to_cart {
     background-image: url('./img/addBasket.png') !important;
     background-size: 20px;
     width: 130px;
@@ -32904,6 +32908,10 @@ li .wholesale-cart #add_to_cart{
     background-position: 84%;
     background-repeat: no-repeat;
     display: flex;
+}
+
+.span_7 .wholesale_done {
+    font-size: 29px !important;
 }
 
 .close_window {
