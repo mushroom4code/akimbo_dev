@@ -23,7 +23,7 @@ $variations_json = json_encode( $available_variations );
 $variations_attr = json_decode($variations_json);
 do_action( 'woocommerce_before_add_to_cart_form' );
  ?>
-<div><p class="font-14 mt-3 text-center p-0">Быстрое добавление в корзину</p><div class="close_window"></div></div>
+<div><p class="font-14 mt-3 text-center p-0 lh-18">Быстрое добавление в корзину</p><div class="close_window"></div></div>
 
 <form class="variations_form cart"
       action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>"

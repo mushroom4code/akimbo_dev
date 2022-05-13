@@ -31469,7 +31469,7 @@ body:not(.woocommerce-cart) .main-content table tr:nth-child(2n+1) {
 }
 
 .mt-3 {
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .mb-3 {
@@ -32871,7 +32871,7 @@ video {
     bottom: 0;
     height: 45%;
     width: 100%;
-    background-color: #ffffffeb;
+    background-color: rgba(255, 255, 255, 0.97);
     padding: 18px 20px;
     font-size: 12px;
     border-radius: 0 0 10px 10px;
@@ -32879,6 +32879,10 @@ video {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+}
+
+.lh-18 {
+    line-height: 18px;
 }
 
 .icon_basket {
@@ -32890,6 +32894,16 @@ video {
 .close_window, .icon_basket {
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+li .wholesale-cart #add_to_cart{
+    background-image: url('./img/addBasket.png') !important;
+    background-size: 20px;
+    width: 130px;
+    padding: 5px 30px !important;
+    background-position: 84%;
+    background-repeat: no-repeat;
+    display: flex;
 }
 
 .close_window {
