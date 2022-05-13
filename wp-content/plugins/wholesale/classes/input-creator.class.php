@@ -1,5 +1,5 @@
 <?php
-
+// TODO - плагин нельзя переопределить, при обновлении надо не потерять доработки
     if ( ! defined( 'ABSPATH' ) ) {
         exit; // Exit if accessed directly
     }

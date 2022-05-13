@@ -4,3 +4,4 @@
     </a>
     <span style="display: none; font-size: 20px; color: green"  id="wholesale_done" class="wholesale_done"> ✓</span>
 </div>
+<!--// TODO - плагин нельзя переопределить, при обновлении надо не потерять доработки-->

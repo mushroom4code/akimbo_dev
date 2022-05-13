@@ -1,5 +1,6 @@
 jQuery(function() {
 
+  // TODO - плагин нельзя переопределить, при обновлении надо не потерять доработки
   if( wholesale_settings.grand_total ) {
 
     var tables = jQuery(document).find('table.wholesale');
