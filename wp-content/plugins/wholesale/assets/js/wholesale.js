@@ -273,7 +273,6 @@ jQuery(function() {
     let table = jQuery(this);
     table.parent().children('span').hide();
     add_items_to_cart(table);
-    console.log(table.closest('li.product').find('td.tally').text());
     table.closest('li.product').find('p.tally span').text(0);
     table.closest('li.product').find('p.total span').text(0);
   });
