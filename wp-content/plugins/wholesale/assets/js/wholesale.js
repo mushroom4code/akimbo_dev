@@ -272,8 +272,8 @@ jQuery(function() {
   jQuery(document).on('click','.wholesale-cart > .add_to_cart', function(e) {
     jQuery(this).parent().children('span').hide();
     add_items_to_cart(jQuery(this));
-    jQuery(jQuery(this)).closest('li.product').find('p.tally span').text(jQuery(jQuery(this)).closest('li.product').find('td.tally').text());
-    jQuery(jQuery(this)).closest('li.product').find('p.total span').text(jQuery(jQuery(this)).closest('li.product').find('td.total').text());
+    jQuery(jQuery(this)).closest('li.product').find('p.tally span').text(jQuery(this).closest('li.product').find('td.tally').text());
+    jQuery(jQuery(this)).closest('li.product').find('p.total span').text(jQuery(this).closest('li.product').find('td.total').text());
   });
 
 })
