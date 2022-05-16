@@ -4831,6 +4831,10 @@ li.product.minimal .product-wrap img {
     margin-top: 0.5rem;
 }
 
+.justify-content-center-lg {
+    justify-content: center;
+}
+
 .products li.product.minimal .product-add-to-cart a {
     opacity: 0;
     transition: none;

@@ -1,4 +1,4 @@
-<div class="d-flex flex-row p-10-mobile">
+<div class="d-flex flex-row p-10-mobile justify-content-center-lg">
     <p class="tally width-40">Товаров : <span></span></p>
     <p class="total">Стоимость : <span></span></p>
 </div>
