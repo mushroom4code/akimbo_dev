@@ -1,10 +1,6 @@
 jQuery(document).ready(function ($) {
     $('.add2Basket').on('click', function () {
         let product =  $(this).closest('li.type-product');
-        if ($(document).find('.variation_add_basket').length !== 0) {
-            $(document).find('.variation_add_basket').remove();
-            $(document).find('.active_block').removeClass('active_block');
-        }
         $.ajax({
             type: 'GET',
             url: '/wp-admin/admin-ajax.php',
@@ -22,23 +18,23 @@ jQuery(document).ready(function ($) {
                 $(product).append('<div class="variation_add_basket">' + html + '</div>');
                 $(product).addClass('active_block');
                 let tally = 0, total = 0,price = 0;
-                $(document).find('input.product-quantity').each(function(){
+                $(product).find('input.product-quantity').each(function(){
                     if($(this).val()){
                         let vals = parseInt($(this).val());
                         tally = vals + tally;
                     }
                 });
-                price = $(document).find('table.wholesale tr[price]').attr('price');
+                price = $(product).find('table.wholesale tr[price]').attr('price');
                 total = price * tally;
-                $(document).find('td.tally').text(tally);
-                $(document).find('p.tally span').text(tally);
-                $(document).find('p.total span').text(total);
-                $(document).find('td.total').text(total);
+                $(product).find('td.tally').text(tally);
+                $(product).find('p.tally span').text(tally);
+                $(product).find('p.total span').text(total);
+                $(product).find('td.total').text(total);
             }
         });
     });
     $(document).on('click','.close_window',function () {
-        $(document).find('.variation_add_basket').remove();
-        $(document).find('.active_block').removeClass('active_block');
+        $(this).closest('li').find('.variation_add_basket').remove();
+        $(this).closest('li').find('.active_block').removeClass('active_block');
     });
 });

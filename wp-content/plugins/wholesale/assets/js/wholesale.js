@@ -256,8 +256,8 @@ jQuery(function() {
 
     // Update parent row
     update_row(self.closest('tr'));
-    jQuery(document).find('p.tally span').text(jQuery(document).find('td.tally').text());
-    jQuery(document).find('p.total span').text(jQuery(document).find('td.total').text());
+    jQuery(self).closest('li.product').find('p.tally span').text(jQuery(self).closest('li.product').find('td.tally').text());
+    jQuery(self).closest('li.product').find('p.total span').text(jQuery(self).closest('li.product').find('td.total').text());
   });
 
   var carts = jQuery(document).find('.wholesale-cart');
