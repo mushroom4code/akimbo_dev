@@ -31451,6 +31451,7 @@ body:not(.woocommerce-cart) .main-content th {
     border-width: medium 1px 1px medium;
     font-weight: bold;
     text-align: center;
+    padding: 2px;
     border-color: #af8a6e;
 }
 
@@ -32875,18 +32876,26 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     width: 4px;
 }
 
+.variation_add_basket table.wholesale {
+    margin-top: 2rem;
+}
+
+.variation_add_basket .variations_form{
+    height: 100%;
+}
+
 .variation_add_basket {
     position: absolute;
     bottom: 0;
-    height: 39%;
+    height: 41%;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.97);
-    padding: 15px 20px;
+    padding: 15px 8px;
     font-size: 12px;
     border-radius: 0 0 10px 10px;
     transition: 1s;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     flex-direction: column;
 }
 

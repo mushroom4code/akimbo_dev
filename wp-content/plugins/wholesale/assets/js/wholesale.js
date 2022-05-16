@@ -110,7 +110,7 @@ jQuery(function() {
         }
       }
     });
-
+    console.log('test')
     return items;
   }
 
@@ -256,6 +256,8 @@ jQuery(function() {
 
     // Update parent row
     update_row(self.closest('tr'));
+    jQuery(document).find('p.tally span').text(jQuery(document).find('td.tally').text());
+    jQuery(document).find('p.total span').text(jQuery(document).find('td.total').text());
   });
 
   var carts = jQuery(document).find('.wholesale-cart');
@@ -271,6 +273,6 @@ jQuery(function() {
   jQuery(document).on('click','.wholesale-cart > .add_to_cart', function(e) {
     jQuery(this).parent().children('span').hide();
     add_items_to_cart(jQuery(this));
-  })
+  });
 
 })

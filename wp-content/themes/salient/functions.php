@@ -8,6 +8,7 @@ define('NECTAR_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/nectar/');
 define('NECTAR_THEME_NAME', 'salient');
 
 require_once 'includes/ajax.php';
+
 if (is_user_logged_in()) {
     Wholesale::require_files();
     $parser = new WS_Shortcode_parser('get_table');
@@ -17,6 +18,7 @@ if (is_user_logged_in()) {
     wp_localize_script('wholesale', 'wholesale_settings', $settings);
     wp_enqueue_script('wholesale', '/wp-content/plugins/wholesale/assets/js/wholesale.js', array('jquery'));
 }
+
 if (!function_exists('get_nectar_theme_version')) {
     function nectar_get_theme_version()
     {

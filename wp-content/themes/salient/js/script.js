@@ -21,6 +21,19 @@ jQuery(document).ready(function ($) {
                 $('.reload').remove();
                 $(product).append('<div class="variation_add_basket">' + html + '</div>');
                 $(product).addClass('active_block');
+                let tally = 0, total = 0,price = 0;
+                $(document).find('input.product-quantity').each(function(){
+                    if($(this).val()){
+                        let vals = parseInt($(this).val());
+                        tally = vals + tally;
+                    }
+                });
+                price = $(document).find('table.wholesale tr[price]').attr('price');
+                total = price * tally;
+                $(document).find('td.tally').text(tally);
+                $(document).find('p.tally span').text(tally);
+                $(document).find('p.total span').text(total);
+                $(document).find('td.total').text(total);
             }
         });
     });
