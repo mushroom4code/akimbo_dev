@@ -32882,12 +32882,14 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 .variation_add_basket .variations_form{
     height: 100%;
+    max-height: 200px;
 }
 
 .variation_add_basket {
     position: absolute;
     bottom: 0;
     height: 41%;
+    max-height: 200px;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.97);
     padding: 15px 8px;
