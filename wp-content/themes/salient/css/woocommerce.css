@@ -6739,19 +6739,23 @@ body .pswp {
     }
 
     body .products li.product.minimal .product-meta {
-        padding: 14px !important;
+        padding: 14px  8px!important;
     }
 
-    html .woocommerce ul.products li.product .woocommerce-loop-product__title {
-        height: 50px;
+    html .woocommerce ul.products li.product h2.woocommerce-loop-product__title ,.products li.product.minimal .product-meta span.amount{
+        font-size: 14px !important;
     }
 
-    .plain_date  b{
+    .products li.product.minimal .price-hover-wrap {
+        margin-top: 0.2rem;
+    }
+
+    .plain_date b {
         margin: 0 !important;
         font-size: 12px !important;
     }
 
-    .woocommerce-page ul.products li.product.minimal .price, .woocommerce ul.products li.product.minimal .price{
+    .woocommerce-page ul.products li.product.minimal .price, .woocommerce ul.products li.product.minimal .price {
         text-align: center;
         margin-bottom: 0.5rem;
     }
