@@ -726,14 +726,6 @@ function new_wp_text_input($field)
     }
 }
 
-//enterego
-
-//TODO label for problem with bask (product remove from basket when update)
-add_action('woocommerce_before_cart', 'label_woocommerce_before_cart');
-function label_woocommerce_before_cart()
-{
-    echo '<div><h4>Внимание! Возможно удаление некоторых товаров из корзины. Просим обрабатывать товары в корзине в течение дня. В ближайшее время проблема будет решена.</h4></div>';
-}
 
 //Периодически исчезают товары из корзины - метод is_purchasable возвращает false
 //скорей всего из-за обмена с 1с
