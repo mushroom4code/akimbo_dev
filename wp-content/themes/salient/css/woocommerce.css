@@ -4680,9 +4680,12 @@ body.woocommerce #ajax-content-wrap ul.products li.minimal.product span.onsale,
     height: auto;
 }
 
+body.logged-in ul.products li.minimal.product .product-wrap {
+    height: 100%;
+}
+
 ul.products li.minimal.product .product-wrap {
     overflow: visible;
-    height: 100%;
 }
 
 .products li.product.minimal .product-meta {
