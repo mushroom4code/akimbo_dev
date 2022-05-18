@@ -45,7 +45,7 @@ if ($first_date !== '' && isset($first_date) ) {
     $Date = '';
 } 
 if (isset($planned_date) && $planned_date !== '' && $planned_date !== 'false') {
-    $Date = '<div style="padding: 10px 0;">
+    $Date = '<div style="padding: 10px 0;" class="plain_date">
             <b style="font-weight: 600;font-size: 13px;color: #545252;margin-right: 9px;">Плановое поступление</b>
             <span style="font-weight: 500;font-size: 15px;color: #af8a6e;">' . $planned_date . '</span>
             </div>';
