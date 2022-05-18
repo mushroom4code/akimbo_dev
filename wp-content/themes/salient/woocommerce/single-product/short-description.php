@@ -134,7 +134,6 @@ $prodId = $post->ID;
         }
 
         if (isset($attributes['pa_dlina-izdeliya'])) {
-
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[1] . '</th>';
 
@@ -149,7 +148,6 @@ $prodId = $post->ID;
         }
 
         if (isset($attributes['pa_dlina-po-vnutrennemu-shvu'])) {
-
             echo '<tr>';
             echo '<th class="horizontal-attribute">' . $column_name[2] . '</th>';
 

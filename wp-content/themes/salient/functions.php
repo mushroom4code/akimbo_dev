@@ -462,9 +462,14 @@ function woo_remove_product_tabs($tabs)
     return $tabs;
 }
 
+<<<<<<< HEAD
+add_filter( 'woocommerce_product_tabs', 'woo_custom_title_tabs', 98 );
+function woo_custom_title_tabs( $tabs ) {
+=======
 add_filter('woocommerce_product_tabs', 'woo_custom_title_tabs', 98);
 function woo_custom_title_tabs($tabs)
 {
+>>>>>>> ae26b3e91e41eda530b3ad52ba88fac0d696c9e3
 
     $tabs['reviews']['title'] = 'Показать отзывы';
     return $tabs;
