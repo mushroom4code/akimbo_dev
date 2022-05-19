@@ -22,19 +22,10 @@ function item_form_basket(form_input) {
 }
 
 function eeUpdateContentCart(html, form_input){
-    var res_data = item_form_basket(form_input);
-    if(res_data.length == 0){
-        location.reload();
-        return false;
-    }
-    var wc_form_mob = jQuery(html).find('form.ee_mobile_form').html();
-    var wc_form_desc = jQuery(html).find('form.ee_desc_form').html();
-    var cart_collaterals = jQuery(html).find('div.cart-collaterals').html();
-
-    jQuery('form.ee_mobile_form').html(wc_form_mob);
-    jQuery('form.ee_desc_form').html(wc_form_desc);
-    jQuery('div.cart-collaterals').html(cart_collaterals);
+    item_form_basket(form_input);
+	location.reload();
 }
+
 function eeStartLoader(){
     jQuery('form.ee_desc_form').addClass("processing").block({message: null, overlayCSS: {background: "#fff", opacity: .6}});
     jQuery('form.ee_mobile_form').addClass("processing").block({message: null, overlayCSS: {background: "#fff", opacity: .6}});
