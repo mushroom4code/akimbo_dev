@@ -44,11 +44,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="product-info">
 							<?php echo '<h4>' . apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;'; ?>
 							<?php echo apply_filters( 'woocommerce_checkout_cart_item_quantity', ' <span class="product-quantity">' . __('Quantity: ','salient') . $cart_item['quantity'] . '</span></h4>', $cart_item, $cart_item_key ); ?>
-							<?php if(function_exists('wc_get_formatted_cart_item_data')) { 
-								echo wc_get_formatted_cart_item_data( $cart_item ); 
-							} else {
-								echo WC()->cart->get_item_data( $cart_item );
-							} ?>
 							<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); ?>
 						</div>
 					</div>
