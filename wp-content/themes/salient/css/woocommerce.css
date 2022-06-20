@@ -4804,6 +4804,10 @@ li.product.minimal .product-wrap img {
     margin-bottom: 0;
 }
 
+.price-hover-wrap .price {
+    text-align: center;
+}
+
 .me-2 {
     margin-right: 4px;
 }
@@ -6742,10 +6746,10 @@ body .pswp {
     }
 
     body .products li.product.minimal .product-meta {
-        padding: 14px  8px!important;
+        padding: 14px 8px !important;
     }
 
-    html .woocommerce ul.products li.product h2.woocommerce-loop-product__title ,.products li.product.minimal .product-meta span.amount{
+    html .woocommerce ul.products li.product h2.woocommerce-loop-product__title, .products li.product.minimal .product-meta span.amount {
         font-size: 14px !important;
     }
 
