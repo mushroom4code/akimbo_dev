@@ -121,8 +121,6 @@ div[id*="nectar-metabox"] .ui-buttonset .ui-button {
 	box-sizing: border-box;
 }
 
-div[id*="nectar-metabox"] fieldset.buttonset:not(.ui-buttonset) { opacity: 0;}
-
 tr.font-option th {
 	display: none;
 }
