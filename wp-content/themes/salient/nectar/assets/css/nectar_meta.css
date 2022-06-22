@@ -350,6 +350,10 @@ body.taxonomy-product_cat .redux-opts-screenshot {
     display: block;
 }
 
+.fixed .column-date{
+    width: auto!important;
+}
+
 #wp-_nectar_portfolio_custom_grid_item_content-media-buttons .insert-media {
     display: none !important;
 }
