@@ -267,7 +267,7 @@ tr.font-family, tr.font-family, tr.font-option {
 }
 
 .nectar-metabox-table tbody tr:nth-child(2){
-	display:block!important;
+	display:table-row!important;
 }
 
 .nectar-metabox-table tr {
