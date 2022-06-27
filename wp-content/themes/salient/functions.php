@@ -825,3 +825,12 @@ function shop_add_custom_fields()
 //}
 
 #endregion
+
+add_filter( 'big_image_size_threshold', 'theme_big_image_size_threshold' );
+
+/**
+ * @return int big image resolution to 3200
+ */
+function theme_big_image_size_threshold(): int {
+	return 3200;
+}
