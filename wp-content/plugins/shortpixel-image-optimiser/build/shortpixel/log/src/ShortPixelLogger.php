@@ -49,12 +49,6 @@ namespace ShortPixel\ShortPixelLogger;
       $ns = __NAMESPACE__;
       $this->namespace = substr($ns, 0, strpos($ns, '\\')); // try to get first part of namespace
 
-      if ($this->logPath === false)
-      {
-        $upload_dir = wp_upload_dir(null,false,false);
-        $this->logPath = $upload_dir['basedir'] . '/' . $this->namespace . ".log";
-      }
-
       if (isset($_REQUEST['SHORTPIXEL_DEBUG'])) // manual takes precedence over constants
       {
         $this->is_manual_request = true;
@@ -88,12 +82,14 @@ namespace ShortPixel\ShortPixelLogger;
 
       }
 
-      /* On Early init, this function might not exist, then queue it when needed */
-      if (! function_exists('wp_get_current_user'))
-        add_action('plugins_loaded', array($this, 'initView'));
-      else
-       $this->initView();
-
+      if ($this->is_active)
+      {
+        /* On Early init, this function might not exist, then queue it when needed */
+        if (! function_exists('wp_get_current_user'))
+          add_action('init', array($this, 'initView'));
+        else
+         $this->initView();
+      }
 
       if ($this->is_active && count($this->hooks) > 0)
           $this->monitorHooks();
@@ -130,16 +126,34 @@ namespace ShortPixel\ShortPixelLogger;
 
    public function setLogPath($logPath)
    {
-     $this->logPath = $logPath;
+      $this->logPath = $logPath;
    }
-   protected static function addLog($message, $level, $data = array())
+   protected function addLog($message, $level, $data = array())
    {
-     $log = self::getInstance();
+  //   $log = self::getInstance();
 
-     // don't log anything too low.
-     if ($log->logLevel < $level)
+     // don't log anything too low or when not active.
+     if ($this->logLevel < $level || ! $this->is_active)
      {
        return;
+     }
+
+     // Force administrator on manuals.
+     if ( $this->is_manual_request )
+     {
+        if (! function_exists('wp_get_current_user')) // not loaded yet
+          return false;
+
+        $user_is_administrator = (current_user_can('manage_options')) ? true : false;
+        if (! $user_is_administrator)
+          return false;
+     }
+
+     // Check where to log to.
+     if ($this->logPath === false)
+     {
+       $upload_dir = wp_upload_dir(null,false,false);
+       $this->logPath = $this->setLogPath($upload_dir['basedir'] . '/' . $this->namespace . ".log");
      }
 
      $arg = array();
@@ -147,11 +161,11 @@ namespace ShortPixel\ShortPixelLogger;
      $args['data'] = $data;
 
      $newItem = new DebugItem($message, $args);
-     $log->items[] = $newItem;
+     $this->items[] = $newItem;
 
-      if ($log->is_active)
+      if ($this->is_active)
       {
-          $log->write($newItem);
+          $this->write($newItem);
       }
    }
 
@@ -160,7 +174,7 @@ namespace ShortPixel\ShortPixelLogger;
    {
       $items = $debugItem->getForFormat();
       $items['time_passed'] =  round ( ($items['time'] - $this->start_time), 5);
-      $items['time'] =  date('Y-m-d H:i:s', $items['time'] );
+      $items['time'] =  date('Y-m-d H:i:s', (int) $items['time'] );
 
       if ( ($items['caller']) && is_array($items['caller']) && count($items['caller']) > 0)
       {
@@ -170,7 +184,8 @@ namespace ShortPixel\ShortPixelLogger;
 
       $line = $this->formatLine($items);
 
-      if ($this->logPath)
+      // try to write to file. Don't write if directory doesn't exists (leads to notices)
+      if ($this->logPath && is_dir(dirname($this->logPath)) )
       {
         file_put_contents($this->logPath,$line, FILE_APPEND);
       }
@@ -224,22 +239,37 @@ namespace ShortPixel\ShortPixelLogger;
    public static function addError($message, $args = array())
    {
       $level = DebugItem::LEVEL_ERROR;
-      static::addLog($message, $level, $args);
+      $log = self::getInstance();
+      $log->addLog($message, $level, $args);
    }
    public static function addWarn($message, $args = array())
    {
      $level = DebugItem::LEVEL_WARN;
-     static::addLog($message, $level, $args);
+     $log = self::getInstance();
+     $log->addLog($message, $level, $args);
+   }
+   // Alias, since it goes wrong so often.
+   public static function addWarning($message, $args = array())
+   {
+      self::addWarn($message, $args);
    }
    public static function addInfo($message, $args = array())
    {
      $level = DebugItem::LEVEL_INFO;
-     static::addLog($message, $level, $args);
+     $log = self::getInstance();
+     $log->addLog($message, $level, $args);
    }
    public static function addDebug($message, $args = array())
    {
      $level = DebugItem::LEVEL_DEBUG;
-     static::addLog($message, $level, $args);
+     $log = self::getInstance();
+     $log->addLog($message, $level, $args);
+   }
+
+   /** These should be removed every release. They are temporary only for d'bugging the current release */
+   public static function addTemp($message, $args = array())
+   {
+     self::addDebug($message, $args);
    }
 
    public static function logLevel($level)
@@ -307,14 +337,15 @@ namespace ShortPixel\ShortPixelLogger;
        $controller = $this;
 
        $template_path = __DIR__ . '/' . $this->template  . '.php';
+      // var_dump( $template_path);
        if (file_exists($template_path))
        {
 
          include($template_path);
        }
        else {
-         self::addError("View $template could not be found in " . $template_path,
-         array('class' => get_class($this), 'req' => $_REQUEST));
+         self::addError("View $template for ShortPixelLogger could not be found in " . $template_path,
+         array('class' => get_class($this)));
        }
    }
 

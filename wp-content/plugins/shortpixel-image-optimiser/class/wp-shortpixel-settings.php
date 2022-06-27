@@ -1,6 +1,9 @@
 <?php
+use ShortPixel\ShortPixelLogger\ShortPixelLogger as Log;
+
+
 /** Settings Model **/
-class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
+class WPShortPixelSettings extends \ShortPixel\Model {
     private $_apiKey = '';
     private $_compressionType = 1;
     private $_keepExif = 0;
@@ -22,10 +25,11 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
         'apiKey' => array('key' => 'wp-short-pixel-apiKey', 'default' => '', 'group' => 'options'),
         'verifiedKey' => array('key' => 'wp-short-pixel-verifiedKey', 'default' => false, 'group' => 'options'),
         'compressionType' => array('key' => 'wp-short-pixel-compression', 'default' => 1, 'group' => 'options'),
-        'processThumbnails' => array('key' => 'wp-short-process_thumbnails', 'default' => null, 'group' => 'options'),
+        'processThumbnails' => array('key' => 'wp-short-process_thumbnails', 'default' => 1, 'group' => 'options'),
         'keepExif' => array('key' => 'wp-short-pixel-keep-exif', 'default' => 0, 'group' => 'options'),
         'CMYKtoRGBconversion' => array('key' => 'wp-short-pixel_cmyk2rgb', 'default' => 1, 'group' => 'options'),
         'createWebp' => array('key' => 'wp-short-create-webp', 'default' => null, 'group' => 'options'),
+        'createAvif' => array('key' => 'wp-short-create-avif', 'default' => null, 'group' => 'options'),
         'deliverWebp' => array('key' => 'wp-short-pixel-create-webp-markup', 'default' => 0, 'group' => 'options'),
         'optimizeRetina' => array('key' => 'wp-short-pixel-optimize-retina', 'default' => 1, 'group' => 'options'),
         'optimizeUnlisted' => array('key' => 'wp-short-pixel-optimize-unlisted', 'default' => 0, 'group' => 'options'),
@@ -41,11 +45,13 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
         'excludePatterns' => array('key' => 'wp-short-pixel-exclude-patterns', 'default' => array(), 'group' => 'options'),
         'png2jpg' => array('key' => 'wp-short-pixel-png2jpg', 'default' => 0, 'group' => 'options'),
         'excludeSizes' => array('key' => 'wp-short-pixel-excludeSizes', 'default' => array(), 'group' => 'options'),
+				'currentVersion' => array('key' => 'wp-short-pixel-currentVersion', 'default' => null, 'group' => 'options'), 
 
         //CloudFlare
         'cloudflareEmail'   => array( 'key' => 'wp-short-pixel-cloudflareAPIEmail', 'default' => '', 'group' => 'options'),
         'cloudflareAuthKey' => array( 'key' => 'wp-short-pixel-cloudflareAuthKey', 'default' => '', 'group' => 'options'),
         'cloudflareZoneID'  => array( 'key' => 'wp-short-pixel-cloudflareAPIZoneID', 'default' => '', 'group' => 'options'),
+        'cloudflareToken'   => array( 'key' => 'wp-short-pixel-cloudflareToken', 'default' => '', 'group' => 'options'),
 
         //optimize other images than the ones in Media Library
         'includeNextGen' => array('key' => 'wp-short-pixel-include-next-gen', 'default' => null, 'group' => 'options'),
@@ -56,6 +62,7 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
         'removeSettingsOnDeletePlugin' => array('key' => 'wp-short-pixel-remove-settings-on-delete-plugin', 'default' => false, 'group' => 'options'),
 
         //stats, notices, etc.
+				// @todo Most of this can go. See state machine comment.
         'currentStats' => array('key' => 'wp-short-pixel-current-total-files', 'default' => null, 'group' => 'state'),
         'fileCount' => array('key' => 'wp-short-pixel-fileCount', 'default' => 0, 'group' => 'state'),
         'thumbsCount' => array('key' => 'wp-short-pixel-thumbnail-count', 'default' => 0, 'group' => 'state'),
@@ -68,17 +75,20 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
         'quotaExceeded' => array('key' => 'wp-short-pixel-quota-exceeded', 'default' => 0, 'group' => 'state'),
         'httpProto' => array('key' => 'wp-short-pixel-protocol', 'default' => 'https', 'group' => 'state'),
         'downloadProto' => array('key' => 'wp-short-pixel-download-protocol', 'default' => null, 'group' => 'state'),
-        //TODO downloadArchive initial sa fie 10% - hash pe numele de domeniu
-        'downloadArchive' => array('key' => 'wp-short-pixel-download-archive', 'default' => -1, 'group' => 'state'),
+
+				'downloadArchive' => array('key' => 'wp-short-pixel-download-archive', 'default' => -1, 'group' => 'state'),
         'mediaAlert' => array('key' => 'wp-short-pixel-media-alert', 'default' => null, 'group' => 'state'),
         'dismissedNotices' => array('key' => 'wp-short-pixel-dismissed-notices', 'default' => array(), 'group' => 'state'),
         'activationDate' => array('key' => 'wp-short-pixel-activation-date', 'default' => null, 'group' => 'state'),
         'activationNotice' => array('key' => 'wp-short-pixel-activation-notice', 'default' => null, 'group' => 'state'),
-        'mediaLibraryViewMode' => array('key' => 'wp-short-pixel-view-mode', 'default' => null, 'group' => 'state'),
+        'mediaLibraryViewMode' => array('key' => 'wp-short-pixel-view-mode', 'default' => false, 'group' => 'state'),
         'redirectedSettings' => array('key' => 'wp-short-pixel-redirected-settings', 'default' => null, 'group' => 'state'),
         'convertedPng2Jpg' => array('key' => 'wp-short-pixel-converted-png2jpg', 'default' => array(), 'group' => 'state'),
+        'helpscoutOptin' => array('key' => 'wp-short-pixel-helpscout-optin', 'default' => -1, 'group' => 'state'),
+
 
         //bulk state machine
+				// @todo These options can all go.  Add as well to onDeactivate / onActivate deletions.
         'bulkType' => array('key' => 'wp-short-pixel-bulk-type', 'default' => null, 'group' => 'bulk'),
         'bulkLastStatus' => array('key' => 'wp-short-pixel-bulk-last-status', 'default' => null, 'group' => 'bulk'),
         'startBulkId' => array('key' => 'wp-short-pixel-query-id-start', 'default' => 0, 'group' => 'bulk'),
@@ -119,6 +129,7 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
         'png2jpg' => array('s' => 'int'), // checkbox
         'CMYKtoRGBconversion' => array('s' => 'boolean'), //checkbox
         'createWebp' => array('s' => 'boolean'), // checkbox
+        'createAvif' => array('s' => 'boolean'),  // checkbox
         'deliverWebp' => array('s' => 'int'), // checkbox
         'optimizeRetina' => array('s' => 'boolean'), // checkbox
         'optimizeUnlisted' => array('s' => 'boolean'), // $checkbox
@@ -132,19 +143,20 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
         'cloudflareEmail' => array('s' => 'string'), // string
         'cloudflareAuthKey' => array('s' => 'string'), // string
         'cloudflareZoneID' => array('s' => 'string'), // string
+        'cloudflareToken' => array('s' => 'string'),
         'savedSpace' => array('s' => 'skip'),
         'fileCount' => array('s' => 'skip'), // int
         'under5Percent' => array('s' => 'skip'), // int
+        'helpscoutOptin' => array('s' => 'boolean'), // checkbox
     );
 
-    // @todo Eventually, this should not happen onLoad, but on demand.
       public function __construct() {
-        $this->populateOptions();
+        //$this->populateOptions();
     }
 
     public function populateOptions() {
 
-        $this->_apiKey = self::getOpt('wp-short-pixel-apiKey', '');
+      /*  $this->_apiKey = self::getOpt('wp-short-pixel-apiKey', '');
         $this->_verifiedKey = self::getOpt('wp-short-pixel-verifiedKey', $this->_verifiedKey);
         $this->_compressionType = self::getOpt('wp-short-pixel-compression', $this->_compressionType);
         $this->_processThumbnails = self::getOpt('wp-short-process_thumbnails', $this->_processThumbnails);
@@ -152,19 +164,19 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
         $this->_backupImages = self::getOpt('wp-short-backup_images', $this->_backupImages);
         $this->_resizeImages =  self::getOpt( 'wp-short-pixel-resize-images', 0);
         $this->_resizeWidth = self::getOpt( 'wp-short-pixel-resize-width', 0);
-        $this->_resizeHeight = self::getOpt( 'wp-short-pixel-resize-height', 0);
+        $this->_resizeHeight = self::getOpt( 'wp-short-pixel-resize-height', 0); */
 
         // the following lines practically set defaults for options if they're not set
-        foreach(self::$_optionsMap as $opt) {
+        /*foreach(self::$_optionsMap as $opt) {
             self::getOpt($opt['key'], $opt['default']);
         }
 
         if(self::getOpt("downloadArchive") == -1) {
             self::setOpt(self::$_optionsMap["downloadArchive"]['key'], crc32(get_site_url())%10);
-        }
+        }  */
     }
 
-    public static function debugResetOptions() {
+    public static function resetOptions() {
         foreach(self::$_optionsMap as $key => $val) {
             delete_option($val['key']);
         }
@@ -176,32 +188,40 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
             update_option('wp-short-pixel-activation-notice', true, 'no');
         }
         update_option( 'wp-short-pixel-activation-date', time(), 'no');
-        delete_option( 'wp-short-pixel-bulk-last-status');
+        delete_option( 'wp-short-pixel-bulk-last-status'); // legacy shizzle
         delete_option( 'wp-short-pixel-current-total-files');
+				delete_option('wp-short-pixel-remove-settings-on-delete-plugin');
         delete_option(self::$_optionsMap['removeSettingsOnDeletePlugin']['key']);
-        $dismissed = get_option('wp-short-pixel-dismissed-notices', array());
+
+        // Dismissed now via Notices Controller.
+      /*  $dismissed = get_option('wp-short-pixel-dismissed-notices', array());
         if(isset($dismissed['compat'])) {
             unset($dismissed['compat']);
             update_option('wp-short-pixel-dismissed-notices', $dismissed, 'no');
-        }
-        $formerPrio = get_option('wp-short-pixel-priorityQueue');
-        $qGet = (! defined('SHORTPIXEL_NOFLOCK')) ?  ShortPixelQueue::get() : ShortPixelQueueDB::get();
-        if(is_array($formerPrio) && !count($qGet)) {
+        } */
 
-          (! defined('SHORTPIXEL_NOFLOCK')) ? ShortPixelQueue::set($formerPrio) : ShortPixelQueueDB::set($formerPrio);
-            delete_option('wp-short-pixel-priorityQueue');
-        }
+        $formerPrio = get_option('wp-short-pixel-priorityQueue');
+      //  $qGet = (! defined('SHORTPIXEL_NOFLOCK')) ?  ShortPixelQueue::get() : ShortPixelQueueDB::get();
+      /*  if(is_array($formerPrio) && !count($qGet)) {
+
+          (! defined('SHORTPIXEL_NOFLOCK')) ? ShortPixelQueue::set($formerPrio) : ShortPixelQueueDB::set($formerPrio); */
+          delete_option('wp-short-pixel-priorityQueue');
+      //  }
     }
 
     public static function onDeactivate() {
         delete_option('wp-short-pixel-activation-notice');
+				delete_option( 'wp-short-pixel-bulk-last-status'); // legacy shizzle
+				delete_option( 'wp-short-pixel-current-total-files');
+				delete_option('wp-short-pixel-remove-settings-on-delete-plugin');
+
     }
 
 
     public function __get($name)
     {
         if (array_key_exists($name, self::$_optionsMap)) {
-            return $this->getOpt(self::$_optionsMap[$name]['key']);
+            return $this->getOpt(self::$_optionsMap[$name]['key'], self::$_optionsMap[$name]['default']);
         }
         $trace = debug_backtrace();
         trigger_error(
@@ -223,17 +243,32 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
     }
 
     public static function getOpt($key, $default = null) {
+
+				// This function required the internal Key. If this not given, but settings key, overwrite.
         if(isset(self::$_optionsMap[$key]['key'])) { //first try our name
-            $key = self::$_optionsMap[$key]['key'];
+						$default = self::$_optionsMap[$key]['default']; // first do default do to overwrite.
+						$key = self::$_optionsMap[$key]['key'];
         }
         if(get_option($key) === false) {
+
             add_option( $key, $default, '', 'no' );
+
         }
-        return get_option($key);
+
+        $opt = get_option($key, $default);
+				return $opt;
     }
 
     public function setOpt($key, $val) {
-        $ret = update_option($key, $val, 'no');
+        $autoload = true;
+        /*if (isset(self::$_optionsMap[$key]))
+        {
+            if (self::$_optionsMap[$key]['group'] == 'options')
+               $autoload = true;  // add most used to autoload, because performance.
+
+        } */
+
+        $ret = update_option($key, $val, $autoload);
 
         //hack for the situation when the option would just not update....
         if($ret === false && !is_array($val) && $val != get_option($key)) {
@@ -245,7 +280,7 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
                 wp_cache_delete( $key, 'options' );
             }
             delete_option($key);
-            add_option($key, $val, '', 'no');
+            add_option($key, $val, '', $autoload);
 
             // still not? try the DB way...
             if($ret === false && $val != get_option($key)) {
@@ -254,7 +289,7 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
                 $rows = $wpdb->get_results($sql);
                 if(count($rows) === 0) {
                     $wpdb->insert($wpdb->prefix.'options',
-                                 array("option_name" => $key, "option_value" => (is_array($val) ? serialize($val) : $val), "autoload" => "no"),
+                                 array("option_name" => $key, "option_value" => (is_array($val) ? serialize($val) : $val), "autoload" => $autoload),
                                  array("option_name" => "%s", "option_value" => (is_numeric($val) ? "%d" : "%s")));
                 } else { //update
                     $sql = "update {$wpdb->prefix}options SET option_value=" .
@@ -268,9 +303,39 @@ class WPShortPixelSettings extends ShortPixel\ShortPixelModel {
                     //tough luck, gonna use the bomb...
                     wp_cache_flush();
                     delete_option($key);
-                    add_option($key, $val, '', 'no');
+                    add_option($key, $val, '', $autoload);
                 }
             }
         }
     }
-}
+
+    public function ajax_helpscoutOptin()
+    {
+       $toggle = isset($_POST['toggle']) ? sanitize_text_field($_POST['toggle']) : false;
+       $response = array('Status' => 'fail');
+       $settings = \wpSPIO()->settings();
+
+       if (! $toggle)
+       {
+           $response['Status'] = 'No Toggle';
+       }
+
+       if ($toggle == 'off')
+       {
+         $settings->helpscoutOptin = 0;
+         $response['Status'] = 'success';
+       }
+       elseif($toggle == 'on')
+       {
+         $settings->helpscoutOptin = 1;
+         $response['Status'] = 'success';
+       }
+       else
+       {
+         $response['Status'] = 'No valid Toggle';
+       }
+
+       wp_send_json($response);
+       exit();
+    }
+} // class

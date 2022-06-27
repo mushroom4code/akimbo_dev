@@ -48,8 +48,8 @@ foreach ( $items as $item_id => $item ) :
 
 		// Product name.
 		echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
-
-
+	    $result = $product->get_attribute('razmer');
+		echo ' - '.$result;
 		?>
 		</td>
 		<td class="td" style="text-align:<?php echo esc_attr( $text_align ); ?>; vertical-align:middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;">

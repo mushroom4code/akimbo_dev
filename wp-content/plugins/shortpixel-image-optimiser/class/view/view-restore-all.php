@@ -1,6 +1,7 @@
 
     <div class="wrap short-pixel-bulk-page bulk-restore-all">
-        <form action='<?php echo remove_query_arg('part'); ?>' method='POST' >
+        <form action='<?php echo esc_url(remove_query_arg('part')); ?>' method='POST' >
+        <?php wp_nonce_field('sp-bulk', 'sp-nonce'); ?>
         <h1><?php _e('Bulk Image Optimization by ShortPixel','shortpixel-image-optimiser');?></h1>
 
         <div class="sp-notice sp-notice-info sp-floating-block sp-full-width">
@@ -17,7 +18,9 @@
           <h4><?php _e('Select which Custom Media Folders to restore', 'shortpixel-image-optimiser'); ?></h4>
 
             <?php $folders = $controller->getCustomFolders();
+          //  echo get_class($controller);
             foreach($folders as $folder):
+
               $path = $folder->getPath();
               $fileCount = $folder->getFileCount();
               $folder_id = $folder->getId();
@@ -38,7 +41,7 @@
         </section>
 
         <div class='form-controls'>
-          <a class='button' href="<?php echo remove_query_arg('part') ?>"><?php _e('Back', 'shortpixel-image-optimiser'); ?></a>
+          <a class='button' href="<?php echo esc_url(remove_query_arg('part')) ?>"><?php _e('Back', 'shortpixel-image-optimiser'); ?></a>
           <button disabled aria-disabled="true" type='submit' class='button bulk restore disabled' name='bulkRestore' id='bulkRestore'><?php _e('Bulk Restore', 'shortpixel-image-optimiser'); ?></button>
         </div>
 

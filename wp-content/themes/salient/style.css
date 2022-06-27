@@ -32957,3 +32957,8 @@ body:not(.woocommerce-cart) .main-content .length_table th {
     padding: 0px;
     font-size: 10px;
 }
+
+.wcb2b_login_message > a {
+    display: flex;
+    justify-content: center;
+}

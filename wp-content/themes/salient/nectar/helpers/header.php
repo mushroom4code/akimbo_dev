@@ -472,7 +472,7 @@ if ( ! function_exists( 'nectar_logo_output' ) ) {
 				$std_retina_srcset = 'srcset="' . nectar_options_img( $nectar_options['logo'] ) . ' 1x, ' . nectar_options_img( $nectar_options['retina-logo'] ) . ' 2x"';
 			}
 
-			 echo '<img class="stnd ' . $default_logo_class . $dark_default_class . '" alt="' . get_bloginfo( 'name' ) . '" src="' . nectar_options_img( $nectar_options['logo'] ) . '" ' . $std_retina_srcset . ' />';
+			 echo '<img width="150" height="37" class="stnd ' . $default_logo_class . $dark_default_class . '" alt="' . get_bloginfo( 'name' ) . '" src="' . nectar_options_img( $nectar_options['logo'] ) . '" ' . $std_retina_srcset . ' />';
 
 			 // mobile only logo
 			if ( $using_mobile_logo == 'true' ) {
