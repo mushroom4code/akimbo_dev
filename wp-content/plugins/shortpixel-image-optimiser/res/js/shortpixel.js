@@ -1,36 +1,57 @@
 /**
  * Short Pixel WordPress Plugin javascript
  */
-
 // init checks bulkProcess on each page. initSettings is when the settings View is being loaded.
-jQuery(document).ready(function(){ShortPixel.init();});
+jQuery(document).ready(function(){ShortPixel.init(); });
+
+function delayedInit() {
+    if(typeof ShortPixel !== 'undefined' && ShortPixel.didInit == false) {
+
+        console.error('ShortPixel: Delayed Init. Check your installation for errors');
+        ShortPixel.init();
+    } else {
+        setTimeout(delayedInit, 10000);
+    }
+}
+setTimeout(delayedInit, 10000);
 
 var ShortPixel = function() {
 
+	// The InitSettings usually runs before these settings, making everything complicated (@todo)
     function init() {
-        if (typeof ShortPixel.API_KEY !== 'undefined') return; //was initialized by the 10 sec. setTimeout, rare but who knows, might happen on very slow connections...
+
+        if (typeof ShortPixel.API_IS_ACTIVE !== 'undefined') return; //was initialized by the 10 sec. setTimeout, rare but who knows, might happen on very slow connections...
+
         //are we on media list?
         if( jQuery('table.wp-list-table.media').length > 0) {
             //register a bulk action
-            jQuery('select[name^="action"] option:last-child').before('<option value="short-pixel-bulk">' + _spTr.optimizeWithSP
-                + '</option><option value="short-pixel-bulk-lossy"> → ' + _spTr.redoLossy
-                + '</option><option value="short-pixel-bulk-glossy"> → ' + _spTr.redoGlossy
-                + '</option><option value="short-pixel-bulk-lossless"> → ' + _spTr.redoLossless
-                + '</option><option value="short-pixel-bulk-restore"> → ' + _spTr.restoreOriginal
+            jQuery('select[name^="action"] option:last-child').before('<option value="shortpixel-optimize">' + _spTr.optimizeWithSP
+                + '</option><option value="shortpixel-lossy"> → ' + _spTr.redoLossy
+                + '</option><option value="shortpixel-glossy"> → ' + _spTr.redoGlossy
+                + '</option><option value="shortpixel-lossless"> → ' + _spTr.redoLossless
+                + '</option><option value="shortpixel-restore"> → ' + _spTr.restoreOriginal
                 + '</option>');
         }
 
         // Extracting the protected Array from within the 0 element of the parent array
         ShortPixel.setOptions(ShortPixelConstants[0]);
 
-        if(jQuery('#backup-folder-size').length) {
+       /* if(jQuery('#backup-folder-size').length) {
             jQuery('#backup-folder-size').html(ShortPixel.getBackupSize());
-        }
+        } */
+
+
+				if (jQuery('#shortpixel-form-request-key').length > 0)
+				{
+					  jQuery('#pluginemail').on('change, keyup', jQuery.proxy(this.updateSignupEmail, this));
+						jQuery('#request_key').on('mouseenter', jQuery.proxy(this.updateSignupEmail, this));
+						jQuery('#request_key').on('click', jQuery.proxy(this.newApiKey, this));
+				}
 
         if( ShortPixel.MEDIA_ALERT == 'todo' && jQuery('div.media-frame.mode-grid').length > 0) {
             //the media table is not in the list mode, alert the user
             jQuery('div.media-frame.mode-grid').before('<div id="short-pixel-media-alert" class="notice notice-warning"><p>'
-                + _spTr.changeMLToListMode.format('<a href="upload.php?mode=list" class="view-list"><span class="screen-reader-text">',' </span>',
+                + SPstringFormat(_spTr.changeMLToListMode,'<a href="upload.php?mode=list" class="view-list"><span class="screen-reader-text">',' </span>',
                     '</a><a class="alignright" href="javascript:ShortPixel.dismissMediaAlert();">','</a>')
                 + '</p></div>');
         }
@@ -40,11 +61,23 @@ var ShortPixel = function() {
                 clearBulkProcessor();
             }
         });
-        //check if  bulk processing
-        checkQuotaExceededAlert();
-        checkBulkProgress();
-    }
 
+        if (window.ShortPixelProcessor)
+				{
+          window.ShortPixelProcessor.Load(ShortPixel['HAS_QUOTA']);
+				}
+        this.didInit = true;
+
+				// Move footer notices to the top, where it should be.
+				$headerEnd = jQuery( '.wp-header-end' );
+				jQuery( 'div.shortpixel-notice' ).not( '.inline, .below-h2' ).insertAfter( $headerEnd );
+
+				var settingsPage = document.querySelector('.is-shortpixel-settings-page');
+				if (settingsPage !== null)
+				{
+					  this.initSettings();
+				}
+    }
     function setOptions(options) {
         for(var opt in options) {
             ShortPixel[opt] = options[opt];
@@ -56,22 +89,29 @@ var ShortPixel = function() {
     }
 
     function updateSignupEmail() {
-        var email = jQuery('#pluginemail').val();
-        if(ShortPixel.isEmailValid(email)) {
+        var email = jQuery('#pluginemail').val().trim();
+				var $submit = jQuery('#request_key');
+				var isValid = ShortPixel.isEmailValid(email)
+        if(isValid) {
             jQuery('#request_key').removeClass('disabled');
+						$submit.removeClass('disabled');
+						$submit.removeAttr('disabled');
         }
+				else
+				{
+						$submit.attr('disabled', true);
+					  $submit.addClass('disabled');
+				}
         jQuery('#request_key').attr('href', jQuery('#request_key').attr('href').split('?')[0] + '?pluginemail=' + email);
     }
 
-    /* Can be removed.
     function validateKey(button){
-      console.log('validate');
         jQuery('#valid').val('validate');
 
         jQuery(button).parents('form').submit();
-    } */
+    }
 
-    jQuery("#key").keypress(function(e) {
+    jQuery("#key").on('keypress', function(e) {
         if(e.which == 13) {
             jQuery('#valid').val('validate');
         }
@@ -79,9 +119,13 @@ var ShortPixel = function() {
 
     function enableResize(elm) {
         if(jQuery(elm).is(':checked')) {
-            jQuery("#width,#height").removeAttr("disabled");
+            jQuery("#width,#height").prop("disabled", false);
+            SpioResize.lastW = false; //to trigger the animation
+            jQuery(".resize-type-wrap").show(800, window.SpioResize.run);
         } else {
-            jQuery("#width,#height").attr("disabled", "disabled");
+            jQuery("#width,#height").prop("disabled", true);
+            window.SpioResize.hide();
+            jQuery(".resize-type-wrap").hide(800);
         }
     }
 
@@ -89,18 +133,40 @@ var ShortPixel = function() {
     function checkExifWarning()
     {
       if (! jQuery('input[name="removeExif"]').is(':checked') && jQuery('input[name="png2jpg"]').is(':checked') )
-      {
         jQuery('.exif_warning').fadeIn();
+      else
+        jQuery('.exif_warning').fadeOut();
+
+      if (! jQuery('input[name="removeExif"]').is(':checked') && jQuery('.exif_imagick_warning').data('imagick') <= 0)
+        jQuery('.exif_imagick_warning').fadeIn();
+      else
+        jQuery('.exif_imagick_warning').fadeOut();
+
+    }
+
+    function checkBackUpWarning()
+    {
+      if (! jQuery('input[name="backupImages"]').is(':checked') )
+      {
+        jQuery('.backup_warning').fadeIn();
       }
       else {
-        jQuery('.exif_warning').fadeOut();
+        jQuery('.backup_warning').fadeOut();
       }
     }
 
     function setupGeneralTab() {
+				// @todo Make something workable out of this
         var rad = 0;
+
         if (typeof document.wp_shortpixel_options !== 'undefined')
           rad = document.wp_shortpixel_options.compressionType;
+
+				if (document.getElementById('compressionType-database') !== null)
+					var savedCompression = document.getElementById('compressionType-database').value;
+				else
+					var savedCompression = null;
+
         for(var i = 0, prev = null; i < rad.length; i++) {
             rad[i].onclick = function() {
 
@@ -108,16 +174,20 @@ var ShortPixel = function() {
                     prev = this;
                 }
                 // Warns once that changing compressType is only for new images.
-                if(typeof ShortPixel.setupGeneralTabAlert !== 'undefined') return;
-                alert(_spTr.alertOnlyAppliesToNewImages);
-                ShortPixel.setupGeneralTabAlert = 1;
+            //    if(typeof ShortPixel.setupGeneralTabAlert !== 'undefined') return;
+              //  alert(_spTr.alertOnlyAppliesToNewImages);
+              //  ShortPixel.setupGeneralTabAlert = 1;
+							 if (this.value == savedCompression)
+  					 		jQuery('.compression-notice-row').addClass('shortpixel-hide');
+							else
+							  jQuery('.compression-notice-row').removeClass('shortpixel-hide');
             };
         }
 
         ShortPixel.enableResize("#resize");
 
-        jQuery("#resize").change(function(){ enableResize(this); });
-        jQuery(".resize-sizes").blur(function(e){
+        jQuery("#resize").on('change', function(){ enableResize(this); });
+        jQuery(".resize-sizes").on('blur', function(e){
             var elm = jQuery(e.target);
 
             if(ShortPixel.resizeSizesAlert == elm.val())
@@ -128,9 +198,9 @@ var ShortPixel = function() {
             var niceName = jQuery("#min-" + elm.attr('name')).data('nicename');
             if(elm.val() < Math.min(minSize, 1024)) { // @todo is this correct? This will always be < 1024, and give first error
                 if(minSize > 1024) {
-                    alert( _spTr.pleaseDoNotSetLesser1024.format(niceName) );
+                    alert( SPstringFormat(_spTr.pleaseDoNotSetLesser1024,niceName) );
                 } else {
-                    alert( _spTr.pleaseDoNotSetLesserSize.format(niceName, niceName, minSize) );
+                    alert( SPstringFormat(_spTr.pleaseDoNotSetLesserSize, niceName, niceName, minSize) );
                 }
                 e.preventDefault();
                 //elm.val(this.defaultValue);
@@ -148,7 +218,7 @@ var ShortPixel = function() {
             jQuery(this).val(Math.max(minHeight, parseInt(jQuery(this).val())));
         });
         */
-        jQuery('.shortpixel-confirm').click(function(event){
+        jQuery('.shortpixel-confirm').on('click', function(event){
             var choice = confirm(event.target.getAttribute('data-confirm'));
             if (!choice) {
                 event.preventDefault();
@@ -163,6 +233,12 @@ var ShortPixel = function() {
         });
         ShortPixel.checkExifWarning();
 
+        jQuery('input[name="backupImages"]').on('change', function()
+        {
+           ShortPixel.checkBackUpWarning();
+        });
+        ShortPixel.checkBackUpWarning();
+
     }
 
     function apiKeyChanged() {
@@ -171,17 +247,18 @@ var ShortPixel = function() {
     }
 
     function setupAdvancedTab() {
-        jQuery("input.remove-folder-button").click(function(){
-            var path = jQuery(this).data("value");
-            var r = confirm(_spTr.areYouSureStopOptimizing.format(path));
+        jQuery("input.remove-folder-button").on('click', function(){
+            var id = jQuery(this).data("value");
+            var path = jQuery(this).data('name');
+            var r = confirm( SPstringFormat(_spTr.areYouSureStopOptimizing, path) );
             if (r == true) {
-                jQuery("#removeFolder").val(path);
+                jQuery("#removeFolder").val(id);
                 jQuery('#wp_shortpixel_options').submit();
             }
         });
-        jQuery("input.recheck-folder-button").click(function(){
+        jQuery("input.recheck-folder-button").on('click', function(){
             var path = jQuery(this).data("value");
-            var r = confirm(_spTr.areYouSureStopOptimizing.format(path));
+            var r = confirm( SPstringFormat(_spTr.areYouSureStopOptimizing, path));
             if (r == true) {
                 jQuery("#recheckFolder").val(path);
                 jQuery('#wp_shortpixel_options').submit();
@@ -198,21 +275,25 @@ var ShortPixel = function() {
     function initSettings() {
         ShortPixel.adjustSettingsTabs();
         ShortPixel.setupGeneralTab(); // certain alerts.
-        jQuery( window ).resize(function() {
+        jQuery( window ).on('resize', function() {
             ShortPixel.adjustSettingsTabs();
         });
-        /*if(window.location.hash) {
-            var target = ('tab-' + window.location.hash.substring(window.location.hash.indexOf("#")+1)).replace(/\//, '');
-            if(jQuery("section#" + target).length) {
-                ShortPixel.switchSettingsTab( target );
-            }
-        } */
-        jQuery("article.sp-tabs a.tab-link").click(function(e){
+
+				// shortpixel.ui is the designation for settings and ui-related events not in processor realm.
+				window.addEventListener('shortpixel.ui.settingsTabLoad', this.loadTabData.bind(this));
+
+        jQuery("article.sp-tabs a.tab-link").on('click', function(e){
             var theID = jQuery(e.target).data("id");
             ShortPixel.switchSettingsTab( theID );
         });
 
-        jQuery('input[type=radio][name=deliverWebpType]').change(function() {
+
+        jQuery('input[type=radio][name=deliverWebpType]').on('change', function(e) {
+						// shortpixel-settings init trigger events for toggles, ignore this when so.
+						if (e.detail && e.detail.init && e.detail.init === true)
+						{
+								return false;
+						}
             if (this.value == 'deliverWebpAltered') {
                 if(window.confirm(_spTr.alertDeliverWebPAltered)){
                     var selectedItems = jQuery('input[type=radio][name=deliverWebpAlteringType]:checked').length;
@@ -226,6 +307,11 @@ var ShortPixel = function() {
                 window.alert(_spTr.alertDeliverWebPUnaltered);
             }
         });
+
+				// Init active tab
+				var activeTab = document.querySelector('section.sel-tab');
+				if (activeTab !== null);
+				ShortPixel.switchSettingsTab(activeTab.getAttribute('id'));
     }
 
     // Switch between settings tabs.
@@ -241,6 +327,10 @@ var ShortPixel = function() {
         else {
             location.hash = url;
         } */
+				if (section.length == 0)
+				{
+					 tab = 'settings'; // if tab does not exist.
+				}
         jQuery('input[name="display_part"]').val(tab);
         var uri = window.location.href.toString();
         if (uri.indexOf("?") > 0) {
@@ -253,10 +343,15 @@ var ShortPixel = function() {
             jQuery("section").removeClass("sel-tab");
             jQuery('section .wp-shortpixel-tab-content').fadeOut(50);
             jQuery(section).addClass("sel-tab");
-            ShortPixel.adjustSettingsTabs();
-            jQuery(section).find('.wp-shortpixel-tab-content').fadeIn(50);
+            //ShortPixel.adjustSettingsTabs();
+            //jQuery(section).find('.wp-shortpixel-tab-content').fadeIn(50);
+            jQuery(section).find('.wp-shortpixel-tab-content').fadeIn(50, ShortPixel.adjustSettingsTabs);
+
+						var event = new CustomEvent('shortpixel.ui.settingsTabLoad', { detail : {tabName: tab, section: section }});
+						window.dispatchEvent(event);
+
         }
-        if(typeof HS.beacon.suggest !== 'undefined' ){
+       /* if(typeof HS !== 'undefined' && typeof HS.beacon.suggest !== 'undefined' ){
             switch(tab){
                 case "settings":
                     beacon = shortpixel_suggestions_settings;
@@ -272,15 +367,34 @@ var ShortPixel = function() {
                     break;
             }
             HS.beacon.suggest(beacon);
-        }
+        } */
     }
+
+		// Newer function to load tab specific data, removing load from general init.
+		function loadTabData(e)
+		{
+				var detail = e.detail;
+				if (detail.tabName == 'tools')
+				{
+					 this.loadToolsTabData();
+
+				}
+		}
+
+		function loadToolsTabData()
+		{
+			/*var sizeText = document.querySelector('[data-tabfield="backupSize"]');
+			if (sizeText.dataset.value == '')
+			{
+				var backupSize = this.getBackupSize(sizeText);
+			} */
+		}
 
     // Fixes the height of the current active tab.
     function adjustSettingsTabsHeight(){
-        var sectionHeight = jQuery('section.sel-tab').height() + 90;
         //sectionHeight = Math.max(sectionHeight, jQuery('section#tab-adv-settings .wp-shortpixel-options').height() + 20);
       //  sectionHeight = Math.max(sectionHeight, jQuery('section#tab-resources .area1').height() + 60);
-        jQuery('.section-wrapper').css('height', sectionHeight);
+        jQuery('.wso.banner').css('opacity', 1);
         //jQuery('#shortpixel-settings-tabs section').css('height', sectionHeight);
     }
 
@@ -309,9 +423,16 @@ var ShortPixel = function() {
     }
 
     function checkQuota() {
-        var data = { action  : 'shortpixel_check_quota'};
-        jQuery.get(ShortPixel.AJAX_URL, data, function() {
+        var data = {
+          action:'shortpixel_check_quota',
+          nonce: ShortPixelConstants[0].nonce_ajaxrequest,
+          return_json: true
+        };
+
+        jQuery.post(ShortPixel.AJAX_URL, data, function(result) {
             console.log("quota refreshed");
+            console.log(result);
+            window.location.href = result.redirect;
         });
     }
 
@@ -330,8 +451,8 @@ var ShortPixel = function() {
              + (percent > 0 && percent < 5 ? "<br>" : '')
              + (percent < 5 ? _spTr.bonusProcessing : '')
              + (type.length > 0 ? " ("+type+")" : "")
-             + (0 + thumbsCount > 0 ? "<br>" + _spTr.plusXthumbsOpt.format(thumbsCount) :"")
-             + (0 + retinasCount > 0 ? "<br>" + _spTr.plusXretinasOpt.format(retinasCount) :"")
+             + (0 + thumbsCount > 0 ? "<br>" + SPstringFormat(_spTr.plusXthumbsOpt, thumbsCount) :"")
+             + (0 + retinasCount > 0 ? "<br>" + SPstringFormat(_spTr.plusXretinasOpt, retinasCount) :"")
              + "</div>";
     }
 
@@ -396,7 +517,7 @@ var ShortPixel = function() {
         if(isNaN(ShortPixel.retries)) ShortPixel.retries = 1;
         if(ShortPixel.retries < 6) {
             console.log("Invalid response from server (Error: " + msg + "). Retrying pass " + (ShortPixel.retries + 1) +  "...");
-            setTimeout(checkBulkProgress, 5000);
+            setBulkTimer(5000);
         } else {
             ShortPixel.bulkShowError(-1,"Invalid response from server received 6 times. Please retry later by reloading this page, or <a href='https://shortpixel.com/contact' target='_blank'>contact support</a>. (Error: " + msg + ")", "");
             console.log("Invalid response from server 6 times. Giving up.");
@@ -405,6 +526,7 @@ var ShortPixel = function() {
 
     function browseContent(browseData) {
         browseData.action = 'shortpixel_browse_content';
+
         var browseResponse = "";
         jQuery.ajax({
             type: "POST",
@@ -418,8 +540,9 @@ var ShortPixel = function() {
         return browseResponse;
     }
 
-    function getBackupSize() {
-        var browseData = { 'action': 'shortpixel_get_backup_size'};
+    function getBackupSize(element) {
+       /* Off until we found something better.
+			 var browseData = { 'action': 'shortpixel_get_backup_size', nonce: ShortPixelConstants[0].nonce_ajaxrequest };
         var browseResponse = "";
         jQuery.ajax({
             type: "POST",
@@ -427,13 +550,18 @@ var ShortPixel = function() {
             data: browseData,
             success: function(response) {
                  browseResponse = response;
+								 element.dataset.value = browseResponse;
+								 element.textContent = browseResponse;
             },
-            async: false
+            //async: false
         });
-        return browseResponse;
-    }
+        return browseResponse; */
+     }
 
     function newApiKey(event) {
+				event.preventDefault();
+        ShortPixel.updateSignupEmail();
+
         if(!jQuery("#tos").is( ":checked" )) {
             event.preventDefault();
             jQuery("#tos-robo").fadeIn(400,function(){jQuery("#tos-hand").fadeIn();});
@@ -443,13 +571,19 @@ var ShortPixel = function() {
             });
             return;
         }
+				if (jQuery('#request_key').is(':disabled'))
+				{
+					return false;
+				}
         jQuery('#request_key').addClass('disabled');
         jQuery('#pluginemail_spinner').addClass('is-active');
-        ShortPixel.updateSignupEmail();
-        if (ShortPixel.isEmailValid(jQuery('#pluginemail').val())) {
+
+				jQuery('#shortpixel-form-request-key').submit();
+      /*  if (ShortPixel.isEmailValid(jQuery('#pluginemail').val())) {
             jQuery('#pluginemail-error').css('display', 'none');
-            var browseData = { 'action': 'shortpixel_new_api_key',
-                               'email': jQuery('#pluginemail').val()};
+            var browseData = { 'screen_action': 'request_new_api_key',
+															 'action' : 'shortpixel_ajaxRequest',
+                               'email': jQuery('#pluginemail').val(), nonce: ShortPixelConstants[0].nonce_ajaxrequest};
             jQuery.ajax({
                 type: "POST",
                 async: false,
@@ -477,6 +611,7 @@ var ShortPixel = function() {
         }
         jQuery('#request_key').removeClass('disabled');
         jQuery('#pluginemail_spinner').removeClass('is-active');
+				*/
     }
 
     // [TODO] Check where this function is called and if modal is working here.
@@ -486,8 +621,9 @@ var ShortPixel = function() {
         jQuery("#shortPixelProposeUpgrade .sp-modal-body").html("");
         jQuery("#shortPixelProposeUpgradeShade").css("display", "block");
         jQuery("#shortPixelProposeUpgrade").removeClass('shortpixel-hide');
+        jQuery("#shortPixelProposeUpgradeShade").on('click', this.closeProposeUpgrade);
         //get proposal from server
-        var browseData = { 'action': 'shortpixel_propose_upgrade'};
+        var browseData = { 'action': 'shortpixel_propose_upgrade', nonce: ShortPixelConstants[0].nonce_ajaxrequest};
         jQuery.ajax({
             type: "POST",
             url: ShortPixel.AJAX_URL,
@@ -495,7 +631,12 @@ var ShortPixel = function() {
             success: function(response) {
                 jQuery("#shortPixelProposeUpgrade .sp-modal-body").removeClass('sptw-modal-spinner');
                 jQuery("#shortPixelProposeUpgrade .sp-modal-body").html(response);
-            }
+            },
+						complete: function(response, status)
+						{
+							 console.log(response, status);
+
+						}
         });
     }
 
@@ -503,11 +644,11 @@ var ShortPixel = function() {
         jQuery("#shortPixelProposeUpgradeShade").css("display", "none");
         jQuery("#shortPixelProposeUpgrade").addClass('shortpixel-hide');
         if(ShortPixel.toRefresh) {
-            ShortPixel.recheckQuota();
+            ShortPixel.checkQuota();
         }
     }
 
-    function includeUnlisted() {
+/*    function includeUnlisted() {
     jQuery("#short-pixel-notice-unlisted").hide();
     jQuery("#optimizeUnlisted").prop('checked', true);
     var data = { action  : 'shortpixel_dismiss_notice',
@@ -519,29 +660,30 @@ var ShortPixel = function() {
             console.log("dismissed");
         }
     });
-}
-
-
+} */
     function initFolderSelector() {
-        jQuery(".select-folder-button").click(function(){
+        jQuery(".select-folder-button").on('click', function(){
             jQuery(".sp-folder-picker-shade").fadeIn(100); //.css("display", "block");
-            jQuery(".shortpixel-modal.modal-folder-picker").show();
+						jQuery(".shortpixel-modal.modal-folder-picker").removeClass('shortpixel-hide');
+						jQuery(".shortpixel-modal.modal-folder-picker").show();
+
 
             var picker = jQuery(".sp-folder-picker");
             picker.parent().css('margin-left', -picker.width() / 2);
             picker.fileTree({
                 script: ShortPixel.browseContent,
-                //folderEvent: 'dblclick',
-                multiFolder: false
-                //onlyFolders: true
+                multiFolder: false,
             });
         });
-        jQuery(".shortpixel-modal input.select-folder-cancel, .sp-folder-picker-shade").click(function(){
+        jQuery(".shortpixel-modal input.select-folder-cancel, .sp-folder-picker-shade").on('click', function(){
             jQuery(".sp-folder-picker-shade").fadeOut(100); //.css("display", "none");
+						jQuery(".shortpixel-modal.modal-folder-picker").addClass('shortpixel-hide');
             jQuery(".shortpixel-modal.modal-folder-picker").hide();
         });
-        jQuery(".shortpixel-modal input.select-folder").click(function(e){
+        jQuery(".shortpixel-modal input.select-folder").on('click', function(e){
             //var subPath = jQuery("UL.jqueryFileTree LI.directory.selected A").attr("rel").trim();
+
+            // @todo This whole thing might go, since we don't display files anymore in folderTree.
 
             // check if selected item is a directory. If so, we are good.
             var selected = jQuery('UL.jqueryFileTree LI.directory.selected');
@@ -560,7 +702,8 @@ var ShortPixel = function() {
 
             if(subPath) {
                 var fullPath = jQuery("#customFolderBase").val() + subPath;
-                if(fullPath.slice(-1) == '/') fullPath = fullPath.slice(0, -1);
+                fullPath = fullPath.replace(/\/\//,'/');
+              //  console.debug('FullPath' + fullPath);
                 jQuery("#addCustomFolder").val(fullPath);
                 jQuery("#addCustomFolderView").val(fullPath);
                 jQuery(".sp-folder-picker-shade").fadeOut(100);
@@ -661,10 +804,7 @@ var ShortPixel = function() {
         return id.substring(0,2) == "C-";
     }
 
-    function recheckQuota() {
-        var parts = window.location.href.split('#');
-        window.location.href=parts[0]+(parts[0].indexOf('?')>0?'&':'?')+'checkquota=1' + (typeof parts[1] === 'undefined' ? '' : '#' + parts[1]);
-    }
+
 
     function openImageMenu(e) {
             e.preventDefault();
@@ -682,7 +822,7 @@ var ShortPixel = function() {
             if(!shown) e.target.parentElement.classList.add("sp-show");
     }
 
-    function loadComparer(id) {
+    function loadComparer(id, type) {
         this.comparerData.origUrl = false;
          if(this.comparerData.cssLoaded === false) {
             jQuery('<link>')
@@ -697,21 +837,25 @@ var ShortPixel = function() {
         if(this.comparerData.jsLoaded === false) {
             jQuery.getScript(this.WP_PLUGIN_URL + '/res/js/jquery.twentytwenty.min.js', function(){
                 ShortPixel.comparerData.jsLoaded = 2;
+                /*   What should this do?
                 if(ShortPixel.comparerData.origUrl.length > 0) {
                     ShortPixel.displayComparerPopup(ShortPixel.comparerData.width, ShortPixel.comparerData.height, ShortPixel.comparerData.origUrl, ShortPixel.comparerData.optUrl);
-                }
+                } */
             });
             this.comparerData.jsLoaded = 1;
             //jQuery(".sp-close-button").click(ShortPixel.closeComparerPopup);
         }
         if(this.comparerData.origUrl === false) {
+               if (typeof type == 'undefined')
+                  var type = 'media';  // default.
             jQuery.ajax({
                 type: "POST",
                 url: ShortPixel.AJAX_URL,
-                data: { action : 'shortpixel_get_comparer_data', id : id },
+                data: { action : 'shortpixel_get_comparer_data', id : id, type: type, nonce: ShortPixelConstants[0].nonce_ajaxrequest },
                 success: function(response) {
-                    data = JSON.parse(response);
-                    jQuery.extend(ShortPixel.comparerData, data);
+                  //  data = JSON.parse(response);
+
+                    jQuery.extend(ShortPixel.comparerData, response);
                     if(ShortPixel.comparerData.jsLoaded == 2) {
                         ShortPixel.displayComparerPopup(ShortPixel.comparerData.width, ShortPixel.comparerData.height, ShortPixel.comparerData.origUrl, ShortPixel.comparerData.optUrl);
                     }
@@ -730,7 +874,7 @@ var ShortPixel = function() {
         var modalShade = jQuery('.sp-modal-shade');
 
         if(!sideBySide) {
-            jQuery("#spCompareSlider").html('<img class="spUploadCompareOriginal"/><img class="spUploadCompareOptimized"/>');
+            jQuery("#spCompareSlider").html('<img alt="' +  _spTr.originalImage + '" class="spUploadCompareOriginal"/><img alt="' +  _spTr.optimizedImage + '" class="spUploadCompareOptimized"/>');
         }
         //calculate the modal size
         width = Math.max(350, Math.min(800, (width < 350 ? (width + 25) * 2 : (height < 150 ? width + 25 : width))));
@@ -743,6 +887,7 @@ var ShortPixel = function() {
         jQuery(".shortpixel-slider", modal).css("width", width);
         modal.css("width", width);
         modal.css('marginLeft',  marginLeft + 'px');
+				modal.removeClass('shortpixel-hide');
         jQuery(".sp-modal-body", modal).css("height", height);
         modal.show();
         //modal.parent().css('display', 'block');
@@ -753,9 +898,9 @@ var ShortPixel = function() {
         }
 
         // Close Options
-        jQuery(".sp-close-button").on('click', ShortPixel.closeComparerPopup);
-        jQuery(document).on('keyup.sp_modal_active', ShortPixel.closeComparerPopup);
-        jQuery('.sp-modal-shade').on('click', ShortPixel.closeComparerPopup);
+        jQuery(".sp-close-button").on('click',  { modal: modal}, ShortPixel.closeComparerPopup);
+        jQuery(document).on('keyup.sp_modal_active', { modal: modal}, ShortPixel.closeComparerPopup );
+        jQuery('.sp-modal-shade').on('click', { modal: modal},  ShortPixel.closeComparerPopup, );
 
         //change images srcs
         var imgOpt = jQuery(".spUploadCompareOptimized", modal);
@@ -768,12 +913,15 @@ var ShortPixel = function() {
             jQuery(window).trigger('resize');
         });
         imgOpt.attr("src", imgOptimized);
+
+        console.log('Popup Loaded! ', modal);
     }
 
     function closeComparerPopup(e) {
       //  jQuery("#spUploadCompareSideBySide").parent().css("display", 'none');
-        jQuery("#spUploadCompareSideBySide").hide();
-        jQuery("#spUploadCompare").hide();
+       // jQuery("#spUploadCompareSideBySide").hide();
+        //jQuery("#spUploadCompare").hide();
+				e.data.modal.addClass('shortpixel-hide');
         jQuery('.sp-modal-shade').hide();
         jQuery(document).unbind('keyup.sp_modal_active');
         jQuery('.sp-modal-shade').off('click');
@@ -789,14 +937,36 @@ var ShortPixel = function() {
         return url.replace(parser.protocol + '//' + parser.hostname,  parser.protocol + '//' + parser.hostname.split('.').map(function(part) {return sp_punycode.toASCII(part)}).join('.'));
     }
 
+    function optInHelp(e,toggle)
+    {
+      var toggle = e.currentTarget.toggleParam;
+
+      var data = {
+          action: 'shortpixel_helpscoutOptin',
+          toggle: toggle,
+        };
+      var $target = jQuery(e.target);
+
+      jQuery.post(ShortPixel.AJAX_URL, data, function(response) {
+          //data = JSON.parse(response);
+          if(response.Status == 'success') {
+              $target.parents('.shortpixel.notice').fadeOut();
+              //console.log("dismissed");
+          }
+      });
+    }
+
     return {
         init                : init,
+        didInit             : false,
         setOptions          : setOptions,
         isEmailValid        : isEmailValid,
         updateSignupEmail   : updateSignupEmail,
-        //validateKey         : validateKey,
+        validateKey         : validateKey,
         enableResize        : enableResize,
         setupGeneralTab     : setupGeneralTab,
+				loadTabData					: loadTabData,
+				loadToolsTabData		: loadToolsTabData,
         apiKeyChanged       : apiKeyChanged,
         setupAdvancedTab    : setupAdvancedTab,
         checkThumbsUpdTotal : checkThumbsUpdTotal,
@@ -819,7 +989,7 @@ var ShortPixel = function() {
         newApiKey           : newApiKey,
         proposeUpgrade      : proposeUpgrade,
         closeProposeUpgrade : closeProposeUpgrade,
-        includeUnlisted     : includeUnlisted,
+  //      includeUnlisted     : includeUnlisted,
         bulkShowLengthyMsg  : bulkShowLengthyMsg,
         bulkHideLengthyMsg  : bulkHideLengthyMsg,
         bulkShowMaintenanceMsg  : bulkShowMaintenanceMsg,
@@ -829,7 +999,7 @@ var ShortPixel = function() {
         checkRandomAnswer : checkRandomAnswer,
         removeBulkMsg       : removeBulkMsg,
         isCustomImageId     : isCustomImageId,
-        recheckQuota        : recheckQuota,
+      //  recheckQuota        : recheckQuota,
         openImageMenu       : openImageMenu,
         menuCloseEvent      : false,
         loadComparer        : loadComparer,
@@ -837,6 +1007,7 @@ var ShortPixel = function() {
         closeComparerPopup  : closeComparerPopup,
         convertPunycode     : convertPunycode,
         checkExifWarning    : checkExifWarning,
+        checkBackUpWarning  : checkBackUpWarning,
         comparerData        : {
             cssLoaded   : false,
             jsLoaded    : false,
@@ -848,16 +1019,18 @@ var ShortPixel = function() {
         toRefresh       : false,
         resizeSizesAlert: false,
         returnedStatusSearching: 0, // How often this status has come back in a row from server.
+        optInHelp: optInHelp, // Optin for Helpscout cs
     }
-}();
+}(); // End of ShortPixel
 
 function showToolBarAlert($status, $message, id) {
     var robo = jQuery("li.shortpixel-toolbar-processing");
+
     switch($status) {
         case ShortPixel.STATUS_QUOTA_EXCEEDED:
             if(  window.location.href.search("wp-short-pixel-bulk") > 0
               && jQuery(".sp-quota-exceeded-alert").length == 0) { //if we're in bulk and the alert is not displayed reload to see all options
-                location.reload();
+
                 return;
             }
             robo.addClass("shortpixel-alert");
@@ -891,8 +1064,18 @@ function showToolBarAlert($status, $message, id) {
     }
     robo.removeClass("shortpixel-hide");
 }
-function hideToolBarAlert () {
-    jQuery("li.shortpixel-toolbar-processing.shortpixel-processing").addClass("shortpixel-hide");
+function hideToolBarAlert (status) {
+  var $toolbar = jQuery("li.shortpixel-toolbar-processing.shortpixel-processing");
+
+    // When Queue is empty, but we have errors, don't hide the toolbar.
+    if (ShortPixel.STATUS_EMPTY_QUEUE == status)
+    {
+      if ($toolbar.hasClass("shortpixel-alert") || $toolbar.hasClass("shortpixel-quota-exceeded") )
+      {
+        return;
+      }
+    }
+    $toolbar.addClass("shortpixel-hide");
 }
 
 function hideQuotaExceededToolBarAlert () {
@@ -934,6 +1117,7 @@ function checkBulkProgress() {
         adminUrl = ShortPixel.convertPunycode(adminUrl);
     }
 
+    /* NO. If it shouldn't go, this JS file shouldn't load.
     if(   url.search(adminUrl + "upload.php") < 0
        && url.search(adminUrl + "edit.php") < 0
        && url.search(adminUrl + "edit-tags.php") < 0
@@ -944,7 +1128,7 @@ function checkBulkProgress() {
        ) {
         hideToolBarAlert();
         return;
-    }
+    } */
 
     //if i'm the bulk processor and i'm not the bulk page and a bulk page comes around, leave the bulk processor role
     if(ShortPixel.bulkProcessor == true && window.location.href.search("wp-short-pixel-bulk") < 0
@@ -955,24 +1139,53 @@ function checkBulkProgress() {
     //if i'm the bulk page, steal the bulk processor
     if( window.location.href.search("wp-short-pixel-bulk") >= 0 ) {
         ShortPixel.bulkProcessor = true;
-        localStorage.bulkTime = Math.floor(Date.now() / 1000);
+        localStorage.bulkTime = Date.now();
         localStorage.bulkPage = 1;
+        ShortPixel.BULK_SECRET = false;
+    }
+
+    if (ShortPixel.BULK_SECRET !== false)
+    {
+      if (ShortPixel.BULK_SECRET != localStorage.bulkSecret)
+      {
+    //    console.log('Cancelled Processing. Bulk Processor in use');
+        clearBulkProcessor();
+        jQuery("li.shortpixel-toolbar-processing").removeClass("shortpixel-processing");
+        jQuery("li.shortpixel-toolbar-processing").addClass("shortpixel-hide");
+        return;
+      }
     }
 
     //if I'm not the bulk processor, check every 20 sec. if the bulk processor is running, otherwise take the role
-    if(ShortPixel.bulkProcessor == true || typeof localStorage.bulkTime == 'undefined' || Math.floor(Date.now() / 1000) -  localStorage.bulkTime > 90) {
+    if(ShortPixel.bulkProcessor == true || typeof localStorage.bulkTime == 'undefined' || Date.now() - localStorage.bulkTime > 10000) {
         ShortPixel.bulkProcessor = true;
         localStorage.bulkPage = (window.location.href.search("wp-short-pixel-bulk") >= 0 ? 1 : 0);
-        localStorage.bulkTime = Math.floor(Date.now() / 1000);
-        console.log(localStorage.bulkTime);
+        localStorage.bulkTime = Date.now();
+        if (localStorage.getItem('bulkSecret') == null)
+          localStorage.bulkSecret = Math.random().toString(36).substring(7);
+
         checkBulkProcessingCallApi();
     } else {
-        setTimeout(checkBulkProgress, 5000);
+        setBulkTimer(20000);
     }
 }
 
+var bulkTimer; // scope
+function setBulkTimer(time)
+{
+   window.clearTimeout(bulkTimer);
+   //console.log('Clearing TimeOut');
+
+   if (time > 0)
+   {
+    bulkTimer = window.setTimeout(checkBulkProgress, time);
+    //console.log('Set Timeout ' + time + ' ms');
+  }
+}
+
 function checkBulkProcessingCallApi(){
-    var data = { 'action': 'shortpixel_image_processing' };
+  //  console.log('CheckBulkProcessingAPI');
+    var data = { 'action': 'shortpixel_image_processing', 'bulk-secret': localStorage.bulkSecret };
     // since WP 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
     jQuery.ajax({
         type: "POST",
@@ -1001,26 +1214,26 @@ function checkBulkProcessingCallApi(){
 
                     ShortPixel.returnedStatusSearching = 0;
                 }
-  
+
 
                 switch (data["Status"]) {
                     case ShortPixel.STATUS_NO_KEY:
                         setCellMessage(id, data["Message"], "<a class='button button-smaller button-primary' href=\"https://shortpixel.com/wp-apikey"
-                                       + ShortPixel.AFFILIATE + "\" target=\"_blank\">" + _spTr.getApiKey + "</a>");
+                                       + "\" target=\"_blank\">" + _spTr.getApiKey + "</a>");
                         showToolBarAlert(ShortPixel.STATUS_NO_KEY);
                         break;
                     case ShortPixel.STATUS_QUOTA_EXCEEDED:
                         setCellMessage(id, data["Message"], "<a class='button button-smaller button-primary' href=\"https://shortpixel.com/login/"
-                                       + ShortPixel.API_KEY + "\" target=\"_blank\">" + _spTr.extendQuota + "</a>"
-                                       + "<a class='button button-smaller' href='admin.php?action=shortpixel_check_quota'>" + _spTr.check__Quota + "</a>");
+                                       + "\" target=\"_blank\">" + _spTr.extendQuota + "</a>"
+                                       + "<a class='button button-smaller' href='javascript:ShortPixel.checkQuota()'>" + _spTr.check__Quota + "</a>");
                         showToolBarAlert(ShortPixel.STATUS_QUOTA_EXCEEDED);
                         if(data['Stop'] == false) { //there are other items in the priority list, maybe processed, try those
-                            setTimeout(checkBulkProgress, 5000);
+                            setBulkTimer(5000);
                         }
                         ShortPixel.otherMediaUpdateActions(id, ['quota','view']);
                         break;
                     case ShortPixel.STATUS_FAIL:
-                        setCellMessage(id, data["Message"], "<a class='button button-smaller button-primary' href=\"javascript:manualOptimization('" + id + "', false)\">"
+                        setCellMessage(id, data["Message"], "<a class='button button-smaller button-primary' href=\"javascript:manualOptimization('" + id + "', true)\">"
                                 + _spTr.retry + "</a>");
                         showToolBarAlert(ShortPixel.STATUS_FAIL, data["Message"], id);
                         if(isBulkPage) {
@@ -1031,18 +1244,20 @@ function checkBulkProcessingCallApi(){
                             ShortPixel.otherMediaUpdateActions(id, ['retry','view']);
                         }
                         console.log(data["Message"]);
-                        setTimeout(checkBulkProgress, 5000);
+                        setBulkTimer(5000);
                         break;
                     case ShortPixel.STATUS_EMPTY_QUEUE:
                         console.log(data["Message"]);
                         clearBulkProcessor(); //nothing to process, leave the role. Next page load will check again
-                        hideToolBarAlert();
+
+                        hideToolBarAlert(data["Status"]);
                         var progress = jQuery("#bulk-progress");
                         if(isBulkPage && progress.length && data["BulkStatus"] != '2') {
                             progressUpdate(100, "Bulk finished!");
                             jQuery("a.bulk-cancel").attr("disabled", "disabled");
                             hideSlider();
                             //showStats();
+
                             setTimeout(function(){
                                 window.location.reload();
                             }, 3000);
@@ -1075,8 +1290,10 @@ function checkBulkProcessingCallApi(){
                         // [BS] Only update date on Custom Media Page.
                         if (ShortPixel.isCustomImageId(id) && data['TsOptimized'] && data['TsOptimized'].length > 0)
                         {
-                          console.log(id);
-                          jQuery('.date-' + id).text(data['TsOptimized']);
+                          var row = jQuery('.list-overview .item-' + id);
+
+                          jQuery(row).children('.date').text(data['TsOptimized']);
+                          jQuery(row).find('.row-actions .action-optimize').remove(); // gets complicated
                         }
 
 
@@ -1101,7 +1318,7 @@ function checkBulkProcessingCallApi(){
                         if(isBulkPage && typeof data["BulkPercent"] !== 'undefined') {
                             progressUpdate(data["BulkPercent"], data["BulkMsg"]);
                         }
-                        setTimeout(checkBulkProgress, 5000);
+                        setBulkTimer(5000);
                         break;
 
                     case ShortPixel.STATUS_SKIP:
@@ -1125,7 +1342,7 @@ function checkBulkProcessingCallApi(){
                         if(isBulkPage && data["Count"] > 3) {
                             ShortPixel.bulkShowLengthyMsg(id, data["Filename"], data["CustomImageLink"]);
                         }
-                        setTimeout(checkBulkProgress, 5000);
+                        setBulkTimer(5000);
                         break;
                     case ShortPixel.STATUS_SEARCHING:
                         console.log('Server response: ' + response);
@@ -1134,20 +1351,32 @@ function checkBulkProcessingCallApi(){
                         {
                           jQuery('.bulk-notice-msg.bulk-searching').show();
                         }
-                        setTimeout(checkBulkProgress, 2500);
+                        setBulkTimer(2500);
                     break;
                     case ShortPixel.STATUS_MAINTENANCE:
                         ShortPixel.bulkShowMaintenanceMsg('maintenance');
-                        setTimeout(checkBulkProgress, 60000);
+                        setBulkTimer(60000);
                         break;
                     case ShortPixel.STATUS_QUEUE_FULL:
                         ShortPixel.bulkShowMaintenanceMsg('queue-full');
-                        setTimeout(checkBulkProgress, 60000);
+                        setBulkTimer(60000);
                         break;
                     default:
                         ShortPixel.retry("Unknown status " + data["Status"] + ". Retrying...");
                         break;
+                } // switch
+
+                // If custom, if has ID ( returned something about image )
+                if (typeof id != 'undefined' && ShortPixel.isCustomImageId(id))
+                {
+                  var row = jQuery('.list-overview .item-' + id);
+                  jQuery(row).find('.row-actions .action-optimize').remove(); // gets complicated
+                  if (data['actions'])
+                  {
+                    jQuery(row).children('.actions').html(data['actions']);
+                  }
                 }
+
             }
         },
         error: function(response){
@@ -1158,7 +1387,9 @@ function checkBulkProcessingCallApi(){
 
 function clearBulkProcessor(){
     ShortPixel.bulkProcessor = false; //nothing to process, leave the role. Next page load will check again
-    localStorage.bulkTime = 0;
+    localStorage.bulkTime = Date.now();
+    setBulkTimer(0); // stop checking.
+
     if(window.location.href.search("wp-short-pixel-bulk") >= 0) {
         localStorage.bulkPage = 0;
     }
@@ -1178,23 +1409,32 @@ function setCellMessage(id, message, actions){
 }
 
 function manualOptimization(id, cleanup) {
-    setCellMessage(id, "<img src='" + ShortPixel.WP_PLUGIN_URL + "/res/img/loading.gif' class='sp-loading-small'>Image waiting to be processed", "");
+    setCellMessage(id, "<img src='" + ShortPixel.WP_PLUGIN_URL + "/res/img/loading.gif' alt='" +  _spTr.loading + "' class='sp-loading-small'>Image waiting to be processed", "");
     jQuery("li.shortpixel-toolbar-processing").removeClass("shortpixel-hide");
     jQuery("li.shortpixel-toolbar-processing").removeClass("shortpixel-alert");
     jQuery("li.shortpixel-toolbar-processing").addClass("shortpixel-processing");
     var data = { action  : 'shortpixel_manual_optimization',
-                 image_id: id, cleanup: cleanup};
+                 id: id, type: 'media'};
     jQuery.ajax({
-        type: "GET",
+        type: "POST",
         url: ShortPixel.AJAX_URL, //formerly ajaxurl , but changed it because it's not available in the front-end and now we have an option to run in the front-end
         data: data,
         success: function(response) {
-            var resp = JSON.parse(response);
-            if(resp["Status"] == ShortPixel.STATUS_SUCCESS) {
+          ///  var resp = JSON.parse(response);
+          /*if (response.responses)
+          {
+              jQuery.each(response.responses, function (index, message)
+              {
+                 setCellMessage(id, message.message);
+              });
+          } */
+
+            if(response.status > 0) {
                 //TODO - when calling several manual optimizations, the checkBulkProgress gets scheduled several times so several loops run in || - make only one.
-                setTimeout(checkBulkProgress, 2000);
+                setBulkTimer(2000);
+                ShortPixel.BULK_SECRET = false;
             } else {
-                setCellMessage(id, typeof resp["Message"] !== "undefined" ? resp["Message"] : _spTr.thisContentNotProcessable, "");
+                setCellMessage(id, typeof resp["message"] !== "undefined" ? resp["message"] : _spTr.thisContentNotProcessable, "");
             }
         //aici e aici
         },
@@ -1218,7 +1458,7 @@ function manualOptimization(id, cleanup) {
 }
 
 function reoptimize(id, type) {
-    setCellMessage(id, "<img src='" + ShortPixel.WP_PLUGIN_URL + "/res/img/loading.gif' class='sp-loading-small'>Image waiting to be reprocessed", "");
+    setCellMessage(id, "<img src='" + ShortPixel.WP_PLUGIN_URL + "/res/img/loading.gif' alt='" +  _spTr.loading + "' class='sp-loading-small'>Image waiting to be reprocessed", "");
     jQuery("li.shortpixel-toolbar-processing").removeClass("shortpixel-hide");
     jQuery("li.shortpixel-toolbar-processing").addClass("shortpixel-processing");
     var data = { action  : 'shortpixel_redo',
@@ -1227,7 +1467,8 @@ function reoptimize(id, type) {
     jQuery.get(ShortPixel.AJAX_URL, data, function(response) {
         data = JSON.parse(response);
         if(data["Status"] == ShortPixel.STATUS_SUCCESS) {
-            setTimeout(checkBulkProgress, 2000);
+            setBulkTimer(2000);
+            ShortPixel.BULK_SECRET = false;
         } else {
             $msg = typeof data["Message"] !== "undefined" ? data["Message"] : _spTr.thisContentNotProcessable;
             setCellMessage(id, $msg, "");
@@ -1237,7 +1478,7 @@ function reoptimize(id, type) {
 }
 
 function optimizeThumbs(id) {
-    setCellMessage(id, "<img src='" + ShortPixel.WP_PLUGIN_URL + "/res/img/loading.gif' class='sp-loading-small'>" + _spTr.imageWaitOptThumbs, "");
+    setCellMessage(id, "<img src='" + ShortPixel.WP_PLUGIN_URL + "/res/img/loading.gif' alt='" +  _spTr.loading + "' class='sp-loading-small'>" + _spTr.imageWaitOptThumbs, "");
     jQuery("li.shortpixel-toolbar-processing").removeClass("shortpixel-hide");
     jQuery("li.shortpixel-toolbar-processing").addClass("shortpixel-processing");
     var data = { action  : 'shortpixel_optimize_thumbs',
@@ -1245,26 +1486,15 @@ function optimizeThumbs(id) {
     jQuery.get(ShortPixel.AJAX_URL, data, function(response) {
         data = JSON.parse(response);
         if(data["Status"] == ShortPixel.STATUS_SUCCESS) {
-            setTimeout(checkBulkProgress, 2000);
+            setBulkTimer(2000);
+            ShortPixel.BULK_SECRET = false;
         } else {
             setCellMessage(id, typeof data["Message"] !== "undefined" ? data["Message"] : _spTr.thisContentNotProcessable, "");
         }
     });
 }
 
-function dismissShortPixelNoticeExceed(e) {
-    jQuery("#wp-admin-bar-shortpixel_processing").hide();
-    var data = { action  : 'shortpixel_dismiss_notice',
-                 notice_id: 'exceed'};
-    jQuery.get(ShortPixel.AJAX_URL, data, function(response) {
-        data = JSON.parse(response);
-        if(data["Status"] == ShortPixel.STATUS_SUCCESS) {
-            console.log("dismissed");
-        }
-    });
-    e.preventDefault();
-}
-
+/* @todo Must go, still in use in some parts */
 function dismissShortPixelNotice(id) {
     jQuery("#short-pixel-notice-" + id).hide();
     var data = { action  : 'shortpixel_dismiss_notice',
@@ -1277,115 +1507,202 @@ function dismissShortPixelNotice(id) {
     });
 }
 
-function PercentageAnimator(outputSelector, targetPercentage) {
-    this.animationSpeed = 10;
-    this.increment = 2;
-    this.curPercentage = 0;
-    this.targetPercentage = targetPercentage;
-    this.outputSelector = outputSelector;
-
-    this.animate = function(percentage) {
-        this.targetPercentage = percentage;
-        setTimeout(PercentageTimer.bind(null, this), this.animationSpeed);
-    }
-}
-
-function PercentageTimer(animator) {
-    if (animator.curPercentage - animator.targetPercentage < -animator.increment) {
-        animator.curPercentage += animator.increment;
-    } else if (animator.curPercentage - animator.targetPercentage > animator.increment) {
-        animator.curPercentage -= animator.increment;
-    } else {
-        animator.curPercentage = animator.targetPercentage;
-    }
-
-    jQuery(animator.outputSelector).text(animator.curPercentage + "%");
-
-    if (animator.curPercentage != animator.targetPercentage) {
-        setTimeout(PercentageTimer.bind(null,animator), animator.animationSpeed)
-    }
-}
-
-function progressUpdate(percent, message) {
-    var progress = jQuery("#bulk-progress");
-    if(progress.length) {
-        jQuery(".progress-left", progress).css("width", percent + "%");
-        jQuery(".progress-img", progress).css("left", percent + "%");
-        if(percent > 24) {
-            jQuery(".progress-img span", progress).html("");
-            jQuery(".progress-left", progress).html(percent + "%");
-        } else {
-            jQuery(".progress-img span", progress).html(percent + "%");
-            jQuery(".progress-left", progress).html("");
+function dismissFileError() {
+    jQuery('.shortpixel-alert').hide();
+    var data = { action  : 'shortpixel_dismissFileError'
+                 };
+    jQuery.get(ShortPixel.AJAX_URL, data, function(response) {
+        data = JSON.parse(response);
+        if(data["Status"] == ShortPixel.STATUS_SUCCESS) {
+            console.log("dismissed");
         }
-        jQuery(".bulk-estimate").html(message);
-    }
+    });
 }
 
 
 
-function sliderUpdate(id, thumb, bkThumb, percent, filename){
-    var oldSlide = jQuery(".bulk-slider div.bulk-slide:first-child");
-    if(oldSlide.length === 0) {
-        return;
+// first is string to replace, rest are arguments.
+function SPstringFormat() {
+  var params = Array.prototype.slice.call(arguments);
+
+  if (params.length === 0)
+      return;
+
+   var s = params.shift();
+
+    // skip the first one.
+    for (i=0; i< params.length; i++) {
+        s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), params[i]);
     }
-    if(oldSlide.attr("id") != "empty-slide") {
-        oldSlide.hide();
-    }
-    oldSlide.css("z-index", 1000);
-    jQuery(".bulk-img-opt", oldSlide).attr("src", "");
-    if(typeof bkThumb === 'undefined') {
-        bkThumb = '';
-    }
-    if(bkThumb.length > 0) {
-        jQuery(".bulk-img-orig", oldSlide).attr("src", "");
+    return s;
+};
+/** This doesn't go well with REACT environments */
+/*if (!(typeof String.prototype.format == 'function')) {
+    String.prototype.format = stringFormat;
+} */
+
+
+( function( $, w, d ) {
+    w.SpioResize = {
+        image : {
+            width  : 0,
+            height : 0
+        },
+        lag: 2000,
+        step1: false,
+        step2: false,
+        step3: false,
+        sizeRule: null,
+        initialized: false,
+        lastW: false,
+        lastH: false,
+        lastType: false,
+    };
+
+    SpioResize.hide = function() {
+        jQuery('.presentation-wrap').css('opacity', 0);
     }
 
-    var newSlide = oldSlide.clone();
-    newSlide.attr("id", "slide-" + id);
-    jQuery(".bulk-img-opt", newSlide).attr("src", thumb);
-    if(bkThumb.length > 0) {
-        jQuery(".img-original", newSlide).css("display", "inline-block");
-        jQuery(".bulk-img-orig", newSlide).attr("src", bkThumb);
-    } else {
-        jQuery(".img-original", newSlide).css("display", "none");
+    SpioResize.animate = function(img, step1, frame, step2, rule) {
+        img.animate( step1, 1000, 'swing', function(){
+            SpioResize.step3 = setTimeout(function(){
+                document.styleSheets[0].deleteRule(SpioResize.sizeRule);
+                frame.animate(step2, 1000, 'swing', function() {
+                    SpioResize.sizeRule = document.styleSheets[0].insertRule(rule);
+                })
+            }, 600);
+        });
+
     }
-    jQuery(".bulk-opt-percent", newSlide).html('<input type="text" class="dial" value="' + percent + '"/>');
 
-    jQuery(".bulk-slider").append(newSlide);
-    ShortPixel.percentDial("#" + newSlide.attr("id") + " .dial", 100);
+    SpioResize.run = function() {
+        if(!SpioResize.initialized) {
+            var $document = $( d );
+            $document.on( 'input change', 'input[name="resizeWidth"], input[name="resizeHeight"]', function(e) {
+                clearTimeout(SpioResize.change);
+                SpioResize.changeDone = true;
+                SpioResize.changeFired = false;
+                SpioResize.change = setTimeout( function() {
+                    SpioResize.changeFired = true;
+                    SpioResize.run();
+                }, 1500 );
+            } );
+            $document.on( 'blur', 'input[name="resizeWidth"], input[name="resizeHeight"]', function(e) {
+                if(SpioResize.changeFired) {
+                    return;
+                }
+                clearTimeout(SpioResize.change);
+                SpioResize.change = setTimeout( function() {
+                    SpioResize.run();
+                }, 1500 );
+            } );
+            $document.on( 'change', 'input[name="resizeType"]', function(e) {
+                SpioResize.run();
+            });
+            SpioResize.initialized = true;
+        }
 
-    jQuery(".bulk-slider-container span.filename").html("&nbsp;&nbsp;" + filename);
-    if(oldSlide.attr("id") == "empty-slide") {
-        oldSlide.remove();
-        jQuery(".bulk-slider-container").css("display", "block");
-    } else {
-        oldSlide.animate({ left: oldSlide.width() + oldSlide.position().left }, 'slow', 'swing', function(){
-            oldSlide.remove();
-            newSlide.fadeIn("slow");
+        var w = $('#width').val();
+        var h = $('#height').val();
+        if(!w || !h) return;
+        var type = ($('#resize_type_outer').is(':checked') ? 'outer' : 'inner');
+        if(w === SpioResize.lastW && h === SpioResize.lastH && type === SpioResize.lastType) {
+            return;
+        }
+        SpioResize.hide();
+        SpioResize.lastW = w;
+        SpioResize.lastH = h;
+        SpioResize.lastType = type;
+
+        var frame1W = Math.round(120 * Math.sqrt(w / h));
+        var frame1H = Math.round(120 * Math.sqrt(h / w));
+        var frameAR = frame1W / frame1H;
+        if(frame1W > 280) {
+            frame1W = 280; frame1H = Math.round(280 / frameAR);
+        }
+        if(frame1H > 150) {
+            frame1H = 150; frame1W = Math.round(150 * frameAR);
+        }
+        var imgAR = 15 / 8;
+        var img = $('img.spai-resize-img');
+        img.css('width', '');
+        img.css('height', '');
+        img.css('margin', '0px');
+        var frame = $('div.spai-resize-frame');
+        frame.css('display', 'none');
+        frame.css('width', frame1W + 'px');
+        frame.css('height', frame1H + 'px');
+        frame.css('margin', Math.round((156 - frame1H ) / 2) + 'px auto 0');
+
+        clearTimeout(SpioResize.step1); clearTimeout(SpioResize.step2); clearTimeout(SpioResize.step3);
+        img.stop(); frame.stop();
+
+        if(SpioResize.sizeRule !== null) {
+            document.styleSheets[0].deleteRule(SpioResize.sizeRule);
+            SpioResize.sizeRule = null;
+        }
+        SpioResize.sizeRule = document.styleSheets[0].insertRule('.spai-resize-frame:after { content: "' + w + ' × ' + h + '"; }');
+        frame.addClass('spai-resize-frame');
+
+        $('.presentation-wrap').animate( {opacity: 1}, 500, 'swing', function(){
+            //because damn chrome is not repainting the frame after we change the sizes otherwise... :(
+            frame.css('display', 'block');
+
+            SpioResize.step2 = setTimeout(function(){
+                if(type == 'outer') {
+                    if(imgAR > frameAR) {
+                        var step1 = {
+                            height: frame1H + 'px',
+                            margin: Math.round((160 - frame1H) / 2) + 'px 0px'
+                        };
+                        var frameNewW = frame1H * imgAR;
+                        var step2 = { width: Math.round(frameNewW) + 'px' };
+                        var rule = '.spai-resize-frame:after { content: "' + Math.round(frameNewW * w / frame1W) + ' × ' + h + '"; }';
+                    } else {
+                        var step1 = {
+                            width: frame1W + 'px',
+                            margin: Math.round((160 - frame1W / imgAR) / 2) + 'px 0px'
+                        };
+                        var frameNewH = frame1W / imgAR;
+                        var step2 = {
+                            height: Math.round(frameNewH) + 'px',
+                            margin: Math.round((156 - frameNewH) / 2) + 'px auto 0'
+                        };
+                        var rule = '.spai-resize-frame:after { content: "' + w + ' × ' + Math.round(frameNewH * w / frame1W) + '"; }';
+
+                    }
+                } else {
+                    if(imgAR > frameAR) {
+                        var step1 = {
+                            width: frame1W,
+                            margin: Math.round((160 - frame1W / imgAR) / 2) + 'px 0px'
+                        };
+                        var frameNewH = frame1W / imgAR;
+                        var step2 = {
+                            height: Math.round(frameNewH) + 'px',
+                            margin: Math.round((156 - frameNewH) / 2) + 'px auto 0'
+                        };
+                        var rule = '.spai-resize-frame:after { content: "' + w + ' × ' + Math.round(frameNewH * w / frame1W) + '"; }';
+                    } else {
+                        var step1 = {
+                            height: frame1H,
+                            margin: Math.round((160 - frame1H) / 2) + 'px 0px'
+                        };
+                        var frameNewW = frame1H * imgAR;
+                        var step2 = {
+                            width: Math.round(frameNewW) + 'px'
+                        };
+                        var rule = '.spai-resize-frame:after { content: "' + Math.round(frameNewW * w / frame1W) + ' × ' + h + '"; }';
+                    }
+                }
+                SpioResize.animate(img, step1, frame, step2, rule);
+            }, 1000);
         });
     }
-}
 
-function hideSlider() {
-    jQuery(".bulk-slider-container").css("display", "none");
-}
-
-function showStats() {
-    var statsDiv = jQuery(".bulk-stats");
-    if(statsDiv.length > 0) {
-
-    }
-}
-
-if (!(typeof String.prototype.format == 'function')) {
-    String.prototype.format = function() {
-        var s = this,
-            i = arguments.length;
-
-        while (i--) {
-            s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
+    $( function() {
+        if($('#resize').is('checked')) {
+            SpioResize.run();
         }
-        return s;
-    };
-}
+    } );
+} )( jQuery, window, document );
