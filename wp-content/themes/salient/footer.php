@@ -32,8 +32,8 @@ $footer_bg_color           = ( ! empty( $options['footer-background-color'] ) ) 
 $footer_copyright_bg_color = ( ! empty( $options['footer-copyright-background-color'] ) ) ? $options['footer-copyright-background-color'] : 'default-footer-copyright-color';
 $footer_custom_color       = ( ! empty( $options['footer-custom-color'] ) && $options['footer-custom-color'] == '1' ) ? 'true' : 'false';
 
-$using_footer_bg_img       = 'false';
-$footer_bg_image_markup    = '';
+$using_footer_bg_img    = 'false';
+$footer_bg_image_markup = '';
 
 if ( $footer_bg_image && ! empty( $footer_bg_image ) ) {
 	$using_footer_bg_img    = 'true';
@@ -51,17 +51,26 @@ if ( $footer_custom_color == 'true' ) {
 
 ?>
 
-<div id="footer-outer" <?php echo ( $footer_reveal != '1' ) ? 'data-midnight="light"' : ''; ?> data-cols="<?php echo esc_attr( $footer_columns ); ?>" data-custom-color="<?php echo esc_attr( $footer_custom_color ); ?>" data-disable-copyright="<?php echo esc_attr( $disable_footer_copyright ); ?>" data-matching-section-color="<?php echo esc_attr( $matching_footer_color ); ?>" data-copyright-line="<?php echo esc_attr( $copyright_line ); ?>" data-using-bg-img="<?php echo esc_attr( $using_footer_bg_img ); ?>" data-bg-img-overlay="<?php echo esc_attr( $footer_bg_image_overlay ); ?>" data-full-width="<?php echo esc_attr( $footer_full_width ); ?>" data-using-widget-area="<?php echo esc_attr( $using_footer_widget_area ); ?>" <?php echo $footer_bg_image_markup; // WPCS: XSS ok. ?>>
-	
-<?php
+<div id="footer-outer" <?php echo ( $footer_reveal != '1' ) ? 'data-midnight="light"' : ''; ?>
+     data-cols="<?php echo esc_attr( $footer_columns ); ?>"
+     data-custom-color="<?php echo esc_attr( $footer_custom_color ); ?>"
+     data-disable-copyright="<?php echo esc_attr( $disable_footer_copyright ); ?>"
+     data-matching-section-color="<?php echo esc_attr( $matching_footer_color ); ?>"
+     data-copyright-line="<?php echo esc_attr( $copyright_line ); ?>"
+     data-using-bg-img="<?php echo esc_attr( $using_footer_bg_img ); ?>"
+     data-bg-img-overlay="<?php echo esc_attr( $footer_bg_image_overlay ); ?>"
+     data-full-width="<?php echo esc_attr( $footer_full_width ); ?>"
+     data-using-widget-area="<?php echo esc_attr( $using_footer_widget_area ); ?>" <?php echo $footer_bg_image_markup; // WPCS: XSS ok. ?>>
 
-get_template_part( 'includes/partials/footer/call-to-action' );
+	<?php
 
-get_template_part( 'includes/partials/footer/main-widgets' );
+	get_template_part( 'includes/partials/footer/call-to-action' );
 
-get_template_part( 'includes/partials/footer/copyright-bar' );
+	get_template_part( 'includes/partials/footer/main-widgets' );
 
-?>
+	get_template_part( 'includes/partials/footer/copyright-bar' );
+
+	?>
 
 </div><!--/footer-outer-->
 
@@ -77,7 +86,8 @@ get_template_part( 'includes/partials/footer/off-canvas-navigation' );
 
 <?php
 if ( ! empty( $options['boxed_layout'] ) && $options['boxed_layout'] == '1' && $header_format != 'left-header' ) {
-	echo '</div><!--/boxed closing div-->'; }
+	echo '</div><!--/boxed closing div-->';
+}
 
 
 get_template_part( 'includes/partials/footer/back-to-top' );
@@ -93,6 +103,31 @@ if ( 'material' == $theme_skin ) {
 nectar_hook_before_body_close();
 
 ?>
-<link href="<?= bloginfo('template_directory'); ?>/css/ee_gfonts.css" rel="stylesheet" type="text/css" />
+<link href="<?= bloginfo( 'template_directory' ); ?>/css/ee_gfonts.css" rel="stylesheet" type="text/css"/>
+
+<div id="metrika">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" async>
+    setTimeout(function(){
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(34416330, "init", {
+            id: 34416330,
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: false
+        });
+    },8000)
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/34416330" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript> <!-- /Yandex.Metrika counter -->
+</div>
 </body>
 </html>
