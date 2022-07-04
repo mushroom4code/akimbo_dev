@@ -123,7 +123,14 @@ nectar_hook_before_body_close();
             accurateTrackBounce: true,
             webvisor: false
         });
-    },8000)
+    },8000);
+
+    jQuery.event.special.mousewheel = {
+        setup: function( _, ns, handle ) {
+            this.addEventListener("mousewheel", handle, { passive: !ns.includes("noPreventDefault") });
+        }
+    };
+
 </script>
 <noscript>
     <div><img src="https://mc.yandex.ru/watch/34416330" style="position:absolute; left:-9999px;" alt=""/></div>
