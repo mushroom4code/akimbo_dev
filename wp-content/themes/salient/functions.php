@@ -827,7 +827,7 @@ function shop_add_custom_fields()
 #endregion
 
 add_filter( 'big_image_size_threshold', 'theme_big_image_size_threshold' );
-
+wp_enqueue_script('js', get_template_directory_uri() . '/includes/lib/script_image.js');
 /**
  * @return int big image resolution to 3200
  */
