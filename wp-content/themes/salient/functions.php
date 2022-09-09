@@ -834,3 +834,10 @@ add_filter( 'big_image_size_threshold', 'theme_big_image_size_threshold' );
 function theme_big_image_size_threshold(): int {
 	return 3200;
 }
+
+add_action('after_setup_theme', 'remove_zoom_theme_support', 100);
+function remove_zoom_theme_support() {
+    remove_theme_support('wc-product-gallery-zoom');
+    //remove_theme_support('wc-product-gallery-lightbox');
+    //remove_theme_support('wc-product-gallery-slider');
+}
