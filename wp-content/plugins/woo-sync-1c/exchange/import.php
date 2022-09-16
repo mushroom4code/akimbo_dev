@@ -955,7 +955,7 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
     if (!empty($product['add_base_category'])) {
         $post_meta['add_base_category'] = $product['add_base_category'];
     } else {
-        $post_meta['add_base_category'] = 'false';
+        $post_meta['add_base_category'] = false;
     }
     //
 
@@ -1040,7 +1040,7 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
 
             if($property['Ид'] == "add_base_category") {
                 if(empty($property['Значение'][0])){
-                    $property['Значение'][0] = 'false';
+                    $property['Значение'][0] = false;
                 }
                 update_post_meta($post_id, 'add_base_category', $property['Значение'][0]);
             }
@@ -1129,7 +1129,7 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
             register_taxonomy($attribute_taxonomy, null);
             wc1c_update_product_category($post_id, $attribute_terms, $attribute_taxonomy);
         }
-        if($product['add_base_category'] == true || $product['add_base_category'] == 'true'){
+        if($product['add_base_category'] === true || $product['add_base_category'] == 'true'){
             deleteCategoryAll($post_id);
         }
     }
