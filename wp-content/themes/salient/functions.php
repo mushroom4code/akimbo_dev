@@ -834,3 +834,19 @@ add_filter( 'big_image_size_threshold', 'theme_big_image_size_threshold' );
 function theme_big_image_size_threshold(): int {
 	return 3200;
 }
+
+// правильный подстчет доступных в категории товаров #000017962
+add_filter('woocommerce_subcategory_count_html', 'change_prods_count', 10, 2);
+function change_prods_count($html, $category)
+{
+    // получаем количество опубликованных товаров в наличии
+    $args = array(
+        'stock_status' => 'instock',
+        'status' => 'publish',
+        'category' => $category->slug,
+        'return' => 'ids',
+        'limit' => -1,
+    );
+    $products = wc_get_products($args);
+    return '<mark class="count">(' . esc_html(count($products)) . ')</mark>';
+}
