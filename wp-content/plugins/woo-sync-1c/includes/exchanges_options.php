@@ -201,6 +201,14 @@ class wc1c_options
                 'wc1c-setting-page',
                 'wc1c-section-products'
             );
+            // #000018198
+            add_settings_field(
+                'wc1c_product_base_price',
+                'Вид базовой цены',
+                array($this, 'wc1c_product_base_price_callback'),
+                'wc1c-setting-page',
+                'wc1c-section-products'
+            );
 
             add_settings_field(
                 'wc1c_product_regular_price',
@@ -243,6 +251,9 @@ class wc1c_options
         if (isset($input['wc1c_action_after_full_load'])) {
             $new_input['wc1c_action_after_full_load'] = $input['wc1c_action_after_full_load'];
         }
+
+        if (isset($input['wc1c_product_base_price']))
+            $new_input['wc1c_product_base_price'] = $input['wc1c_product_base_price'];
 
         if (isset($input['wc1c_product_regular_price']))
             $new_input['wc1c_product_regular_price'] = $input['wc1c_product_regular_price'];
@@ -338,16 +349,26 @@ class wc1c_options
         echo "<input type='number' class='secondary' placeholder='c' name='wc1c_options[wc1c_last_order_date_commited_s]' min='0' max='59' step='1' value=$time_s pattern='[0-5]{1}[0-9]{1}'>";
     }
 
+    public function wc1c_product_base_price_callback(){
+        $option_name = 'wc1c_product_base_price';
+        $option_val= isset($this->options[$option_name]) ? $this->options[$option_name] : '';
+
+        $product_prices = get_option('wc1c_prices',array());
+        ?><select id="wc1c_product_regular_price" name="wc1c_options[wc1c_product_base_price]" ><?php
+        foreach ($product_prices as $price_key=>$price_val) {
+            $sel_option = ($option_val===$price_key) ? 'selected="selected"' : '';
+            ?> <option <?php echo $sel_option ?> label="<?php echo $price_val['Наименование'] ?>" value="<?php echo $price_key ?>"><?php echo $price_val['Наименование'] ?></option> <?php
+        }
+        ?></select><?php
+    }
+
     public function wc1c_product_regular_price_callback(){
         $option_name = 'wc1c_product_regular_price';
         $option_val= isset($this->options[$option_name]) ? $this->options[$option_name] : '';
 
         $product_prices = get_option('wc1c_prices',array());
-        
-        ?> 
-        <select id="wc1c_product_regular_price" name="wc1c_options[wc1c_product_regular_price]" ><?php
+        ?><select id="wc1c_product_regular_price" name="wc1c_options[wc1c_product_regular_price]" ><?php
         foreach ($product_prices as $price_key=>$price_val) {
-            
             $sel_option = ($option_val===$price_key) ? 'selected="selected"' : '';
             ?> <option <?php echo $sel_option ?> label="<?php echo $price_val['Наименование'] ?>" value="<?php echo $price_key ?>"><?php echo $price_val['Наименование'] ?></option> <?php
         }
@@ -377,6 +398,7 @@ class wc1c_options
             'wc1c_action_after_full_load' => 'nothing',
             'wc1c_standart_module' => false,
             'wc1c_load_orders' => false,
+            'wc1c_product_base_price' => '',
             'wc1c_product_regular_price' => '',
             'wc1c_product_sale_price' => '',
             'wc1c_last_order_date_commited' => "0001-01-01",

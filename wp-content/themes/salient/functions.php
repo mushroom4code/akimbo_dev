@@ -850,3 +850,13 @@ function change_prods_count($html, $category)
     $products = wc_get_products($args);
     return '<mark class="count">(' . esc_html(count($products)) . ')</mark>';
 }
+
+// #000018198
+add_filter('yfym_variable_price_filter', 'change_regular_price_on_base', 10, 5);
+function change_regular_price_on_base($price_yml, $product, $offer, $offer_id, $numFeed)
+{
+    $base_price = get_post_meta($offer_id, '_base_price', true);
+    if ($base_price)
+        $price_yml = $base_price;
+    return $price_yml;
+}
