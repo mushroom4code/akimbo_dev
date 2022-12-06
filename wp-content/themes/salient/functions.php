@@ -860,3 +860,9 @@ function change_regular_price_on_base($price_yml, $product, $offer, $offer_id, $
         $price_yml = $base_price;
     return $price_yml;
 }
+
+// #000018449
+/** Replace 'An account is already registered with your email address. Please log in.' **/
+add_filter( 'woocommerce_registration_error_email_exists', function($er) {
+    return 'Учетная запись с вашим адресом электронной почты уже зарегистрирована.';
+} );
