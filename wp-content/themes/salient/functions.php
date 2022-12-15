@@ -866,3 +866,5 @@ function change_regular_price_on_base($price_yml, $product, $offer, $offer_id, $
 add_filter( 'woocommerce_registration_error_email_exists', function($er) {
     return 'Учетная запись с вашим адресом электронной почты уже зарегистрирована.';
 } );
+// #000018514
+add_filter( 'big_image_size_threshold', '__return_false' );
