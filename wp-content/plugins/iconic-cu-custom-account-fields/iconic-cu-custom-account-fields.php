@@ -22,7 +22,7 @@ function iconic_get_account_fields() {
 			'hide_in_admin'        => false,
 			'hide_in_checkout'     => false,
 			'hide_in_registration' => false,
-			'required'             => false,
+			'required'             => true,
 		),
 		'user_url'                   => array(
 			'type'                 => 'text',
@@ -30,7 +30,7 @@ function iconic_get_account_fields() {
 			'hide_in_account'      => false,
 			'hide_in_admin'        => false,
 			'hide_in_checkout'     => false,
-			'hide_in_registration' => false,
+			'hide_in_registration' => true,
 			'required'             => false,
 		),
 

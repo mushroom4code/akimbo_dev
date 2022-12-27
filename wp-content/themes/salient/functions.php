@@ -624,6 +624,7 @@ add_filter('woocommerce_default_address_fields', 'custom_override_default_addres
 function custom_override_default_address_fields($address_fields)
 {
     $address_fields['postcode']['required'] = false; //почтовый индекс
+    $address_fields['company']['required'] = true; //000018603
 
     return $address_fields;
 }
@@ -859,3 +860,29 @@ add_filter( 'woocommerce_registration_error_email_exists', function($er) {
 } );
 // #000018514
 add_filter( 'big_image_size_threshold', '__return_false' );
+
+// #000018603
+add_filter( 'woocommerce_checkout_fields', 'move_to_group', 10000 );
+function move_to_group( $array ){
+    $array['billing']['shop_name'] = array(
+        'type'                 => 'text',
+        'label'                => __( 'Название магазина', 'iconic' ),
+        'hide_in_account'      => false,
+        'hide_in_admin'        => false,
+        'hide_in_checkout'     => false,
+        'hide_in_registration' => false,
+        'required'             => true,
+        'priority'             => 35,
+    );
+    return $array;
+}
+
+add_action( 'woocommerce_created_customer', 'save_fields', 25 );
+function save_fields( $user_id ) {
+    if ( isset( $_POST[ 'shop_name' ] ) ) {
+        update_user_meta( $user_id, 'shop_name', sanitize_text_field( $_POST['shop_name'] ) );
+    }
+}
+
+wp_register_script( 'imask', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js', null, null, true );
+wp_enqueue_script('imask');
