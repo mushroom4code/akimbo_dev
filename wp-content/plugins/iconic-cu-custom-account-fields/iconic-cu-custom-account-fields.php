@@ -15,15 +15,6 @@ Author URI: https://iconicwp.com/products/
  */
 function iconic_get_account_fields() {
 	return apply_filters( 'iconic_account_fields', array(
-		'INN'                 => array(
-			'type'                 => 'text',
-			'label'                => __( 'Инн', 'iconic' ),
-			'hide_in_account'      => false,
-			'hide_in_admin'        => false,
-			'hide_in_checkout'     => false,
-			'hide_in_registration' => false,
-			'required'             => true,
-		),
 		'user_url'                   => array(
 			'type'                 => 'text',
 			'label'                => __( 'Сайт', 'iconic' ),

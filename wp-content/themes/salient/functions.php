@@ -874,6 +874,10 @@ function move_to_group( $array ){
         'required'             => true,
         'priority'             => 35,
     );
+
+    $array['billing']['billing_company']['label'] = __( 'Название компании (ООО/ИП)', 'iconic' );
+    $array['billing']['billing_address_1']['label'] = __( 'Адрес (Юр. лицо/ИП)', 'iconic' );
+
     return $array;
 }
 
@@ -886,3 +890,26 @@ function save_fields( $user_id ) {
 
 wp_register_script( 'imask', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js', null, null, true );
 wp_enqueue_script('imask');
+
+$__user_pass = '';
+
+add_filter( 'alg_wc_ev_email_content', 'notification_email', 10, 3 );
+function notification_email( $email_data, $args ) {
+    global $__user_pass;
+    $email_text = '';
+
+    if ($args['context'] === 'activation_email_separate')
+        $email_text = "<p>Уважаемый(ая) покупатель. <br><br> Ваш пароль от личного кабинета: $__user_pass <br>Сохраните его и используйте после активации.</p>";
+
+    $email_text .= $email_data . "<p>Рады что вы с нами!</p>";
+
+    return $email_text;
+}
+
+add_action( 'user_register', 'wp_kama_user_register_action', 10, 2 );
+
+function wp_kama_user_register_action( $user_id, $userdata ){
+    global $__user_pass;
+    $__user_pass = $userdata['user_pass'];
+}
+

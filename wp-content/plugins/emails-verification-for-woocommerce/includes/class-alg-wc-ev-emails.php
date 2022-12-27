@@ -71,13 +71,13 @@ class Alg_WC_Email_Verification_Emails {
 		$content           = $this->get_email_content( array(
 			'user_id' => $user_id,
 			'context' => 'confirmation_email',
-			'content' => __( 'Ваша учетная запись была успешно активирована', 'emails-verification-for-woocommerce' ),
-			'heading' => __( 'Ваша учетная запись была успешно активирована', 'emails-verification-for-woocommerce' )
+			'content' => __( 'Ваша учетная запись была успешно активирована.', 'emails-verification-for-woocommerce' ),
+			'heading' => __( 'Ваша учетная запись была успешно активирована.', 'emails-verification-for-woocommerce' )
 		) );
 		$subject           = $this->get_email_subject( array(
 			'user_id' => $user_id,
 			'context' => 'confirmation_email',
-			'subject' => __( 'Ваша учетная запись была успешно активирована', 'emails-verification-for-woocommerce' )
+			'subject' => __( 'Ваша учетная запись была успешно активирована.', 'emails-verification-for-woocommerce' )
 		) );
 		$wc_email_template = get_option( 'alg_wc_ev_wc_email_template', 'simulation' );
 		$email_template    = get_option( 'alg_wc_ev_email_template', 'plain' );
@@ -267,7 +267,7 @@ class Alg_WC_Email_Verification_Emails {
 		$args = wp_parse_args( $args, array(
 			'user_id' => '',
 			'code'    => false,
-			'content' => __( '<p>Пожалуйста <a href="%verification_url%" target="_blank">нажмите здесь</a>, чтобы подтвердить свой адрес электронной почты.</p>', 'emails-verification-for-woocommerce' ),
+			'content' => __( '<p>Пожалуйста <a href="%verification_url%" target="_blank">нажмите здесь</a>, чтобы активировать аккаунт и подтвердить свой адрес электронной почты.</p>', 'emails-verification-for-woocommerce' ),
 			'heading' => __( 'Activate your account', 'emails-verification-for-woocommerce' ),
 			'context' => 'activation_email_separate',
 			'placeholders' => array()

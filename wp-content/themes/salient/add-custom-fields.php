@@ -4,9 +4,9 @@ add_filter( 'woocommerce_checkout_fields' , 'woocommerce_checkout_field_editor' 
 function woocommerce_checkout_field_editor( $fields )
 {   
     $fields['billing']['billing__inn'] = array(
-        'label' => __('ИНН (для ИП и юр.лиц)'),
-        'required' => false,
-        'priority' => 110
+        'label' => __('ИНН (ООО/ИП)'),
+        'required' => true,
+        'priority' => 31
     );
     $fields['billing']['billing__ogrn-bank'] = array(
         'label' => __('ОГРН и Банковские реквизиты (для юр.лиц)'),

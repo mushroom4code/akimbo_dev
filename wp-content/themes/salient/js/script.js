@@ -1,8 +1,8 @@
 
 jQuery(document).ready(function ($) {
 
-    if ($('#INN').length) {
-        $("#INN").inputmask("9999999999");
+    if ($('#billing__inn').length) {
+        $("#billing__inn").inputmask("9999999999");
     }
     if ($('#billing_phone').length) {
         $("#billing_phone").inputmask("+7(999)999-9999");
