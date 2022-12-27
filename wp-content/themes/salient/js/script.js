@@ -7,9 +7,9 @@ jQuery(document).ready(function ($) {
     if ($('#billing_phone').length) {
         $("#billing_phone").inputmask("+7(999)999-9999");
     }
-    if ($('#reg_email').length) {
+    /*if ($('#reg_email').length) {
         $('#reg_email').inputmask("email");
-    }
+    }*/
 
     if ($('img.attachment-woocommerce_thumbnail').length !== 0) {
         if ($(window).width() <= 700) {
