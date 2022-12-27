@@ -1,6 +1,6 @@
 /*
 	Theme Name: Salient
-  Version: 10.0.2
+  Version: 10.0.3
   Description: An Ultra Responsive Multi-Purpose Theme.
 	Theme URI: https://themeforest.net/item/salient-responsive-multipurpose-theme/4363266
   Author: ThemeNectar
@@ -32966,5 +32966,7 @@ body:not(.woocommerce-cart) .main-content .length_table th {
 /* а сообщения об отправленном письме верификации показать!!! ))) */
 /* #000018603 */
 body.woocommerce-account div.woocommerce-notices-wrapper>div.woocommerce-message {
-    display: block; visibility: visible;
+    display: block;
+    visibility: visible;
+    text-align: center;
 }
