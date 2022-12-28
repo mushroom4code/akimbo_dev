@@ -8,8 +8,6 @@ jQuery(document).ready(function ($) {
         $("#billing_phone").inputmask("+7(999)999-9999");
     }
     if ($('#reg_email').length) {
-        $('#reg_email').inputmask("email", { jitMasking: true });
-
         $('#reg_email').focusout(function (e){
             var re = /^[a-z0-9_-]+@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$/i;
             if (!re.test($(this).val())) {
