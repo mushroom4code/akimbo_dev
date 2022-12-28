@@ -2,13 +2,25 @@
 jQuery(document).ready(function ($) {
 
     if ($('#billing__inn').length) {
-        $("#billing__inn").inputmask("9999999999");
+        $("#billing__inn").inputmask("9{12}");
     }
     if ($('#billing_phone').length) {
         $("#billing_phone").inputmask("+7(999)999-9999");
     }
     if ($('#reg_email').length) {
-        $('#reg_email').inputmask("email");
+        $('#reg_email').inputmask("email", { jitMasking: true });
+
+        $('#reg_email').focusout(function (e){
+            var re = /^[a-z0-9_-]+@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$/i;
+            if (!re.test($(this).val())) {
+                $(this).after('<p id="er_email_mes">Некорректный Email !</p>')
+                $(this).addClass('input_email_error');
+            }
+        })
+        $('#reg_email').focusin(function (e){
+            $(this).siblings('#er_email_mes').remove();
+            $(this).removeClass('input_email_error');
+        })
     }
 
     if ($('img.attachment-woocommerce_thumbnail').length !== 0) {
