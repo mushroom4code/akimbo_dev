@@ -900,9 +900,9 @@ function notification_email($email_data, $args)
     $email_text = '';
 
     if ($args['context'] === 'activation_email_separate') {
-        $email_data_custom = '<p>Уважаемый(ая) покупатель.</p> <br><br>';
+        $email_data_custom = '<p>Уважаемый(ая) покупатель.</p>';
         $email_data_custom .= '<p>Пожалуйста <a href="%verification_url%" target="_blank">нажмите здесь</a>, чтобы активировать аккаунт и подтвердить свой адрес электронной почты.</p>';
-        $email_data_custom .= "<br><br><p>Ваш пароль от личного кабинета: $__user_pass <br>Сохраните его и используйте для входа в личный кабинет ПОСЛЕ АКТИВАЦИИ.</p>";
+        $email_data_custom .= "<br><p>Ваш пароль от личного кабинета: $__user_pass <br>Сохраните его и используйте для входа в личный кабинет ПОСЛЕ АКТИВАЦИИ.</p>";
     } elseif ($args['context'] === 'confirmation_email') {
         $email_data_custom = '<p>Ваша учетная запись была успешно активирована.</p><br>';
         $email_data_custom .= '<p>Рады что вы с нами!</p>';
