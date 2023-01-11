@@ -894,14 +894,23 @@ wp_enqueue_script('imask');
 $__user_pass = '';
 
 add_filter( 'alg_wc_ev_email_content', 'notification_email', 10, 3 );
-function notification_email( $email_data, $args ) {
+function notification_email($email_data, $args)
+{
     global $__user_pass;
     $email_text = '';
 
-    if ($args['context'] === 'activation_email_separate')
-        $email_text = "<p>Уважаемый(ая) покупатель. <br><br> Ваш пароль от личного кабинета: $__user_pass <br>Сохраните его и используйте после активации.</p>";
+    if ($args['context'] === 'activation_email_separate') {
+        $email_data_custom = '<p>Уважаемый(ая) покупатель.</p> <br><br>';
+        $email_data_custom .= '<p>Пожалуйста <a href="%verification_url%" target="_blank">нажмите здесь</a>, чтобы активировать аккаунт и подтвердить свой адрес электронной почты.</p>';
+        $email_data_custom .= "<br><br><p>Ваш пароль от личного кабинета: $__user_pass <br>Сохраните его и используйте для входа в личный кабинет ПОСЛЕ АКТИВАЦИИ.</p>";
+    } elseif ($args['context'] === 'confirmation_email') {
+        $email_data_custom = '<p>Ваша учетная запись была успешно активирована.</p><br>';
+        $email_data_custom .= '<p>Рады что вы с нами!</p>';
+    } else {
+        $email_data_custom = $email_data;
+    }
 
-    $email_text .= $email_data . "<p>Рады что вы с нами!</p>";
+    $email_text .= $email_data_custom;
 
     return $email_text;
 }
