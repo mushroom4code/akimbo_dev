@@ -2,22 +2,108 @@
 jQuery(document).ready(function ($) {
 
     if ($('#billing__inn').length) {
-        $("#billing__inn").inputmask("9{12}");
+        // функция проверки ИНН
+        var isInn = function(inn) {
+            if (typeof inn === 'string' || typeof inn === 'number') {
+                inn = inn.toString();
+                if ((/^\d+$/).test(inn) === false) {
+                    return false;
+                }
+                console.dir(inn.charAt(10) == ((
+                    7 * inn.charAt(0) +
+                    2 * inn.charAt(1) +
+                    4 * inn.charAt(2) +
+                    10 * inn.charAt(3) +
+                    3 * inn.charAt(4) +
+                    5 * inn.charAt(5) +
+                    9 * inn.charAt(6) +
+                    4 * inn.charAt(7) +
+                    6 * inn.charAt(8) +
+                    8 * inn.charAt(9)
+                ) % 11) % 10)
+                console.dir(7 * inn.charAt(0) +
+                    2 * inn.charAt(1) +
+                    4 * inn.charAt(2) +
+                    10 * inn.charAt(3) +
+                    3 * inn.charAt(4) +
+                    5 * inn.charAt(5) +
+                    9 * inn.charAt(6) +
+                    4 * inn.charAt(7) +
+                    6 * inn.charAt(8) +
+                    8 * inn.charAt(9))
+                // Проверка контрольных цифр
+                if (inn.length === 10) {
+                    // Для 10-значного ИНН
+                    return inn.charAt(9) == ((
+                        2 * inn.charAt(0) +
+                        4 * inn.charAt(1) +
+                        10 * inn.charAt(2) +
+                        3 * inn.charAt(3) +
+                        5 * inn.charAt(4) +
+                        9 * inn.charAt(5) +
+                        4 * inn.charAt(6) +
+                        6 * inn.charAt(7) +
+                        8 * inn.charAt(8)
+                    ) % 11) % 10
+                } else if (inn.length === 12) {
+                    // Для 12-значного ИНН
+                    return (inn.charAt(10) == ((
+                            7 * inn.charAt(0) +
+                            2 * inn.charAt(1) +
+                            4 * inn.charAt(2) +
+                            10 * inn.charAt(3) +
+                            3 * inn.charAt(4) +
+                            5 * inn.charAt(5) +
+                            9 * inn.charAt(6) +
+                            4 * inn.charAt(7) +
+                            6 * inn.charAt(8) +
+                            8 * inn.charAt(9)
+                        ) % 11) % 10) &&
+                        (inn.charAt(11) == ((
+                            3 * inn.charAt(0) +
+                            7 * inn.charAt(1) +
+                            2 * inn.charAt(2) +
+                            4 * inn.charAt(3) +
+                            10 * inn.charAt(4) +
+                            3 * inn.charAt(5) +
+                            5 * inn.charAt(6) +
+                            9 * inn.charAt(7) +
+                            4 * inn.charAt(8) +
+                            6 * inn.charAt(9) +
+                            8 * inn.charAt(10)
+                        ) % 11) % 10)
+                }
+                return false;
+            }
+            return false;
+        }
+        $("#billing__inn").focusout(function (e){
+            if (isInn($(this).val()) === false) {
+                $(this).after('<p class="er_mes">Некорректный ИНН !</p>')
+                $(this).addClass('input_error');
+            }
+        })
+        $('#billing__inn').focusin(function (e){
+            $(this).siblings('.er_mes').remove();
+            $(this).removeClass('input_error');
+        })
     }
+
     if ($('#billing_phone').length) {
         $("#billing_phone").inputmask("+7(999)999-9999");
     }
+
     if ($('#reg_email').length) {
         $('#reg_email').focusout(function (e){
-            var re = /^[a-z0-9_-]+@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$/i;
+            var re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/i;
             if (!re.test($(this).val())) {
-                $(this).after('<p id="er_email_mes">Некорректный Email !</p>')
-                $(this).addClass('input_email_error');
+                $(this).after('<p class="er_mes">Некорректный Email !</p>')
+                $(this).addClass('input_error');
             }
         })
         $('#reg_email').focusin(function (e){
-            $(this).siblings('#er_email_mes').remove();
-            $(this).removeClass('input_email_error');
+            $(this).siblings('.er_mes').remove();
+            $(this).removeClass('input_error');
         })
     }
 
