@@ -32990,4 +32990,5 @@ html .page-id-9 .woocommerce-form-register #billing__inn_field, .akimbo-register
 
 .woocommerce-error a {
     color: white !important;
+    text-decoration: underline !important;
 }
