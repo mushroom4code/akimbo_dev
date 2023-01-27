@@ -6,10 +6,7 @@ $item_id = trim($item_id);
 if ($item_id !== '') {
     $prod = wc_get_product($item_id);
     if ($prod) {
-        $item_price = $prod->get_price();
-        if ($item_price !== '') {
-            $item_price .= ' ₽';
-        }
+        $item_price = $prod->get_price_html();
     }
 }
 
