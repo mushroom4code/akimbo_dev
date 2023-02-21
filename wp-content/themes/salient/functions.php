@@ -3,6 +3,8 @@
 // -----------------------------------------------------------------#
 // Default theme constants
 // -----------------------------------------------------------------#
+use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore;
+
 define('NECTAR_THEME_DIRECTORY', get_template_directory());
 define('NECTAR_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/nectar/');
 define('NECTAR_THEME_NAME', 'salient');
@@ -922,6 +924,17 @@ function wp_kama_user_register_action( $user_id, $userdata ){
     $__user_pass = $userdata['user_pass'];
 }
 
+require_once "cli/service_function_cli.php";
+
+add_action('cron_update_customer', 'update_customer');
+//automatically add customer on user verified email
+add_action( 'alg_wc_ev_user_account_activated', 'storeCustomerOnAccountActivated');
+
+if (!function_exists('storeCustomerOnAccountActivated')) {
+	function storeCustomerOnAccountActivated( $user_id, $args=[] ) {
+		DataStore::update_registered_customer( $user_id );
+	}
+}
 
 // #000018603
 // валидация как и на фронте
