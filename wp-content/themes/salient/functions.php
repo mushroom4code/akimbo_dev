@@ -930,8 +930,21 @@ add_action('cron_update_customer', 'update_customer');
 //automatically add customer on user verified email
 add_action( 'alg_wc_ev_user_account_activated', 'storeCustomerOnAccountActivated');
 
+require_once "includes/notisend/notisendSender.php";
+require_once "includes/notisend/NotisendOptionsPage.php";
+
 if (!function_exists('storeCustomerOnAccountActivated')) {
 	function storeCustomerOnAccountActivated( $user_id, $args=[] ) {
+
+		$user = get_user_by('id', $user_id);
+		if (!empty($user) && !empty($user->user_email)) {
+			$data = [
+				"email" => $user->user_email,
+			];
+			$notisendSettings = NotisendSettings::getSettings();
+			createRecipients($data, "email/lists/$notisendSettings->group/recipients");
+		}
+
 		DataStore::update_registered_customer( $user_id );
 	}
 }
