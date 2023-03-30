@@ -58,9 +58,35 @@ function notisend_action_export_clients() {
 	$records = 0;
 	$requestData = [];
 	foreach ( $customers as $customer ) {
+		$value = [];
+		if (!empty($notisendSettings->param_city) && !empty($customer->city)) {
+			$value[] =  [
+				'parameter_id'=>$notisendSettings->param_city,
+				'value'=>$customer->city
+			];
+		}
+		if (!empty($notisendSettings->param_date_registered) && !empty($customer->date_registered)) {
+			$date_registered = DateTime::createFromFormat('Y-m-d H:i:s', $customer->date_registered);
+			if ($date_registered!==false) {
+				$value[] = [
+					'parameter_id' => $notisendSettings->param_date_registered,
+					'value'        => $date_registered->format('d.m.Y H:i')
+				];
+			}
+		}
+		if ( !empty( $notisendSettings->param_phone ) ) {
+			$phone = get_user_meta( $customer->user_id, 'billing_phone', true );
+			if ( !empty( $phone ) ) {
+				$value[] = [
+					'parameter_id' => $notisendSettings->param_phone,
+					'value'        => $phone
+				];
+			}
+		}
 		if (!empty($customer->email)) {
 			$requestData['recipients'][] = [
 				'email'=> $customer->email,
+				'values' => $value
 			];
 			$records++;
 		}

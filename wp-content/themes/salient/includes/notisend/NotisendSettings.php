@@ -10,6 +10,10 @@ class NotisendSettings {
 	public string $address;
 	public int $group;
 
+	public string $param_city;
+	public string $param_phone;
+	public string $param_date_registered;
+
 	/** Get or init single instance settings
 	 * @return NotisendSettings
 	 */
@@ -30,6 +34,10 @@ class NotisendSettings {
 		$this->enable = $options['enable'] ?? false;
 		$this->address = 'https://api.notisend.ru/v1/';
 		$this->group = $options['group_client'] ?? '' ;
+
+		$this->param_city = $options['param_city'] ?? '' ;
+		$this->param_phone = $options['param_phone'] ?? '' ;
+		$this->param_date_registered = $options['param_date_registered'] ?? '' ;
 	}
 
 }

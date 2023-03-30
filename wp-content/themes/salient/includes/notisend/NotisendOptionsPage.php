@@ -87,6 +87,27 @@ class NotisendOptionsPage {
 			'notisend_options_page',
 			'notisend-options'
 		);
+		add_settings_field(
+			'wp-notisend-param_city',
+			'Параметр город',
+			[ $this, 'wp_notisend_param_city_callback' ],
+			'notisend_options_page',
+			'notisend-options'
+		);
+		add_settings_field(
+			'wp-notisend-param_phone',
+			'Параметр телефон',
+			[ $this, 'wp_notisend_param_phone_callback' ],
+			'notisend_options_page',
+			'notisend-options'
+		);
+		add_settings_field(
+			'wp-notisend-param_date_registered',
+			'Параметр дата регистрации',
+			[ $this, 'wp_notisend_param_date_registered_callback' ],
+			'notisend_options_page',
+			'notisend-options'
+		);
 	}
 	public function wp_notisend_enable_callback() {
 		?>
@@ -106,6 +127,27 @@ class NotisendOptionsPage {
 		?>
         <input type="text" size="10" id="notisend_enable" name="notisend_options[group_client]"
 			value="<?= $this->_options['group_client'] ?? '' ?>" />
+		<?php
+	}
+
+	public function wp_notisend_param_city_callback() {
+		?>
+        <input type="text" size="10" id="notisend_enable" name="notisend_options[param_city]"
+               value="<?= $this->_options['param_city'] ?? '' ?>" />
+		<?php
+	}
+
+	public function wp_notisend_param_phone_callback() {
+		?>
+        <input type="text" size="10" id="notisend_enable" name="notisend_options[param_phone]"
+               value="<?= $this->_options['param_phone'] ?? '' ?>" />
+		<?php
+	}
+
+	public function wp_notisend_param_date_registered_callback() {
+		?>
+        <input type="text" size="10" id="notisend_enable" name="notisend_options[param_date_registered]"
+               value="<?= $this->_options['param_date_registered'] ?? '' ?>" />
 		<?php
 	}
 
