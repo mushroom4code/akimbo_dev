@@ -54,7 +54,8 @@ function notisend_action_export_clients() {
 	global $wpdb;
 	$notisendSettings = NotisendSettings::getSettings();
 
-	$customers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}wc_customer_lookup");
+	$customers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}wc_customer_lookup WHERE 
+                                        date_registered > '$notisendSettings->start_date_registered'");
 	$records = 0;
 	$requestData = [];
 	foreach ( $customers as $customer ) {
@@ -92,12 +93,12 @@ function notisend_action_export_clients() {
 		}
 
 		if ($records===1000) {
-			createRecipients( $requestData, "/email/lists/$notisendSettings->group/recipients/imports");
+//			createRecipients( $requestData, "/email/lists/$notisendSettings->group/recipients/imports");
 			$records = 0;
 			$requestData=[];
 		}
 	}
 	if ($records>0) {
-		createRecipients( $requestData, "/email/lists/$notisendSettings->group/recipients/imports");
+//		createRecipients( $requestData, "/email/lists/$notisendSettings->group/recipients/imports");
 	}
 }

@@ -108,6 +108,13 @@ class NotisendOptionsPage {
 			'notisend_options_page',
 			'notisend-options'
 		);
+		add_settings_field(
+			'wp-notisend-start_date_registered',
+			'Выгружать с датой регистрации начиная',
+			[ $this, 'wp_notisend_start_date_registered_callback' ],
+			'notisend_options_page',
+			'notisend-options'
+		);
 	}
 	public function wp_notisend_enable_callback() {
 		?>
@@ -148,6 +155,13 @@ class NotisendOptionsPage {
 		?>
         <input type="text" size="10" id="notisend_enable" name="notisend_options[param_date_registered]"
                value="<?= $this->_options['param_date_registered'] ?? '' ?>" />
+		<?php
+	}
+
+	public function wp_notisend_start_date_registered_callback() {
+		?>
+        <input type="date" size="10" id="start_date_registered" name="notisend_options[start_date_registered]"
+               value="<?= $this->_options['start_date_registered'] ?? '' ?>" />
 		<?php
 	}
 

@@ -14,6 +14,8 @@ class NotisendSettings {
 	public string $param_phone;
 	public string $param_date_registered;
 
+	public string $start_date_registered;
+
 	/** Get or init single instance settings
 	 * @return NotisendSettings
 	 */
@@ -38,6 +40,7 @@ class NotisendSettings {
 		$this->param_city = $options['param_city'] ?? '' ;
 		$this->param_phone = $options['param_phone'] ?? '' ;
 		$this->param_date_registered = $options['param_date_registered'] ?? '' ;
+		$this->start_date_registered = $options['start_date_registered'] ?? '0001-01-01' ;
 	}
 
 }
