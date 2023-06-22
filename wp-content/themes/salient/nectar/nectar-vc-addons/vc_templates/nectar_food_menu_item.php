@@ -13,7 +13,7 @@ if ($item_id !== '') {
 }
 
 $planned_date = get_post_meta($item_id, 'planned_date', true);
-if(!empty($first_date)){
+if(!empty($first_date) && $first_date !== 'false'){
     $date = '';
 } else if (!empty($planned_date)) {
     $date = '<div style="text-align: center; padding-top: 5px" class="plain_date">

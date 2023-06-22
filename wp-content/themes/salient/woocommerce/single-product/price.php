@@ -41,7 +41,7 @@ if (count($emptyStock) == $i) {
 $first_date = get_post_meta($product->get_id(),'first_date',true);
 $planned_date = get_post_meta($product->get_id(),'planned_date',true);
 
-if (!empty($first_date)) {
+if (!empty($first_date) && $first_date !== 'false') {
     echo '';
 } else if (!empty($planned_date) && $planned_date !== 'false'){
     echo '<div class="new_data"><b style="">Плановая дата поступления</b>

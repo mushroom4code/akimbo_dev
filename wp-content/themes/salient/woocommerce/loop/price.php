@@ -41,7 +41,7 @@ if (count($emptyStock) == $i) {
 $first_date = get_post_meta($product->get_id(), 'first_date', true);
 $planned_date = get_post_meta($product->get_id(), 'planned_date', true);
 $Date = '';
-if (!empty($first_date)) {
+if (!empty($first_date) && $first_date !== 'false') {
     $Date = '';
 } else if (!empty($planned_date)) {
     $Date = '<div style="padding: 10px 0;" class="plain_date">
