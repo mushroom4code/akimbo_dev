@@ -3,6 +3,8 @@
 // -----------------------------------------------------------------#
 // Default theme constants
 // -----------------------------------------------------------------#
+use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore;
+
 define('NECTAR_THEME_DIRECTORY', get_template_directory());
 define('NECTAR_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/nectar/');
 define('NECTAR_THEME_NAME', 'salient');
@@ -894,22 +896,166 @@ wp_enqueue_script('imask');
 $__user_pass = '';
 
 add_filter( 'alg_wc_ev_email_content', 'notification_email', 10, 3 );
-function notification_email( $email_data, $args ) {
+function notification_email($email_data, $args)
+{
     global $__user_pass;
     $email_text = '';
 
-    if ($args['context'] === 'activation_email_separate')
-        $email_text = "<p>Уважаемый(ая) покупатель. <br><br> Ваш пароль от личного кабинета: $__user_pass <br>Сохраните его и используйте после активации.</p>";
+    if ($args['context'] === 'activation_email_separate') {
+        $email_data_custom = '<p>Уважаемый(ая) покупатель.</p>';
+        $email_data_custom .= '<p>Пожалуйста <a href="%verification_url%" target="_blank">нажмите здесь</a>, чтобы активировать аккаунт и подтвердить свой адрес электронной почты.</p>';
+        $email_data_custom .= "<br><p>Ваш пароль от личного кабинета: $__user_pass <br>Сохраните его и используйте для входа в личный кабинет ПОСЛЕ АКТИВАЦИИ.</p>";
+    } elseif ($args['context'] === 'confirmation_email') {
+        $email_data_custom = '<p>Ваша учетная запись была успешно активирована.</p><br>';
+        $email_data_custom .= '<p>Рады что вы с нами!</p>';
+    } else {
+        $email_data_custom = $email_data;
+    }
 
-    $email_text .= $email_data . "<p>Рады что вы с нами!</p>";
+    $email_text .= $email_data_custom;
 
     return $email_text;
 }
 
+// берем пароль из формы регистрации
 add_action( 'user_register', 'wp_kama_user_register_action', 10, 2 );
-
 function wp_kama_user_register_action( $user_id, $userdata ){
     global $__user_pass;
     $__user_pass = $userdata['user_pass'];
 }
 
+require_once "cli/service_function_cli.php";
+
+add_action('cron_update_customer', 'update_customer');
+//automatically add customer on user verified email
+add_action( 'alg_wc_ev_user_account_activated', 'storeCustomerOnAccountActivated');
+
+require_once "includes/notisend/notisendSender.php";
+require_once "includes/notisend/NotisendOptionsPage.php";
+
+if (!function_exists('storeCustomerOnAccountActivated')) {
+	function storeCustomerOnAccountActivated( $user_id, $args=[] ) {
+
+		$user = get_user_by('id', $user_id);
+		if (!empty($user) && !empty($user->user_email)) {
+			$data = [
+				"email" => $user->user_email,
+			];
+			$notisendSettings = NotisendSettings::getSettings();
+			createRecipients($data, "email/lists/$notisendSettings->group/recipients");
+		}
+
+		DataStore::update_registered_customer( $user_id );
+	}
+}
+
+// #000018603
+// валидация как и на фронте
+add_filter('woocommerce_registration_errors', 'true_check_fields', 10, 3);
+function true_check_fields($errors, $sanitized_user_login, $user_email)
+{
+    $email_validation_regex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/";
+    if (!preg_match($email_validation_regex, $user_email))
+        $errors->add('user_email_error', __('Некорректный Email !', 'woocommerce'));
+    if (isset($_POST['billing__inn']) && !INN::isValid($_POST['billing__inn']))
+        $errors->add('billing__inn_error', __('Некорректный ИНН !', 'woocommerce'));
+
+    return $errors;
+}
+
+
+/**
+ * Проверяет ИНН (идентификационный номер налогоплательщика) на корректность
+ *
+ * @link     https://ru.wikipedia.org/wiki/ИНН
+ * @license  http://creativecommons.org/licenses/by-sa/3.0/
+ * @author   https://github.com/rin-nas
+ * @charset  UTF-8
+ * @version  1.0.4
+ */
+class INN
+{
+    /*
+    ИНН    10 цифр для юр. лиц, 12 цифр для физ. лиц
+    БИК    9 цифр
+    Счёт   20 цифр
+    КБК    20 цифр
+    ОКАТО  от 4 до 11 цифр
+    КПП    9 цифр
+    */
+
+    const IP = 1; // индивидуальный предприниматель
+    const UL = 0; // юридическое лицо
+
+
+    #запрещаем создание экземпляра класса, вызов методов этого класса только статически!
+    private function __construct()
+    {
+    }
+
+    /**
+     *
+     * @param scalar|null $n 10-ти или 12-ти значное целое число
+     * @param int|null $type - тип плательщика ИП или ЮЛ. Если ЮЛ - то обязательно 10 знаков, если ИП то 12
+     * @return  bool|null    TRUE, если ИНН корректен и FALSE в противном случае
+     */
+    public static function isValid($n, $type = null)
+    {
+        if ($n === null) return false;
+
+        $n = strval($n);
+        if (!ctype_digit($n)) {
+            return false;
+        }
+
+        //все нули удовлетворяют формуле
+        if ((int)$n === 0) {
+            return false;
+        }
+
+        //не может быть региона 00
+        if (substr($n, 0, 2) === '00') {
+            return false;
+        }
+
+        $len = strlen($n);
+
+        #10 знаков -- организации, для которых обязательно д.б. КПП
+        if ($len === 10) {
+            if ($type !== null && $type !== self::UL) {
+                return false;
+            }
+
+            $sum = 0;
+            foreach ([2, 4, 10, 3, 5, 9, 4, 6, 8] as $i => $weight) {
+                $sum += $weight * $n[$i];
+            }
+            return $sum % 11 % 10 === (int)$n[9];
+        }
+
+        #12 знаков -- индивидуальные предприниматели, для которых КПП отсутствует
+        if ($len === 12) {
+            if ($type !== null && $type !== self::IP) {
+                return false;
+            }
+
+            $sum1 = 0;
+            foreach ([7, 2, 4, 10, 3, 5, 9, 4, 6, 8] as $i => $weight) {
+                $sum1 += $weight * $n[$i];
+            }
+            if ((($sum1 % 11) % 10) !== (int)$n[10]) {
+                return false;
+            }
+
+            $sum2 = 0;
+            foreach ([3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8] as $i => $weight) {
+                $sum2 += $weight * $n[$i];
+            }
+            if ((($sum2 % 11) % 10) !== (int)$n[11]) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+}

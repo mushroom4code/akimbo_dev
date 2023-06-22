@@ -4,6 +4,14 @@ $price = '';
 $date = '';
 $item_id = trim($item_id);
 $first_date = get_post_meta($item_id, 'first_date', true);
+#18903
+if ($item_id !== '') {
+    $prod = wc_get_product($item_id);
+    if ($prod) {
+        $item_price = $prod->get_price_html();
+    }
+}
+
 $planned_date = get_post_meta($item_id, 'planned_date', true);
 if(!empty($first_date)){
     $date = '';
@@ -19,7 +27,7 @@ if (is_user_logged_in()) {
 }
 $line_markup = '<div class="line_spacer"></div>';
 
-echo '<div class="nectar_food_menu_item ' . $class . '" data-style="' . $style . '">
+echo '<div class="rerik nectar_food_menu_item ' . $class . '" data-style="' . $style . '">
 <div class="inner tets"><div class="item_name">
 <' . $item_name_heading_tag . '>' . $item_name . '</' . $item_name_heading_tag . '>
 </div>' . $line_markup . $price . ' ' . $date . '</div>
