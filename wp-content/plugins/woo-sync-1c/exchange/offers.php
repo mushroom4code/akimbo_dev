@@ -337,6 +337,12 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
                 if (!in_array($characteristic_value, $offer_propertys[$property_id])) {
                     $offer_propertys[$property_id][] = $characteristic_value;
                 }
+
+                if($suboffer_property['Ид'] == "add_base_category") {
+                    if($suboffer_property['Значение'][0] == 'true'){
+                        update_post_meta($post_id, 'add_base_category', $suboffer_property['Значение'][0]);
+                    }
+                }
             }
         }
     }
