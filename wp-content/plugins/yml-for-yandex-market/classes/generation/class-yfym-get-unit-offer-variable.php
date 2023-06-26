@@ -241,7 +241,7 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
         $result_xml .= $this->get_dimensions();
         $result_xml .= '<variant>' . PHP_EOL;
         $result_xml .= $this->get_amount();
-        $result_xml .= '<barcode>' . get_post_meta($this->get_feed_id(), 'barcode', true) . '<barcode>' . PHP_EOL;
+        $result_xml .= $this->get_barcode();
         $result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
         $result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
         $result_xml .= '<quantity>' . $count . '</quantity>' . PHP_EOL;
