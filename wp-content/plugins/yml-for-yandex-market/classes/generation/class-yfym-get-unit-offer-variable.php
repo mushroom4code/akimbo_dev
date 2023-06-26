@@ -227,6 +227,8 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
         }
 
 //      enterego
+        $count = $this->get_offer()->get_stock_quantity() || $this->get_count();
+        $size = get_post_meta($this->get_feed_id(), 'attribute_pa_razmer', true) || get_post_meta($this->get_feed_id(), 'attribute_pa_size', true);
         $name = explode(' ', $this->get_product()->get_title());
         $result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
         $result_xml .= $this->get_expiry();
@@ -240,10 +242,9 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
         $result_xml .= '<variant>' . PHP_EOL;
         $result_xml .= $this->get_amount();
         $result_xml .= '<barcode>' . get_post_meta($this->get_feed_id(), 'barcode', true) . '<barcode>' . PHP_EOL;
-        $result_xml .= '<size name="Размер">' . get_post_meta($this->get_feed_id(), 'attribute_pa_razmer', true) ??
-            get_post_meta($this->get_feed_id(), 'attribute_pa_size', true). '</size>' . PHP_EOL;
+        $result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
         $result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
-        $result_xml .= '<quantity>' . $this->get_offer()->get_stock_quantity() ?? $this->get_count() . '</quantity>' . PHP_EOL;
+        $result_xml .= '<quantity>' . $count . '</quantity>' . PHP_EOL;
         $result_xml .= '</variant>' . PHP_EOL;
         $result_xml .= $this->get_vendorcode();
         $result_xml .= $this->get_store();
