@@ -1,10 +1,10 @@
 ﻿=== YML for Yandex Market ===
 Contributors: icopydoc
-Donate link: https://sobe.ru/na/plugin_yml_for_yandex_market
+Donate link: https://pay.cloudtips.ru/p/45d8ff3f
 Tags: yml, yandex, market, export, woocommerce
-Requires at least: 4.4.2
-Tested up to: 5.8
-Stable tag: 3.6.7
+Requires at least: 4.5
+Tested up to: 6.2.2
+Stable tag: 3.12.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Creates a YML-feed to upload to Yandex Market and not only.
 
 Creates a YML-feed to upload to Yandex Market and not only. In addition to Yandex Market, the plugin is also used for:
 
-* BERU (Маркетплейс Маркета)
+* СберМегаМаркет
 * Yandex Turbo-pages
 * Yandex delivery
 * ROZETKA.ua*
@@ -25,8 +25,10 @@ Creates a YML-feed to upload to Yandex Market and not only. In addition to Yande
 * boo.ua
 * 2gis.com
 * AliExpress.com*
+* Маркетплейс Маркета (BERU)
 * CDEK (partial support)
 * OZON (partial support)
+* ВКонтакте (vk.com) (partial support)
 * EBay (partial support)
 and not only...
 
@@ -75,6 +77,226 @@ After 1-7 minutes (depending on the number of products), the feed will be genera
 1. screenshot-1.png
 
 == Changelog ==
+
+= 3.12.0 =
+* Fixed bugs
+
+= 3.11.0 =
+* Fixed bugs
+
+= 3.10.14 =
+* Fixed bugs
+
+= 3.10.12 =
+* Fixed bugs
+
+= 3.10.11 =
+* Fixed bugs
+
+= 3.10.10 =
+* Fixed bug with price
+
+= 3.10.9 =
+* Fixed bugs
+
+= 3.10.8 =
+* Fixed a security bug. Strongly recommend installing this update
+
+= 3.10.7 =
+* Fixed bugs
+
+= 3.10.6 =
+* Fixed bugs
+
+= 3.10.5 =
+* Fixed bugs
+
+= 3.10.4 =
+* Fixed bugs
+* Updated self-diagnostic modules
+* Added support for "Yandex - Products and offers"
+
+= 3.10.3 =
+* Added the ability to copy feed settings
+
+= 3.10.2 =
+* Fixed bugs
+
+= 3.10.1 =
+* Fixed bugs
+
+= 3.10.0 =
+* Fixed bugs
+
+= 3.9.5 =
+* Added the ability to create ZIP archives
+* Added the ability to ignore the plugin cache
+
+= 3.9.4 =
+* Fixed bugs with product descriptions
+
+= 3.9.3 =
+* Added support for min_price
+
+= 3.9.2 =
+* Fixed bugs
+
+= 3.9.1 =
+* Added support for type="on.demand"
+
+= 3.9.0 =
+* Added support for OZON (beta)
+
+= 3.8.18 =
+* Fixed bugs
+
+= 3.8.17 =
+* Some changes
+
+= 3.8.16 =
+* Changed the logic of the "condition" element
+
+= 3.8.15 =
+* Fixed bugs
+
+= 3.8.14 =
+* Fixed bugs with price
+
+= 3.8.13 =
+* Fixed bugs
+* Added plugin compatibility with YITH WooCommerce Brands Add-On
+
+= 3.8.12 =
+* Fixed bugs
+
+= 3.8.11 =
+* Fixed bugs
+
+= 3.8.10 =
+* Fixed bugs
+
+= 3.8.9 =
+* Some changes
+
+= 3.8.8 =
+* Fixed bugs
+
+= 3.8.7 =
+* Fixed bugs whith interface
+
+= 3.8.6 =
+* Fixed bugs whith dimensions
+
+= 3.8.5 =
+* Fixed bugs
+
+= 3.8.4 =
+* Fixed bugs with the 'credit-template' element
+
+= 3.8.3 =
+* Fixed bugs
+
+= 3.8.2 =
+* Fixed bugs
+* Some improved
+
+= 3.8.1 =
+* Some improved
+
+= 3.8.0 =
+* Fixed bugs
+* Now the plugin consumes less resources
+
+= 3.7.17 =
+* Fixed bugs
+* Added plugin compatibility EAN for WooCommerce
+
+= 3.7.16 =
+* Fixed bug with count
+
+= 3.7.15 =
+* Fixed bug with url
+
+= 3.7.14 =
+* Fixed bugs
+* Some improved
+
+= 3.7.13 =
+* Fixed bugs
+* Added support for 'price_rrp'
+
+= 3.7.12 =
+* Fixed a compatibility bug WooCommerce Currency Switcher by PluginUs.NET. Woo Multi Currency and Woo Multi Pay.
+
+= 3.7.11 =
+* Fixed bugs with '...Uncaught TypeError: array_keys(): Argument #1 ($array) must be of type array, bool given...'
+
+= 3.7.10 =
+* Fixed bugs
+* Now you can add a default value for the 'vendor'
+
+= 3.7.9 =
+* Fixed bugs
+
+= 3.7.8 =
+* Some improved
+
+= 3.7.7 =
+* Fixed bugs
+
+= 3.7.6 =
+* Fixed bugs
+
+= 3.7.5 =
+* Fixed bugs
+* Added ability to change the domain of your site in the feed to any other
+
+= 3.7.4 =
+* Fixed bugs
+
+= 3.7.3 =
+* Fixed bugs
+
+= 3.7.2 =
+* Fixed bugs
+
+= 3.7.1 =
+* Fixed bugs
+
+= 3.7.0 =
+New plugin core
+
+= 3.6.16 =
+* Fix bugs whith ID in the feed for OZON
+
+= 3.6.15 =
+* Fix bugs in the feed for OZON.
+* Now the post meta can be used as a source for the vendor element
+
+= 3.6.14 =
+* Fix bugs in the feed for OZON.
+* Some changes in the element 'count'.
+
+= 3.6.13 =
+* Some changes.
+
+= 3.6.12 =
+* Some changes.
+
+= 3.6.11 =
+* Fix bugs.
+
+= 3.6.10 =
+* Fix bugs.
+* Added Ukrainian language
+* Added plugin compatibility Rank Math SEO
+
+= 3.6.9 =
+* Fix bugs.
+
+= 3.6.8 =
+* Fix bugs.
+* Added support for outlets for OZON
 
 = 3.6.7 =
 * Fix bugs.
@@ -568,5 +790,5 @@ What's new:
 
 == Upgrade Notice ==
 
-= 3.6.7 =
-* Fix bugs.
+= 3.12.0 =
+* Fixed bugs
