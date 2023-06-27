@@ -50,39 +50,42 @@ abstract class YFYM_Get_Unit_Offer {
 	 */
 	public function __construct( $args_arr ) {
 		// без этого не будет работать вне адмники is_plugin_active
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		$this->input_data_arr = $args_arr;
-		$this->feed_id = (string) $args_arr['feed_id'];
-		$this->product = $args_arr['product'];
+        $this->input_data_arr = $args_arr;
+        $this->feed_id = (string)$args_arr['feed_id'];
+        $this->product = $args_arr['product'];
+        // enterego
+        if (get_post_meta($args_arr['product']->id, 'add_base_category', true) !== 'true') {
 
-		if ( isset( $args_arr['offer'] ) ) {
-			$this->offer = $args_arr['offer'];
-		}
-		if ( isset( $args_arr['variation_count'] ) ) {
-			$this->variation_count = $args_arr['variation_count'];
-		} else {
-			$this->variation_count = null;
-		}
+            if (isset($args_arr['offer'])) {
+                $this->offer = $args_arr['offer'];
+            }
+            if (isset($args_arr['variation_count'])) {
+                $this->variation_count = $args_arr['variation_count'];
+            } else {
+                $this->variation_count = null;
+            }
 
-		$r = $this->generation_product_xml();
+            $r = $this->generation_product_xml();
 
-		// если нет нужды пропускать
-		if ( empty( $this->get_skip_reasons_arr() ) ) {
-			$this->result_product_xml = $r;
-		} else {
-			// !!! - тут нужно ещё раз подумать и проверить
-			// с простыми товарами всё чётко
-			$this->result_product_xml = '';
-			if ( null == $this->get_offer() ) { // если прстой товар - всё чётко
-				$this->set_do_empty_product_xml( true );
-			} else {
-				// если у нас вариативный товар, то как быть, если все вариации пропущены
-				// мы то возвращаем false (см ниже), возможно надо ещё вести учёт вариций
-				// также см функцию set_result() в классе class-yfym-get-unit.php
-				$this->set_do_empty_product_xml( false );
-			}
-		}
+            // если нет нужды пропускать
+            if (empty($this->get_skip_reasons_arr())) {
+                $this->result_product_xml = $r;
+            } else {
+                // !!! - тут нужно ещё раз подумать и проверить
+                // с простыми товарами всё чётко
+                $this->result_product_xml = '';
+                if (null == $this->get_offer()) { // если прстой товар - всё чётко
+                    $this->set_do_empty_product_xml(true);
+                } else {
+                    // если у нас вариативный товар, то как быть, если все вариации пропущены
+                    // мы то возвращаем false (см ниже), возможно надо ещё вести учёт вариций
+                    // также см функцию set_result() в классе class-yfym-get-unit.php
+                    $this->set_do_empty_product_xml(false);
+                }
+            }
+        }
 	}
 
 	abstract public function generation_product_xml();

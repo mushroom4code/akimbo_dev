@@ -1,6 +1,6 @@
 <?php if (!defined('ABSPATH')) {exit;}
 include_once ABSPATH . 'wp-admin/includes/plugin.php'; // без этого не будет работать вне адмники is_plugin_active
-
+//Enterego
 function yfym_groupPrice($postId, $product, $data, $numFeed) {	// https://yandex.ru/support/partnermarket/offers.html
     yfym_error_log('FEED № '.$numFeed.'; Стартовала yfym_groupPrice. $postId = '.$postId.'; Файл: groupPrice.php; Строка: '.__LINE__, 0);
     $result_yml = ''; $ids_in_yml = ''; $skip_flag = false;

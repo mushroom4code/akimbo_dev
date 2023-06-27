@@ -199,7 +199,7 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 
 		return $result_xml;
 	}
-
+// enterego
     private function group_price($result_xml = '')
     {
         $addProduct = get_post_meta($this->get_product()->id, 'add_base_category', true);
