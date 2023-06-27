@@ -1059,3 +1059,20 @@ class INN
         return false;
     }
 }
+
+add_action('admin_menu', function () {
+    add_menu_page(
+        'Капсулы',
+        'Капсулы',
+        'manage_options',
+        'administrator',
+        'kapsule_list',
+        '',
+        10);
+});
+
+require __DIR__ . '/includes/options.php';
+
+function sendKapsuls(){
+    echo'test';
+}
