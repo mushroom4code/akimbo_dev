@@ -3,7 +3,7 @@
 
 function kapsule_list()
 {
-    wp_enqueue_script('kapsule', $_SERVER['DOCUMENT_ROOT'].'/wp-content/themes/salient/js/admin.js'); ?>
+    wp_enqueue_script('kapsule', get_template_directory_uri() .'/js/admin.js'); ?>
     <div class="admin_fields width-100 m-0 wp-core-ui">
         <div class="d-flex flex-row justify-content-between mb-2">
             <div class="d-flex flex-column justify-content-between align-content-between">
@@ -11,9 +11,9 @@ function kapsule_list()
                 <form method="post" enctype="multipart/form-data" action="sendKapsuls" name="sendKapsuls">
                     <div>
                         <label>Загрузите файл c капсулами согласно схеме: <br></label>
-                        <input type="file" class="loadZip" name="loadZip"/>
+                        <input type="file" class="loadXls" name="loadXls"/>
                     </div>
-                    <input type="submit" name="sendKapsulsSubmit" class="submit" value="Выгрузить капсулы" />
+                    <input type="submit" name="sendKapsuls" class="submit" />
                 </form>
             </div>
         </div>
