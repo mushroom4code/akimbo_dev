@@ -202,7 +202,7 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 // enterego
     private function group_price($result_xml = '')
     {
-        $addProduct = get_post_meta($this->get_product()->id, 'add_base_category', true);
+        $addProduct = get_post_meta($this->get_product()->id, 'group_price_unload_disabled', true);
         if ($addProduct !== 'true') {
             $result_xml .= $this->get_offer_tag();
             $result_xml .= $this->get_disabled();
@@ -245,15 +245,15 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
             $result_xml .= $this->get_vendor();
             $result_xml .= $this->get_weight();
             $result_xml .= $this->get_dimensions();
+            $result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
             $result_xml .= '<variant>' . PHP_EOL;
             $result_xml .= $this->get_amount();
             $result_xml .= '<param name="Длина изделия">' . $length . '</param>'.PHP_EOL;
             $result_xml .= '<param name="Длина по внутреннему шву">' . $length_inner . '</param>'.PHP_EOL;
             $result_xml .= '<param name="Длина по внешнему шву">' . $length_outer . '</param>'.PHP_EOL;
-            $result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;
             $result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
-            $result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
             $result_xml .= '<quantity>' . $this->get_offer()->get_stock_quantity() . '</quantity>' . PHP_EOL;
+            $result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;
             $result_xml .= '</variant>' . PHP_EOL;
             $result_xml .= $this->get_vendorcode();
             $result_xml .= $this->get_store();

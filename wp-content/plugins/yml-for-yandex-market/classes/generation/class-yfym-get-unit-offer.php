@@ -56,7 +56,7 @@ abstract class YFYM_Get_Unit_Offer {
         $this->feed_id = (string)$args_arr['feed_id'];
         $this->product = $args_arr['product'];
         // enterego
-        if (get_post_meta($args_arr['product']->id, 'add_base_category', true) !== 'true') {
+        if (get_post_meta($args_arr['product']->id, 'group_price_unload_disabled', true) !== 'true') {
 
             if (isset($args_arr['offer'])) {
                 $this->offer = $args_arr['offer'];
