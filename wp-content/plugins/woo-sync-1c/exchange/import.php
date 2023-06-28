@@ -1044,6 +1044,13 @@ function wc1c_replace_product($is_full, $guid, $product, $wc1c_ar_options)
                 update_post_meta($post_id, 'add_base_category', $property['Значение'][0]);
             }
 
+            if($property['Ид'] == "group_price_unload_disabled") {
+                if(empty($property['Значение'][0])){
+                    $property['Значение'][0] = false;
+                }
+                update_post_meta($post_id, 'group_price_unload_disabled', $property['Значение'][0]);
+            }
+
             $attribute_guid = $property['Ид'];
             $attribute_id = @$attribute_guids[$attribute_guid];
             if (!$attribute_id) {

@@ -202,7 +202,7 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 // enterego
     private function group_price($result_xml = '')
     {
-        $addProduct = get_post_meta($this->get_product()->id, 'add_base_category', true);
+        $addProduct = get_post_meta($this->get_product()->id, 'group_price_unload_disabled', true);
         if ($addProduct !== 'true') {
             $result_xml .= $this->get_offer_tag();
             $result_xml .= $this->get_disabled();
