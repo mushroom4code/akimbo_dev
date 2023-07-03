@@ -8,7 +8,7 @@
  *
  * Этот файл содержит следующие параметры:
  *
- * * Настройки MySQL
+ * * Настройки базы данных
  * * Секретные ключи
  * * Префикс таблиц базы данных
  * * ABSPATH
@@ -90,6 +90,8 @@ define( 'WP_DEBUG', false );
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
+
+require_once (__DIR__.'/vendor/autoload.php');
 
 /** Инициализирует переменные WordPress и подключает файлы. */
 require_once ABSPATH . 'wp-settings.php';

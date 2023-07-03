@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty-One package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-25 22:28:22+0000\n"
+"PO-Revision-Date: 2023-03-29 19:10:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
-"X-Generator: GlotPress/3.0.0-rc.4\n"
+"X-Generator: GlotPress/4.0.0-alpha.4\n"
 "Language: ru\n"
 "Project-Id-Version: Themes - Twenty Twenty-One\n"
 
@@ -17,23 +17,23 @@ msgid "Twenty Twenty-One is a blank canvas for your ideas and it makes the block
 msgstr "Тема Twenty Twenty-One - чистый холст для ваших идей, которые вы напишете кистью редактора блоков. С новыми паттернами блоков она позволяет создавать красивый макет за секунды, мягкие цвета и привлекательный дизайн позволит вашим трудам просто сиять. Беритесь за дело, посмотрите как Twenty Twenty-One возвысит ваше портфолио, бизнес сайт или личный блог."
 
 #. Theme Name of the theme
-#: inc/block-patterns.php:20
+#: classes/class-twenty-twenty-one-dark-mode.php:381 inc/block-patterns.php:24
 #, gp-priority: high
 msgid "Twenty Twenty-One"
 msgstr "Twenty Twenty-One"
 
-#: inc/template-tags.php:245
+#: inc/template-tags.php:241
 msgid "Older <span class=\"nav-short\">posts</span>"
 msgstr "Предыдущие <span class=\"nav-short\">записи</span>"
 
-#: inc/template-tags.php:234
+#: inc/template-tags.php:230
 msgid "Newer <span class=\"nav-short\">posts</span>"
 msgstr "Новые <span class=\"nav-short\">записи</span>"
 
 #: classes/class-twenty-twenty-one-customize-notice-control.php:40
 #: classes/class-twenty-twenty-one-dark-mode.php:178
-msgid "https://wordpress.org/support/article/twenty-twenty-one/#dark-mode-support"
-msgstr "https://wordpress.org/support/article/twenty-twenty-one/#dark-mode-support"
+msgid "https://wordpress.org/documentation/article/twenty-twenty-one/#dark-mode-support"
+msgstr "https://wordpress.org/documentation/article/twenty-twenty-one/#dark-mode-support"
 
 #. translators: %s: Twenty Twenty-One support article URL.
 #: classes/class-twenty-twenty-one-dark-mode.php:177
@@ -92,22 +92,22 @@ msgctxt "Added to posts and pages that are missing titles"
 msgid "Untitled"
 msgstr "Без названия"
 
-#: inc/block-patterns.php:117
+#: inc/block-patterns.php:136
 msgctxt "Block pattern sample content"
 msgid "Cambridge, MA, 02139"
 msgstr "г. Воронеж, 394077"
 
-#: inc/block-patterns.php:117
+#: inc/block-patterns.php:136
 msgctxt "Block pattern sample content"
 msgid "123 Main Street"
 msgstr "Улица Лизюкова, 1"
 
-#: inc/block-patterns.php:117
+#: inc/block-patterns.php:136
 msgctxt "Block pattern sample content"
 msgid "123-456-7890"
 msgstr "(123) 456-78-90"
 
-#: inc/block-patterns.php:117
+#: inc/block-patterns.php:136
 msgctxt "Block pattern sample content"
 msgid "example@example.com"
 msgstr "example@example.com"
@@ -198,23 +198,24 @@ msgstr "Темный режим: %s"
 msgid "This content is password protected. Please enter a password to view."
 msgstr "Это содержимое защищено паролем. Введите пароль для просмотра."
 
-#: inc/menu-functions.php:34
+#. translators: Hidden accessibility text.
+#: inc/menu-functions.php:35
 msgid "Open menu"
 msgstr "Открыть меню"
 
-#: inc/block-patterns.php:107
+#: inc/block-patterns.php:125
 msgid "&#8220;Reading&#8221; by Berthe Morisot"
 msgstr "&#8220;Чтение&#8221; Берта Моризо"
 
-#: inc/block-patterns.php:84
+#: inc/block-patterns.php:101
 msgid "&#8220;Self portrait&#8221; by Berthe Morisot"
 msgstr "&#8220;Автопортрет&#8221; Берта Моризо"
 
-#: inc/block-patterns.php:84
+#: inc/block-patterns.php:101
 msgid "&#8220;Daffodils&#8221; by Berthe Morisot"
 msgstr "&#8220;Нарциссы&#8221; Берта Моризо"
 
-#: inc/block-patterns.php:72 inc/block-patterns.php:107
+#: inc/block-patterns.php:89 inc/block-patterns.php:125
 #: inc/starter-content.php:43
 msgid "&#8220;Roses Trémières&#8221; by Berthe Morisot"
 msgstr "&#8220;Мальвы&#8221; Берта Моризо"
@@ -274,61 +275,61 @@ msgctxt "Theme starter content"
 msgid "Create your website with blocks"
 msgstr "Создайте ваш сайт с помощью блоков"
 
-#: inc/block-patterns.php:107
+#: inc/block-patterns.php:125
 msgid "Reading"
 msgstr "Чтение"
 
-#: inc/block-patterns.php:107
+#: inc/block-patterns.php:125
 msgid "Young Woman in Mauve"
 msgstr "Молодая женщина в фиолетовом"
 
-#: inc/block-patterns.php:107
+#: inc/block-patterns.php:125
 msgid "The Garden at Bougival"
 msgstr "Сад в Буживале"
 
-#: inc/block-patterns.php:107
+#: inc/block-patterns.php:125
 msgid "In the Bois de Boulogne"
 msgstr "В Булонском лесу"
 
-#: inc/block-patterns.php:107
+#: inc/block-patterns.php:125
 msgid "Villa with Orange Trees, Nice"
 msgstr "Вилла с апельсиновыми деревьями, Ницца"
 
-#: inc/block-patterns.php:107
+#: inc/block-patterns.php:125
 msgid "Roses Trémières"
 msgstr "Мальвы"
 
-#: inc/block-patterns.php:96
+#: inc/block-patterns.php:114
 msgid "&#8220;Villa with Orange Trees, Nice&#8221; by Berthe Morisot"
 msgstr "&#8220;Вилла с апельсиновыми деревьями, Ницца&#8221; Берта Моризо"
 
-#: inc/block-patterns.php:96
+#: inc/block-patterns.php:114
 msgid "Beautiful gardens painted by Berthe Morisot in the late 1800s"
 msgstr "Красивые сады, написанные Бертой Моризо в поздние 1800-е"
 
-#: inc/block-patterns.php:96 inc/block-patterns.php:107
+#: inc/block-patterns.php:114 inc/block-patterns.php:125
 msgid "&#8220;The Garden at Bougival&#8221; by Berthe Morisot"
 msgstr "&#8220;Сад в Буживале&#8221; Берта Моризо"
 
-#: inc/block-patterns.php:72 inc/block-patterns.php:107
+#: inc/block-patterns.php:89 inc/block-patterns.php:125
 #: inc/starter-content.php:61
 msgid "&#8220;Young Woman in Mauve&#8221; by Berthe Morisot"
 msgstr "&#8220;Молодая женщина в фиолетовом&#8221; Берта Моризо"
 
-#: inc/block-patterns.php:72 inc/block-patterns.php:107
+#: inc/block-patterns.php:89 inc/block-patterns.php:125
 #: inc/starter-content.php:51
 msgid "&#8220;In the Bois de Boulogne&#8221; by Berthe Morisot"
 msgstr "&#8220;В Булонском лесу&#8221; Берта Моризо"
 
-#: inc/block-patterns.php:60
+#: inc/block-patterns.php:76
 msgid "Berthe Morisot<br>(French, 1841-1895)"
 msgstr "Берта Моризо<br>(Франция, 1841-1895)"
 
-#: inc/block-patterns.php:60
+#: inc/block-patterns.php:76
 msgid "Playing in the Sand"
 msgstr "Игра в песочнице"
 
-#: inc/block-patterns.php:60
+#: inc/block-patterns.php:76
 msgid "&#8220;Playing in the Sand&#8221; by Berthe Morisot"
 msgstr "&#8220;Игра в песочнице&#8221; Берта Моризо"
 
@@ -412,28 +413,27 @@ msgid "Results for \"%s\""
 msgstr "Результаты для \"%s\""
 
 #. translators: %s: List of tags.
-#: inc/template-tags.php:118 inc/template-tags.php:162
+#: inc/template-tags.php:116 inc/template-tags.php:158
 msgid "Tagged %s"
 msgstr "Отмечено %s"
 
 #. translators: %s: List of categories.
-#: inc/template-tags.php:108 inc/template-tags.php:152
+#: inc/template-tags.php:107 inc/template-tags.php:149
 msgid "Categorized as %s"
 msgstr "В рубрике %s"
 
 #. translators: Used between list items, there is a space after the comma.
-#: inc/template-tags.php:104 inc/template-tags.php:114
-#: inc/template-tags.php:148 inc/template-tags.php:158
+#: functions.php:654
 msgid ", "
 msgstr ", "
 
-#. translators: %s: Name of current post. Only visible to screen readers.
-#: image.php:70 image.php:95 inc/template-tags.php:92 inc/template-tags.php:135
+#. translators: %s: Post title. Only visible to screen readers.
+#: image.php:70 image.php:96 inc/template-tags.php:92 inc/template-tags.php:133
 #: template-parts/content/content-page.php:48
 msgid "Edit %s"
 msgstr "Изменить %s"
 
-#. translators: %s: Name of current post.
+#. translators: %s: Post title. Only visible to screen readers.
 #: inc/template-functions.php:138
 msgid "Continue reading %s"
 msgstr "Читать далее %s"
@@ -455,98 +455,99 @@ msgstr "Границы"
 msgid "Overlap"
 msgstr "Перекрытие"
 
-#: inc/block-patterns.php:116
+#: inc/block-patterns.php:135
 msgctxt "Block pattern description"
 msgid "A block with 3 columns that display contact information and social media links."
 msgstr "Блок с тремя столбцами контактной информации и ссылками на социальные сети."
 
-#: inc/block-patterns.php:114
+#: inc/block-patterns.php:132
 msgid "Contact information"
 msgstr "Контактная информация"
 
-#: inc/block-patterns.php:106
+#: inc/block-patterns.php:124
 msgctxt "Block pattern description"
 msgid "A list of projects with thumbnail images."
 msgstr "Список проектов с изображениями миниатюрами."
 
-#: inc/block-patterns.php:104
+#: inc/block-patterns.php:122
 msgid "Portfolio list"
 msgstr "Список портфолио"
 
-#: inc/block-patterns.php:95
+#: inc/block-patterns.php:113
 msgctxt "Block pattern description"
 msgid "An overlapping columns block with two images and a text description."
 msgstr "Блок перекрывающихся столбцов с двумя изображениями и текстовым описанием."
 
-#: inc/block-patterns.php:92
+#: inc/block-patterns.php:109
 msgid "Overlapping images and text"
 msgstr "Перекрывающиеся изображения и текст"
 
-#: inc/block-patterns.php:83
+#: inc/block-patterns.php:100
 msgctxt "Block pattern description"
 msgid "A media & text block with a big image on the left and a smaller one with bordered frame on the right."
 msgstr "Блок \"медиа и текст\" с большим изображением слева и меньшим справа, с границей кадра."
 
-#: inc/block-patterns.php:80
+#: inc/block-patterns.php:97
 msgid "Two images showcase"
 msgstr "Пример двух изображений"
 
-#: inc/block-patterns.php:71
+#: inc/block-patterns.php:88
 msgctxt "Block pattern description"
 msgid "Three images inside an overlapping columns block."
 msgstr "Три изображения в блоке перекрывающихся столбцов."
 
-#: inc/block-patterns.php:68
+#: inc/block-patterns.php:84
 msgid "Overlapping images"
 msgstr "Перекрывающиеся изображения"
 
-#: inc/block-patterns.php:59
+#: inc/block-patterns.php:75
 msgctxt "Block pattern description"
 msgid "A Media & Text block with a big image on the left and a heading on the right. The heading is followed by a separator and a description paragraph."
 msgstr "Блок \"Медиа и текст\" с большим изображением слева и заголовком справа. Под заголовком находится разделитель и параграф описания."
 
-#: inc/block-patterns.php:56
+#: inc/block-patterns.php:72
 msgid "Media and text article title"
 msgstr "Заголовок для мультимедиа и текстовой статьи"
 
-#: inc/block-patterns.php:48
+#: inc/block-patterns.php:64
 msgid "example@example.com"
 msgstr "example@example.com"
 
-#: inc/block-patterns.php:48
+#: inc/block-patterns.php:64
 msgid "Dribbble"
 msgstr "Dribbble"
 
-#: inc/block-patterns.php:48
+#: inc/block-patterns.php:64
 msgid "Instagram"
 msgstr "Instagram"
 
-#: inc/block-patterns.php:48
+#: inc/block-patterns.php:64
 msgid "Twitter"
 msgstr "Twitter"
 
-#: inc/block-patterns.php:48
+#: inc/block-patterns.php:64
 msgid "Let&#8217;s Connect."
 msgstr "Давайте общаться!"
 
-#: inc/block-patterns.php:47
+#: inc/block-patterns.php:63
 msgctxt "Block pattern description"
 msgid "A huge text followed by social networks and email address links."
 msgstr "Огромный текст с ссылками на социальные сети и адрес(а) email."
 
-#: inc/block-patterns.php:44
+#: inc/block-patterns.php:59
 msgid "Links area"
 msgstr "Область ссылок"
 
-#: inc/block-patterns.php:36
+#: inc/block-patterns.php:51
 msgid "A new portfolio default theme for WordPress"
 msgstr "Новая тема-портфолио для WordPress по умолчанию"
 
-#: inc/block-patterns.php:33
+#: inc/block-patterns.php:47
 msgid "Large text"
 msgstr "Большой текст"
 
-#: image.php:83
+#. translators: Hidden accessibility text.
+#: image.php:84
 msgctxt "Used before full size attachment link."
 msgid "Full size"
 msgstr "Полный размер"
@@ -556,7 +557,7 @@ msgstr "Полный размер"
 msgid "Published %s"
 msgstr "Опубликовано %s"
 
-#: comments.php:61 image.php:45 inc/template-tags.php:228
+#: comments.php:61 image.php:45 inc/template-tags.php:224
 #: template-parts/content/content-page.php:33
 #: template-parts/content/content-single.php:27
 #: template-parts/content/content.php:33
@@ -576,7 +577,8 @@ msgstr "Меню"
 msgid "Primary menu"
 msgstr "Основное меню"
 
-#: header.php:26
+#. translators: Hidden accessibility text.
+#: header.php:29
 msgid "Skip to content"
 msgstr "Перейти к содержимому"
 

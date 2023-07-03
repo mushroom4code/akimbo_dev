@@ -8,20 +8,20 @@ function kapsule_list()
         <div class="d-flex flex-row justify-content-between mb-2">
             <div class="d-flex flex-column justify-content-between align-content-between">
                 <h1 class="mb-2">Капсулы</h1>
-                <form method="post" enctype="multipart/form-data" action="sendKapsuls" name="sendKapsuls">
+                <form method="POST" enctype="multipart/form-data" action="sendKapsuls" name="sendKapsuls">
                     <div>
                         <label>Загрузите файл c капсулами согласно схеме: <br></label>
                         <input type="file" class="loadXls" name="loadXls"/>
                     </div>
-                    <input type="submit" name="sendKapsuls" class="submit" />
+                    <input name="action" value="sendKapsulsAjax" type="hidden">
+                    <div  name="sendKapsulsSubmit" class="submit" >SEND </div>
                 </form>
             </div>
         </div>
     </div>
     <?php
 }
-add_action( 'wp_ajax_sendKapsuls', 'sendKapsuls' );
-add_action( 'wp_ajax_nopriv_sendKapsuls', 'sendKapsuls' );
+
 //if ( count( $arrForPost ) !== 0 ) {
 //    $id = wp_insert_post(
 //        wp_slash(
