@@ -4,7 +4,6 @@
 // Default theme constants
 // -----------------------------------------------------------------#
 use Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore;
-use Shuchkin\SimpleXLS;
 define('NECTAR_THEME_DIRECTORY', get_template_directory());
 define('NECTAR_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/nectar/');
 define('NECTAR_THEME_NAME', 'salient');
@@ -1073,24 +1072,22 @@ add_action('admin_menu', function () {
 
 require __DIR__ . '/includes/options.php';
 
+require __DIR__ . '/includes/kapsule/xlsParser.php';
 /**
  * @return void
  */
 function sendKapsulsAjax(): void
 {
-    if(!empty($_FILES['loadXls'])){
+    if(!empty($_FILES['loadXls']))  {
         $file_append = wp_handle_upload( $_FILES['loadXls'], [ 'test_form' => false ] );
         if ( ! empty( $file_append['file'] ) ) {
 
-            $arr_file[] = $file_append;
-            $arr_files[] = stristr( $file_append['file'], '/wp-content/' );
-            echo'wer';
-           $xls =  SimpleXLS::parse($file_append['file'])->toHTML();
-            print_r( $xls );
-            echo'test';
+           parseWithAppendKapsuls($file_append['file']);
         }
     }
     wp_send_json( 'true', 200 );
 }
+
+
 add_action( 'wp_ajax_sendKapsulsAjax', 'sendKapsulsAjax' );
 add_action( 'wp_ajax_nopriv_sendKapsulsAjax', 'sendKapsulsAjax' );

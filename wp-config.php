@@ -94,6 +94,7 @@ if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
     $_SERVER['HTTPS']='on';
 
 require_once (__DIR__.'/vendor/autoload.php');
+require_once (__DIR__.'/vendor/composer/autoload_classmap.php');
 
 /** Инициализирует переменные WordPress и подключает файлы. */
 require_once(ABSPATH . 'wp-settings.php');
