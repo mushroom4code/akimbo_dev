@@ -1066,8 +1066,8 @@ add_action('admin_menu', function () {
         'manage_options',
         'administrator',
         'kapsule_list',
-        '',
-        10);
+        'dashicons-heart',
+        1);
 });
 
 require __DIR__ . '/includes/options.php';

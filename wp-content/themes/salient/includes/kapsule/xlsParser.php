@@ -16,9 +16,9 @@ function parseWithAppendKapsuls( $filePath ): void {
 		if ( ! empty( $resultForAppend ) ) {
 			foreach ( $resultForAppend as $item ) {
 				$content = generateContentInPagekapsul( $item );
-//		todo		if ( ! empty( $content )  &&  $item['name'] === 'Осень Индиго') {
-				if ( ! empty( $content )) {
-					wp_insert_post( wp_slash( [
+				if ( ! empty( $content )  &&  $item['name'] === 'Осень Индиго') {
+//				if ( ! empty( $content )) {
+				$post_id = wp_insert_post( wp_slash( [
 						'post_title'   => $item['name'],
 						'post_content' => $content,
 						'post_status'  => 'publish',
@@ -26,6 +26,9 @@ function parseWithAppendKapsuls( $filePath ): void {
 						'ping_status'  => get_option( 'default_ping_status' ),
 						'post_parent'  => 0,
 					] ) );
+					if ( $post_id ) {
+						update_post_meta( $post_id, 'kapsula', 'true' );
+					}
 				}
 			}
 		}
