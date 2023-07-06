@@ -111,13 +111,20 @@ function kapsule_list() {
         <h1 class="mb-2">Капсулы - текущий список</h1>
         <p>если вы загрузили файл и они не появились в списке - обновите страницу</p>
         <div style="background-color: white;
-         padding: 10px;display: flex;flex-direction: column;">
+         padding: 10px;display: flex;flex-direction: column; max-width: 500px;">
 			<?php if ( ! empty( $kapsulList ) ) {
 				foreach ( $kapsulList as $item ) { ?>
-                    <p>
-						<?= $item->post_title ?>
-                        <a href="/wp-admin/post.php?post=<?= $item->ID ?>&action=edit">
-                            Редактировать </a></p>
+                    <div style="display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin-bottom: 1rem">
+                        <b style="font-size:16px"><?= $item->post_title ?></b>
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;max-width: 50%;">
+                        <a style="margin: 0 20px" href="/wp-admin/post.php?post=<?= $item->ID ?>&action=edit">
+                            Редактировать </a>
+                        <a style="color:red;margin: 0 20px" href="<?= get_delete_post_link( $item->ID ) ?>">Удалить </a>
+                    </div>
+                    </div>
 				<?php }
 			} ?>
         </div>
