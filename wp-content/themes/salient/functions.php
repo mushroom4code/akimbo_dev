@@ -1081,7 +1081,6 @@ function sendKapsulsAjax(): void
     if(!empty($_FILES['loadXls']))  {
         $file_append = wp_handle_upload( $_FILES['loadXls'], [ 'test_form' => false ] );
         if ( ! empty( $file_append['file'] ) ) {
-
            parseWithAppendKapsuls($file_append['file']);
         }
     }
