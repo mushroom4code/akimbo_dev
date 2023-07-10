@@ -3,31 +3,32 @@
 <html <?php language_attributes(); ?> class="no-js">
 <head>
 
-<!-- Meta Tags -->
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Meta Tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-<meta name="uptimer-verification" content="e.n.t.e.r.e.g.o">
-<?php
+    <meta name="uptimer-verification" content="e.n.t.e.r.e.g.o">
+	<?php
 
-$options = get_nectar_theme_options();
+	$options = get_nectar_theme_options();
 
-if ( ! empty( $options['responsive'] ) && $options['responsive'] == 1 ) { ?>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-<?php } else { ?>
-	<meta name="viewport" content="width=1200" />
-<?php } ?>	
+	if ( ! empty( $options['responsive'] ) && $options['responsive'] == 1 ) { ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+	<?php } else { ?>
+        <meta name="viewport" content="width=1200"/>
+	<?php } ?>
 
-<!--Shortcut icon-->
-<?php if ( ! empty( $options['favicon'] ) && ! empty( $options['favicon']['url'] ) ) { ?>
-	<link rel="shortcut icon" href="<?php echo esc_url( nectar_options_img( $options['favicon'] ) ); ?>" />
-<?php }
+    <!--Shortcut icon-->
+	<?php if ( ! empty( $options['favicon'] ) && ! empty( $options['favicon']['url'] ) ) { ?>
+        <link rel="shortcut icon" href="<?php echo esc_url( nectar_options_img( $options['favicon'] ) ); ?>"/>
+	<?php }
 
-wp_head();
+	wp_head();
 
-if ( ! empty( $options['google-analytics'] ) ) {
-	echo $options['google-analytics'];}
-?>
- 
+	if ( ! empty( $options['google-analytics'] ) ) {
+		echo $options['google-analytics'];
+	}
+	?>
+
 </head>
 
 <?php
@@ -39,7 +40,8 @@ $nectar_header_options = nectar_get_header_variables();
 
 ?>
 
-<body <?php body_class(); nectar_body_attributes(); ?>>
+<body <?php body_class();
+nectar_body_attributes(); ?>>
 
 <?php
 
@@ -59,12 +61,26 @@ get_template_part( 'includes/partials/header/secondary-navigation' );
 
 get_template_part( 'includes/partials/header/header-space' );
 
-?>
-
-<div id="header-outer" <?php nectar_header_nav_attributes(); ?>>
-	
+$textInfo     = get_option( 'textInfoOtpusk' ) ?? '';
+$boolShowInfo = get_option( 'сheckedInfoOtpusk' );
+if ( ( $boolShowInfo == 'true' || $boolShowInfo == 'on' ) && ! empty( $textInfo )  && wp_is_mobile()) {
+	?>
+    <div class="messBackground">
+        <span class="textMess"><?=  nl2br($textInfo); ?></span>
+    </div>
 	<?php
+}
+?>
+<div id="header-outer" <?php nectar_header_nav_attributes(); ?>>
 
+	<?php
+	if ( ( $boolShowInfo == 'true' || $boolShowInfo == 'on' ) && ! empty( $textInfo )  && !wp_is_mobile()) {
+		?>
+        <div class="messBackground">
+            <span class="textMess"><?=  nl2br($textInfo); ?></span>
+        </div>
+		<?php
+	}
 	if ( empty( $options['theme-skin'] ) || ( ! empty( $options['theme-skin'] ) && $nectar_header_options['theme_skin'] != 'ascend' && $nectar_header_options['header_format'] != 'left-header' ) ) {
 		get_template_part( 'includes/header-search' );
 	}
@@ -80,19 +96,20 @@ get_template_part( 'includes/partials/header/header-space' );
 	}
 
 	?>
-			
-	 
+
+
 </div><!--/header-outer-->
 
 <?php
 
 if ( ! empty( $options['enable-cart'] ) && $options['enable-cart'] == '1' ) {
-	  get_template_part( 'includes/partials/header/woo-slide-in-cart' );
+	get_template_part( 'includes/partials/header/woo-slide-in-cart' );
 }
 
 if ( $nectar_header_options['theme_skin'] == 'ascend' || $nectar_header_options['header_format'] == 'left-header' ) {
 	if ( $nectar_header_options['header_search'] != 'false' ) {
-		get_template_part( 'includes/header-search' ); }
+		get_template_part( 'includes/header-search' );
+	}
 }
 
 if ( $nectar_header_options['mobile_fixed'] != '1' ) {

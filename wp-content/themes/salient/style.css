@@ -32880,7 +32880,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     margin-top: 2rem;
 }
 
-.variation_add_basket .variations_form{
+.variation_add_basket .variations_form {
     height: 100%;
     max-height: 200px;
 }
@@ -32991,4 +32991,29 @@ html .page-id-9 .woocommerce-form-register #billing__inn_field, .akimbo-register
 .woocommerce-error a {
     color: white !important;
     text-decoration: underline !important;
+}
+
+.messBackground {
+    background-color: rgb(175 138 110 / 82%);
+    padding: 1rem 2rem;
+    color: white;
+}
+
+.textMess {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .messBackground {
+        margin: 1rem 0;
+    }
+
+    .textMess {
+        font-size: 13px;
+        line-height: 1;
+    }
+
 }
