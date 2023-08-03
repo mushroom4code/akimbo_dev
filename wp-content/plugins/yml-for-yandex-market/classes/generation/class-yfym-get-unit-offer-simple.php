@@ -227,11 +227,16 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
             }
 
 //         enterego
-            $length = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-izdeliya', true);
+	        $color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet-tkani', true );
+	        if ( empty( $color ) ) {
+		        $color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet', true );
+	        }
+	        $length = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-izdeliya', true);
             $length_inner = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-po-vnutrennemu-shvu', true);
             $length_outer = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-po-vneshnemu-shvu', true);
             $size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
             $barcode = get_post_meta($this->get_offer()->get_id(), 'barcode', true);
+//			enterego
             $name = explode(' ', $this->get_product()->get_title());
             $result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
             $result_xml .= $this->get_expiry();
@@ -241,6 +246,8 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
             $result_xml .= $this->get_manufacturer_warranty();
             $result_xml .= $this->get_vendor();
             $result_xml .= $this->get_weight();
+//			enterego
+	        $result_xml .= '<param name="Цвет">' . $color . '</param>'.PHP_EOL;
             $result_xml .= $this->get_dimensions();
             $result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
             $result_xml .= '<variant>' . PHP_EOL;
@@ -252,6 +259,7 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
             $result_xml .= '<quantity>' . $this->get_offer()->get_stock_quantity() . '</quantity>' . PHP_EOL;
             $result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;
             $result_xml .= '</variant>' . PHP_EOL;
+//	        enterego
             $result_xml .= $this->get_vendorcode();
             $result_xml .= $this->get_store();
             $result_xml .= $this->get_pickup();
