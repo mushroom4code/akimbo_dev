@@ -203,81 +203,90 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
     private function group_price($result_xml = '')
     {
         $addProduct = get_post_meta($this->get_product()->id, 'group_price_unload_disabled', true);
-        if ($addProduct !== 'true') {
-            $result_xml .= $this->get_offer_tag();
-            $result_xml .= $this->get_disabled();
-            $result_xml .= $this->get_params();
-            $result_xml .= $this->get_name();
-            $result_xml .= $this->get_enable_auto_discounts();
-            $result_xml .= $this->get_description();
-            $result_xml .= $this->get_picture();
-            $result_xml .= $this->get_url();
-            if (class_exists('WOOCS')) {
-                $yfym_wooc_currencies = yfym_optionGET('yfym_wooc_currencies', $this->feed_id, 'set_arr');
-                if ($yfym_wooc_currencies !== '') {
-                    global $WOOCS;
-                    $WOOCS->set_currency($yfym_wooc_currencies);
-                }
-            }
-            $p = $this->get_price();
-            if ($p !== '') {
-                $result_xml .= $p;
-                $result_xml .= $this->get_currencyid();
-            }
-            if (class_exists('WOOCS')) {
-                global $WOOCS;
-                $WOOCS->reset_currency();
-            }
+
+		if ( $addProduct !== 'true' ) {
+				$result_xml .= $this->get_offer_tag();
+				$result_xml .= $this->get_disabled();
+				$result_xml .= $this->get_params();
+				$result_xml .= $this->get_name();
+				$result_xml .= $this->get_enable_auto_discounts();
+				$result_xml .= $this->get_description();
+				$result_xml .= $this->get_picture();
+				$result_xml .= $this->get_url();
+				if ( class_exists( 'WOOCS' ) ) {
+					$yfym_wooc_currencies = yfym_optionGET( 'yfym_wooc_currencies', $this->feed_id, 'set_arr' );
+					if ( $yfym_wooc_currencies !== '' ) {
+						global $WOOCS;
+						$WOOCS->set_currency( $yfym_wooc_currencies );
+					}
+				}
+				$p = $this->get_price();
+				if ( $p !== '' ) {
+					$result_xml .= $p;
+					$result_xml .= $this->get_currencyid();
+				}
+				if ( class_exists( 'WOOCS' ) ) {
+					global $WOOCS;
+					$WOOCS->reset_currency();
+				}
 
 //         enterego
-            $color = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_tsvet-tkani', true);
-	        if ( empty( $color ) ) {
-		        $color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet', true );
-	        }
-	        $length = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-izdeliya', true);
-            $length_inner = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-po-vnutrennemu-shvu', true);
-            $length_outer = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-po-vneshnemu-shvu', true);
-            $size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
-            $barcode = get_post_meta($this->get_offer()->get_id(), 'barcode', true);
+				$image_ids = get_post_meta( $this->get_product()->id, '_product_image_gallery', true );
+				if ( ! empty( $image_ids ) ) {
+					$image_ids = explode( ',', $image_ids );
+					foreach ( $image_ids as $image_id ) {
+						$thumb_url  = wp_get_attachment_image_src( $image_id, 'full', true );
+						$thumb_yml  = $thumb_url[0]; /* урл оригинал миниатюры товара */
+						$result_xml .= '<picture>' . get_from_url( $thumb_yml ) . '</picture>' . PHP_EOL;
+					}
+				}
+				$color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet-tkani', true );
+				if ( empty( $color ) ) {
+					$color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet', true );
+				}
+				$length       = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_dlina-izdeliya', true );
+				$length_inner = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_dlina-po-vnutrennemu-shvu', true );
+				$length_outer = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_dlina-po-vneshnemu-shvu', true );
+				$size         = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_razmer', true );
+				$barcode      = get_post_meta( $this->get_offer()->get_id(), 'barcode', true );
 //			enterego
-            $name = explode(' ', $this->get_product()->get_title());
-            $result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
-            $result_xml .= $this->get_expiry();
-            $result_xml .= $this->get_age();
-            $result_xml .= $this->get_downloadable();
-            $result_xml .= $this->get_sales_notes();
-            $result_xml .= $this->get_manufacturer_warranty();
-            $result_xml .= $this->get_vendor();
-            $result_xml .= $this->get_weight();
+				$name       = explode( ' ', $this->get_product()->get_title() );
+				$result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
+				$result_xml .= $this->get_expiry();
+				$result_xml .= $this->get_age();
+				$result_xml .= $this->get_downloadable();
+				$result_xml .= $this->get_sales_notes();
+				$result_xml .= $this->get_manufacturer_warranty();
+				$result_xml .= $this->get_vendor();
+				$result_xml .= $this->get_weight();
 //			enterego
-	        $result_xml .= '<param name="Цвет">' . $color . '</param>'.PHP_EOL;
-            $result_xml .= $this->get_dimensions();
-            $result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
-            $result_xml .= '<variant>' . PHP_EOL;
-            $result_xml .= $this->get_amount();
-            $result_xml .= '<param name="Длина изделия">' . $length . '</param>'.PHP_EOL;
-            $result_xml .= '<param name="Длина по внутреннему шву">' . $length_inner . '</param>'.PHP_EOL;
-            $result_xml .= '<param name="Длина по внешнему шву">' . $length_outer . '</param>'.PHP_EOL;
-            $result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
-            $result_xml .= '<quantity>' . $this->get_offer()->get_stock_quantity() . '</quantity>' . PHP_EOL;
-            $result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;
-            $result_xml .= '</variant>' . PHP_EOL;
+				$result_xml .= '<param name="Цвет">' . $color . '</param>' . PHP_EOL;
+				$result_xml .= $this->get_dimensions();
+				$result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
+				$result_xml .= '<variant>' . PHP_EOL;
+				$result_xml .= $this->get_amount();
+				$result_xml .= '<param name="Длина изделия">' . $length . '</param>' . PHP_EOL;
+				$result_xml .= '<param name="Длина по внутреннему шву">' . $length_inner . '</param>' . PHP_EOL;
+				$result_xml .= '<param name="Длина по внешнему шву">' . $length_outer . '</param>' . PHP_EOL;
+				$result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
+				$result_xml .= '<quantity>' . $this->get_offer()->get_stock_quantity() . '</quantity>' . PHP_EOL;
+				$result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;
+				$result_xml .= '</variant>' . PHP_EOL;
 //	        enterego
-            $result_xml .= $this->get_vendorcode();
-            $result_xml .= $this->get_store();
-            $result_xml .= $this->get_pickup();
-            $result_xml .= $this->get_delivery();
-            $result_xml .= $this->get_categoryid();
-            $result_xml .= $this->get_vat();
-            $result_xml .= $this->get_delivery_options();
-            $result_xml .= $this->get_pickup_options();
-            $result_xml .= $this->get_condition();
-            $result_xml .= $this->get_credit_template();
-            $result_xml .= $this->get_supplier();
-            $result_xml .= $this->get_min_quantity();
-            $result_xml .= $this->get_step_quantity();
-        }
-
+				$result_xml .= $this->get_vendorcode();
+				$result_xml .= $this->get_store();
+				$result_xml .= $this->get_pickup();
+				$result_xml .= $this->get_delivery();
+				$result_xml .= $this->get_categoryid();
+				$result_xml .= $this->get_vat();
+				$result_xml .= $this->get_delivery_options();
+				$result_xml .= $this->get_pickup_options();
+				$result_xml .= $this->get_condition();
+				$result_xml .= $this->get_credit_template();
+				$result_xml .= $this->get_supplier();
+				$result_xml .= $this->get_min_quantity();
+				$result_xml .= $this->get_step_quantity();
+			}
         return $result_xml;
     }
 
