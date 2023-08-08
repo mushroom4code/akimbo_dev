@@ -236,6 +236,15 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
             $length_outer = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-po-vneshnemu-shvu', true);
             $size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
             $barcode = get_post_meta($this->get_offer()->get_id(), 'barcode', true);
+	        $image_ids = get_post_meta( $this->get_product()->id, '_product_image_gallery', true );
+	        if ( ! empty( $image_ids ) ) {
+		        $image_ids = explode( ',', $image_ids );
+		        foreach ( $image_ids as $image_id ) {
+			        $thumb_url  = wp_get_attachment_image_src( $image_id, 'full', true );
+			        $thumb_yml  = $thumb_url[0]; /* урл оригинал миниатюры товара */
+			        $result_xml .= '<picture>' . get_from_url( $thumb_yml ) . '</picture>' . PHP_EOL;
+		        }
+	        }
 //			enterego
             $name = explode(' ', $this->get_product()->get_title());
             $result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
