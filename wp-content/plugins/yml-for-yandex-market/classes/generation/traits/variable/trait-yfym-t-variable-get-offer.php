@@ -82,7 +82,8 @@ trait YFYM_T_Variable_Get_Offer_Tag {
 		}
 		if (!empty($res_id_value)) {$offer_id_value = $res_id_value;};
 
-		$offer_id_yml = 'id="'.$offer_id_value.'"';
+//		$offer_id_yml = 'id="'.$offer_id_value.'"';
+		$offer_id_yml = '';
 		$offer_id_yml = apply_filters('yfym_variable_offer_id_yml_filter', $offer_id_yml, array($offer_id_value, $product, $offer), $this->get_feed_id());
 
 		if ($offer->get_manage_stock() == true) { // включено управление запасом
