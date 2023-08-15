@@ -203,8 +203,8 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
     private function group_price($result_xml = '')
     {
         $addProduct = get_post_meta($this->get_product()->id, 'group_price_unload_disabled', true);
-
-		if ( $addProduct !== 'true' ) {
+		$quantity = $this->get_offer()->get_stock_quantity();
+		if ( $addProduct !== 'true' && $quantity > 1 ) {
 				$result_xml .= $this->get_offer_tag();
 				$result_xml .= $this->get_disabled();
 				$result_xml .= $this->get_params();
