@@ -200,7 +200,10 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
     private function group_price($result_xml = '')
     {
         $addProduct = get_post_meta($this->get_product()->id, 'group_price_unload_disabled', true);
-	    $quantity = $this->get_offer()->get_stock_quantity();
+	    $quantity_off = get_post_meta( $this->get_offer()->get_id(), '_stock' )[0];
+	    $backorders_count = get_post_meta( $this->get_offer()->get_id(), '_backorders_count' )[0];
+	    $quantity = ( $quantity_off - $backorders_count );
+
 	    if ( $addProduct !== 'true' && $quantity > 1 ) {
             $result_xml .= $this->get_offer_tag();
             $result_xml .= $this->get_disabled();
