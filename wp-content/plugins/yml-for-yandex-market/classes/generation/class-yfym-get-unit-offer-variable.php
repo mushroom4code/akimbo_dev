@@ -243,9 +243,9 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 						$result_xml .= '<picture>' . get_from_url( $thumb_yml ) . '</picture>' . PHP_EOL;
 					}
 				}
-				$color = get_post_meta( $this->get_product()->get_id(), 'attribute_pa_tsvet-tkani', true );
+				$color = $this->get_product()->get_attribute('pa_tsvet-tkani');
 				if ( empty( $color ) ) {
-					$color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet', true );
+					$color = $this->get_product()->get_attribute('pa_tsvet');
 				}
 				$length       = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_dlina-izdeliya', true );
 				$length_inner = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_dlina-po-vnutrennemu-shvu', true );
