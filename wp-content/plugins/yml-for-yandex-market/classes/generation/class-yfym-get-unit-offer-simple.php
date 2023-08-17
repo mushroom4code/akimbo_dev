@@ -235,9 +235,7 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
 		    if ( empty( $color ) ) {
 			    $color = $this->get_product()->get_attribute('pa_tsvet');
 		    }
-		    $length       = $this->get_product()->get_attribute('pa_dlina-izdeliya');
-		    $length_inner       = $this->get_product()->get_attribute('pa_dlina-po-vnutrennemu-shvu');
-		    $length_outer = $this->get_product()->get_attribute('pa_dlina-po-vneshnemu-shvu');
+
 		    $size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
 		    $barcode = get_post_meta($this->get_offer()->get_id(), 'barcode', true);
 	        $image_ids = get_post_meta( $this->get_product()->id, '_product_image_gallery', true );
@@ -265,9 +263,6 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
             $result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
             $result_xml .= '<variant>' . PHP_EOL;
             $result_xml .= $this->get_amount();
-            $result_xml .= '<param name="Длина изделия">' . $length . '</param>'.PHP_EOL;
-            $result_xml .= '<param name="Длина по внутреннему шву">' . $length_inner . '</param>'.PHP_EOL;
-            $result_xml .= '<param name="Длина по внешнему шву">' . $length_outer . '</param>'.PHP_EOL;
             $result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
             $result_xml .= '<quantity>' . $quantity . '</quantity>' . PHP_EOL;
             $result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;

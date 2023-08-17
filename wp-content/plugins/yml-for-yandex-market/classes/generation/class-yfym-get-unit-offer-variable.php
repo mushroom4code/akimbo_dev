@@ -1,31 +1,31 @@
 <?php if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-/**
- * Get unit for Variable Products 
- *
- * @package			YML for Yandex Market
- * @subpackage		
- * @since			0.1.0
- * 
- * @version			1.0.0 (25-05-2023)
- * @author			Maxim Glazunov
- * @link			https://icopydoc.ru/
- * @see				
- * 
- * @param		
- *
- * @return		
- *
- * @depends			classes:	YFYM_Get_Unit_Offer
- *					traits:		
- *					methods:	
- *					functions:	
- *					constants:	
- *					options:	
- *
- */
 
+/**
+ * Get unit for Variable Products
+ *
+ * @param
+ *
+ * @return
+ *
+ * @depends            classes:    YFYM_Get_Unit_Offer
+ *                    traits:
+ *                    methods:
+ *                    functions:
+ *                    constants:
+ *                    options:
+ *
+ * @since            0.1.0
+ *
+ * @version            1.0.0 (25-05-2023)
+ * @author            Maxim Glazunov
+ * @link            https://icopydoc.ru/
+ * @see
+ *
+ * @package            YML for Yandex Market
+ * @subpackage
+ */
 class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 	use YFYM_T_Common_Get_CatId;
 	use YFYM_T_Common_Skips;
@@ -92,9 +92,9 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 				$result_xml = $this->adv();
 				break;
 //          Enterego
-            case "group_price":
-                $result_xml = $this->group_price();
-                break;
+			case "group_price":
+				$result_xml = $this->group_price();
+				break;
 			case "yandex_webmaster":
 				$result_xml = $this->yandex_webmaster();
 				break;
@@ -133,14 +133,15 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 		$result_xml = apply_filters(
 			'y4ym_f_append_variable_offer',
 			$result_xml,
-			[ 
-				'product' => $this->product,
-				'offer' => $this->offer,
+			[
+				'product'          => $this->product,
+				'offer'            => $this->offer,
 				'feed_category_id' => $this->get_feed_category_id()
 			],
 			$this->feed_id
 		);
 		$result_xml .= '</offer>' . PHP_EOL;
+
 		return $result_xml;
 
 	}
@@ -199,100 +200,95 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 
 		return $result_xml;
 	}
+
 // enterego
-    private function group_price($result_xml = '')
-    {
-        $addProduct = get_post_meta($this->get_product()->id, 'group_price_unload_disabled', true);
-	    $quantity_off = (int)get_post_meta( $this->get_offer()->get_id(), '_stock',true)  ?? 0;
-	    $backorders_count = (int)get_post_meta( $this->get_offer()->get_id(), '_backorders_count', true) ?? 0;
-	    $quantity = ( $quantity_off - $backorders_count ) ?? 0;
+	private function group_price( $result_xml = '' ) {
+		$addProduct       = get_post_meta( $this->get_product()->id, 'group_price_unload_disabled', true );
+		$quantity_off     = (int) get_post_meta( $this->get_offer()->get_id(), '_stock', true ) ?? 0;
+		$backorders_count = (int) get_post_meta( $this->get_offer()->get_id(), '_backorders_count', true ) ?? 0;
+		$quantity         = ( $quantity_off - $backorders_count ) ?? 0;
 
 		if ( $addProduct !== 'true' && $quantity > 1 ) {
-				$result_xml .= $this->get_offer_tag();
-				$result_xml .= $this->get_disabled();
-				$result_xml .= $this->get_params();
-				$result_xml .= $this->get_name();
-				$result_xml .= $this->get_enable_auto_discounts();
-				$result_xml .= $this->get_description();
-				$result_xml .= $this->get_picture();
-				$result_xml .= $this->get_url();
-				if ( class_exists( 'WOOCS' ) ) {
-					$yfym_wooc_currencies = yfym_optionGET( 'yfym_wooc_currencies', $this->feed_id, 'set_arr' );
-					if ( $yfym_wooc_currencies !== '' ) {
-						global $WOOCS;
-						$WOOCS->set_currency( $yfym_wooc_currencies );
-					}
-				}
-				$p = $this->get_price();
-				if ( $p !== '' ) {
-					$result_xml .= $p;
-					$result_xml .= $this->get_currencyid();
-				}
-				if ( class_exists( 'WOOCS' ) ) {
+			$result_xml .= $this->get_offer_tag();
+			$result_xml .= $this->get_disabled();
+			$result_xml .= $this->get_params();
+			$result_xml .= $this->get_name();
+			$result_xml .= $this->get_enable_auto_discounts();
+			$result_xml .= $this->get_description();
+			$result_xml .= $this->get_picture();
+			$result_xml .= $this->get_url();
+			if ( class_exists( 'WOOCS' ) ) {
+				$yfym_wooc_currencies = yfym_optionGET( 'yfym_wooc_currencies', $this->feed_id, 'set_arr' );
+				if ( $yfym_wooc_currencies !== '' ) {
 					global $WOOCS;
-					$WOOCS->reset_currency();
+					$WOOCS->set_currency( $yfym_wooc_currencies );
 				}
+			}
+			$p = $this->get_price();
+			if ( $p !== '' ) {
+				$result_xml .= $p;
+				$result_xml .= $this->get_currencyid();
+			}
+			if ( class_exists( 'WOOCS' ) ) {
+				global $WOOCS;
+				$WOOCS->reset_currency();
+			}
 
 //         enterego
-				$image_ids = get_post_meta( $this->get_product()->id, '_product_image_gallery', true );
-				if ( ! empty( $image_ids ) ) {
-					$image_ids = explode( ',', $image_ids );
-					foreach ( $image_ids as $image_id ) {
-						$thumb_url  = wp_get_attachment_image_src( $image_id, 'full', true );
-						$thumb_yml  = $thumb_url[0]; /* урл оригинал миниатюры товара */
-						$result_xml .= '<picture>' . get_from_url( $thumb_yml ) . '</picture>' . PHP_EOL;
-					}
+			$image_ids = get_post_meta( $this->get_product()->id, '_product_image_gallery', true );
+			if ( ! empty( $image_ids ) ) {
+				$image_ids = explode( ',', $image_ids );
+				foreach ( $image_ids as $image_id ) {
+					$thumb_url  = wp_get_attachment_image_src( $image_id, 'full', true );
+					$thumb_yml  = $thumb_url[0]; /* урл оригинал миниатюры товара */
+					$result_xml .= '<picture>' . get_from_url( $thumb_yml ) . '</picture>' . PHP_EOL;
 				}
-				$color = $this->get_product()->get_attribute('pa_tsvet-tkani');
-				if ( empty( $color ) ) {
-					$color = $this->get_product()->get_attribute('pa_tsvet');
-				}
-				$length       = $this->get_product()->get_attribute('pa_dlina-izdeliya');
-				$length_inner       = $this->get_product()->get_attribute('pa_dlina-po-vnutrennemu-shvu');
-				$length_outer = $this->get_product()->get_attribute('pa_dlina-po-vneshnemu-shvu');
-
-			$size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
-			$barcode = get_post_meta($this->get_offer()->get_id(), 'barcode', true);
-//			enterego
-				$name       = explode( ' ', $this->get_product()->get_title() );
-				$result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
-				$result_xml .= $this->get_expiry();
-				$result_xml .= $this->get_age();
-				$result_xml .= $this->get_downloadable();
-				$result_xml .= $this->get_sales_notes();
-				$result_xml .= $this->get_manufacturer_warranty();
-				$result_xml .= $this->get_vendor();
-				$result_xml .= $this->get_weight();
-//			enterego
-				$result_xml .= '<param name="Цвет">' . $color . '</param>' . PHP_EOL;
-				$result_xml .= $this->get_dimensions();
-				$result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
-				$result_xml .= '<variant>' . PHP_EOL;
-				$result_xml .= $this->get_amount();
-				$result_xml .= '<param name="Длина изделия">' . $length . '</param>' . PHP_EOL;
-				$result_xml .= '<param name="Длина по внутреннему шву">' . $length_inner . '</param>' . PHP_EOL;
-				$result_xml .= '<param name="Длина по внешнему шву">' . $length_outer . '</param>' . PHP_EOL;
-				$result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
-				$result_xml .= '<quantity>' . $quantity . '</quantity>' . PHP_EOL;
-				$result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;
-				$result_xml .= '</variant>' . PHP_EOL;
-//	        enterego
-				$result_xml .= $this->get_vendorcode();
-				$result_xml .= $this->get_store();
-				$result_xml .= $this->get_pickup();
-				$result_xml .= $this->get_delivery();
-				$result_xml .= $this->get_categoryid();
-				$result_xml .= $this->get_vat();
-				$result_xml .= $this->get_delivery_options();
-				$result_xml .= $this->get_pickup_options();
-				$result_xml .= $this->get_condition();
-				$result_xml .= $this->get_credit_template();
-				$result_xml .= $this->get_supplier();
-				$result_xml .= $this->get_min_quantity();
-				$result_xml .= $this->get_step_quantity();
 			}
-        return $result_xml;
-    }
+			$color = $this->get_product()->get_attribute( 'pa_tsvet-tkani' );
+			if ( empty( $color ) ) {
+				$color = $this->get_product()->get_attribute( 'pa_tsvet' );
+			}
+
+			$size    = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_razmer', true );
+			$barcode = get_post_meta( $this->get_offer()->get_id(), 'barcode', true );
+//			enterego
+			$name       = explode( ' ', $this->get_product()->get_title() );
+			$result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
+			$result_xml .= $this->get_expiry();
+			$result_xml .= $this->get_age();
+			$result_xml .= $this->get_downloadable();
+			$result_xml .= $this->get_sales_notes();
+			$result_xml .= $this->get_manufacturer_warranty();
+			$result_xml .= $this->get_vendor();
+			$result_xml .= $this->get_weight();
+//			enterego
+			$result_xml .= '<param name="Цвет">' . $color . '</param>' . PHP_EOL;
+			$result_xml .= $this->get_dimensions();
+			$result_xml .= '<model>' . $this->get_offer()->get_title() . '</model>' . PHP_EOL;
+			$result_xml .= '<variant>' . PHP_EOL;
+			$result_xml .= $this->get_amount();
+			$result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
+			$result_xml .= '<quantity>' . $quantity . '</quantity>' . PHP_EOL;
+			$result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;
+			$result_xml .= '</variant>' . PHP_EOL;
+//	        enterego
+			$result_xml .= $this->get_vendorcode();
+			$result_xml .= $this->get_store();
+			$result_xml .= $this->get_pickup();
+			$result_xml .= $this->get_delivery();
+			$result_xml .= $this->get_categoryid();
+			$result_xml .= $this->get_vat();
+			$result_xml .= $this->get_delivery_options();
+			$result_xml .= $this->get_pickup_options();
+			$result_xml .= $this->get_condition();
+			$result_xml .= $this->get_credit_template();
+			$result_xml .= $this->get_supplier();
+			$result_xml .= $this->get_min_quantity();
+			$result_xml .= $this->get_step_quantity();
+		}
+
+		return $result_xml;
+	}
 
 	private function single_catalog( $result_xml = '' ) {
 		$result_xml .= $this->get_offer_tag();
