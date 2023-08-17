@@ -243,7 +243,7 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 						$result_xml .= '<picture>' . get_from_url( $thumb_yml ) . '</picture>' . PHP_EOL;
 					}
 				}
-				$color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet-tkani', true );
+				$color = get_post_meta( $this->get_product()->get_id(), 'attribute_pa_tsvet-tkani', true );
 				if ( empty( $color ) ) {
 					$color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet', true );
 				}

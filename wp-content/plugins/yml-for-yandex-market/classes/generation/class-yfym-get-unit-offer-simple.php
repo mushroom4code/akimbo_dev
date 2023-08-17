@@ -231,9 +231,9 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
             }
 
 //         enterego
-	        $color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet-tkani', true );
+	        $color = get_post_meta( $this->get_product()->get_id(), 'attribute_pa_tsvet-tkani', true );
 	        if ( empty( $color ) ) {
-		        $color = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_tsvet', true );
+		        $color = get_post_meta( $this->get_product()->get_id(), 'attribute_pa_tsvet', true );
 	        }
 	        $length = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-izdeliya', true);
             $length_inner = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_dlina-po-vnutrennemu-shvu', true);
