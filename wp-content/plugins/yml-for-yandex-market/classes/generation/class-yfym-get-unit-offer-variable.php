@@ -247,11 +247,13 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 				if ( empty( $color ) ) {
 					$color = $this->get_product()->get_attribute('pa_tsvet');
 				}
-				$length       = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_dlina-izdeliya', true );
-				$length_inner = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_dlina-po-vnutrennemu-shvu', true );
-				$length_outer = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_dlina-po-vneshnemu-shvu', true );
-				$size         = get_post_meta( $this->get_offer()->get_id(), 'attribute_pa_razmer', true );
-				$barcode      = get_post_meta( $this->get_offer()->get_id(), 'barcode', true );
+				$length       = $this->get_product()->get_attribute('pa_dlina-izdeliya');
+				$length_inner       = $this->get_product()->get_attribute('pa_dlina-po-vnutrennemu-shvu');
+				$length_outer = $this->get_product()->get_attribute('pa_dlina-po-vneshnemu-shvu');
+
+				$size         = $this->get_product()->get_attribute('pa_razmer');
+				$this->get_product()->get_attribute('barcode');
+				$barcode      = $this->get_product()->get_attribute('barcode');
 //			enterego
 				$name       = explode( ' ', $this->get_product()->get_title() );
 				$result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
