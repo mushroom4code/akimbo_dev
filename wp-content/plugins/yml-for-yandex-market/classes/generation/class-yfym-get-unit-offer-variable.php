@@ -251,9 +251,8 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 				$length_inner       = $this->get_product()->get_attribute('pa_dlina-po-vnutrennemu-shvu');
 				$length_outer = $this->get_product()->get_attribute('pa_dlina-po-vneshnemu-shvu');
 
-				$size         = $this->get_product()->get_attribute('pa_razmer');
-				$this->get_product()->get_attribute('barcode');
-				$barcode      = $this->get_product()->get_attribute('barcode');
+			$size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
+			$barcode = get_post_meta($this->get_offer()->get_id(), 'barcode', true);
 //			enterego
 				$name       = explode( ' ', $this->get_product()->get_title() );
 				$result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;
