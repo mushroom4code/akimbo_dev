@@ -271,7 +271,7 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 				$result_xml .= '<param name="Длина по внутреннему шву">' . $length_inner . '</param>' . PHP_EOL;
 				$result_xml .= '<param name="Длина по внешнему шву">' . $length_outer . '</param>' . PHP_EOL;
 				$result_xml .= '<size name="Размер">' . $size . '</size>' . PHP_EOL;
-				$result_xml .= '<quantity>' . $this->get_offer()->get_stock_quantity() . '</quantity>' . PHP_EOL;
+				$result_xml .= '<quantity>' . $quantity . '</quantity>' . PHP_EOL;
 				$result_xml .= '<barcode>' . $barcode . '</barcode>' . PHP_EOL;
 				$result_xml .= '</variant>' . PHP_EOL;
 //	        enterego
