@@ -251,7 +251,7 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 				$color = $this->get_product()->get_attribute( 'pa_tsvet' );
 			}
 
-			$barcode = get_post_meta( $this->get_offer()->get_id(), 'barcode', true );
+			$barcode = $this->get_product()->get_attribute( 'kod' );
 //			enterego
 			$name       = explode( ' ', $this->get_product()->get_title() );
 			$result_xml .= '<typePrefix>' . $name[0] . '</typePrefix>' . PHP_EOL;

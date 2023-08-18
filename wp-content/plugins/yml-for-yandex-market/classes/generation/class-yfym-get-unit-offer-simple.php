@@ -240,7 +240,7 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
 			    $color = $this->get_product()->get_attribute('pa_tsvet');
 		    }
 
-		    $barcode = get_post_meta($this->get_offer()->get_id(), 'barcode', true);
+		    $barcode = $this->get_product()->get_attribute( 'kod' );
 	        $image_ids = get_post_meta( $this->get_product()->id, '_product_image_gallery', true );
 	        if ( ! empty( $image_ids ) ) {
 		        $image_ids = explode( ',', $image_ids );
