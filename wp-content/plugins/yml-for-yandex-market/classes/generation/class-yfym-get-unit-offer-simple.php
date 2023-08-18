@@ -207,8 +207,8 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
 	    $quantity_off = (int)get_post_meta( $this->get_offer()->get_id(), '_stock',true)  ?? 0;
 	    $backorders_count = (int)get_post_meta( $this->get_offer()->get_id(), '_backorders_count', true) ?? 0;
 	    $quantity = ( $quantity_off - $backorders_count ) ?? 0;
-
-	    if ( $addProduct !== 'true' && $quantity > 1 ) {
+	    $size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
+	    if ( $addProduct !== 'true' && $quantity > 1 && !empty($size)) {
             $result_xml .= $this->get_offer_tag();
             $result_xml .= $this->get_disabled();
             $result_xml .= $this->get_params();
@@ -240,7 +240,6 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
 			    $color = $this->get_product()->get_attribute('pa_tsvet');
 		    }
 
-		    $size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
 		    $barcode = get_post_meta($this->get_offer()->get_id(), 'barcode', true);
 	        $image_ids = get_post_meta( $this->get_product()->id, '_product_image_gallery', true );
 	        if ( ! empty( $image_ids ) ) {
