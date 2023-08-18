@@ -140,10 +140,12 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 			],
 			$this->feed_id
 		);
-		$result_xml .= '</offer>' . PHP_EOL;
+
+		if ( $yfym_yml_rules !== 'group_price' ) {
+			$result_xml .= '</offer>' . PHP_EOL;
+		}
 
 		return $result_xml;
-
 	}
 
 	private function adv( $result_xml = '' ) {
@@ -285,6 +287,7 @@ class YFYM_Get_Unit_Offer_Variable extends YFYM_Get_Unit_Offer {
 			$result_xml .= $this->get_supplier();
 			$result_xml .= $this->get_min_quantity();
 			$result_xml .= $this->get_step_quantity();
+			$result_xml .= '</offer>' . PHP_EOL;
 		}
 
 		return $result_xml;
