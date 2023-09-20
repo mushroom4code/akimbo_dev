@@ -441,7 +441,7 @@ if ( $product_style == 'classic' ) {
 	remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
 	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
 } else {
-	add_action( 'woocommerce_before_shop_loop_item_title', 'product_thumbnail_minimal', 10 );
+    add_action( 'woocommerce_before_shop_loop_item_title', 'product_thumbnail_slick_slider', 10 );
 
 	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 	add_action( 'nectar_woo_minimal_price', 'woocommerce_template_loop_price', 5 );
@@ -604,6 +604,55 @@ if ( ! function_exists( 'product_thumbnail_minimal' ) ) {
 		   </div>
 		<?php
 	}
+}
+
+if ( ! function_exists( 'product_thumbnail_slick_slider' ) ) {
+
+    function product_thumbnail_slick_slider() {
+
+        global $product;
+        global $woocommerce;
+        global $nectar_quick_view_in_use;
+        ?>
+        <div class="product-wrap">
+            <?php
+            if ( $woocommerce && version_compare( $woocommerce->version, '3.0', '>=' ) ) {
+                $product_attach_ids = $product->get_gallery_image_ids();
+            }
+            else {
+                $product_attach_ids = $product->get_gallery_attachment_ids();
+            }
+            echo '<div class="slick-slider-product">';
+            echo '<a href="' . esc_url( get_permalink() ) . '">';
+            echo woocommerce_get_product_thumbnail();
+            echo '</a>';
+            if (!empty($product_attach_ids)) {
+                foreach ($product_attach_ids as $galerry_image_id) {
+                    echo '<a href="' . esc_url(get_permalink()) . '">';
+                    echo wp_get_attachment_image($galerry_image_id, '', false, array());
+                    echo '</a>';
+                }
+            }
+            echo '</div>';
+
+            echo '<div class="product-meta">';
+            echo '<a href="' . esc_url( get_permalink() ) . '">';
+            do_action( 'woocommerce_shop_loop_item_title' );
+            echo '</a>';
+            do_action( 'woocommerce_after_shop_loop_item_title' );
+            echo '<div class="price-hover-wrap">';
+            do_action( 'nectar_woo_minimal_price' );
+            if(is_user_logged_in()){
+                echo '<a href="javascript:void(0)" class="add2Basket font-12" data-product-id="' .$product->get_id() . '">
+               <span class="me-2 d-sm-none">Выбрать размеры</span> <div class="icon_basket"></div></a>';
+            }
+            echo '<div class="product-add-to-cart" data-nectar-quickview="' . $nectar_quick_view_in_use . '">';
+
+            echo '</div></div></div>';
+            ?>
+        </div>
+        <?php
+    }
 }
 
 
