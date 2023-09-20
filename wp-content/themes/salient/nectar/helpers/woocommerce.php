@@ -622,19 +622,19 @@ if ( ! function_exists( 'product_thumbnail_slick_slider' ) ) {
             else {
                 $product_attach_ids = $product->get_gallery_attachment_ids();
             }
+            $url = esc_url( get_permalink() );
             echo '<div class="slick-slider-product">';
-            echo '<a href="' . esc_url( get_permalink() ) . '">';
+            echo '<a href="' . $url . '">';
             echo woocommerce_get_product_thumbnail();
             echo '</a>';
             if (!empty($product_attach_ids)) {
                 foreach ($product_attach_ids as $galerry_image_id) {
-                    echo '<a href="' . esc_url(get_permalink()) . '">';
+                    echo '<a href="' . $url . '">';
                     echo wp_get_attachment_image($galerry_image_id, '', false, array());
                     echo '</a>';
                 }
             }
             echo '</div>';
-
             echo '<div class="product-meta">';
             echo '<a href="' . esc_url( get_permalink() ) . '">';
             do_action( 'woocommerce_shop_loop_item_title' );

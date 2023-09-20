@@ -1106,11 +1106,11 @@ add_action( 'wp_ajax_sendSettingsAjax', 'sendSettingsAjax' );
 add_action( 'wp_ajax_nopriv_sendSettingsAjax', 'sendSettingsAjax' );
 
 function includeSlickSliderFiles() {
-    wp_enqueue_style( 'slick-slider-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
-    wp_enqueue_style( 'slick-slider-css-theme', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css');
+    wp_enqueue_style('slick-slider-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
+    wp_enqueue_style('slick-slider-css-theme', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css');
     wp_enqueue_style('catalog_product_slick_slider_style', get_template_directory_uri() . '/css/catalog_product_slick_slider_style.css');
     wp_enqueue_script('slick-slider-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js');
-    wp_enqueue_script( 'catalog_product_slick_slider', get_template_directory_uri() . '/js/catalog_product_slick_slider.js');
+    wp_enqueue_script('catalog_product_slick_slider', get_template_directory_uri() . '/js/catalog_product_slick_slider.js');
 }
 
 add_action('woocommerce_before_shop_loop_item_title', 'includeSlickSliderFiles');

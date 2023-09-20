@@ -31,3 +31,6 @@
     color: black;
     font-size: 30px;
 }
+div.flickity-cell {
+    max-height: 535px;
+}
