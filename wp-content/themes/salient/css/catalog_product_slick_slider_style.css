@@ -15,22 +15,41 @@
     outline: none;
     background: #fcfaf7ab;
     z-index: 9;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .5s;
 }
+
 .product-item-detail-slider-left {
     left: 0;
 }
+
 .product-item-detail-slider-right {
     right: 0;
 }
+
 .product-item-detail-slider-left i, .product-item-detail-slider-right i {
     width: 35px;
     height: 35px;
     top: unset;
 }
+
 .product-item-detail-slider-left i.fa.fa-angle-left::before, .product-item-detail-slider-right i.fa.fa-angle-right::before {
     color: black;
     font-size: 30px;
 }
+
 div.flickity-cell {
-    max-height: 535px;
+    min-height: fit-content;
+}
+
+.slick-slider-product {
+    transition: 0.5s;
+}
+
+.slick-slider-product:hover {
+    .product-item-detail-slider-left, .product-item-detail-slider-right {
+        visibility: visible;
+        opacity: 1;
+    }
 }

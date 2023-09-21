@@ -630,7 +630,7 @@ if ( ! function_exists( 'product_thumbnail_slick_slider' ) ) {
             if (!empty($product_attach_ids)) {
                 foreach ($product_attach_ids as $galerry_image_id) {
                     echo '<a href="' . $url . '">';
-                    echo wp_get_attachment_image($galerry_image_id, '', false, array());
+                    echo '<img data-lazy="'.wp_get_attachment_image_src($galerry_image_id, '', false, array())[0].'"/>';
                     echo '</a>';
                 }
             }

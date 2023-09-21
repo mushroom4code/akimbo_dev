@@ -6,6 +6,7 @@ jQuery(document).ready(function ($) {
 
     function initSlickSlidersOnProducts() {
         $('.slick-slider-product').not('.slick-initialized.slick-slider').slick({
+            lazyLoad: 'ondemand',
             arrows: true,
             prevArrow:
                 '<span class="product-item-detail-slider-left carousel_elem_custom" ' +
