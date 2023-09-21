@@ -1107,7 +1107,6 @@ add_action( 'wp_ajax_nopriv_sendSettingsAjax', 'sendSettingsAjax' );
 
 function includeSlickSliderFiles() {
     $tpl_uri = get_template_directory_uri();
-    $ver = filemtime( $tpl_uri .'/style.css' );
     wp_enqueue_style('slick-slider-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
     wp_enqueue_style('slick-slider-css-theme', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css');
     wp_enqueue_style('catalog_product_slick_slider_style', $tpl_uri . '/css/catalog_product_slick_slider_style.css',
