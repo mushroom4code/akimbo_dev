@@ -1117,3 +1117,62 @@ function includeSlickSliderFiles() {
 }
 
 add_action('woocommerce_before_shop_loop_item_title', 'includeSlickSliderFiles');
+
+function recently_viewed_product_cookie() {
+    if (!is_product()) {
+        return;
+    }
+    if (empty( $_COOKIE[ 'woocommerce_recently_viewed' ])) {
+        $viewed_products = array();
+    } else {
+        $viewed_products = (array) explode('|', $_COOKIE[ 'woocommerce_recently_viewed' ]);
+    }
+
+    if (!in_array(get_the_ID(), $viewed_products)) {
+        $viewed_products[] = get_the_ID();
+    }
+
+    if ( sizeof( $viewed_products ) > 15 ) {
+        array_shift( $viewed_products ); // выкидываем первый элемент
+    }
+
+    wc_setcookie( 'woocommerce_recently_viewed', join( '|', $viewed_products ) );
+}
+
+add_action( 'template_redirect', 'recently_viewed_product_cookie', 20 );
+
+function setupFieldForWatchedProducts($user_id) {
+    update_user_meta($user_id, 'last_watched_produсts_date_notification', current_time('timestamp'));
+}
+
+add_action( 'user_register', 'setupFieldForWatchedProducts');
+
+function checkForWatchedProductsReadiness() {
+    if (empty( $_COOKIE[ 'woocommerce_recently_viewed' ])) {
+        $viewed_products = array();
+    } else {
+        $viewed_products = (array) explode('|', $_COOKIE[ 'woocommerce_recently_viewed' ]);
+    }
+    if (!empty($viewed_products)) {
+
+    }
+    if (is_user_logged_in() && !is_admin() && current_user_can('customer')) {
+        $lastWatchedProduсtsDateNotification = get_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification');
+        if ($lastWatchedProduсtsDateNotification) {
+            if ((current_time('timestamp') - $lastWatchedProduсtsDateNotification) >= 86400) {
+                if (empty( $_COOKIE[ 'woocommerce_recently_viewed' ])) {
+                    $viewed_products = array();
+                } else {
+                    $viewed_products = (array) explode('|', $_COOKIE[ 'woocommerce_recently_viewed' ]);
+                }
+                if (!empty($viewed_products)) {
+                    $last_five_elements = array_slice($viewed_products, -5);
+                }
+            }
+        } else {
+            update_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification', current_time('timestamp'));
+        }
+    }
+}
+
+add_action('init', 'checkForWatchedProductsReadiness');
