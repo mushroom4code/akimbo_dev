@@ -1144,10 +1144,10 @@ function checkForWatchedProductsReadiness()
 {
     if (is_user_logged_in() && !is_admin() && current_user_can('customer')) {
         if (!empty(get_user_meta(get_current_user_id(), 'email_agreement'))) {
-            if (get_user_meta(get_current_user_id(), 'email_agreement') === 'true') {
+            if (get_user_meta(get_current_user_id(), 'email_agreement')[0] === 'true') {
                 $lastWatchedProduсtsDateNotification = get_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification');
                 if ($lastWatchedProduсtsDateNotification) {
-                    if ((current_time('timestamp') - $lastWatchedProduсtsDateNotification) >= 86400) {
+                    if ((current_time('timestamp') - $lastWatchedProduсtsDateNotification[0]) >= 86400) {
                         if (empty($_COOKIE['woocommerce_recently_viewed'])) {
                             $viewed_products = array();
                         } else {

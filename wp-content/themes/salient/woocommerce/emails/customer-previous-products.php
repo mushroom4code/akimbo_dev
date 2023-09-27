@@ -1,27 +1,22 @@
 <?php
 if (!defined('ABSPATH')) {
     exit;
-}?>
+} ?>
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>AKIMBO —  Классическая женская одежда оптом от производителя</title>
+    <title>AKIMBO — Классическая женская одежда оптом от производителя</title>
 </head>
-<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" class="kt-woo-wrap order-items-normal k-responsive-normal title-style-none email-id-new_order">
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"
+      class="kt-woo-wrap order-items-normal k-responsive-normal title-style-none email-id-new_order">
 <div id="wrapper" dir="ltr"
      style="z-index: 999990; background-color: #fcfaf7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;">
     <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
         <tbody>
         <tr>
             <td align="center" valign="top">
-                <div id="template_header_image">
-                    <p style="margin-top: 0;"><img
-                                src="http://akimbo-moda.ru/2019/wp-content/uploads/2019/02/logo-mail2.png"
-                                alt="AKIMBO —  Классическая женская одежда оптом от производителя"
-                                style="border: none; display: inline-block; font-size: 14px; font-weight: bold; height: auto; outline: none; text-decoration: none; text-transform: capitalize; vertical-align: middle; max-width: 100%; margin-left: 0; margin-right: 0;">
-                    </p></div>
                 <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container"
                        style="background-color: #ffffff; border: 1px solid #e3e1de; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;">
                     <tbody>
@@ -57,7 +52,7 @@ if (!defined('ABSPATH')) {
                                             <tr>
                                                 <td valign="top" style="padding: 48px 48px 32px;">
                                                     <div id="body_content_inner"
-                                                         style="color: #414141; font-family: &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif; font-size: 14px; line-height: 150%; text-align: left;">
+                                                         style="margin-bottom: 35px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif; font-size: 14px; line-height: 150%; text-align: left;">
                                                         <h2 style="color: #af8a6e; display: block;
                                                         font-family: &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;
                                                         font-size: 18px; font-weight: bold; line-height: 130%;
@@ -70,9 +65,9 @@ if (!defined('ABSPATH')) {
                                                         <p style="margin: 0 0 16px;">Срок резерва без предоплаты 5 дней.
                                                             Минимальный заказ 35 000 рублей.</p>
                                                     </div>
-                                                    <div style="display: flex; flex-direction: column;">
+                                                    <div style="flex-direction: column; display: flex;">
                                                         <?php
-                                                        $viewed_products = (array) explode('|', $_COOKIE[ 'woocommerce_recently_viewed' ]);
+                                                        $viewed_products = (array)explode('|', $_COOKIE['woocommerce_recently_viewed']);
                                                         foreach ($viewed_products as $productId) {
                                                             $product = wc_get_product($productId);
                                                             ?>
@@ -80,14 +75,16 @@ if (!defined('ABSPATH')) {
                                                                 <?php
                                                                 $url = esc_url($product->get_permalink());
                                                                 echo '<div style="width: 50%; margin-right: 20px;">';
-                                                                echo '<a href="' . $url . '">';
+                                                                echo '<a style="text-decoration: none; color: none;" href="' . $url . '">';
                                                                 echo '<img style="height: fit-content; width: 100%; border-radius: 5px;"
-                                                                src="' . wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0]. '"/>';
+                                                                src="' . wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] . '"/>';
                                                                 echo '</a>';
                                                                 echo '</div>';
                                                                 echo '<div style="width: 50%;">';
                                                                 echo '<a href="' . $url . '">';
-                                                                echo '<h2>' . $product->get_title() . '</h2>';
+                                                                echo '<h2 style="font-size: 18px;font-weight: bold;
+                                                                    line-height: 130%;text-align: left;">'
+                                                                    . $product->get_title() . '</h2>';
                                                                 echo '</a>';
                                                                 echo '<div class="price-hover-wrap">';
 
@@ -129,7 +126,8 @@ if (!defined('ABSPATH')) {
                                                                           class="CustomEmptyPrice">В производстве</span>
                                                                 <?php } else {
                                                                     if ($price_html = $product->get_price_html()) : ?>
-                                                                        <span class="price"><?php echo $price_html . ' ' . $Date ?></span>
+                                                                        <span style="color: #af8a6e;"
+                                                                              class="price"><?php echo $price_html . ' ' . $Date ?></span>
                                                                     <?php endif;
                                                                 }
                                                                 echo '</div></div>';
@@ -168,9 +166,9 @@ if (!defined('ABSPATH')) {
                                         style="border-radius: 6px; border: 0; color: #707070; font-family: &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif; font-size: 12px; line-height: 150%; text-align: center; padding: 24px 0;">
                                         <p style="margin: 0 0 16px;"><span style="color: #af8a6e;"><strong>AKIMBO —  Классическая женская одежда оптом</strong></span>
                                         </p>
-                                        <p style="margin: 0 0 16px;">Тел./факс: 8 (495) 967-99-26. Почта:
-                                            sale@akimbo-moda.ru</p>
-                                        <p style="margin: 0 0 16px;">http://akimbo-moda.ru</p>
+                                        <p style="margin: 0 0 16px;"><a style="text-align: center;" href="<?=get_site_url().'/my-account/?ViewedProductsNewsletter=false';?>">Отписаться от рассылки</a>
+                                        </p>
+                                        <p style="margin: 0 0 16px;"><?= get_site_url(); ?></p>
                                     </td>
                                 </tr>
                                 </tbody>
