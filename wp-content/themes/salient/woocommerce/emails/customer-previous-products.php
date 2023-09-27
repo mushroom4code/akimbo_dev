@@ -2,6 +2,14 @@
 if (!defined('ABSPATH')) {
     exit;
 }?>
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>AKIMBO —  Классическая женская одежда оптом от производителя</title>
+</head>
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" class="kt-woo-wrap order-items-normal k-responsive-normal title-style-none email-id-new_order">
 <div id="wrapper" dir="ltr"
      style="z-index: 999990; background-color: #fcfaf7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;">
     <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
@@ -74,8 +82,7 @@ if (!defined('ABSPATH')) {
                                                                 echo '<div style="width: 50%; margin-right: 20px;">';
                                                                 echo '<a href="' . $url . '">';
                                                                 echo '<img style="height: fit-content; width: 100%; border-radius: 5px;"
-                                                                src="' . wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0]. '"
-                                                                style="height:100px; width: 100px"/>';
+                                                                src="' . wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0]. '"/>';
                                                                 echo '</a>';
                                                                 echo '</div>';
                                                                 echo '<div style="width: 50%;">';
@@ -178,5 +185,7 @@ if (!defined('ABSPATH')) {
         </tbody>
     </table>
 </div>
+</body>
+</html>
 
 
