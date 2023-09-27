@@ -1132,7 +1132,7 @@ function recently_viewed_product_cookie() {
         $viewed_products[] = get_the_ID();
     }
 
-    if ( sizeof( $viewed_products ) > 15 ) {
+    if ( sizeof( $viewed_products ) > 5 ) {
         array_shift( $viewed_products ); // выкидываем первый элемент
     }
 
@@ -1147,30 +1147,41 @@ function setupFieldForWatchedProducts($user_id) {
 
 add_action( 'user_register', 'setupFieldForWatchedProducts');
 
-function checkForWatchedProductsReadiness() {
-    if (empty( $_COOKIE[ 'woocommerce_recently_viewed' ])) {
-        $viewed_products = array();
-    } else {
-        $viewed_products = (array) explode('|', $_COOKIE[ 'woocommerce_recently_viewed' ]);
-    }
-    if (!empty($viewed_products)) {
+function setupFieldForEmailUserAgreement($user_id) {
+    update_user_meta($user_id, 'email_agreement', 'true');
+}
 
-    }
+add_action('user_register', 'setupFieldForEmailUserAgreement');
+
+function checkForWatchedProductsReadiness() {
     if (is_user_logged_in() && !is_admin() && current_user_can('customer')) {
-        $lastWatchedProduсtsDateNotification = get_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification');
-        if ($lastWatchedProduсtsDateNotification) {
-            if ((current_time('timestamp') - $lastWatchedProduсtsDateNotification) >= 86400) {
-                if (empty( $_COOKIE[ 'woocommerce_recently_viewed' ])) {
-                    $viewed_products = array();
-                } else {
-                    $viewed_products = (array) explode('|', $_COOKIE[ 'woocommerce_recently_viewed' ]);
+        if (get_user_meta(get_current_user_id(), 'email_agreement') === 'true') {
+            $lastWatchedProduсtsDateNotification = get_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification');
+            if ($lastWatchedProduсtsDateNotification) {
+                if ((current_time('timestamp') - $lastWatchedProduсtsDateNotification) >= 86400) {
+                    if (empty( $_COOKIE[ 'woocommerce_recently_viewed' ])) {
+                        $viewed_products = array();
+                    } else {
+                        $viewed_products = (array) explode('|', $_COOKIE[ 'woocommerce_recently_viewed' ]);
+                    }
+                    if (!empty($viewed_products)) {
+                        $last_five_elements = array_slice($viewed_products, -5);
+                        ob_start();
+                        include(ABSPATH.'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
+                        $viewed_products_letter = ob_get_contents();
+                        ob_end_clean();
+                        if(wp_mail('vagatkin@enterego.ru', 'Просмотренные товары', $viewed_products_letter)) {
+                            update_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification', current_time('timestamp'));
+                        }
+                    }
                 }
-                if (!empty($viewed_products)) {
-                    $last_five_elements = array_slice($viewed_products, -5);
+            } else {
+                if(empty(get_user_meta(get_current_user_id(), 'email_agreement'))) {
+                    update_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification', current_time('timestamp'));
                 }
             }
         } else {
-            update_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification', current_time('timestamp'));
+            update_user_meta(get_current_user_id(), 'user_agreement', 1);
         }
     }
 }
