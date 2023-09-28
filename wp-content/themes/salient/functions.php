@@ -1123,7 +1123,7 @@ function recently_viewed_product_cookie() {
         array_shift( $viewed_products ); // выкидываем первый элемент
     }
 
-    wc_setcookie( 'woocommerce_recently_viewed', join( '|', $viewed_products ), 2592000);
+    wc_setcookie( 'woocommerce_recently_viewed', join( '|', $viewed_products ), time()+2592000);
 }
 
 add_action( 'template_redirect', 'recently_viewed_product_cookie', 20 );
@@ -1142,6 +1142,11 @@ add_action('user_register', 'setupFieldForEmailUserAgreement');
 
 function checkForWatchedProductsReadiness()
 {
+    ob_start();
+    include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
+    $viewed_products_letter = ob_get_contents();
+    ob_end_clean();
+    wp_mail('mlelvese666@gmail.com', 'Просмотренные товары', $viewed_products_letter, 'Content-Type: text/html');
     if (is_user_logged_in() && !is_admin() && current_user_can('customer')) {
         if (!empty(get_user_meta(get_current_user_id(), 'email_agreement'))) {
             if (get_user_meta(get_current_user_id(), 'email_agreement')[0] === 'true') {
