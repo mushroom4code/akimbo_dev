@@ -1,4 +1,5 @@
 <?php
+/** @var $user */
 if (!defined('ABSPATH')) {
     exit;
 } ?>
@@ -67,7 +68,7 @@ if (!defined('ABSPATH')) {
                                                     </div>
                                                     <div>
                                                         <?php
-                                                        $viewed_products = (array)explode('|', $_COOKIE['woocommerce_recently_viewed']);
+                                                        $viewed_products = (array)explode('|', get_user_meta($user->ID, 'recently_viewed_products'));
                                                         foreach ($viewed_products as $productId) {
                                                             $product = wc_get_product($productId);
                                                             ?>
