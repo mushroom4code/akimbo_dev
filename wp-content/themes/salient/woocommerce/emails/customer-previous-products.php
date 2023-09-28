@@ -68,7 +68,7 @@ if (!defined('ABSPATH')) {
                                                     </div>
                                                     <div>
                                                         <?php
-                                                        $viewed_products = (array)explode('|', get_user_meta($user->ID, 'recently_viewed_products'));
+                                                        $viewed_products = (array)explode('|', get_user_meta($user->ID, 'recently_viewed_products')[0]);
                                                         foreach ($viewed_products as $productId) {
                                                             $product = wc_get_product($productId);
                                                             ?>
