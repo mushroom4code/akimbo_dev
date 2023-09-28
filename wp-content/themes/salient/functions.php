@@ -1123,7 +1123,7 @@ function recently_viewed_product_cookie() {
         array_shift( $viewed_products ); // выкидываем первый элемент
     }
 
-    wc_setcookie( 'woocommerce_recently_viewed', join( '|', $viewed_products ) );
+    wc_setcookie( 'woocommerce_recently_viewed', join( '|', $viewed_products ), 2592000);
 }
 
 add_action( 'template_redirect', 'recently_viewed_product_cookie', 20 );
