@@ -1159,7 +1159,7 @@ function checkForWatchedProductsReadiness()
                             include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
                             $viewed_products_letter = ob_get_contents();
                             ob_end_clean();
-                            if (wp_mail('vagatkin@enterego.ru', 'Просмотренные товары', $viewed_products_letter)) {
+                            if (wp_mail('vagatkin@enterego.ru', 'Просмотренные товары', $viewed_products_letter, 'Content-Type: text/html')) {
                                 update_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification', current_time('timestamp'));
                             }
                         }
