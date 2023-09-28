@@ -1142,11 +1142,6 @@ add_action('user_register', 'setupFieldForEmailUserAgreement');
 
 function checkForWatchedProductsReadiness()
 {
-    ob_start();
-    include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
-    $viewed_products_letter = ob_get_contents();
-    ob_end_clean();
-    wp_mail('mlelvese666@gmail.com', 'Просмотренные товары', $viewed_products_letter, 'Content-Type: text/html');
     if (is_user_logged_in() && !is_admin() && current_user_can('customer')) {
         if (!empty(get_user_meta(get_current_user_id(), 'email_agreement'))) {
             if (get_user_meta(get_current_user_id(), 'email_agreement')[0] === 'true') {
@@ -1164,7 +1159,11 @@ function checkForWatchedProductsReadiness()
                             include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
                             $viewed_products_letter = ob_get_contents();
                             ob_end_clean();
-                            if (wp_mail('vagatkin@enterego.ru', 'Просмотренные товары', $viewed_products_letter, 'Content-Type: text/html')) {
+                            $header = "Content-Type: text/html\r\n";
+                            if ( get_option( 'woocommerce_email_from_address' ) && get_option( 'woocommerce_email_from_name' ) ) {
+                                $header .= 'Reply-to: ' . get_option( 'woocommerce_email_from_name' ) . ' <' . get_option( 'woocommerce_email_from_address' ) . ">\r\n";
+                            }
+                            if (wp_mail('vagatkin@enterego.ru', '[AKIMBO]: Просмотренные товары', $viewed_products_letter, $header)) {
                                 update_user_meta(get_current_user_id(), 'last_watched_produсts_date_notification', current_time('timestamp'));
                             }
                         }
