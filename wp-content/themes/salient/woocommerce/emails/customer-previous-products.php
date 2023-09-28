@@ -57,7 +57,7 @@ if (!defined('ABSPATH')) {
                                                         font-family: &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;
                                                         font-size: 18px; font-weight: bold; line-height: 130%;
                                                         margin: 0 0 18px; text-align: left;">Здравствуйте!</h2>
-                                                        <p style="margin: 0 0 16px;">Вы недавно посещали наш сайт и
+                                                        <p style="color: black; margin: 0 0 16px;">Вы недавно посещали наш сайт и
                                                             просматривали эти модели одежды на сайте akimbo-moda.ru. Мы
                                                             их сохранили, чтобы в удобное время, вы могли вернуться к
                                                             ним. Если вы хотите зарезервировать их, добавьте
@@ -65,7 +65,7 @@ if (!defined('ABSPATH')) {
                                                         <p style="margin: 0 0 16px;">Срок резерва без предоплаты 5 дней.
                                                             Минимальный заказ 35 000 рублей.</p>
                                                     </div>
-                                                    <div style="flex-direction: column; display: flex;">
+                                                    <div style="flex-wrap: wrap; display: flex;">
                                                         <?php
                                                         $viewed_products = (array)explode('|', $_COOKIE['woocommerce_recently_viewed']);
                                                         foreach ($viewed_products as $productId) {
@@ -81,7 +81,7 @@ if (!defined('ABSPATH')) {
                                                                 echo '</a>';
                                                                 echo '</div>';
                                                                 echo '<div style="width: 50%;">';
-                                                                echo '<a href="' . $url . '">';
+                                                                echo '<a style="color: black; text-decoration: none;" href="' . $url . '">';
                                                                 echo '<h2 style="font-size: 18px;font-weight: bold;
                                                                     line-height: 130%;text-align: left;">'
                                                                     . $product->get_title() . '</h2>';
