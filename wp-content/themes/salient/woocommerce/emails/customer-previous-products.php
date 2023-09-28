@@ -62,10 +62,10 @@ if (!defined('ABSPATH')) {
                                                             их сохранили, чтобы в удобное время, вы могли вернуться к
                                                             ним. Если вы хотите зарезервировать их, добавьте
                                                             интересующие Вас модели в корзину.</p>
-                                                        <p style="margin: 0 0 16px;">Срок резерва без предоплаты 5 дней.
+                                                        <p style="color: black; margin: 0 0 16px;">Срок резерва без предоплаты 5 дней.
                                                             Минимальный заказ 35 000 рублей.</p>
                                                     </div>
-                                                    <div style="flex-wrap: wrap; display: flex;">
+                                                    <div>
                                                         <?php
                                                         $viewed_products = (array)explode('|', $_COOKIE['woocommerce_recently_viewed']);
                                                         foreach ($viewed_products as $productId) {
