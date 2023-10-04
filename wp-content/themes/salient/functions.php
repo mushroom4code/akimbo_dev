@@ -1139,11 +1139,13 @@ function setupFieldForEmailUserAgreement($user_id) {
 
 add_action('user_register', 'setupFieldForEmailUserAgreement');
 
-function user_last_login( $user_login, $user ) {
-    update_user_meta( $user->ID, 'last_login', current_time('timestamp'));
+function user_last_login() {
+    if (is_user_logged_in()) {
+        update_user_meta( wp_get_current_user()->ID, 'last_login', current_time('timestamp'));
+    }
 }
 
-add_action( 'wp_login', 'user_last_login', 10, 2);
+add_action('init', 'user_last_login');
 
 function checkForWatchedProductsReadiness()
 {
@@ -1164,7 +1166,7 @@ function checkForWatchedProductsReadiness()
                             include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
                             $viewed_products_letter = ob_get_contents();
                             ob_end_clean();
-                            if (wp_mail('test@test.ru', 'AKIMBO: Просмотренные товары', $viewed_products_letter, $header)) {
+                            if (wp_mail($user->user_email, 'AKIMBO: Просмотренные товары', $viewed_products_letter, $header)) {
                                 update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
                             }
                         }
