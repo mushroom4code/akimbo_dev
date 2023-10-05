@@ -1163,7 +1163,7 @@ function checkForWatchedProductsReadiness()
                     if (!empty(get_user_meta($user->ID, 'last_login')) && get_user_meta($user->ID, 'last_login')[0] - $lastWatchedProduсtsDateNotification[0] >= 86400) {
                         if (!empty(get_user_meta($user->ID, 'recently_viewed_products'))) {
                             $isAnyAvailableProducts = false;
-                            foreach (get_user_meta($user->ID, 'recently_viewed_products') as $productId) {
+                            foreach (explode('|', get_user_meta($user->ID, 'recently_viewed_products')[0]) as $productId) {
                                 if (wc_get_product($productId)->get_stock_quantity() >= 1) {
                                     $isAnyAvailableProducts = true;
                                     break;
