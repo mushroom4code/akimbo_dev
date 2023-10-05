@@ -1162,12 +1162,21 @@ function checkForWatchedProductsReadiness()
                 if ($lastWatchedProduсtsDateNotification) {
                     if (!empty(get_user_meta($user->ID, 'last_login')) && get_user_meta($user->ID, 'last_login')[0] - $lastWatchedProduсtsDateNotification[0] >= 86400) {
                         if (!empty(get_user_meta($user->ID, 'recently_viewed_products'))) {
-                            ob_start();
-                            include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
-                            $viewed_products_letter = ob_get_contents();
-                            ob_end_clean();
-                            if (wp_mail($user->user_email, 'AKIMBO: Просмотренные товары', $viewed_products_letter, $header)) {
-                                update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
+                            $isAnyAvailableProducts = false;
+                            foreach (get_user_meta($user->ID, 'recently_viewed_products') as $productId) {
+                                if (wc_get_product($productId)->get_stock_quantity() >= 1) {
+                                    $isAnyAvailableProducts = true;
+                                    break;
+                                }
+                            }
+                            if($isAnyAvailableProducts) {
+                                ob_start();
+                                include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
+                                $viewed_products_letter = ob_get_contents();
+                                ob_end_clean();
+                                if (wp_mail($user->user_email, 'AKIMBO: Просмотренные товары', $viewed_products_letter, $header)) {
+                                    update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
+                                }
                             }
                         }
                     }

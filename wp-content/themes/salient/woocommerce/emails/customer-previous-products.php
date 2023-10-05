@@ -71,6 +71,9 @@ if (!defined('ABSPATH')) {
                                                         $viewed_products = (array)explode('|', get_user_meta($user->ID, 'recently_viewed_products')[0]);
                                                         foreach ($viewed_products as $productId) {
                                                             $product = wc_get_product($productId);
+                                                            if ($product->get_stock_quantity() < 1) {
+                                                                continue;
+                                                            }
                                                             ?>
                                                             <div style="display: flex; margin-bottom: 10px;">
                                                                 <?php
