@@ -129,9 +129,9 @@ if (!defined('ABSPATH')) {
                                                                     <span style="margin-top: 0; font-size: 15px"
                                                                           class="CustomEmptyPrice">В производстве</span>
                                                                 <?php } else {
-                                                                    if ($price_html = $product->get_price_html()) : ?>
+                                                                    if ($price_product = $product->get_price()) : ?>
                                                                         <span style="color: #af8a6e;"
-                                                                              class="price"><?php echo $price_html . ' ' . $Date ?></span>
+                                                                              class="price"><?php echo $price_product . ' <span>₽</span>' . ' ' . $Date ?></span>
                                                                     <?php endif;
                                                                 }
                                                                 echo '</div></div>';
