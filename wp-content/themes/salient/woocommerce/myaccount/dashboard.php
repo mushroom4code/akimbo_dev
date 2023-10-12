@@ -56,29 +56,22 @@ $allowed_html = array(
 	?>
 </p>
 
-<?php if (!empty($_GET['ViewedProductsNewsletter'])) {
-  if ($_GET['ViewedProductsNewsletter'] === 'false') {
-      if (!(get_user_meta(get_current_user_id(), 'email_agreement')[0] === 'false')) {
-          update_user_meta(get_current_user_id(), 'email_agreement', 'false');
-          echo '<script>alert("Вы отписались от рассылки просмотренных товаров")</script>';
-      }
-  } else {
-      if (!(get_user_meta(get_current_user_id(), 'email_agreement')[0] === 'true')) {
-          update_user_meta(get_current_user_id(), 'email_agreement', 'true');
-          echo '<script>alert("Вы подписались на рассылку просмотренных товаров")</script>';
-      }
-  }
-} ?>
-    <p>
-        <?php
-        if (get_user_meta(get_current_user_id(), 'email_agreement')[0] === 'true') { ?>
-            <a href="<?=get_site_url().'/my-account/?ViewedProductsNewsletter=false'?>">Отменить рассылку просмотренных товаров на электронную почту</a>
-            <?php
-        } else { ?>
-            <a href="<?=get_site_url().'/my-account/?ViewedProductsNewsletter=true'?>">Подписаться на рассылку просмотренных товаров на электронную почту</a>
-            <?php
-        } ?>
-    </p>
+        <div id="ViewedProductsNewsletterBlock">
+            <input type="checkbox" id="ViewedProductsNewsletter" name="ViewedProductsNewsletter"
+                <?= (get_user_meta($current_user->ID, 'email_agreement')[0] === 'true') ? 'checked' : '' ?>/>
+            <label for="ViewedProductsNewsletter">
+                Подписка на рассылку просмотренных товаров на электронную почту
+            </label>
+        </div>
+
+    <?php
+wp_enqueue_script('viewed_products_newsletter_change', get_template_directory_uri().'/js/viewed_products_newsletter_change.js');
+wp_localize_script( 'viewed_products_newsletter_change', 'myajax',
+    array(
+        'url' => admin_url('admin-ajax.php')
+    )
+);
+?>
 <?php
 	/**
 	 * My Account dashboard.
