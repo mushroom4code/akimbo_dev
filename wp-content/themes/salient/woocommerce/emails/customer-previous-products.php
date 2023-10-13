@@ -70,7 +70,8 @@ if (!defined('ABSPATH')) {
                                                         <?php
                                                         foreach ($recently_viewed_products[0] as $productId) {
                                                             $product = wc_get_product($productId);
-                                                            if ($product->get_stock_quantity() < 1) {
+
+                                                            if (!$product->is_in_stock() && $product->get_status() !== 'publish') {
                                                                 continue;
                                                             }
                                                             ?>
@@ -169,7 +170,7 @@ if (!defined('ABSPATH')) {
                                         style="border-radius: 6px; border: 0; color: #707070; font-family: &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif; font-size: 12px; line-height: 150%; text-align: center; padding: 24px 0;">
                                         <p style="margin: 0 0 16px;"><span style="color: #af8a6e;"><strong>AKIMBO —  Классическая женская одежда оптом</strong></span>
                                         </p>
-                                        <p style="margin: 0 0 16px;"><a style="text-align: center;" href="<?=get_site_url().'/my-account/?ViewedProductsNewsletter=false';?>">Отписаться от рассылки</a>
+                                        <p style="margin: 0 0 16px;"><a style="text-align: center;" href="<?=get_site_url().'/my-account/edit-account';?>">Отписаться от рассылки</a>
                                         </p>
                                         <p style="margin: 0 0 16px;"><?= get_site_url(); ?></p>
                                     </td>
