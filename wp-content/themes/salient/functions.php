@@ -919,17 +919,19 @@ require_once "includes/notisend/NotisendOptionsPage.php";
 
 if ( ! function_exists( 'storeCustomerOnAccountActivated' ) ) {
 	function storeCustomerOnAccountActivated( $user_id, $args = [] ) {
+        global $wpdb;
 
-		$user = get_user_by( 'id', $user_id );
-		if ( ! empty( $user ) && ! empty( $user->user_email ) ) {
-			$data             = [
-				"email" => $user->user_email,
-			];
-			$notisendSettings = NotisendSettings::getSettings();
-			createRecipients( $data, "email/lists/$notisendSettings->group/recipients" );
-		}
+        DataStore::update_registered_customer( $user_id );
+        $customer = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}wc_customer_lookup WHERE 
+                                        user_id=$user_id");
+        if (!empty($customer)) {
+            $notisendSettings = NotisendSettings::getSettings();
 
-		DataStore::update_registered_customer( $user_id );
+            $data = notisendFillRecipient($customer, $notisendSettings);
+            if ($data) {
+                createRecipients($data, "email/lists/$notisendSettings->group/recipients");
+            }
+        }
 	}
 }
 
