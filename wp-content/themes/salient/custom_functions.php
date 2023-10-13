@@ -88,3 +88,5 @@ function checkForWatchedProductsReadiness()
 if ( ! wp_next_scheduled( 'checkForWatchedProductsReadinessHook' ) ) {
     wp_schedule_event( time(), 'hourly', 'checkForWatchedProductsReadinessHook' );
 }
+
+add_action( 'checkForWatchedProductsReadinessHook', 'checkForWatchedProductsReadiness' );
