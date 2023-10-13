@@ -44,24 +44,6 @@ do_action( 'woocommerce_before_edit_account_form' ); ?>
 		<input type="email" class="woocommerce-Input woocommerce-Input--email input-text" name="account_email" id="account_email" autocomplete="email" value="<?php echo esc_attr( $user->user_email ); ?>" />
 	</p>
 
-
-    <div id="ViewedProductsNewsletterBlock" style="margin: 1.5rem 0;">
-        <input type="checkbox" id="ViewedProductsNewsletter" name="ViewedProductsNewsletter"
-            <?= (get_user_meta($user->ID, 'email_agreement')[0] === 'true') ? 'checked' : '' ?>/>
-        <label for="ViewedProductsNewsletter">
-            Подписка на рассылку просмотренных товаров на электронную почту
-        </label>
-    </div>
-
-    <?php
-    wp_enqueue_script('viewed_products_newsletter_change', get_template_directory_uri().'/js/viewed_products_newsletter_change.js');
-    wp_localize_script( 'viewed_products_newsletter_change', 'myajax',
-        array(
-            'url' => admin_url('admin-ajax.php')
-        )
-    );
-    ?>
-
 	<fieldset>
 		<legend><?php esc_html_e( 'Password change', 'woocommerce' ); ?></legend>
 
