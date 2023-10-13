@@ -30,7 +30,7 @@ function setupFieldForWatchedProducts($user_id) {
 add_action( 'user_register', 'setupFieldForWatchedProducts');
 
 function setupFieldForEmailUserAgreement($user_id) {
-    update_user_meta($user_id, 'email_agreement', 'true');
+    update_user_meta($user_id, 'email_agreement_field', '1');
 }
 
 add_action('user_register', 'setupFieldForEmailUserAgreement');
@@ -52,40 +52,34 @@ function checkForWatchedProductsReadiness()
         $header .= 'From: ' . get_option('woocommerce_email_from_name') . ' <' . get_option('woocommerce_email_from_address') . ">\r\n";
     }
     foreach ($user_query->get_results() as $user) {
-        $email_agreement = get_user_meta($user->ID, 'email_agreement');
-        if (!empty($email_agreement)) {
-            if ($email_agreement[0] === 'true') {
-                $lastWatchedProduсtsDateNotification = get_user_meta($user->ID, 'last_watched_produсts_date_notification');
-                if ($lastWatchedProduсtsDateNotification) {
-                    $last_login = get_user_meta($user->ID, 'last_login');
-                    if (!empty($last_login) && $last_login[0] - $lastWatchedProduсtsDateNotification[0] >= 86400) {
-                        $recently_viewed_products = get_user_meta($user->ID, 'recently_viewed_products');
-                        if (!empty($recently_viewed_products)) {
-                            $isAnyAvailableProducts = false;
-                            foreach ($recently_viewed_products[0] as $productId) {
-                                if (wc_get_product($productId)->get_stock_quantity() >= 1) {
-                                    $isAnyAvailableProducts = true;
-                                    break;
-                                }
-                            }
-                            if($isAnyAvailableProducts) {
-                                ob_start();
-                                include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
-                                $viewed_products_letter = ob_get_contents();
-                                ob_end_clean();
-                                if (wp_mail($user->user_email, 'AKIMBO: Просмотренные товары', $viewed_products_letter, $header)) {
-                                    update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
-                                }
-                            }
+        if (get_user_meta($user->ID, 'email_agreement_field')[0] === '1') {
+            $lastWatchedProduсtsDateNotification = get_user_meta($user->ID, 'last_watched_produсts_date_notification');
+            if (empty($lastWatchedProduсtsDateNotification)) {
+                update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
+                continue;
+            }
+            $last_login = get_user_meta($user->ID, 'last_login');
+            if (!empty($last_login) && $last_login[0] - $lastWatchedProduсtsDateNotification[0] >= 86400) {
+                $recently_viewed_products = get_user_meta($user->ID, 'recently_viewed_products');
+                if (!empty($recently_viewed_products)) {
+                    $isAnyAvailableProducts = false;
+                    foreach ($recently_viewed_products[0] as $productId) {
+                        $product = wc_get_product($productId);
+                        if ($product->is_in_stock() && $product->get_status() === 'publish') {
+                            $isAnyAvailableProducts = true;
+                            break;
                         }
                     }
-                } else {
-                    update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
+                    if ($isAnyAvailableProducts) {
+                        ob_start();
+                        include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
+                        $viewed_products_letter = ob_get_contents();
+                        ob_end_clean();
+                        if (wp_mail($user->user_email, 'AKIMBO: Просмотренные товары', $viewed_products_letter, $header)) {
+                            update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
+                        }
+                    }
                 }
-            }
-        } else {
-            if (empty(get_user_meta($user->ID, 'email_agreement'))) {
-                update_user_meta($user->ID, 'email_agreement', 'true');
             }
         }
     }
@@ -96,16 +90,3 @@ if ( ! wp_next_scheduled( 'checkForWatchedProductsReadinessHook' ) ) {
 }
 
 add_action( 'checkForWatchedProductsReadinessHook', 'checkForWatchedProductsReadiness' );
-
-add_action( 'wp_ajax_viewed_products_newsletter_change', 'ViewedProductsNewsletterChange' );
-function ViewedProductsNewsletterChange() {
-    $status = false;
-    if (isset($_POST['value'])) {
-        if($_POST['value'] === 'true') {
-            $status = update_user_meta(get_current_user_id(), 'email_agreement', 'true');
-        } else {
-            $status = update_user_meta(get_current_user_id(), 'email_agreement', 'false');
-        }
-    }
-    exit(json_encode($status));
-}

@@ -56,22 +56,6 @@ $allowed_html = array(
 	?>
 </p>
 
-        <div id="ViewedProductsNewsletterBlock">
-            <input type="checkbox" id="ViewedProductsNewsletter" name="ViewedProductsNewsletter"
-                <?= (get_user_meta($current_user->ID, 'email_agreement')[0] === 'true') ? 'checked' : '' ?>/>
-            <label for="ViewedProductsNewsletter">
-                Подписка на рассылку просмотренных товаров на электронную почту
-            </label>
-        </div>
-
-    <?php
-wp_enqueue_script('viewed_products_newsletter_change', get_template_directory_uri().'/js/viewed_products_newsletter_change.js');
-wp_localize_script( 'viewed_products_newsletter_change', 'myajax',
-    array(
-        'url' => admin_url('admin-ajax.php')
-    )
-);
-?>
 <?php
 	/**
 	 * My Account dashboard.
