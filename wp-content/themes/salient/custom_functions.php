@@ -1,5 +1,5 @@
 <?php
-function users_recently_viewed_products() {
+function users_recently_viewed_products(): void {
     if (!is_product()) {
         return;
     }
@@ -7,7 +7,7 @@ function users_recently_viewed_products() {
         if (empty(get_user_meta(get_current_user_id(), 'recently_viewed_products'))) {
             $viewed_products = array();
         } else {
-            $viewed_products = (array)explode('|', get_user_meta(get_current_user_id(), 'recently_viewed_products')[0]);
+            $viewed_products = get_user_meta(get_current_user_id(), 'recently_viewed_products')[0];
         }
 
         if (!in_array(get_the_ID(), $viewed_products)) {
@@ -23,19 +23,13 @@ function users_recently_viewed_products() {
 
 add_action( 'template_redirect', 'users_recently_viewed_products', 20 );
 
-function setupFieldForWatchedProducts($user_id) {
+function setupFieldForWatchedProducts($user_id): void {
     update_user_meta($user_id, 'last_watched_produсts_date_notification', current_time('timestamp'));
 }
 
 add_action( 'user_register', 'setupFieldForWatchedProducts');
 
-function setupFieldForEmailUserAgreement($user_id) {
-    update_user_meta($user_id, 'email_agreement_field', '1');
-}
-
-add_action('user_register', 'setupFieldForEmailUserAgreement');
-
-function user_last_login() {
+function user_last_login(): void {
     if (is_user_logged_in()) {
         update_user_meta( wp_get_current_user()->ID, 'last_login', current_time('timestamp'));
     }
@@ -43,7 +37,7 @@ function user_last_login() {
 
 add_action('init', 'user_last_login');
 
-function checkForWatchedProductsReadiness()
+function checkForWatchedProductsReadiness(): void
 {
     $user_query = new WP_User_Query(array('role' => 'Customer'));
     $header = "Content-Type: text/html\r\n";
@@ -52,14 +46,14 @@ function checkForWatchedProductsReadiness()
         $header .= 'From: ' . get_option('woocommerce_email_from_name') . ' <' . get_option('woocommerce_email_from_address') . ">\r\n";
     }
     foreach ($user_query->get_results() as $user) {
-        if (get_user_meta($user->ID, 'email_agreement_field')[0] === '1') {
-            $lastWatchedProduсtsDateNotification = get_user_meta($user->ID, 'last_watched_produсts_date_notification');
-            if (empty($lastWatchedProduсtsDateNotification)) {
+        if (get_user_meta($user->ID, 'email_agreement_field')[0] !== '1') {
+            $lastWatchedProductsDateNotification = get_user_meta($user->ID, 'last_watched_produсts_date_notification');
+            if (empty($lastWatchedProductsDateNotification)) {
                 update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
                 continue;
             }
             $last_login = get_user_meta($user->ID, 'last_login');
-            if (!empty($last_login) && $last_login[0] - $lastWatchedProduсtsDateNotification[0] >= 86400) {
+            if (!empty($last_login) && $last_login[0] - $lastWatchedProductsDateNotification[0] >= 86400) {
                 $recently_viewed_products = get_user_meta($user->ID, 'recently_viewed_products');
                 if (!empty($recently_viewed_products)) {
                     $isAnyAvailableProducts = false;
