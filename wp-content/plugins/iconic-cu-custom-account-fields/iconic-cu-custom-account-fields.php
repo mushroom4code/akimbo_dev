@@ -47,7 +47,7 @@ function iconic_get_account_fields() {
             'hide_in_registration' => true,
             'required'             => false,
         ),
-        'email_agreement'                   => array(
+        'email_last_watched_products_refusal' => array(
             'type'                 => 'checkbox',
             'label'                => __( 'Отказ от рассылки с просмотренными товарами', 'iconic' ),
             'hide_in_account'      => false,
