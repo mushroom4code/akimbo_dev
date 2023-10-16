@@ -46,18 +46,18 @@ function checkForWatchedProductsReadiness(): void
         $header .= 'From: ' . get_option('woocommerce_email_from_name') . ' <' . get_option('woocommerce_email_from_address') . ">\r\n";
     }
     foreach ($user_query->get_results() as $user) {
-        if (get_user_meta($user->ID, 'email_agreement_field')[0] !== '1') {
-            $lastWatchedProductsDateNotification = get_user_meta($user->ID, 'last_watched_produсts_date_notification');
+        if (get_user_meta($user->ID, 'email_last_watched_products_refusal', true) !== '1') {
+            $lastWatchedProductsDateNotification = get_user_meta($user->ID, 'last_watched_produсts_date_notification', true);
             if (empty($lastWatchedProductsDateNotification)) {
                 update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
                 continue;
             }
-            $last_login = get_user_meta($user->ID, 'last_login');
-            if (!empty($last_login) && $last_login[0] - $lastWatchedProductsDateNotification[0] >= 86400) {
-                $recently_viewed_products = get_user_meta($user->ID, 'recently_viewed_products');
+            $last_login = get_user_meta($user->ID, 'last_login', true);
+            if (!empty($last_login) && $last_login - $lastWatchedProductsDateNotification >= 86400) {
+                $recently_viewed_products = get_user_meta($user->ID, 'recently_viewed_products', true);
                 if (!empty($recently_viewed_products)) {
                     $isAnyAvailableProducts = false;
-                    foreach ($recently_viewed_products[0] as $productId) {
+                    foreach ($recently_viewed_products as $productId) {
                         $product = wc_get_product($productId);
                         if ($product->is_in_stock() && $product->get_status() === 'publish') {
                             $isAnyAvailableProducts = true;

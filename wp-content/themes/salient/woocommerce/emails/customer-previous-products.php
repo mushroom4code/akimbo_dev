@@ -68,7 +68,7 @@ if (!defined('ABSPATH')) {
                                                     </div>
                                                     <div>
                                                         <?php
-                                                        foreach ($recently_viewed_products[0] as $productId) {
+                                                        foreach ($recently_viewed_products as $productId) {
                                                             $product = wc_get_product($productId);
 
                                                             if (!$product->is_in_stock() && $product->get_status() !== 'publish') {
