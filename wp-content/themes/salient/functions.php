@@ -1105,4 +1105,4 @@ function sendSettingsAjax(): void {
 add_action( 'wp_ajax_sendSettingsAjax', 'sendSettingsAjax' );
 add_action( 'wp_ajax_nopriv_sendSettingsAjax', 'sendSettingsAjax' );
 
-include_once('custom_functions.php');
+include_once('last_watched_products_notification_functions.php');
