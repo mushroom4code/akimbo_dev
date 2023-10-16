@@ -49,7 +49,7 @@ function iconic_get_account_fields() {
         ),
         'email_agreement'                   => array(
             'type'                 => 'checkbox',
-            'label'                => __( 'Соглашение на принятие рассылки о просмотренных товаров', 'iconic' ),
+            'label'                => __( 'Отказ от рассылки с просмотренными товарами', 'iconic' ),
             'hide_in_account'      => false,
             'hide_in_admin'        => false,
             'hide_in_checkout'     => false,
