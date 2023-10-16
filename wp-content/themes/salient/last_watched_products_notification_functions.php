@@ -7,7 +7,8 @@ function users_recently_viewed_products(): void {
         if (empty(get_user_meta(get_current_user_id(), 'recently_viewed_products'))) {
             $viewed_products = array();
         } else {
-            $viewed_products = get_user_meta(get_current_user_id(), 'recently_viewed_products')[0];
+            $meta_viewed_products_value = get_user_meta(get_current_user_id(), 'recently_viewed_products', true);
+            $viewed_products = is_array($meta_viewed_products_value) ? $meta_viewed_products_value : array($meta_viewed_products_value);
         }
 
         if (!in_array(get_the_ID(), $viewed_products)) {
