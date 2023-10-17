@@ -1119,3 +1119,5 @@ function includeSlickSliderFiles() {
 }
 
 add_action('woocommerce_before_shop_loop_item_title', 'includeSlickSliderFiles');
+
+include_once('last_watched_products_notification_functions.php');
