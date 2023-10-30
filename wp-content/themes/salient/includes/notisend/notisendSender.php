@@ -59,46 +59,60 @@ function notisend_action_export_clients() {
 	$records = 0;
 	$requestData = [];
 	foreach ( $customers as $customer ) {
-		$value = [];
-		if (!empty($notisendSettings->param_city) && !empty($customer->city)) {
-			$value[] =  [
-				'parameter_id'=>$notisendSettings->param_city,
-				'value'=>$customer->city
-			];
-		}
-		if (!empty($notisendSettings->param_date_registered) && !empty($customer->date_registered)) {
-			$date_registered = DateTime::createFromFormat('Y-m-d H:i:s', $customer->date_registered);
-			if ($date_registered!==false) {
-				$value[] = [
-					'parameter_id' => $notisendSettings->param_date_registered,
-					'value'        => $date_registered->format('d.m.Y H:i')
-				];
-			}
-		}
-		if ( !empty( $notisendSettings->param_phone ) ) {
-			$phone = get_user_meta( $customer->user_id, 'billing_phone', true );
-			if ( !empty( $phone ) ) {
-				$value[] = [
-					'parameter_id' => $notisendSettings->param_phone,
-					'value'        => $phone
-				];
-			}
-		}
-		if (!empty($customer->email)) {
-			$requestData['recipients'][] = [
-				'email'=> $customer->email,
-				'values' => $value
-			];
-			$records++;
-		}
+
+        $recipient = notisendFillRecipient($customer, $notisendSettings);
+        if ($recipient) {
+            $requestData['recipients'][] = $recipient;
+            $records++;
+        }
 
 		if ($records===1000) {
-//			createRecipients( $requestData, "/email/lists/$notisendSettings->group/recipients/imports");
+			createRecipients( $requestData, "/email/lists/$notisendSettings->group/recipients/imports");
 			$records = 0;
 			$requestData=[];
 		}
 	}
 	if ($records>0) {
-//		createRecipients( $requestData, "/email/lists/$notisendSettings->group/recipients/imports");
+		createRecipients( $requestData, "/email/lists/$notisendSettings->group/recipients/imports");
 	}
+}
+
+/**
+ * @param $customer - customer
+ * @param $notisendSettings - settings array
+ * @return array|null - data for send to notisend
+ */
+function notisendFillRecipient($customer, $notisendSettings): ?array
+{
+    if (empty($customer->email)) {
+        return null;
+    }
+
+    $value = [];
+    if (!empty($notisendSettings->param_city) && !empty($customer->city)) {
+        $value[] =  [
+            'parameter_id'=>$notisendSettings->param_city,
+            'value'=>$customer->city
+        ];
+    }
+    if (!empty($notisendSettings->param_date_registered) && !empty($customer->date_registered)) {
+        $date_registered = DateTime::createFromFormat('Y-m-d H:i:s', $customer->date_registered);
+        if ($date_registered!==false) {
+            $value[] = [
+                'parameter_id' => $notisendSettings->param_date_registered,
+                'value'        => $date_registered->format('d.m.Y H:i')
+            ];
+        }
+    }
+    if ( !empty( $notisendSettings->param_phone ) ) {
+        $phone = get_user_meta( $customer->user_id, 'billing_phone', true );
+        if ( !empty( $phone ) ) {
+            $value[] = [
+                'parameter_id' => $notisendSettings->param_phone,
+                'value'        => $phone
+            ];
+        }
+    }
+
+    return ['email'=> $customer->email, 'values' => $value];
 }

@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
         <tbody>
         <tr>
             <td align="center" valign="top">
-                <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container"
+                <table border="0" cellpadding="0" cellspacing="0" id="template_container"
                        style="background-color: #ffffff; border: 1px solid #e3e1de; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;">
                     <tbody>
                     <tr>
@@ -43,7 +43,7 @@ if (!defined('ABSPATH')) {
                     <tr>
                         <td align="center" valign="top">
                             <!-- Body -->
-                            <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_body">
+                            <table border="0" cellpadding="0" cellspacing="0" id="template_body">
                                 <tbody>
                                 <tr>
                                     <td valign="top" id="body_content" style="background-color: #ffffff;">
@@ -70,6 +70,7 @@ if (!defined('ABSPATH')) {
                                                         <?php
                                                         foreach ($recently_viewed_products as $productId) {
                                                             $product = wc_get_product($productId);
+                                                            $GLOBALS['product'] = $product;
 
                                                             if (!$product->is_in_stock() && $product->get_status() !== 'publish') {
                                                                 continue;
@@ -124,16 +125,17 @@ if (!defined('ABSPATH')) {
                                                                     $Date = $infoMessage;
                                                                 }
 
-                                                                if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
-                                                                    ?>
-                                                                    <span style="margin-top: 0; font-size: 15px"
-                                                                          class="CustomEmptyPrice">В производстве</span>
-                                                                <?php } else {
-                                                                    if ($price_product = $product->get_price()) : ?>
-                                                                        <span style="color: #af8a6e;"
-                                                                              class="price"><?php echo $price_product . ' <span>₽</span>' . ' ' . $Date ?></span>
-                                                                    <?php endif;
-                                                                }
+                                                                include(ABSPATH . 'wp-content/themes/salient/woocommerce/loop/price.php');
+//                                                                if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
+//                                                                    ?>
+<!--                                                                    <span style="margin-top: 0; font-size: 15px"-->
+<!--                                                                          class="CustomEmptyPrice">В производстве</span>-->
+<!--                                                                --><?php //} else {
+//                                                                    if ($price_product = $product->get_price()) : ?>
+<!--                                                                        <span style="color: #af8a6e;"-->
+<!--                                                                              class="price">--><?php //echo $price_product . ' <span>₽</span>' . ' ' . $Date ?><!--</span>-->
+<!--                                                                    --><?php //endif;
+//                                                                }
                                                                 echo '</div></div>';
                                                                 ?>
                                                             </div>
@@ -159,7 +161,7 @@ if (!defined('ABSPATH')) {
         <tr>
             <td align="center" valign="top">
                 <!-- Footer -->
-                <table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
+                <table border="0" cellpadding="10" cellspacing="0" style="width: 100%" id="template_footer">
                     <tbody>
                     <tr>
                         <td valign="top" style="padding: 0; border-radius: 6px;">
