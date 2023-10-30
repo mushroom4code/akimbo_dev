@@ -13,8 +13,9 @@ if (!defined('ABSPATH')) {
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"
       class="kt-woo-wrap order-items-normal k-responsive-normal title-style-none email-id-new_order">
 <div id="wrapper" dir="ltr"
-     style="z-index: 999990; background-color: #fcfaf7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;">
-    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+     style="z-index: 999990; background-color: #fcfaf7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;
+display: flex; justify-content: center;">
+    <table border="0" cellpadding="0" cellspacing="0" style="max-width: 600px;" height="100%" width="100%">
         <tbody>
         <tr>
             <td align="center" valign="top">
@@ -125,17 +126,37 @@ if (!defined('ABSPATH')) {
                                                                     $Date = $infoMessage;
                                                                 }
 
-                                                                include(ABSPATH . 'wp-content/themes/salient/woocommerce/loop/price.php');
-//                                                                if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
-//                                                                    ?>
-<!--                                                                    <span style="margin-top: 0; font-size: 15px"-->
-<!--                                                                          class="CustomEmptyPrice">В производстве</span>-->
-<!--                                                                --><?php //} else {
-//                                                                    if ($price_product = $product->get_price()) : ?>
-<!--                                                                        <span style="color: #af8a6e;"-->
-<!--                                                                              class="price">--><?php //echo $price_product . ' <span>₽</span>' . ' ' . $Date ?><!--</span>-->
-<!--                                                                    --><?php //endif;
-//                                                                }
+                                                                $prices = $product->get_variation_prices(true);
+
+                                                                if (empty($prices['price'])) {
+                                                                    $price = apply_filters('woocommerce_variable_empty_price_html', '', $product);
+                                                                } else {
+                                                                    $min_price = current($prices['price']);
+                                                                    $max_price = end($prices['price']);
+                                                                    $min_reg_price = current($prices['regular_price']);
+                                                                    $max_reg_price = end($prices['regular_price']);
+
+                                                                    if ($min_price !== $max_price) {
+                                                                        $price = wc_format_price_range($min_price, $max_price);
+                                                                    } elseif ($product->is_on_sale() && $min_reg_price === $max_reg_price) {
+                                                                        $price = wc_format_sale_price(wc_price($max_reg_price), wc_price($min_price));
+                                                                    } else {
+                                                                        $price = wc_price($min_price);
+                                                                    }
+
+                                                                    $price = apply_filters('woocommerce_variable_price_html', $price . $product->get_price_suffix(), $product);
+                                                                }
+
+                                                                if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
+                                                                    ?>
+                                                                    <span style="margin-top: 0; font-size: 15px"
+                                                                          class="CustomEmptyPrice">В производстве</span>
+                                                                <?php } else {
+                                                                    if ($price) : ?>
+                                                                        <span style="color: #af8a6e;"
+                                                                              class="price"><?php echo $price?></span>
+                                                                    <?php endif;
+                                                                }
                                                                 echo '</div></div>';
                                                                 ?>
                                                             </div>
