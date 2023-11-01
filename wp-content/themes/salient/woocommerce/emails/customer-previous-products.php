@@ -439,7 +439,7 @@ if (!defined('ABSPATH')) {
         <?php
     } ?>
 
-    <div style="background:#fcfaf7;background-color:#fcfaf7;margin:0px auto;max-width:600px;">
+    <div style="background:#fcfaf7;background-color:#fcfaf7;margin:0px auto;max-width:600px; padding-top:15px;">
 
         <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#fcfaf7;background-color:#fcfaf7;width:100%;">
             <tbody>
