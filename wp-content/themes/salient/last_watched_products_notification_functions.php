@@ -40,7 +40,7 @@ add_action('init', 'user_last_login');
 
 function checkForWatchedProductsReadiness(): void
 {
-    $user_query = new WP_User_Query(array('role' => 'Administrator'));
+    $user_query = new WP_User_Query(array('role' => 'Customer'));
     $header = "Content-Type: text/html\r\n";
     if (get_option('woocommerce_email_from_address') && get_option('woocommerce_email_from_name')) {
         $header .= 'Reply-to: ' . get_option('woocommerce_email_from_name') . ' <' . get_option('woocommerce_email_from_address') . ">\r\n";
@@ -54,7 +54,7 @@ function checkForWatchedProductsReadiness(): void
                 continue;
             }
             $last_login = get_user_meta($user->ID, 'last_login', true);
-            if (!empty($last_login) && $last_login - $lastWatchedProductsDateNotification >= 3) {
+            if (!empty($last_login) && $last_login - $lastWatchedProductsDateNotification >= 86400) {
                 $recently_viewed_products = get_user_meta($user->ID, 'recently_viewed_products', true);
                 if (!empty($recently_viewed_products)) {
                     $isAnyAvailableProducts = false;
@@ -70,10 +70,9 @@ function checkForWatchedProductsReadiness(): void
                         include(ABSPATH . 'wp-content/themes/salient/woocommerce/emails/customer-previous-products.php');
                         $viewed_products_letter = ob_get_contents();
                         ob_end_clean();
-                        var_dump($viewed_products_letter);
-//                        if (wp_mail($user->user_email, 'AKIMBO: Просмотренные товары', $viewed_products_letter, $header)) {
-//                            update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
-//                        }
+                        if (wp_mail($user->user_email, 'AKIMBO: Просмотренные товары', $viewed_products_letter, $header)) {
+                            update_user_meta($user->ID, 'last_watched_produсts_date_notification', current_time('timestamp'));
+                        }
                     }
                 }
             }
@@ -85,5 +84,4 @@ if ( ! wp_next_scheduled( 'checkForWatchedProductsReadinessHook' ) ) {
     wp_schedule_event( time(), 'hourly', 'checkForWatchedProductsReadinessHook' );
 }
 
-add_action('init', 'checkForWatchedProductsReadiness');
 add_action( 'checkForWatchedProductsReadinessHook', 'checkForWatchedProductsReadiness' );

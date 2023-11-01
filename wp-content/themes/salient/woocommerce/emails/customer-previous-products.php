@@ -130,6 +130,7 @@ if (!defined('ABSPATH')) {
 
 
 <div style="background-color:#fcfaf7;">
+    <div style="backgound-color"></div>
 
 
     <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" bgcolor="#af8a6e" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
@@ -149,7 +150,7 @@ if (!defined('ABSPATH')) {
                             <tbody>
 
                             <tr>
-                                <td align="center" style="font-size:0px;padding:25px 15px 8px 15px;word-break:break-word;">
+                                <td align="center" style="font-size:0px;padding:24px 15px 24px 15px;word-break:break-word;">
 
                                     <div style="font-family:Merriweather, Georgia, serif;font-size:14px;line-height:1.5;text-align:center;color:#000000;"><h1 style=" font-size: 22px; color: #ffffff;">Ваши просмотренные товары</h1></div>
 
@@ -350,7 +351,6 @@ if (!defined('ABSPATH')) {
             }
 
             ?>
-        </div>
 
     <div style="background:#FFFFFF;background-color:#FFFFFF;margin:0px auto;max-width:600px;">
         <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
@@ -375,7 +375,7 @@ if (!defined('ABSPATH')) {
                                             <tr>
                                                 <td style="width:279px;">
                                                     <a href="<?= $url ?>" style="color: none; text-decoration: none;">
-                                                        <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] ?>" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="279" height="auto">
+                                                        <img style="border-radius: 5px;" src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] ?>" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="279" height="auto">
                                                     </a>
                                                 </td>
                                             </tr>
