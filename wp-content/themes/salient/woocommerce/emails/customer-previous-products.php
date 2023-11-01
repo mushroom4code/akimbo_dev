@@ -373,9 +373,9 @@ if (!defined('ABSPATH')) {
                                         <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                                             <tbody>
                                             <tr>
-                                                <td style="width:279px;">
+                                                <td>
                                                     <a href="<?= $url ?>" style="color: none; text-decoration: none;">
-                                                        <img style="border-radius: 5px;" src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] ?>" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="279" height="auto">
+                                                        <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($product->get_id()), 'single-post-thumbnail')[0] ?>" style="width: 100%; border-radius: 5px;border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" height="auto">
                                                     </a>
                                                 </td>
                                             </tr>
@@ -398,9 +398,9 @@ if (!defined('ABSPATH')) {
                                 <tbody>
 
                                 <tr>
-                                    <td align="left" style="font-size:0px;padding:0px 30px 10px 10px;word-break:break-word;">
+                                    <td align="left" style="font-size:0px;padding:15px 30px 10px 10px;word-break:break-word;">
 
-                                        <div style="font-family:Lato, Tahoma, sans-serif;font-size:14px;line-height:1.8;text-align:left;color:#000000;"><h2 style="font-family: Merriweather, Georgia, serif; font-size: 18px; color: #AF8A6E; margin-top: 0px;"> </h2>
+                                        <div style="font-family:Lato, Tahoma, sans-serif;font-size:14px;line-height:1.8;text-align:left;color:#000000;">
                                             <h2 style="font-family: Merriweather, Georgia, serif; font-size: 18px; color: #AF8A6E; margin-top: 0px;">
                                                 <a href="<?=$url?>" style="color: black; text-decoration: none;">
                                                     <span style="font-family: Verdana, sans-serif; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);"><strong><?= $product->get_title() ?></strong></span>
