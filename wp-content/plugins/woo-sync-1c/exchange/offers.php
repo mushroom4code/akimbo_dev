@@ -455,7 +455,6 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
                 $post_meta['_price'] = $price;
             } elseif ($offer_price['ИдТипаЦены'] === $wc1c_option['wc1c_product_base_price']) {// #000018198
                 $post_meta['_base_price'] = $price;
-                $post_meta['_price'] = $price;
             }
 
         }

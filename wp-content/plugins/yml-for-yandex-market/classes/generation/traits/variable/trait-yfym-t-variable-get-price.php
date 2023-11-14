@@ -17,7 +17,7 @@
 *				functions:	yfym_optionGET 
 */
 
-// более осторожное удаление - yfym_variable_price_filter
+// более осторожное удаление
 trait YFYM_T_Variable_Get_Price {
 	public function get_price($tag_name = 'price', $result_xml = '') {
 		$product = $this->product;
@@ -30,8 +30,7 @@ trait YFYM_T_Variable_Get_Price {
 		* $offer->get_sale_price() - цена скидки
 		*/
 		$result_yml = '';
-		$price_yml = $offer->get_price(); // цена вариации
-		$price_yml = apply_filters('yfym_variable_price_filter', $price_yml, $product, $offer, $offer->get_id(), $this->get_feed_id()); /* с версии 3.0.0 */ 
+        $price_yml = get_post_meta($offer->get_id(), '_base_price', true);
 		$price_yml = apply_filters('y4ym_f_variable_price', $price_yml, array('product' => $product, 'offer' => $offer, 'product_category_id' => $product_category_id), $this->get_feed_id());
 			
 		$yfym_yml_rules = yfym_optionGET('yfym_yml_rules', $this->feed_id, 'set_arr');
