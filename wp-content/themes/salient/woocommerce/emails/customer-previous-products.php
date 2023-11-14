@@ -329,28 +329,16 @@ if (!defined('ABSPATH')) {
                 $Date = $infoMessage;
             }
 
-            $prices = $product->get_variation_prices(true);
-
-            if (empty($prices['price'])) {
-                $price = apply_filters('woocommerce_variable_empty_price_html', '', $product);
-            } else {
-                $min_price = current($prices['price']);
-                $max_price = end($prices['price']);
-                $min_reg_price = current($prices['regular_price']);
-                $max_reg_price = end($prices['regular_price']);
-
-                if ($min_price !== $max_price) {
-                    $price = wc_format_price_range($min_price, $max_price);
-                } elseif ($product->is_on_sale() && $min_reg_price === $max_reg_price) {
-                    $price = wc_format_sale_price(wc_price($max_reg_price), wc_price($min_price));
-                } else {
-                    $price = wc_price($min_price);
-                }
-
-                $price = apply_filters('woocommerce_variable_price_html', $price . $product->get_price_suffix(), $product);
-            }
-
-            ?>
+    if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {?>
+        <span style="margin-top: 0; font-size: 15px"
+              class="CustomEmptyPrice">В производстве</span>
+    <?php } else {
+        if ($price_product = $product->get_price()) : ?>
+            <span style="color: #af8a6e;"
+                  class="price"><?php echo $price_product . ' <span>₽</span>' . ' ' . $Date ?></span>
+        <?php endif;
+    }
+    ?>
 
     <div style="background:#FFFFFF;background-color:#FFFFFF;margin:0px auto;max-width:600px;">
         <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
