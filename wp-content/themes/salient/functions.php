@@ -1113,6 +1113,7 @@ include_once('last_watched_products_notification_functions.php');
 
 function changeProductsPrices() {
     try {
+        ini_set('max_execution_time', '0');
         $args = array('post_type' => 'product', 'posts_per_page' => -1);
         $loop = new WP_Query($args);
         while ($loop->have_posts()) {
@@ -1145,7 +1146,9 @@ function changeProductsPrices() {
                 wc_delete_product_transients($loop->post->ID);
             }
         }
+        ini_set('max_execution_time', '30');
     }catch (\Throwable $e){
+        ini_set('max_execution_time', '30');
         var_dump($e);
         exit();
     }
