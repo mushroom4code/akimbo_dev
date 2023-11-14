@@ -51,8 +51,8 @@ function yfym_groupPrice($postId, $product, $data, $numFeed) {	// https://yandex
             * $offer->get_sale_price() - цена скидки
             */
 
-            $price_yml = $offer->get_price(); // цена вариации
-            $price_yml = apply_filters('yfym_variable_price_filter', $price_yml, $product, $offer, $offer_id, $numFeed); /* с версии 3.0.0 */
+            $price_yml = get_post_meta($offer->get_id(), '_base_price', true);
+
             // если цены нет - пропускаем вариацию
             if ($price_yml == 0 || empty($price_yml)) {yfym_error_log('FEED № '.$numFeed.'; Вариация товара с postId = '.$postId.' пропущена т.к нет цены; Файл: groupPrice.php; Строка: '.__LINE__, 0); continue;}
 
