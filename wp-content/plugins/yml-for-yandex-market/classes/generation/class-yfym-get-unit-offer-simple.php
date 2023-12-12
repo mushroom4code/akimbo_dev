@@ -204,10 +204,15 @@ class YFYM_Get_Unit_Offer_Simple extends YFYM_Get_Unit_Offer {
     private function group_price($result_xml = '')
     {
         $addProduct = get_post_meta($this->get_product()->id, 'group_price_unload_disabled', true);
-	    $quantity_off = (int)get_post_meta( $this->get_offer()->get_id(), '_stock',true)  ?? 0;
-	    $backorders_count = (int)get_post_meta( $this->get_offer()->get_id(), '_backorders_count', true) ?? 0;
-	    $quantity = ( $quantity_off - $backorders_count ) ?? 0;
-	    $size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
+        if ($this->get_offer()) {
+            $quantity_off = ((int)get_post_meta( $this->get_offer()->get_id(), '_stock',true))  ?? 0;
+            $backorders_count = (int)get_post_meta( $this->get_offer()->get_id(), '_backorders_count', true) ?? 0;
+            $quantity = ( $quantity_off - $backorders_count ) ?? 0;
+            $size = get_post_meta($this->get_offer()->get_id(), 'attribute_pa_razmer', true);
+        } else {
+            $quantity = 0;
+            $size = 0;
+        }
 	    if ( $addProduct !== 'true' && $quantity > 1 && !empty($size)) {
             $result_xml .= $this->get_offer_tag();
             $result_xml .= $this->get_disabled();
