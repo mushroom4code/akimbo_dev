@@ -480,7 +480,7 @@ function skyverge_add_postmeta_ordering_args( $sort_args ) {
 			break;
 
 		case 'first_date':
-			$sort_args['orderby']  = 'meta_value_num';
+			$sort_args['orderby']  = 'meta_value';
 			$sort_args['order']    = 'desc';
 			$sort_args['meta_key'] = 'first_date';
 			break;
