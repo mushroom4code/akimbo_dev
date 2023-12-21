@@ -16,8 +16,7 @@ function parseWithAppendKapsuls( $filePath ): void {
 		if ( ! empty( $resultForAppend ) ) {
 			foreach ( $resultForAppend as $item ) {
 				$content = generateContentInPagekapsul( $item );
-				if ( ! empty( $content ) && $item['name'] === 'Осень Индиго' ) {
-//				if ( ! empty( $content )) {
+				if ( ! empty( $content )) {
 					$post_id = wp_insert_post( wp_slash( [
 						'post_title'   => $item['name'],
 						'post_content' => $content,
