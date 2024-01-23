@@ -480,7 +480,7 @@ function skyverge_add_postmeta_ordering_args( $sort_args ) {
 			break;
 
 		case 'first_date':
-			$sort_args['orderby']  = 'meta_value_num';
+			$sort_args['orderby']  = 'meta_value';
 			$sort_args['order']    = 'desc';
 			$sort_args['meta_key'] = 'first_date';
 			break;
@@ -1109,4 +1109,5 @@ function includeSlickSliderFiles() {
 
 add_action('woocommerce_before_shop_loop_item_title', 'includeSlickSliderFiles');
 
+include_once ('show_total_products_detail_order_admin.php');
 include_once('last_watched_products_notification_functions.php');

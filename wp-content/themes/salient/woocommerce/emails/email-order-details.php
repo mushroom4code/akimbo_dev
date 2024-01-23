@@ -60,14 +60,25 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 			$totals = $order->get_order_item_totals();
 
 			if ( $totals ) {
+                $total_quantity = 0;
+                foreach ($order->get_items() as $item) {
+                    $total_quantity += $item->get_quantity();
+                }
+                ?>
+                <tr>
+                    <th class="td" scope="row" colspan="2" style="text-align:<?php echo esc_attr( $text_align ); ?>; border-top-width: 4px;">Итого штук:</th>
+                    <td class="td" style="text-align:<?php echo esc_attr( $text_align ); ?>; border-top-width: 4px;"><?php echo $total_quantity ?></td>
+                </tr>
+                <?php
+
 				$i = 0;
 				foreach ( $totals as $total ) {
                     if($total['label'] !== 'Доставка:'){
                         $i++;
                         ?>
                         <tr>
-                            <th class="td" scope="row" colspan="2" style="text-align:<?php echo esc_attr( $text_align ); ?>; <?php echo ( 1 === $i ) ? 'border-top-width: 4px;' : ''; ?>"><?php echo wp_kses_post( $total['label'] ); ?></th>
-                            <td class="td" style="text-align:<?php echo esc_attr( $text_align ); ?>; <?php echo ( 1 === $i ) ? 'border-top-width: 4px;' : ''; ?>"><?php echo wp_kses_post( $total['value'] ); ?></td>
+                            <th class="td" scope="row" colspan="2" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php echo wp_kses_post( $total['label'] ); ?></th>
+                            <td class="td" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php echo wp_kses_post( $total['value'] ); ?></td>
                         </tr>
                         <?php
                     }
