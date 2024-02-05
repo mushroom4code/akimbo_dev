@@ -1109,5 +1109,6 @@ function includeSlickSliderFiles() {
 
 add_action('woocommerce_before_shop_loop_item_title', 'includeSlickSliderFiles');
 
+include_once ('new_user_notification_email_admin_custom.php');
 include_once ('show_total_products_detail_order_admin.php');
 include_once('last_watched_products_notification_functions.php');

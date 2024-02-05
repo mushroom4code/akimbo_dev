@@ -24,7 +24,24 @@ function iconic_get_account_fields() {
 			'hide_in_registration' => true,
 			'required'             => false,
 		),
-
+        'billing__inn' => array(
+            'type'                 => 'text',
+            'label'                => __( 'ИНН', 'iconic' ),
+            'hide_in_account'      => false,
+            'hide_in_admin'        => false,
+            'hide_in_checkout'     => true,
+            'hide_in_registration' => true,
+            'required'             => true,
+        ),
+        'shop_name' => array(
+            'type'                 => 'text',
+            'label'                => __( 'Название магазина', 'iconic' ),
+            'hide_in_account'      => false,
+            'hide_in_admin'        => false,
+            'hide_in_checkout'     => true,
+            'hide_in_registration' => true,
+            'required'             => true,
+        ),
 		'iconic-register-select'     => array(
 			'type'    => 'select',
 			'label'   => __( 'Сфера продаж', 'iconic' ),
