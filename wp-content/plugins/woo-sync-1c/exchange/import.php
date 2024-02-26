@@ -779,22 +779,35 @@ function deleteCategoryAll($post_id){
 }
 #region Category
 
-function wc1c_update_product_category($post_id, $category_ids, $taxonomy = 'product_cat')
+function wc1c_update_product_category($post_id, $category_ids, $taxonomy = 'product_cat', $is_delete = false, $is_specific = false)
 {
     global $wpdb;
 
-    $wpdb->query(
-        $wpdb->prepare("DELETE tr FROM $wpdb->term_relationships tr
-                      INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-                      AND tt.taxonomy = '$taxonomy'
-                      WHERE object_id=%d", $post_id)
-    );
+    if (!$is_specific) {
+        $wpdb->query(
+            $wpdb->prepare("DELETE tr FROM $wpdb->term_relationships tr
+                          INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+                          AND tt.taxonomy = '$taxonomy'
+                          WHERE object_id=%d", $post_id)
+        );
+    }
 
     foreach ($category_ids as $category_id) {
-        $wpdb->query(
-            $wpdb->prepare("INSERT $wpdb->term_relationships (object_id,term_taxonomy_id,term_order)  VALUES(%d,%d,%d)",
-                $post_id, $category_id, 0)
-        );
+        if ($is_specific) {
+            $wpdb->query(
+                $wpdb->prepare("DELETE tr FROM $wpdb->term_relationships tr
+                      INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+                      AND tt.taxonomy = '$taxonomy'
+                      WHERE object_id=%d AND tr.term_taxonomy_id=%d", $post_id, $category_id)
+            );
+        }
+
+        if (!$is_delete) {
+            $wpdb->query(
+                $wpdb->prepare("INSERT $wpdb->term_relationships (object_id,term_taxonomy_id,term_order)  VALUES(%d,%d,%d)",
+                    $post_id, $category_id, 0)
+            );
+        }
 
         $count = $wpdb->get_var(
             $wpdb->prepare("SELECT  COUNT(tr.object_id) FROM  $wpdb->term_relationships tr

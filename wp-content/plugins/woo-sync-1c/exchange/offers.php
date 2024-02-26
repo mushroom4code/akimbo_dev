@@ -376,7 +376,7 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
                 $product_post_meta['_price'] = $offer_post_meta['_price'];
             }
 
-            if (isset($offer_post_meta['_sale_price'])) {
+            if (isset($offer_post_meta['_sale_price']) && !empty($offer_post_meta['_sale_price'])) {
                 $product_post_meta['_sale_price'] = (min($product_post_meta['_sale_price'], $offer_post_meta['_sale_price']));
                 $sale_proc = (($offer_post_meta['_regular_price'] - $offer_post_meta['_sale_price']) / $offer_post_meta['_regular_price']) * 100;
                 $product_post_meta['_new_sale_price'] = ceil($sale_proc);
@@ -390,10 +390,11 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
         update_post_meta($post_id, "_price", $product_post_meta['_price']);
         update_post_meta($post_id, "_new_sale_price", $product_post_meta['_new_sale_price']);
     }
-
+    $term_ids[] = '49';
     if ($product_post_meta['_new_sale_price'] !== 0 && isset($product_post_meta['_new_sale_price']) )  {
-        $term_ids[] = '49';
-        wc1c_update_product_category($post_id, $term_ids,'taxonomy');
+        wc1c_update_product_category($post_id, $term_ids,'product_cat');
+    } else {
+        wc1c_update_product_category($post_id, $term_ids,'product_cat', true, true);
     }
 
     $metaStock = get_post_meta($post_id, 'coming_soon', true);
