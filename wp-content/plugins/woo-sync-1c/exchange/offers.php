@@ -7,6 +7,9 @@ if (!defined('WC1C_PRESERVE_PRODUCT_VARIATIONS')) {
     define('WC1C_PRESERVE_PRODUCT_VARIATIONS', false);
 }
 
+const SALE_TERM_ID = 49;
+const SOON_SALE_TERM_ID = 84;
+const ALL_PRODUCTS_TERM_ID = 86;
 /**
  * @param $xml
  * @param $is_full
@@ -390,20 +393,41 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
         update_post_meta($post_id, "_price", $product_post_meta['_price']);
         update_post_meta($post_id, "_new_sale_price", $product_post_meta['_new_sale_price']);
     }
-    $term_ids[] = '49';
-    if ($product_post_meta['_new_sale_price'] !== 0 && isset($product_post_meta['_new_sale_price']) )  {
-        wc1c_update_product_category($post_id, $term_ids,'product_cat');
-    } else {
-        wc1c_update_product_category($post_id, $term_ids,'product_cat', true, true);
+
+    $term_ids = [];
+    $cur_needle_terms_ids = [];
+    if (isset($product_post_meta['_price'] )) {
+        $cur_needle_terms_ids[] = SALE_TERM_ID;
+        if ($product_post_meta['_new_sale_price'] !== 0 && isset($product_post_meta['_new_sale_price'])) {
+            $term_ids[] = SALE_TERM_ID;
+        }
     }
 
-    $metaStock = get_post_meta($post_id, 'coming_soon', true);
-    $metaDate = get_post_meta($post_id, 'planned_date', true);
-
-    if ($metaStock === 'true' && $metaDate !== 'false')  {
-        $term_ids[] = '84';
-        wc1c_update_product_category($post_id, $term_ids,'taxonomy');
+    if ($update_rest) {
+        $metaStock = get_post_meta($post_id, 'coming_soon', true);
+        $metaDate = get_post_meta($post_id, 'planned_date', true);
+        $cur_needle_terms_ids[] = SOON_SALE_TERM_ID;
+        if ($metaStock === 'true' && $metaDate !== 'false')  {
+            $term_ids[] = SOON_SALE_TERM_ID;
+        }
     }
+
+    $curTerms = wp_get_object_terms($post_id, 'product_cat',
+        ['include' => $cur_needle_terms_ids]);
+
+    $updateTerms = count($curTerms) !== count($term_ids);
+    foreach ($curTerms as $itemTerm) {
+         if (!in_array($itemTerm->term_id, $term_ids)) {
+             $updateTerms = true;
+             break;
+         }
+    }
+
+    if ($updateTerms) {
+        wp_remove_object_terms($post_id, $cur_needle_terms_ids, 'product_cat');
+        wc1c_update_product_category($post_id, $term_ids, 'product_cat', false);
+    }
+
 }
 
 function wc1c_update_currency($currency)
@@ -689,8 +713,10 @@ function wc1c_update_product($post_id, $arOffers)
                         $category_all = get_post_meta($post_id, 'add_base_category', true);
                         // added all product in category "all product"
                         if($category_all !== 'true' && $category_all !== true) {
-                            $term_ids[] = '86'; // Ид категории "Все товары"
+                            $term_ids[] = ALL_PRODUCTS_TERM_ID; // Ид категории "Все товары"
                         }
+
+                        wp_remove_object_terms($post_id, [ALL_PRODUCTS_TERM_ID], 'product_cat');
                         wc1c_update_product_category($post_id, $term_ids, $attribute['taxonomy']);
                         $post['ID'] = $post_id;
                         $post['comment_status'] = 'open';
