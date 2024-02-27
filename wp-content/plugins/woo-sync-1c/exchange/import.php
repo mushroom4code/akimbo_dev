@@ -779,16 +779,27 @@ function deleteCategoryAll($post_id){
 }
 #region Category
 
-function wc1c_update_product_category($post_id, $category_ids, $taxonomy = 'product_cat')
+/**
+ * @param $post_id
+ * @param array $category_ids
+ * @param string $taxonomy
+ * @param bool $is_delete
+ * @return void
+ */
+function wc1c_update_product_category($post_id, array $category_ids,
+                                      string $taxonomy = 'product_cat', bool $is_delete = true): void
 {
     global $wpdb;
 
-    $wpdb->query(
-        $wpdb->prepare("DELETE tr FROM $wpdb->term_relationships tr
-                      INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-                      AND tt.taxonomy = '$taxonomy'
-                      WHERE object_id=%d", $post_id)
-    );
+    //before use this method with $is_delete = false clean term_relationships
+    if ($is_delete) {
+        $wpdb->query(
+            $wpdb->prepare("DELETE tr FROM $wpdb->term_relationships tr
+              INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+              AND tt.taxonomy = '$taxonomy'
+              WHERE object_id=%d", $post_id)
+        );
+    }
 
     foreach ($category_ids as $category_id) {
         $wpdb->query(
@@ -798,8 +809,8 @@ function wc1c_update_product_category($post_id, $category_ids, $taxonomy = 'prod
 
         $count = $wpdb->get_var(
             $wpdb->prepare("SELECT  COUNT(tr.object_id) FROM  $wpdb->term_relationships tr
-                      INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = '$taxonomy'
-                      WHERE  tr.term_taxonomy_id=%d GROUP BY tr.term_taxonomy_id", $category_id)
+              INNER JOIN $wpdb->term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = '$taxonomy'
+              WHERE  tr.term_taxonomy_id=%d GROUP BY tr.term_taxonomy_id", $category_id)
         );
         if (empty($count)) {
             $count = 0;
@@ -809,7 +820,7 @@ function wc1c_update_product_category($post_id, $category_ids, $taxonomy = 'prod
             $wpdb->prepare("UPDATE $wpdb->term_taxonomy SET count=%d WHERE term_taxonomy_id = %d", $count,
                 $category_id)
         );
-    };
+    }
 }
 
 #endregion
