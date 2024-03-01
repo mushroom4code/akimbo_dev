@@ -11,6 +11,8 @@ if (!defined('WC1C_PREVENT_CLEAN')) {
     define('WC1C_PREVENT_CLEAN', false);
 }
 
+const ALL_PRODUCTS_TERM_ID = 86;
+
 /**
  * @param SimpleXMLElement $xml
  * @param $is_full
@@ -730,6 +732,17 @@ function wc1c_replace_post($if_full, $guid, $args, $post_name, $post_meta, $cate
 
         update_post_meta($post_id, $meta_key, $meta_value);
     }
+
+    // Enterego
+    $category_all = get_post_meta($post_id, 'add_base_category', true);
+    // added all product in category "all product"
+    $term_ids = [];
+    if($category_all !== 'true' && $category_all !== true) {
+        $term_ids[] = ALL_PRODUCTS_TERM_ID; // Ид категории "Все товары"
+    }
+
+    wp_remove_object_terms($post_id, [ALL_PRODUCTS_TERM_ID], 'product_cat');
+    wc1c_update_product_category($post_id, $term_ids, 'product_cat', false);
 
     //Enterego Отключаем загрузку категорий
 //        if (!in_array('categories', $preserve_fields)) {
