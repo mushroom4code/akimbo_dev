@@ -9,7 +9,6 @@ if (!defined('WC1C_PRESERVE_PRODUCT_VARIATIONS')) {
 
 const SALE_TERM_ID = 49;
 const SOON_SALE_TERM_ID = 84;
-const ALL_PRODUCTS_TERM_ID = 86;
 /**
  * @param $xml
  * @param $is_full
@@ -412,22 +411,23 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
         }
     }
 
-    $curTerms = wp_get_object_terms($post_id, 'product_cat',
-        ['include' => $cur_needle_terms_ids]);
+    if (!empty($cur_needle_terms_ids)) {
+        $curTerms = wp_get_object_terms($post_id, 'product_cat',
+            ['include' => $cur_needle_terms_ids]);
 
-    $updateTerms = count($curTerms) !== count($term_ids);
-    foreach ($curTerms as $itemTerm) {
-         if (!in_array($itemTerm->term_id, $term_ids)) {
-             $updateTerms = true;
-             break;
-         }
+        $updateTerms = count($curTerms) !== count($term_ids);
+        foreach ($curTerms as $itemTerm) {
+             if (!in_array($itemTerm->term_id, $term_ids)) {
+                 $updateTerms = true;
+                 break;
+             }
+        }
+
+        if ($updateTerms) {
+            wp_remove_object_terms($post_id, $cur_needle_terms_ids, 'product_cat');
+            wc1c_update_product_category($post_id, $term_ids, 'product_cat', false);
+        }
     }
-
-    if ($updateTerms) {
-        wp_remove_object_terms($post_id, $cur_needle_terms_ids, 'product_cat');
-        wc1c_update_product_category($post_id, $term_ids, 'product_cat', false);
-    }
-
 }
 
 function wc1c_update_currency($currency)
@@ -709,14 +709,7 @@ function wc1c_update_product($post_id, $arOffers)
                                 $term_ids[] = $term_id;
                             }
                         }
-                        // Enterego
-                        $category_all = get_post_meta($post_id, 'add_base_category', true);
-                        // added all product in category "all product"
-                        if($category_all !== 'true' && $category_all !== true) {
-                            $term_ids[] = ALL_PRODUCTS_TERM_ID; // Ид категории "Все товары"
-                        }
 
-                        wp_remove_object_terms($post_id, [ALL_PRODUCTS_TERM_ID], 'product_cat');
                         wc1c_update_product_category($post_id, $term_ids, $attribute['taxonomy']);
                         $post['ID'] = $post_id;
                         $post['comment_status'] = 'open';
