@@ -626,7 +626,7 @@ function getSale( $product ) {
 
 function salePrice( $product ) {
 	$result = getSale( $product );
-	if ( $result === '' && $result == 0 || $result === '0' ) {
+	if ( $result === '' && $result == 0 || $result === '0' || !$product->is_on_sale()) {
 		$text = '';
 	} else {
 		$text = "Ваша скидка на товар составляет  <b  class='onsale' style='color: #af8a6e;'>$result %</b>";
