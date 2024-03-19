@@ -377,23 +377,9 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
             } else {
                 $product_post_meta['_price'] = $offer_post_meta['_price'];
             }
-
-            if (isset($offer_post_meta['_sale_price']) && !empty($offer_post_meta['_sale_price'])) {
-                $sale_proc = (($offer_post_meta['_regular_price'] - $offer_post_meta['_sale_price']) / $offer_post_meta['_regular_price']) * 100;
-                if (isset($product_post_meta['_new_sale_price'])) {
-                    $product_post_meta['_new_sale_price'] = max($product_post_meta['_new_sale_price'], ceil($sale_proc));
-                } else {
-                    $product_post_meta['_new_sale_price'] = ceil($sale_proc);
-                }
-            } else {
-                if (!isset($product_post_meta['_new_sale_price'])) {
-                    $product_post_meta['_new_sale_price'] = 0;
-                }
-            }
-
         }
     }
-    if (!empty($product_post_meta['_price'])) {
+    if (isset($product_post_meta['_price'])) {
         update_post_meta($post_id, "_price", $product_post_meta['_price']);
     }
 
