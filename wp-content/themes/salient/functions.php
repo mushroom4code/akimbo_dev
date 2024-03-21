@@ -624,30 +624,6 @@ function getSale( $product ) {
 	return get_post_meta( $post_id, '_new_sale_price', true );
 }
 
-function salePrice( $product ) {
-    $sale_proc = false;
-    if (!$product->is_on_sale()) {
-        return '';
-    }
-
-    $product_variations = $product->get_available_variations();
-    $product_price = $product->get_price();
-    foreach ($product_variations as $product_variation) {
-        if ($product_price == get_post_meta($product_variation['variation_id'], '_sale_price', true)) {
-            $sale_proc = ceil((( $product_variation['display_regular_price'] - $product_price) / $product_variation['display_regular_price']) * 100);
-            break;
-        }
-    }
-
-	if (!$sale_proc) {
-		$text = '';
-	} else {
-		$text = "Ваша скидка на товар составляет  <b  class='onsale' style='color: #af8a6e;'>$sale_proc %</b>";
-	}
-
-	return $text;
-}
-
 function sale( $product ) {
 	$result = getSale( $product );
 	if ( $result === '' && $result == 0 || $result === '0' ) {
