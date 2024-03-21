@@ -624,17 +624,6 @@ function getSale( $product ) {
 	return get_post_meta( $post_id, '_new_sale_price', true );
 }
 
-function salePrice( $product ) {
-	$result = getSale( $product );
-	if ( $result === '' && $result == 0 || $result === '0' ) {
-		$text = '';
-	} else {
-		$text = "Ваша скидка на товар составляет  <b  class='onsale' style='color: #af8a6e;'>$result %</b>";
-	}
-
-	return $text;
-}
-
 function sale( $product ) {
 	$result = getSale( $product );
 	if ( $result === '' && $result == 0 || $result === '0' ) {

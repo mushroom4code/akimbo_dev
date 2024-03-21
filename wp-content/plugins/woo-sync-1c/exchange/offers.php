@@ -377,25 +377,16 @@ function wc1c_replace_suboffers($is_full, $suboffers, $are_products = false, $wc
             } else {
                 $product_post_meta['_price'] = $offer_post_meta['_price'];
             }
-
-            if (isset($offer_post_meta['_sale_price']) && !empty($offer_post_meta['_sale_price'])) {
-                $product_post_meta['_sale_price'] = (min($product_post_meta['_sale_price'], $offer_post_meta['_sale_price']));
-                $sale_proc = (($offer_post_meta['_regular_price'] - $offer_post_meta['_sale_price']) / $offer_post_meta['_regular_price']) * 100;
-                $product_post_meta['_new_sale_price'] = ceil($sale_proc);
-            } else {
-                $product_post_meta['_new_sale_price'] = 0;
-            }
-
         }
     }
-    if (!empty($product_post_meta['_price'])) {
+    if (isset($product_post_meta['_price'])) {
         update_post_meta($post_id, "_price", $product_post_meta['_price']);
-        update_post_meta($post_id, "_new_sale_price", $product_post_meta['_new_sale_price']);
     }
 
     $term_ids = [];
     $cur_needle_terms_ids = [];
     if (isset($product_post_meta['_price'] )) {
+        update_post_meta($post_id, "_new_sale_price", $product_post_meta['_new_sale_price']);
         $cur_needle_terms_ids[] = SALE_TERM_ID;
         if ($product_post_meta['_new_sale_price'] !== 0 && isset($product_post_meta['_new_sale_price'])) {
             $term_ids[] = SALE_TERM_ID;
@@ -474,16 +465,24 @@ function wc1c_replace_offer_post_meta($is_full, $post_id, $offer, $attributes = 
 
             if ($offer_price['ИдТипаЦены'] === $wc1c_option['wc1c_product_regular_price']) {
                 $post_meta['_regular_price'] = $price;
-                $post_meta['_price'] = isset($post_meta['_price']) ? $post_meta['_price'] : $price;
+                if (!empty($price)) {
+                    if ((isset($post_meta['_price']) && empty($post_meta['_price'])) || !isset($post_meta['_price'])) {
+                        $post_meta['_price'] = $price;
+                    }
+                }
             } elseif ($offer_price['ИдТипаЦены'] === $wc1c_option['wc1c_product_sale_price']) {
                 $post_meta['_sale_price'] = $price;
-                $post_meta['_price'] = $price;
+                if (!empty($price)) {
+                    $post_meta['_price'] = $price;
+                }
             } elseif ($offer_price['ИдТипаЦены'] === $wc1c_option['wc1c_product_base_price']) {// #000018198
                 $post_meta['_base_price'] = $price;
             }
 
         }
-
+        if (empty($post_meta['_price'])) {
+            $post_meta['_price'] = 0;
+        }
     }
 
     $guids = get_option('wc1c_guid_attributes', array());

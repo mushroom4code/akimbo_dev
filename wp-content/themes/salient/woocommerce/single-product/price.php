@@ -38,26 +38,58 @@ if (count($emptyStock) == $i) {
     $infoMessage = 'Нет в наличии';
 }
 
-$first_date = get_post_meta($product->get_id(),'first_date',true);
-$planned_date = get_post_meta($product->get_id(),'planned_date',true);
+$first_date = get_post_meta($product->get_id(), 'first_date', true);
+$planned_date = get_post_meta($product->get_id(), 'planned_date', true);
 
 if (!empty($first_date) && $first_date !== 'false') {
     echo '';
-} else if (!empty($planned_date) && $planned_date !== 'false'){
+} else if (!empty($planned_date) && $planned_date !== 'false') {
     echo '<div class="new_data"><b style="">Плановая дата поступления</b>
             <span style="font-weight: 500;font-size: 20px;color: #af8a6e;">' . $planned_date . '</span></div>';
     $infoMessage = '';
-}else {
+} else {
     echo '';
 }
-echo'<div style="display:none;">'.$sum.'</div>';
+echo '<div style="display:none;">' . $sum . '</div>';
 
-echo salePrice($product);
 if ($product->get_price() == 0 && $product->get_stock_quantity() == 0 && $product->get_backorders() == 'yes') {
     ?>
     <span class="CustomEmptyPrice">В производстве</span>
-<?php } else { ?>
-    <p class="<?php echo esc_attr(apply_filters('woocommerce_product_price_class', 'price')); ?>"><?php echo $product->get_price_html() . ' ' . $infoMessage; ?></p>
+<?php } else {
+    $prices = $product->get_variation_prices(true);
+
+    if (empty($prices['price'])) {
+        $price = apply_filters('woocommerce_variable_empty_price_html', '', $product);
+    } else {
+        $min_price = current($prices['price']);
+        $max_price = end($prices['price']);
+        $min_reg_price = current($prices['regular_price']);
+        $max_reg_price = end($prices['regular_price']);
+
+        if ($min_price !== $max_price) {
+            $price = wc_format_price_range($min_price, $max_price);
+        } elseif ($product->is_on_sale() && $min_reg_price === $max_reg_price) {
+            $price = wc_format_sale_price(wc_price($max_reg_price), wc_price($min_price));
+
+            $sale_proc = ceil((($min_reg_price - $min_price) / $min_reg_price) * 100);
+
+            if (!$sale_proc) {
+                $text = '';
+            } else {
+                $text = "Ваша скидка на товар составляет  <b  class='onsale' style='color: #af8a6e;'>$sale_proc %</b>";
+            }
+
+            echo $text;
+        } else {
+            $price = wc_price($min_price);
+        }
+
+        $price = apply_filters('woocommerce_variable_price_html', $price . $product->get_price_suffix(), $product);
+    } ?>
+
+    <p class="<?php echo esc_attr(apply_filters('woocommerce_product_price_class', 'price')); ?>">
+        <?php echo apply_filters('woocommerce_get_price_html', $price, $product) . ' ' . $infoMessage; ?>
+    </p>
 <?php } ?>
 
 
